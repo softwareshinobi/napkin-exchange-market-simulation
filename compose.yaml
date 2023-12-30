@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+
+    napkin-exchange-server:
+
+        container_name: napkin-exchange-server
+        
+        image: napkin-exchange-server
+
+        build: 
+
+            context: .
+
+            dockerfile: Dockerfile
+
+        restart: unless-stopped
+
+        ports:
+
+            - "8888:8888"
