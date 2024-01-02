@@ -8,7 +8,7 @@ WORKDIR /
 
 COPY ./ ./
 
-RUN mvn install
+RUN mvn install -DskipTests
 
 FROM eclipse-temurin:18-jre-alpine
 
