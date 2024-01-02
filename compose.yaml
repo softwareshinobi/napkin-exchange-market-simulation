@@ -6,7 +6,7 @@ services:
 
         container_name: napkin-exchange-server
         
-        image: napkin-exchange-server
+        image: softwareshinobi/napkin-exchange-server
 
         build: 
 
