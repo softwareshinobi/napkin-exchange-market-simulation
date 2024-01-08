@@ -30,7 +30,7 @@ public class CandleStickAPI {
     @Autowired
     private StockPriceHistoryService stockPriceHistoryService;
 
-    private static final int TARGET_OUTPUT_LIST_SIZE = 12;
+    private static final int TARGET_OUTPUT_LIST_SIZE = 100;
 
     @GetMapping(value = "/{ticker}")
     public StockDTO getIndividualStockData(@PathVariable String ticker) {
