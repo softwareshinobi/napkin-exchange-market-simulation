@@ -24,11 +24,11 @@ public class MarketService {
 
         if (market == null) {
 
-            LocalDate localDate = LocalDate.of(2001, 01, 8);
+            LocalDate localDate = LocalDate.now();
 
-            LocalTime localTime = LocalTime.of(00, 00);
-
-            ZoneId zoneId = ZoneId.of("GMT+01:00");
+            LocalTime localTime = LocalTime.now();
+            
+            ZoneId zoneId = ZoneId.of("GMT-05:00");
 
             var startingTime = ZonedDateTime.of(localDate, localTime, zoneId);
 
