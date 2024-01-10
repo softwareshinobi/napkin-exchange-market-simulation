@@ -1,14 +1,14 @@
 package org.softwareshinobi.stockmarket.stocks.stock.utils;
 
-import digital.softwareshinobi.napkinexchange.stocks.stock.utils.SortHistory;
+import digital.softwareshinobi.napkinexchange.ticker.utils.SortHistory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.Stock;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.StockPriceHistory;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.idclass.StockPriceHistoryId;
+import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
+import digital.softwareshinobi.napkinexchange.ticker.entity.StockPriceHistory;
+import digital.softwareshinobi.napkinexchange.ticker.entity.idclass.StockPriceHistoryId;
 import org.junit.jupiter.api.Test;
 
 class SortHistoryTest {

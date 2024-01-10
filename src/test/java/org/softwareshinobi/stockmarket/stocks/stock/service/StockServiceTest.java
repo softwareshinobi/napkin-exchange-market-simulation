@@ -1,12 +1,12 @@
 package org.softwareshinobi.stockmarket.stocks.stock.service;
 
-import digital.softwareshinobi.napkinexchange.stocks.stock.service.StockService;
-import digital.softwareshinobi.napkinexchange.stocks.stock.defaults.DefaultStocksList;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.InvestorRating;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.MarketCap;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.Volatility;
-import digital.softwareshinobi.napkinexchange.stocks.stock.exception.StockNotFoundException;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.Stock;
+import digital.softwareshinobi.napkinexchange.ticker.service.StockService;
+import digital.softwareshinobi.napkinexchange.ticker.defaults.DefaultStocksList;
+import digital.softwareshinobi.napkinexchange.ticker.enums.InvestorRating;
+import digital.softwareshinobi.napkinexchange.ticker.enums.MarketCap;
+import digital.softwareshinobi.napkinexchange.ticker.enums.Volatility;
+import digital.softwareshinobi.napkinexchange.ticker.exception.StockNotFoundException;
+import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

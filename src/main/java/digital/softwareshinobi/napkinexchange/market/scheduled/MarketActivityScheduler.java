@@ -2,9 +2,9 @@ package digital.softwareshinobi.napkinexchange.market.scheduled;
 
 import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
-import digital.softwareshinobi.napkinexchange.stocks.stock.service.StockPriceHistoryService;
-import digital.softwareshinobi.napkinexchange.account.service.AccountHistoryService;
-import digital.softwareshinobi.napkinexchange.inventory.controller.LimitOrderService;
+import digital.softwareshinobi.napkinexchange.ticker.service.StockPriceHistoryService;
+import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
+import digital.softwareshinobi.napkinexchange.portfolio.controller.LimitOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
