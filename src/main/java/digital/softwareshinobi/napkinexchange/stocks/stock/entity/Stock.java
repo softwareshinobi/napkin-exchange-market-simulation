@@ -19,11 +19,6 @@ import java.util.List;
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-/*
-TODO:
-    - refactor stock price history (called StockHistory now) to be included in the stock instead of
-        a separate entity that must be queried for separately, will be OneToMany relationship
- */
 public class Stock {
 
     @Id
@@ -59,7 +54,7 @@ public class Stock {
     @Enumerated(EnumType.STRING)
     private InvestorRating investorRating;
 
-      @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<StockPriceHistory> priceHistory;
 
@@ -71,146 +66,132 @@ public class Stock {
             InvestorRating investorRating) {
 
         this.ticker = ticker;
-        
+
         this.companyName = companyName;
-        
+
         this.sector = sector;
-        
+
         this.marketCap = marketCap;
-        
+
         this.volatileStock = volatileStock;
-                
+
         this.investorRating = investorRating;
-        
+
         this.price = DefaultStockPrices.getDefaultPriceWithCap(marketCap);
-        
+
         this.lastDayPrice = DefaultStockPrices.getDefaultPriceWithCap(marketCap);
-        
+
         this.momentum = 0;
-        
+
         this.momentumStreakInDays = 0;
 
     }
 
     public void updatePriceWithFormulaHack() {
-        
+
         //Volatile stocks change twice to increase market movements
-        
         double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
-        
+
         double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
-        
+
         double stockPrice = this.getPrice();
-        
-        double newPrice = Math.round((
-                
-                stockPrice
-                        
+
+        double newPrice = Math.round((stockPrice
                 + (stockPrice * randomNumber)
-                        
                 + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
-                        
                 + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
-                        
                 + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
-        
+
         setPrice(newPrice + 4.0);
-        
+
     }
 
     public void updatePriceWithFormula() {
-        
+
         //Volatile stocks change twice to increase market movements
-        
         double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
-        
+
         double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
-        
+
         double stockPrice = this.getPrice();
-        
-        double newPrice = Math.round((
-                
-                stockPrice
-                
+
+        double newPrice = Math.round((stockPrice
                 + (stockPrice * randomNumber)
-                        
                 + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
-                        
                 + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
-                        
                 + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
-        
+
         setPrice(newPrice);
-        
+
     }
 
     public void updateMomentum() {
-        
+
         int momentumStreak = getMomentumStreakInDays();
-        
+
         if (momentumStreak >= 3) {
-            
+
             setMomentum(1);
-            
+
             return;
-            
+
         }
         if (momentumStreak <= -3) {
-            
+
             setMomentum(-1);
-            
+
             return;
-            
+
         }
-        
+
         setMomentum(0);
-        
+
     }
 
     public void updateMomentumStreak() {
-        
+
         if (getMomentumStreakInDays() == null) {
-            
+
             setMomentumStreakInDays(0);
-            
+
             return;
-            
+
         }
-        
+
         double price = getPrice();
-        
+
         int momentumStreakDays = getMomentumStreakInDays();
-        
+
         if (price > getLastDayPrice()) {
-            
+
             if (momentumStreakDays <= -1) {
-                
+
                 setMomentumStreakInDays(0);
-                
+
                 return;
-                
+
             }
-            
+
             setMomentumStreakInDays(momentumStreakDays + 1);
-            
+
             return;
-            
+
         }
-        
+
         if (price < getLastDayPrice()) {
-            
+
             if (getMomentum() >= 1) {
-                
+
                 setMomentumStreakInDays(0);
-                
+
                 return;
-                
+
             }
-            
+
             setMomentumStreakInDays(momentumStreakDays - 1);
-            
+
         }
-        
+
     }
 
     //these two methods are called only on news and earnings report announcements

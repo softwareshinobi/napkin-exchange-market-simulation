@@ -90,6 +90,7 @@ public class StockOwnedService {
         }
 
         System.out.println("2.0");
+     
         Stock stock = stockService.getStockByTickerSymbol(sellStock.getTicker());
 
         System.out.println("2");
