@@ -1,7 +1,6 @@
 package digital.softwareshinobi.napkinexchange.stocks.stock.controller;
 
 import lombok.AllArgsConstructor;
-import digital.softwareshinobi.napkinexchange.indexfund.utils.Capitalize;
 import digital.softwareshinobi.napkinexchange.stocks.stock.dto.StockSummaryDTO;
 import digital.softwareshinobi.napkinexchange.stocks.stock.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.stocks.stock.exception.StockNotFoundException;
@@ -84,25 +83,9 @@ public class CandleStickAPI {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(value = "/marketCap/{marketCap}")
-    public List<Stock> getAllStocksByMarketCap(@PathVariable String marketCap) {
-        MarketCap cap = MarketCap.valueOf(Capitalize.capitalize(marketCap));
-        return stockService.getAllStocksByMarketCap(cap);
-    }
-
-    @GetMapping(value = "/sector/{sector}")
-    public List<Stock> getAllStocksBySector(@PathVariable String sector) {
-        return stockService.getAllStocksBySector(sector);
-    }
-
     @GetMapping(value = "/price/{ticker}")
     public double getStockPrice(@PathVariable String ticker) throws StockNotFoundException {
         return stockService.getStockPriceWithTickerSymbol(ticker);
     }
 
-//    @GetMapping(value = "/random")
-//    public StockDTO getRandomStock() {
-//        Stock stock = stockService.getRandomStock();
-//        return new StockDTO(stock);
-//    }
 }

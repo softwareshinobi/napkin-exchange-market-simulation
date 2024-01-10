@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import digital.softwareshinobi.napkinexchange.market.utils.GetRandomNumber;
-import digital.softwareshinobi.napkinexchange.stocks.earnings.entity.EarningsReport;
-import digital.softwareshinobi.napkinexchange.stocks.news.entity.News;
 import digital.softwareshinobi.napkinexchange.stocks.stock.defaults.DefaultStockPrices;
 import digital.softwareshinobi.napkinexchange.stocks.stock.enums.InvestorRating;
 import digital.softwareshinobi.napkinexchange.stocks.stock.enums.MarketCap;
@@ -61,15 +59,7 @@ public class Stock {
     @Enumerated(EnumType.STRING)
     private InvestorRating investorRating;
 
-    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<News> newsHistory;
-
-    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<EarningsReport> earningsHistory;
-
-    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+      @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<StockPriceHistory> priceHistory;
 

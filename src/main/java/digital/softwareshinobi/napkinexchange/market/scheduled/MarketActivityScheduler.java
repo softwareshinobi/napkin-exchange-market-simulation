@@ -1,7 +1,6 @@
 package digital.softwareshinobi.napkinexchange.market.scheduled;
 
 import lombok.AllArgsConstructor;
-import digital.softwareshinobi.napkinexchange.indexfund.service.IndexFundService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
 import digital.softwareshinobi.napkinexchange.stocks.stock.service.StockPriceHistoryService;
 import digital.softwareshinobi.napkinexchange.account.service.AccountHistoryService;
@@ -32,9 +31,6 @@ public class MarketActivityScheduler {
     @Autowired
     private final StockPriceHistoryService stockPriceHistoryService;
 
-    @Autowired
-    private final IndexFundService indexFundService;
-
     @Scheduled(fixedRate = MarketIntervals.ONE_SECOND)
     @SuppressWarnings("unused")
     public void dailyMarketActivity() {
@@ -50,8 +46,6 @@ public class MarketActivityScheduler {
         accountHistoryService.saveDailyAccountHistory();
 
         stockPriceHistoryService.saveStockHistoryDaily();
-
-        indexFundService.updatePriceForAllFundsDaily();
 
     }
 

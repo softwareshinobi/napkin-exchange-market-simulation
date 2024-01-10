@@ -2,8 +2,7 @@ package digital.softwareshinobi.napkinexchange.stocks.stock.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import digital.softwareshinobi.napkinexchange.stocks.earnings.dto.EarningsDTO;
-import digital.softwareshinobi.napkinexchange.stocks.news.dto.NewsDTO;
+
 import digital.softwareshinobi.napkinexchange.stocks.stock.entity.Stock;
 import digital.softwareshinobi.napkinexchange.account.utils.CalculateCostBasisAndProfits;
 import lombok.AllArgsConstructor;
@@ -26,8 +25,7 @@ public class StockDTO {
     private int momentumStreakInDays;
     private String volatileStock;
     private String investorRating;
-    private List<NewsDTO> newsHistory;
-    private List<EarningsDTO> earningsHistory;
+
     private List<StockPriceHistoryDTO> priceHistory;
 
     public StockDTO(Stock stock) {
@@ -41,13 +39,7 @@ public class StockDTO {
         this.momentumStreakInDays = stock.getMomentumStreakInDays();
         this.volatileStock = String.valueOf(stock.getVolatileStock());
         this.investorRating = String.valueOf(stock.getInvestorRating());
-        this.newsHistory = stock.getNewsHistory().stream()
-                .map(NewsDTO::new)
-                .collect(Collectors.toList());
-        this.earningsHistory = stock.getEarningsHistory().stream()
-                .map(EarningsDTO::new)
-                .collect(Collectors.toList());
-        this.priceHistory = stock.getPriceHistory().stream()
+  this.priceHistory = stock.getPriceHistory().stream()
                 .map(StockPriceHistoryDTO::new)
                 .collect(Collectors.toList());
 
@@ -141,22 +133,6 @@ public class StockDTO {
 
     public void setInvestorRating(String investorRating) {
         this.investorRating = investorRating;
-    }
-
-    public List<NewsDTO> getNewsHistory() {
-        return newsHistory;
-    }
-
-    public void setNewsHistory(List<NewsDTO> newsHistory) {
-        this.newsHistory = newsHistory;
-    }
-
-    public List<EarningsDTO> getEarningsHistory() {
-        return earningsHistory;
-    }
-
-    public void setEarningsHistory(List<EarningsDTO> earningsHistory) {
-        this.earningsHistory = earningsHistory;
     }
 
     public List<StockPriceHistoryDTO> getPriceHistory() {
