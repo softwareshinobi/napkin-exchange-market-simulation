@@ -1,7 +1,7 @@
 package org.softwareshinobi.stockmarket.stocks.stock.model.payload;
 
-import digital.softwareshinobi.napkinexchange.stocks.stock.dto.StockDTO;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.Stock;
+import digital.softwareshinobi.napkinexchange.ticker.dto.StockDTO;
+import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

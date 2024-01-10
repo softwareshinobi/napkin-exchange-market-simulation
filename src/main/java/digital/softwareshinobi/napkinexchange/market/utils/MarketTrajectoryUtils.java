@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.market.utils;
 
 import digital.softwareshinobi.napkinexchange.market.entity.Market;
 import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.Stock;
+import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
 
 import java.util.List;
 

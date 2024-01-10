@@ -1,9 +1,9 @@
 package org.softwareshinobi.tradinggame.account.utils;
 
-import digital.softwareshinobi.napkinexchange.account.utils.FindStockOwned;
+import digital.softwareshinobi.napkinexchange.trader.utils.FindStockOwned;
 import org.junit.jupiter.api.Test;
-import digital.softwareshinobi.napkinexchange.account.model.entity.Account;
-import digital.softwareshinobi.napkinexchange.account.model.entity.StockOwned;
+import digital.softwareshinobi.napkinexchange.trader.model.entity.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.entity.StockOwned;
 
 import java.util.Set;
 

@@ -1,6 +1,6 @@
 package org.softwareshinobi.tradinggame.account.utils;
 
-import digital.softwareshinobi.napkinexchange.account.utils.CalculateCostBasisAndProfits;
+import digital.softwareshinobi.napkinexchange.trader.utils.CalculateCostBasisAndProfits;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

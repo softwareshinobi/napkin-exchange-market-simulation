@@ -1,7 +1,7 @@
 package org.softwareshinobi.stockmarket.stocks.stock.service;
 
-import digital.softwareshinobi.napkinexchange.stocks.stock.service.StockPriceHistoryService;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.StockPriceHistory;
+import digital.softwareshinobi.napkinexchange.ticker.service.StockPriceHistoryService;
+import digital.softwareshinobi.napkinexchange.ticker.entity.StockPriceHistory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

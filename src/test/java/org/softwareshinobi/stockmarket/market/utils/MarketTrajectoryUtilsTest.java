@@ -1,13 +1,13 @@
 package org.softwareshinobi.stockmarket.market.utils;
 
 import digital.softwareshinobi.napkinexchange.market.utils.MarketTrajectoryUtils;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.InvestorRating;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.Volatility;
+import digital.softwareshinobi.napkinexchange.ticker.enums.InvestorRating;
+import digital.softwareshinobi.napkinexchange.ticker.enums.Volatility;
 import org.junit.jupiter.api.Test;
 import digital.softwareshinobi.napkinexchange.market.entity.Market;
 import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.MarketCap;
-import digital.softwareshinobi.napkinexchange.stocks.stock.entity.Stock;
+import digital.softwareshinobi.napkinexchange.ticker.enums.MarketCap;
+import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;

@@ -2,7 +2,7 @@ package org.softwareshinobi.stockmarket.market.utils;
 
 import org.junit.jupiter.api.Test;
 import digital.softwareshinobi.napkinexchange.market.utils.GetRandomNumber;
-import digital.softwareshinobi.napkinexchange.stocks.stock.enums.MarketCap;
+import digital.softwareshinobi.napkinexchange.ticker.enums.MarketCap;
 
 import static org.junit.jupiter.api.Assertions.*;
 

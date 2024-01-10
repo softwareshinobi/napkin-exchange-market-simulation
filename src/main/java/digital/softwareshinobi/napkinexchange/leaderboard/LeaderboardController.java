@@ -17,22 +17,22 @@ public class LeaderboardController {
     @Autowired
     private final ProcessLeaderboard processLeaderboard;
 
-    @RequestMapping
-    public List<Leaderboard> getLeaderboard() {
+    @RequestMapping(value = "/")
+    public List<Leaderboard> getLeaderboardTopTen() {
         
         return processLeaderboard.topTenAccounts();
         
     }
 
-    @RequestMapping(value = "/top3")
-    public List<Leaderboard> getTopThree() {
+    @RequestMapping(value = "/podium")
+    public List<Leaderboard> getLeaderboardPodium() {
         
         return processLeaderboard.topThreeAccounts();
         
     }
 
-    @RequestMapping(value = "/ranking/{username}")
-    public Leaderboard getAccountRanking(@PathVariable String username) {
+    @RequestMapping(value = "/rank/{username}")
+    public Leaderboard getLeaderboardByUsername(@PathVariable String username) {
         
         return processLeaderboard.findAccountRanking(username);
         
