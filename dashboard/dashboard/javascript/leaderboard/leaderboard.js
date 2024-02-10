@@ -16,9 +16,9 @@ function displayAllActivityRecords() {
 
 		type: "GET",
 		
-//		url: "https://api2.napkinexchange.softwareshinobi.digital/leaderboard",
+		url: "https://apis.napkinexchange.softwareshinobi.digital/leaderboard/",
 
-		url: "http://localhost:8888/leaderboard",
+//		url: "http://localhost:8888/leaderboard",
 
 		contentType: "text/plain",
 		
