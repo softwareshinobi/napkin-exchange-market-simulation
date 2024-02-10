@@ -8,7 +8,7 @@ services:
 
         depends_on:
 
-           - napkinexchangedatabase
+           - napkin-exchange-database
 
         build: 
 
@@ -24,7 +24,7 @@ services:
 
         environment:
 
-            DB_HOST: napkinexchangedatabase
+            DB_HOST: napkin-exchange-database
 
             DB_NAME: napkin_exchange_server
 
@@ -60,9 +60,9 @@ services:
 
             - 8880:8000
 
-    napkinexchangedatabase:
+    napkin-exchange-database:
 
-        container_name: napkinexchangedatabase
+        container_name: napkin-exchange-database
 
         image: mysql
 
@@ -92,11 +92,11 @@ services:
 
         depends_on:
 
-           - napkinexchangedatabase
+           - napkin-exchange-database
 
         links:
 
-           - napkinexchangedatabase
+           - napkin-exchange-database
 
         ports:
 
@@ -104,7 +104,7 @@ services:
 
         environment:
 
-            PMA_HOST: napkinexchangedatabase
+            PMA_HOST: napkin-exchange-database
 
             PMA_PORT: 3306
 
