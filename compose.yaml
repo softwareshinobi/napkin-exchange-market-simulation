@@ -16,10 +16,6 @@ services:
 
             dockerfile: Dockerfile
 
-        depends_on:
-
-           - napkinexchangedatabase
-
         restart: always
 
         ports:
@@ -68,11 +64,11 @@ services:
 
         container_name: napkinexchangedatabase
 
-        image: mariadb
+        image: mysql
 
-        volumes:
+     ##   volumes:
 
-            - ./.container-volumes/mysql-server:/var/lib/mysql
+     ##       - ./.container-volumes/mysql-server:/var/lib/mysql
 
         ports:
 
