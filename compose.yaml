@@ -8,7 +8,7 @@ services:
 
         depends_on:
 
-           - napkin-exchange-database
+           - napkinexchangedatabase
 
         build: 
 
@@ -18,7 +18,7 @@ services:
 
         depends_on:
 
-           - napkin-exchange-database
+           - napkinexchangedatabase
 
         restart: always
 
@@ -28,7 +28,7 @@ services:
 
         environment:
 
-            DB_HOST: napkin-exchange-database
+            DB_HOST: napkinexchangedatabase
 
             DB_NAME: napkin_exchange_server
 
@@ -64,9 +64,9 @@ services:
 
             - 8880:8000
 
-    napkin-exchange-database:
+    napkinexchangedatabase:
 
-        container_name: napkin-exchange-database
+        container_name: napkinexchangedatabase
 
         image: mariadb
 
@@ -96,11 +96,11 @@ services:
 
         depends_on:
 
-           - napkin-exchange-database
+           - napkinexchangedatabase
 
         links:
 
-           - napkin-exchange-database
+           - napkinexchangedatabase
 
         ports:
 
@@ -108,7 +108,7 @@ services:
 
         environment:
 
-            PMA_HOST: napkin-exchange-database
+            PMA_HOST: napkinexchangedatabase
 
             PMA_PORT: 3306
 
