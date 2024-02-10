@@ -2,11 +2,9 @@ FROM maven:3.8.7-openjdk-18-slim AS MAVEN_BUILD
 
 MAINTAINER Software Shinobi "the.software.shinobi@gmail.com"
 
-ARG JAR_FILE_NAME napkin-exchange-server-2.0.jar
-
 WORKDIR /
 
-COPY ./ ./
+COPY . .
 
 RUN mvn install -DskipTests
 

@@ -1,8 +1,58 @@
 services:
 
-    valorant-digital-headquarters-docs:
+    napkin-exchange-server:
 
-        container_name: valorant-digital-headquarters-docs
+        container_name: napkin-exchange-server
+        
+        image: softwareshinobi/napkin-exchange-server
+
+        depends_on:
+
+           - napkin-exchange-database
+
+        build: 
+
+            context: .
+
+            dockerfile: Dockerfile
+
+        depends_on:
+
+           - napkin-exchange-database
+
+        restart: always
+
+        ports:
+
+            - "8888:8888"
+
+        environment:
+
+            DB_HOST: agenteightmysql
+
+            DB_NAME: napkin_exchange_server
+
+            DB_USER: napkin_exchange_server
+
+            DB_PASS: napkin_exchange_server
+
+    napkin-exchange-workflow:
+
+        container_name: napkin-exchange-workflow
+
+        image: nginx
+      
+      ##  volumes:
+        
+    ##        - dashboard:/tmp
+            
+        ports:
+
+            - 8881:8000
+
+    napkin-exchange-docs:
+
+        container_name: napkin-exchange-docs
 
         image: titom73/mkdocs
       
@@ -14,11 +64,11 @@ services:
 
             - 8880:8000
 
-    agenteightmysql:
+    napkin-exchange-database:
 
-        container_name: agenteightmysql
+        container_name: napkin-exchange-database
 
-        image: mysql:8
+        image: mariadb
 
         volumes:
 
@@ -32,35 +82,25 @@ services:
 
             MYSQL_ROOT_PASSWORD: aggiepride
 
-            MYSQL_DATABASE: agent_eight_central
+            MYSQL_DATABASE: napkin_exchange_server
 
-            MYSQL_USER: agent_eight_central
+            MYSQL_USER: napkin_exchange_server
 
-            MYSQL_PASSWORD: agent_eight_central
+            MYSQL_PASSWORD: napkin_exchange_server
 
-        healthcheck:
+    napkin-exchange-phpmyadmin:
 
-            test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-
-            interval: 3s
-
-            timeout: 5s
-
-            retries: 5
-
-    valorant-digital-headquarters-phpmyadmin:
-
-        container_name: valorant-digital-headquarters-phpmyadmin
+        container_name: napkin-exchange-phpmyadmin
 
         image: beeyev/phpmyadmin-lightweight
 
         depends_on:
 
-           - agenteightmysql
+           - napkin-exchange-database
 
         links:
 
-           - agenteightmysql
+           - napkin-exchange-database
 
         ports:
 
@@ -68,7 +108,7 @@ services:
 
         environment:
 
-            PMA_HOST: agenteightmysql
+            PMA_HOST: napkin-exchange-database
 
             PMA_PORT: 3306
 
