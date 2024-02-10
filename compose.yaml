@@ -1,21 +1,75 @@
-version: '3.8'
-
 services:
 
-    napkin-exchange-server:
+    valorant-digital-headquarters-docs:
 
-        container_name: napkin-exchange-server
+        container_name: valorant-digital-headquarters-docs
+
+        image: titom73/mkdocs
+      
+        volumes:
         
-        image: softwareshinobi/napkin-exchange-server
+            - ${PWD}:/docs
+            
+        ports:
 
-        build: 
+            - 8880:8000
 
-            context: .
+    agenteightmysql:
 
-            dockerfile: Dockerfile
+        container_name: agenteightmysql
 
-        restart: unless-stopped
+        image: mysql:8
+
+        volumes:
+
+            - ./.container-volumes/mysql-server:/var/lib/mysql
 
         ports:
 
-            - "8888:8888"
+            - "3306:3306"
+
+        environment:
+
+            MYSQL_ROOT_PASSWORD: aggiepride
+
+            MYSQL_DATABASE: agent_eight_central
+
+            MYSQL_USER: agent_eight_central
+
+            MYSQL_PASSWORD: agent_eight_central
+
+        healthcheck:
+
+            test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+
+            interval: 3s
+
+            timeout: 5s
+
+            retries: 5
+
+    valorant-digital-headquarters-phpmyadmin:
+
+        container_name: valorant-digital-headquarters-phpmyadmin
+
+        image: beeyev/phpmyadmin-lightweight
+
+        depends_on:
+
+           - agenteightmysql
+
+        links:
+
+           - agenteightmysql
+
+        ports:
+
+            - 8830:80
+
+        environment:
+
+            PMA_HOST: agenteightmysql
+
+            PMA_PORT: 3306
+
+            PMA_ARBITRARY: 1
