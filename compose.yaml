@@ -28,7 +28,7 @@ services:
 
         environment:
 
-            DB_HOST: agenteightmysql
+            DB_HOST: napkin-exchange-database
 
             DB_NAME: napkin_exchange_server
 
