@@ -64,7 +64,7 @@ services:
 
         container_name: napkin-exchange-database
 
-        image: mysql
+        image: mariadb
 
      ##   volumes:
 
