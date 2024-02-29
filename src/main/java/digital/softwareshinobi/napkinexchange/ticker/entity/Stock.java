@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import digital.softwareshinobi.napkinexchange.market.utils.GetRandomNumber;
+import digital.softwareshinobi.napkinexchange.market.utility.GetRandomNumber;
 import digital.softwareshinobi.napkinexchange.ticker.defaults.DefaultStockPrices;
 import digital.softwareshinobi.napkinexchange.ticker.enums.InvestorRating;
 import digital.softwareshinobi.napkinexchange.ticker.enums.MarketCap;

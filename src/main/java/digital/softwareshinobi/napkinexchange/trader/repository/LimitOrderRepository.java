@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.repository;
 
-import digital.softwareshinobi.napkinexchange.trader.model.entity.LimitOrder;
+import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -12,10 +12,12 @@ public class Leaderboard {
 
     private final UUID id = UUID.randomUUID();
 
-    private int ranking;
+    private Integer ranking;
 
     private String username;
 
-    private double totalProfits;
+    private Double accountBalance;
+
+    private Double totalProfits;
 
 }

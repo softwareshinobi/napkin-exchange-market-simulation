@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.trader.repository;
 
-import digital.softwareshinobi.napkinexchange.trader.model.entity.AccountHistory;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.AccountHistoryId;
+import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
+import digital.softwareshinobi.napkinexchange.trader.model.AccountHistoryId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.ticker.utils;
 import java.util.List;
 
 import digital.softwareshinobi.napkinexchange.ticker.entity.StockPriceHistory;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.AccountHistory;
+import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
 
 public class SortHistory {
 

@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class AccountBalanceException extends RuntimeException {
 
     public AccountBalanceException(String message) {
+
         super(message);
+
     }
+
 }

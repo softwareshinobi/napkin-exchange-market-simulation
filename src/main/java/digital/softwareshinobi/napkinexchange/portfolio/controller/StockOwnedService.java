@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
 import digital.softwareshinobi.napkinexchange.ticker.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.Account;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.StockOwned;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.BuyStockRequest;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
+import digital.softwareshinobi.napkinexchange.order.BuyStockRequest;
+import digital.softwareshinobi.napkinexchange.order.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.trader.repository.StockOwnedRepository;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
-import digital.softwareshinobi.napkinexchange.trader.utils.ValidateStockTransaction;
+import digital.softwareshinobi.napkinexchange.trader.utility.ValidateStockTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

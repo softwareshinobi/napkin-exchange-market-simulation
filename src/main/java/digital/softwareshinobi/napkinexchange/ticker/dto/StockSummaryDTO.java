@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.ticker.dto;
 import lombok.Getter;
 import lombok.Setter;
 import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
-import digital.softwareshinobi.napkinexchange.trader.utils.CalculateCostBasisAndProfits;
+import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 
 //This class is used when getting a list of stocks, where fields such as earnings and price history is not needed
 @Getter

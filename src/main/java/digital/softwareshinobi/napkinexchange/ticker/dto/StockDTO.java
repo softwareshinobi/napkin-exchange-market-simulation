@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
-import digital.softwareshinobi.napkinexchange.trader.utils.CalculateCostBasisAndProfits;
+import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

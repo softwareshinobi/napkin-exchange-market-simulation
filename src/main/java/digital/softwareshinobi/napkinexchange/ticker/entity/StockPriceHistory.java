@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import digital.softwareshinobi.napkinexchange.ticker.entity.idclass.StockPriceHistoryId;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

@@ -1,15 +1,15 @@
 package digital.softwareshinobi.napkinexchange.market.controller;
 
-import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.market.entity.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/market")
 @AllArgsConstructor
+@RequestMapping(value = "market")
 public class MarketController {
 
     @Autowired
@@ -17,6 +17,9 @@ public class MarketController {
 
     @RequestMapping()
     public Market findMarketEntity() {
+
         return marketService.findMarketEntity();
+
     }
+
 }

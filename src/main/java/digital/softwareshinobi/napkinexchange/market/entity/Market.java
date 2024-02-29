@@ -1,11 +1,7 @@
 package digital.softwareshinobi.napkinexchange.market.entity;
 
-import java.time.ZonedDateTime;
-
-import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,11 +42,11 @@ public class Market {
     private MarketTrajectory marketTrajectory;
 
     public void increment() {
-        
+
         ZonedDateTime newDate = getDate().plusMinutes(1);
-        
-        setDate(newDate);
-        
+
+        this.setDate(newDate);
+
     }
-    
+
 }

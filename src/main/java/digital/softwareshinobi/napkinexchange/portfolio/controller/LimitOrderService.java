@@ -2,10 +2,10 @@ package digital.softwareshinobi.napkinexchange.portfolio.controller;
 
 import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.Account;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.LimitOrder;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.BuyStockRequest;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
+import digital.softwareshinobi.napkinexchange.order.BuyStockRequest;
+import digital.softwareshinobi.napkinexchange.order.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

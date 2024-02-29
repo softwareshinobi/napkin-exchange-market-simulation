@@ -1,26 +1,26 @@
 package digital.softwareshinobi.napkinexchange.portfolio.controller;
 
+import digital.softwareshinobi.napkinexchange.order.BuyStockRequest;
+import digital.softwareshinobi.napkinexchange.order.LimitOrderRequest;
+import digital.softwareshinobi.napkinexchange.order.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
 import digital.softwareshinobi.napkinexchange.ticker.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.LimitOrder;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.BuyStockRequest;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.LimitOrderRequest;
-import digital.softwareshinobi.napkinexchange.trader.model.payload.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
-import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/inventory")
-@CrossOrigin
 public class AccountInventoryController {
 
     public AccountInventoryController() {
 
-        System.out.println("AccountInventoryController AccountInventoryController ");
+        System.out.println("init > AccountInventoryController");
 
     }
 
@@ -43,8 +43,8 @@ public class AccountInventoryController {
 
     }
 
-    @GetMapping(value = "/health")
-    protected String returnHealthCheckStatus() {
+    @GetMapping(value = "health")
+    protected String health() {
 
         return "UP";
 

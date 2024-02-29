@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.market.entity.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import digital.softwareshinobi.napkinexchange.ticker.utils.SortHistory;
-import digital.softwareshinobi.napkinexchange.trader.model.entity.AccountHistory;
+import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
 import digital.softwareshinobi.napkinexchange.trader.repository.AccountHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.ticker.repository;
 
 import digital.softwareshinobi.napkinexchange.ticker.entity.StockPriceHistory;
-import digital.softwareshinobi.napkinexchange.ticker.entity.idclass.StockPriceHistoryId;
+import digital.softwareshinobi.napkinexchange.ticker.entity.StockPriceHistoryId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
