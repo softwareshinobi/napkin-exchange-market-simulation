@@ -6,9 +6,9 @@ $(document).ready(function () {
 
 });
 
-var KEY_USERNAME="traderName";
 
-function loginUser(userName) {
+
+function loginUser() {
 
 	console.debug("enter > loginUser");	
 

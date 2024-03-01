@@ -1,9 +1,8 @@
-
-apiURL="http://localhost:8888";
-
-//currentTraderUsername="";
-
 $(document).ready(function () {
+  
+  console.log("list / cookies / all");
+
+    console.log(Cookies.get());
 
   //  console.log("list / cookies / all");
 
@@ -15,6 +14,25 @@ $(document).ready(function () {
  //   displayAllActivityRecords();
 
 });
+
+var KEY_USERNAME="traderName";
+
+function traderName() {
+
+	console.debug("enter > traderName");	
+
+    var traderName = Cookies.get(KEY_USERNAME);
+
+    console.log("traderName / " + traderName);
+
+    return traderName;
+
+}
+apiURL="http://localhost:8888";
+
+//currentTraderUsername="";
+
+
 
 /*
 function s444aveUsername() {

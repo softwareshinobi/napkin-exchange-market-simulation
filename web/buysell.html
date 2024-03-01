@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+
+    <title>Buy/Sell Currency / The Napkin Exchange</title>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -13,8 +12,8 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -22,7 +21,7 @@
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +33,7 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -69,16 +68,16 @@
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="form.html" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="signin.html" class="dropdown-item">Sign In</a>
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
                             <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item active">Blank Page</a>
+                            <a href="blank.html" class="dropdown-item">Blank Page</a>
                         </div>
                     </div>
                 </div>
@@ -180,148 +179,136 @@
             <!-- Navbar End -->
 
 
-            <!-- Blank Start -->
+            <!-- Form Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-
-<div class="row">
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-								
-								
-									<h2>Buy Stock<small>purchase virtual securities for your portfolio.
+                <div class="row g-4">
+                    
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Buy Currency / Smart Order</h6>
+                            <form>
 
 
-</small></h2>
-									<ul class="nav navbar-right panel_toolbox">
-									
-									
-									
-										<li class="dropdown" style="visibility: hidden">
-										
-										
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-											<ul class="dropdown-menu" role="menu">
-												<li><a class="dropdown-item" href="#">Settings 1</a>
-												</li>
-												<li><a class="dropdown-item" href="#">Settings 2</a>
-												</li>
-											</ul>
-										</li>
-										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-										</li>
-										
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<br>
-									
-<div class="item form-group">
-    
-    <label class="col-form-label col-md-3 col-sm-3 label-align">
-    
-username
-        
-        <span class="required"></span>
-        
-    </label>
-    
-    <div class="col-md-6 col-sm-6 ">
-    
-        <input readonly="" id="trader-username" type="text" required="required" class="form-control " value="--">
-            
-    </div>
-
-</div>
-	
-<div class="item form-group">
-    
-    <label class="col-form-label col-md-3 col-sm-3 label-align">
-    
-ticker
-        
-        <span class="required"></span>
-        
-    </label>
-    
-    <div class="col-md-6 col-sm-6 ">
-    
-        <input id="buy-ticker" type="text" required="required" class="form-control " value="PANDORA">
-            
-    </div>
-
-</div>
-
-<div class="item form-group">
-    
-    <label class="col-form-label col-md-3 col-sm-3 label-align">
-    
-# shares to buy
-        
-        <span class="required"></span>
-        
-    </label>
-    
-    <div class="col-md-6 col-sm-6 ">
-    
-        <input id="buy-units" type="text" required="required" class="form-control " value="">
-            
-    </div>
-
-</div>	
-<div class="item form-group">
-    
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ticker</label>
+                                    <div class="col-sm-10">
+               <select class="form-select mb-3" aria-label="Default select example">
+                                <option selected="">Currency Pair</option>
+                                <option value="dione">DIONE</option>
+                                <option value="callisto">CALLISTO</option>
+                                <option value="europa">EUROPA</option>
+                                <option value="pandora">PANDORA</option>
+                            </select>
+                                    </div>
+                                </div>
 
 
-</div>
-											
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">price</label>
+                                    <div class="col-sm-10">
+        <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input readonly="" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                               
+                            </div>   </div>
+                                </div>
 
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">units</label>
+                                    <div class="col-sm-10">
+        <div class="input-group mb-3">
 
-										
-									
-										<div class="ln_solid"></div>
-										
-										<div class="item form-group">
-										
-											<div class="col-md-6 col-sm-6 offset-md-3">
-																							
-												<button class="btn btn-primary" onclick="clearForm()" type="reset">
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text">units</span>
+                            </div>   </div>
+                                </div><div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">total</label>
+                                    <div class="col-sm-10">
+        <div class="input-group mb-3">
 
-Clear Form
-
-</button>
-												
-												<button onclick="processForm()" type="submit" class="btn btn-success">
-												
-												Add Funds To Account
-												
-												</button>
-												
-											</div>
-										</div>
-
-									
-								</div>
-							</div>
-						</div>
-					</div>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text">$</span>
+                            </div>   </div>
+                                </div>
 
 
 
 
+                        <div class="d-grid gap-2">
+  <button class="btn btn-lg btn-primary" type="button">Place SMART BUY Order</button>
+
+</div>        
+                                
+                            </form>
+                        </div>
+                    </div><div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Sell Currency / Smart Order</h6>
+                            <form>
+
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ticker</label>
+                                    <div class="col-sm-10">
+               <select class="form-select mb-3" aria-label="Default select example">
+                                <option selected="">Currency Pair</option>
+                                <option value="dione">DIONE</option>
+                                <option value="callisto">CALLISTO</option>
+                                <option value="europa">EUROPA</option>
+                                <option value="pandora">PANDORA</option>
+                            </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">price</label>
+                                    <div class="col-sm-10">
+        <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input readonly="" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                               
+                            </div>   </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">units</label>
+                                    <div class="col-sm-10">
+        <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text">units</span>
+                            </div>   </div>
+                                </div><div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">total</label>
+                                    <div class="col-sm-10">
+        <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text">$</span>
+                            </div>   </div>
+                                </div>
 
 
 
-                    <div class="col-md-6 text-center">
-                        <h3>This is blank page</h3>
+
+                        <div class="d-grid gap-2">
+  <button class="btn btn-lg btn-primary" type="button">Place SMART SELL Order</button>
+
+</div>        
+                                
+                            </form>
+                        </div>
                     </div>
+                    
+                    
+                    
+                    
+                    
+                    
                 </div>
             </div>
-            <!-- Blank End -->
+            <!-- Form End -->
 
 
             <!-- Footer Start -->
@@ -329,7 +316,7 @@ Clear Form
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            © <a href="#">Your Site Name</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
@@ -344,7 +331,7 @@ Clear Form
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -360,6 +347,8 @@ Clear Form
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-</body>
 
-</html>
+
+
+
+</body></html>
