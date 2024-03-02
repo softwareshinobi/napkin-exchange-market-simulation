@@ -1,10 +1,10 @@
 package digital.softwareshinobi.napkinexchange.market.scheduled;
 
-import lombok.AllArgsConstructor;
+import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
-import digital.softwareshinobi.napkinexchange.ticker.service.StockPriceHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
-import digital.softwareshinobi.napkinexchange.portfolio.controller.LimitOrderService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class MarketActivityScheduler {
 
         handleMarketActivity.dailyMarketActivity();
 
-        limitOrderService.processAllLimitOrders();
+        limitOrderService.processLimitOrders();
 
         accountHistoryService.saveDailyAccountHistory();
 
@@ -50,4 +50,3 @@ public class MarketActivityScheduler {
     }
 
 }
-

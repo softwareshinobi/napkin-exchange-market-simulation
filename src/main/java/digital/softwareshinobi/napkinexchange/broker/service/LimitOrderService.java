@@ -1,0 +1,277 @@
+package digital.softwareshinobi.napkinexchange.broker.service;
+
+import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
+import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
+import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.notification.Notification;
+import digital.softwareshinobi.napkinexchange.notification.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.NotificationType;
+import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
+import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
+import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class LimitOrderService {
+
+    @Autowired
+    private final LimitOrderRepository limitOrderRepository;
+
+    @Autowired
+    private final StockOwnedService stockOwnedService;
+
+    @Autowired
+    private final NotificationService notificationService;
+
+    public void saveLimitOrder(LimitOrder limitOrder) {
+
+        limitOrderRepository.save(limitOrder);
+
+        if (limitOrder.getAccount() != null) {
+
+            notificationService.save(
+                    new Notification(
+                            limitOrder.getAccount().getUsername(),
+                            NotificationType.LIMITORDER,
+                            "limit order created / " + limitOrder.toString()
+                    ));
+
+        }
+
+    }
+
+    public List<LimitOrder> findLimitOrders() {
+
+        return limitOrderRepository.findAll();
+
+    }
+
+    public List<LimitOrder> findLimitOrders(Account account) {
+
+        return limitOrderRepository.findAll().stream()
+                .filter(order -> order.getAccount().getUsername().equals(account.getUsername()))
+                .collect(Collectors.toList());
+
+    }
+
+    public void processLimitOrders() {
+
+        // System.out.println("enter > processLimitOrders");
+        limitOrderRepository.findAll().forEach(limitOrder -> {
+
+            System.out.println("limitOrder / " + limitOrder);
+
+            String limitOrderType = limitOrder.getType();
+            //   String limitOrderConstant = ;
+            //   boolean equal = (limitOrderType.equals(limitOrderConstant));
+            //  System.out.println("limitOrderType /" + limitOrderType);
+            //  System.out.println("limitOrderConstant /" + limitOrderConstant);
+            //   System.out.println("equal /" + equal);
+
+            switch (limitOrderType) {
+
+                case LimitOrderTypes.LONG_BUY_STOP:
+
+                    System.out.println("is a LONG_BUY_STOP");
+
+                    processLongBuyStopLimitOrder(limitOrder);
+
+                    break;
+
+                case LimitOrderTypes.LONG_STOP_LOSS:
+
+                    System.out.println("is a LONG_STOP_LOSS");
+
+                    processLongStopLoss(limitOrder);
+
+                    break;
+
+                case LimitOrderTypes.LONG_TAKE_PROFIT:
+
+                    System.out.println("is a LONG_TAKE_PROFIT");
+
+                    processLongTakeProfit(limitOrder);
+
+                    break;
+
+                default:
+
+                    System.out.println("dont know how to handle this. what is it? /" + limitOrderType);
+
+                    break;
+
+            }
+
+        });
+
+        // System.out.println("exit < processLimitOrders");
+    }
+
+    private void processLongBuyStopLimitOrder(LimitOrder buyStopOrder) {
+
+        System.out.println("enter > processLongBuyStopLimitOrder");
+
+        System.out.println("buyStopOrder /" + buyStopOrder);
+
+        System.out.println("order.getStrikePrice() /" + buyStopOrder.getStrikePrice());
+
+        System.out.println("order.getStock().getPrice() /" + buyStopOrder.getStock().getPrice());
+
+        if (buyStopOrder.getStock().getPrice() > buyStopOrder.getStrikePrice()) {
+
+            System.out.println("IT'S TIME TO OPEN THIS LONG_BUY_STOP");
+
+            try {
+
+                stockOwnedService.fillBuyStockRequest(
+                        new BuyStockRequest(
+                                buyStopOrder.getAccount().getUsername(),
+                                buyStopOrder.getStock().getTicker(),
+                                buyStopOrder.getSharesToBuy()));
+
+                notificationService.save(
+                        new Notification(
+                                buyStopOrder.getAccount().getUsername(),
+                                NotificationType.BUYSTOPP,
+                                "LONG_BUY_STOP TRIGGERED / " + buyStopOrder.toString()
+                        ));
+
+                clearAndDeleteLimitOrder(buyStopOrder);
+
+            } catch (AccountNotFoundException e) {
+
+                e.printStackTrace();
+
+            }
+
+        } else {
+
+            System.out.println("this LONG_BUY_STOP didn't trigger");
+
+        }
+    }
+
+    private void processLongStopLoss(LimitOrder stopLossOrder) {
+
+        System.out.println("enter > processLongStopLossOrder");
+
+//        System.out.println("stop loss order / " + stopLossOrder);
+//        System.out.println("  current price / " + stopLossOrder.getStock().getPrice());
+//        System.out.println("   strike price / " + stopLossOrder.getStrikePrice());
+//todo, we shouldn't be compariing doubles like this
+        if (stopLossOrder.getStock().getPrice() < stopLossOrder.getStrikePrice()) {
+
+            System.out.println("IT'S TIME TO TRIGGER THIS STOP LOSS");
+
+            try {
+
+                notificationService.save(
+                        new Notification(
+                                stopLossOrder.getAccount().getUsername(),
+                                NotificationType.STOPLOSS,
+                                "STOP LOSS triggerd / " + stopLossOrder.toString()
+                        ));
+
+                stockOwnedService.sellStockMarketPrice(
+                        new SellStockRequest(
+                                stopLossOrder.getAccount().getUsername(),
+                                stopLossOrder.getStock().getTicker(),
+                                stopLossOrder.getSharesToBuy()));
+
+                clearAndDeleteLimitOrder(stopLossOrder);
+
+            } catch (AccountNotFoundException exception) {
+
+                exception.printStackTrace();
+
+            }
+
+        } else {
+
+            //System.out.println("this STOP LOSS did not trigger");
+        }
+
+    }
+
+    private void processLongTakeProfit(LimitOrder takeProfitOrder) {
+
+        System.out.println("enter > processLongTakeProfit");
+
+        System.out.println("take profit order / " + takeProfitOrder);
+        System.out.println("  current price / " + takeProfitOrder.getStock().getPrice());
+        System.out.println("   strike price / " + takeProfitOrder.getStrikePrice());
+
+        //todo, we shouldn't be compariing doubles like this
+        if (takeProfitOrder.getStock().getPrice() > takeProfitOrder.getStrikePrice()) {
+
+            System.out.println("IT'S TIME TO TRIGGER THIS TAKE PROFIT");
+
+            try {
+
+                stockOwnedService.sellStockMarketPrice(
+                        new SellStockRequest(
+                                takeProfitOrder.getAccount().getUsername(),
+                                takeProfitOrder.getStock().getTicker(),
+                                takeProfitOrder.getSharesToBuy()));
+
+                notificationService.save(
+                        new Notification(
+                                takeProfitOrder.getAccount().getUsername(),
+                                NotificationType.TAKEPROFIT,
+                                "STOP LOSS triggerd / " + takeProfitOrder.toString()
+                        ));
+
+                clearAndDeleteLimitOrder(takeProfitOrder);
+
+            } catch (AccountNotFoundException exception) {
+
+                exception.printStackTrace();
+
+            }
+
+        } else {
+
+            //   System.out.println("this one didn't trigger");
+        }
+
+    }
+//    @Transactional
+//    public void truncateLimitOrders() {
+//        limitOrderRepository.truncateTable();
+//    }
+
+    private void clearAndDeleteLimitOrder(LimitOrder limitOrder) {
+
+        if (true) {
+            //     return;
+        }
+
+        limitOrder.setAccount(null);
+
+        limitOrder.setStock(null);
+
+        saveLimitOrder(limitOrder);
+
+        deleteLimitOrder(limitOrder);
+
+    }
+
+    private void deleteLimitOrder(LimitOrder limitOrder) {
+
+        limitOrderRepository.delete(limitOrder);
+
+//        notificationService.save(
+//                new Notification(
+//                        limitOrder.getAccount().getUsername(),
+//                        NotificationType.LIMITORDER,
+//                        "limit order cancelled / " + limitOrder.toString()
+//                ));
+    }
+
+}

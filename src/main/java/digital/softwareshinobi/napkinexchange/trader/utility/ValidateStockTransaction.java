@@ -1,12 +1,12 @@
 package digital.softwareshinobi.napkinexchange.trader.utility;
 
-import digital.softwareshinobi.napkinexchange.ticker.exception.StockNotFoundException;
-import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
-import digital.softwareshinobi.napkinexchange.ticker.service.StockService;
+import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
+import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
+import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
-import digital.softwareshinobi.napkinexchange.order.BuyStockRequest;
-import digital.softwareshinobi.napkinexchange.order.SellStockRequest;
 
 public class ValidateStockTransaction {
 
@@ -23,13 +23,21 @@ public class ValidateStockTransaction {
         return balance > (stock.getPrice() * buyStockRequest.getSharesToBuy());
     }
 
-    public static boolean doesAccountHaveEnoughStocks(Account account,
-            SellStockRequest sellStock) {
+    public static boolean doesAccountHaveEnoughStocks(
+            Account account,
+            SellStockRequest sellStockRequest) {
+
         StockOwned stock = FindStockOwned.findOwnedStockByTicker(
-                account.getStocksOwned(), sellStock.getTicker());
+                account.getStocksOwned(),
+                sellStockRequest.getSecurity());
+
         if (stock == null) {
+
             return false;
         }
-        return stock.getAmountOwned() >= sellStock.getSharesToSell();
+
+        return stock.getAmountOwned() >= sellStockRequest.getUnits();
+
     }
+
 }

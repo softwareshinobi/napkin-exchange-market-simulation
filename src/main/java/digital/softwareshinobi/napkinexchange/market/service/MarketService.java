@@ -1,15 +1,15 @@
 package digital.softwareshinobi.napkinexchange.market.service;
 
+import digital.softwareshinobi.napkinexchange.market.entity.Market;
+import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
+import digital.softwareshinobi.napkinexchange.market.repository.MarketRepository;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import digital.softwareshinobi.napkinexchange.market.entity.Market;
-import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
-import digital.softwareshinobi.napkinexchange.market.repository.MarketRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class MarketService {
             LocalDate localDate = LocalDate.now();
 
             LocalTime localTime = LocalTime.now();
-            
+
             ZoneId zoneId = ZoneId.of("GMT-05:00");
 
             var startingTime = ZonedDateTime.of(localDate, localTime, zoneId);
@@ -37,20 +37,20 @@ public class MarketService {
             saveMarketEntity(market);
 
         }
-        
+
         return market;
-        
+
     }
 
     public void saveMarketEntity(final Market market) {
-        
+
         if (market == null) {
-            
+
             return;
-            
+
         }
-        
+
         marketRepository.save(market);
-        
+
     }
 }

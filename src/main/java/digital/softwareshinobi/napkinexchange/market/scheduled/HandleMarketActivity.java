@@ -1,15 +1,15 @@
 package digital.softwareshinobi.napkinexchange.market.scheduled;
 
-import java.time.ZonedDateTime;
-import java.util.List;
 import digital.softwareshinobi.napkinexchange.market.entity.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
-import digital.softwareshinobi.napkinexchange.ticker.entity.Stock;
-import digital.softwareshinobi.napkinexchange.ticker.service.StockPriceHistoryService;
-import digital.softwareshinobi.napkinexchange.ticker.service.StockService;
+import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.StockService;
+import java.time.ZonedDateTime;
+import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
@@ -40,35 +40,35 @@ public class HandleMarketActivity {
         stocks.forEach(stock -> {
 
             stock.updatePriceWithFormula();
-         
-                stock.updateMomentumStreak();
 
-                stock.updateMomentum();
+            stock.updateMomentumStreak();
 
-                stock.setLastDayPrice(stock.getPrice());        
+            stock.updateMomentum();
+
+            stock.setLastDayPrice(stock.getPrice());
 
         });
 
         stockService.updateAllStocksInDatabase(stocks);
-        
+
     }
 
     public ZonedDateTime tickMarket() {
 
         Market market = marketService.findMarketEntity();
-        
+
         market.increment();
-        
+
         marketService.saveMarketEntity(market);
-        
+
         return market.getDate();
-        
+
     }
 
     public ZonedDateTime getMarketDateTime() {
 
         Market market = marketService.findMarketEntity();
-        
+
         return market.getDate();
 
     }

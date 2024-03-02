@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.market.utility;
 
-import digital.softwareshinobi.napkinexchange.ticker.enums.MarketCap;
+import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 
 import java.util.Random;
 

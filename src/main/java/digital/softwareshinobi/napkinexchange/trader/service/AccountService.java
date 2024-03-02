@@ -1,6 +1,9 @@
 package digital.softwareshinobi.napkinexchange.trader.service;
 
-import digital.softwareshinobi.napkinexchange.order.AccountTransaction;
+import digital.softwareshinobi.napkinexchange.broker.types.AccountTransaction;
+import digital.softwareshinobi.napkinexchange.notification.Notification;
+import digital.softwareshinobi.napkinexchange.notification.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
@@ -17,6 +20,9 @@ public class AccountService {
 
     @Autowired
     private final AccountRepository accountRepository;
+
+    @Autowired
+    private final NotificationService notificationService;
 
     private final Integer DEFAULTBALANCE = 1000000;
 
@@ -39,7 +45,7 @@ public class AccountService {
 
     }
 
-    public void createTraderAccount(String username, String password) throws InvalidAccountException {
+    public Account createTraderAccount(String username, String password) throws InvalidAccountException {
 
         if (doesTraderAccountExist(username)) {
 
@@ -51,9 +57,19 @@ public class AccountService {
 
         newAccount.updateAccountBalance(DEFAULTBALANCE);
 
-        accountRepository.save(newAccount);
+        Account resultAccount = accountRepository.save(newAccount);
+
+        notificationService.save(
+                new Notification(
+                        resultAccount,
+                        NotificationType.NEW_ACCOUNT,
+                        "NEW USER CREATED!!! " + resultAccount.toString()
+                ));
 
         newAccount = null;
+
+        return resultAccount;
+
     }
 
     public boolean doesTraderAccountExist(String username) {
