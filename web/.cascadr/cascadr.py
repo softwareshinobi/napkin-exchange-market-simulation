@@ -16,7 +16,7 @@ def cascadeStylingIncludes():
 
 	templateSectionEnd="<!-- head / css / end -->"
 
-	with open('templates/head-styling-includes.template') as templateFile:
+	with open('templates/head.template') as templateFile:
 
 		substitutionContent = templateFile.read()
 
@@ -66,11 +66,11 @@ def cascadeJavascriptIncludes():
 
 def cascadeFooterContent():
 
-	templateSectionBegin="<!-- body / footer / begin -->"
+	templateSectionBegin="<!-- Footer Start -->"
 
-	templateSectionEnd="<!-- body / footer / end -->"
+	templateSectionEnd="<!-- Footer End -->"
 
-	with open('templates/body-footer-content.template') as templateFile:
+	with open('templates/footer.template') as templateFile:
 
 		substitutionContent = templateFile.read()
 
@@ -180,15 +180,17 @@ def cascadeFlyoutContent():
 
 cascadeStylingIncludes()
 
-cascadeJavascriptIncludes()
+cascadeSideNavigation()
+
+#cascadeJavascriptIncludes()
 
 cascadeFooterContent()
 
-cascadeTopNavigation()
+#cascadeTopNavigation()
 
-cascadeSideNavigation()
 
-cascadeFlyoutContent()
+
+#cascadeFlyoutContent()
 ##updateSideBarDesktop()
 
 ##updateSideBarMobile()
