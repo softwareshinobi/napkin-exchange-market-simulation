@@ -18,6 +18,12 @@ public class MarketService {
     @Autowired
     private final MarketRepository marketRepository;
 
+    public ZonedDateTime systemTime() {
+
+        return this.findMarketEntity().getDate();
+
+    }
+
     public Market findMarketEntity() {
 
         Market market = marketRepository.findById(1).orElse(null);

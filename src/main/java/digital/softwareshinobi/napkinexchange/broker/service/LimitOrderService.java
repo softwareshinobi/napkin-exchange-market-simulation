@@ -1,8 +1,7 @@
 package digital.softwareshinobi.napkinexchange.broker.service;
 
-import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
-import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
 import digital.softwareshinobi.napkinexchange.notification.Notification;
 import digital.softwareshinobi.napkinexchange.notification.NotificationService;
 import digital.softwareshinobi.napkinexchange.notification.NotificationType;
@@ -11,6 +10,7 @@ import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +29,6 @@ public class LimitOrderService {
     @Autowired
     private final NotificationService notificationService;
 
-    public void saveLimitOrder(LimitOrder limitOrder) {
-
-        limitOrderRepository.save(limitOrder);
-
-        if (limitOrder.getAccount() != null) {
-
-            notificationService.save(
-                    new Notification(
-                            limitOrder.getAccount().getUsername(),
-                            NotificationType.LIMITORDER,
-                            "limit order created / " + limitOrder.toString()
-                    ));
-
-        }
-
-    }
-
     public List<LimitOrder> findLimitOrders() {
 
         return limitOrderRepository.findAll();
@@ -57,6 +40,31 @@ public class LimitOrderService {
         return limitOrderRepository.findAll().stream()
                 .filter(order -> order.getAccount().getUsername().equals(account.getUsername()))
                 .collect(Collectors.toList());
+
+    }
+
+    public Optional< LimitOrder> findLimitOrder(Integer id) {
+
+        return limitOrderRepository.findById(id);
+
+    }
+
+    public void saveLimitOrder(LimitOrder limitOrder) {
+
+        System.out.println("enter > saveLimitOrder");
+
+        limitOrderRepository.save(limitOrder);
+
+        if (limitOrder.getAccount() != null) {
+
+            notificationService.save(
+                    new Notification(
+                            limitOrder.getAccount().getUsername(),
+                            NotificationType.LIMITORDER,
+                            "Created future or limit order created /  + limitOrder.toString()"
+                    ));
+
+        }
 
     }
 
@@ -80,8 +88,7 @@ public class LimitOrderService {
 
                     System.out.println("is a LONG_BUY_STOP");
 
-                    processLongBuyStopLimitOrder(limitOrder);
-
+//                    processLongBuyStop(limitOrder);
                     break;
 
                 case LimitOrderTypes.LONG_STOP_LOSS:
@@ -113,50 +120,6 @@ public class LimitOrderService {
         // System.out.println("exit < processLimitOrders");
     }
 
-    private void processLongBuyStopLimitOrder(LimitOrder buyStopOrder) {
-
-        System.out.println("enter > processLongBuyStopLimitOrder");
-
-        System.out.println("buyStopOrder /" + buyStopOrder);
-
-        System.out.println("order.getStrikePrice() /" + buyStopOrder.getStrikePrice());
-
-        System.out.println("order.getStock().getPrice() /" + buyStopOrder.getStock().getPrice());
-
-        if (buyStopOrder.getStock().getPrice() > buyStopOrder.getStrikePrice()) {
-
-            System.out.println("IT'S TIME TO OPEN THIS LONG_BUY_STOP");
-
-            try {
-
-                stockOwnedService.fillBuyStockRequest(
-                        new BuyStockRequest(
-                                buyStopOrder.getAccount().getUsername(),
-                                buyStopOrder.getStock().getTicker(),
-                                buyStopOrder.getSharesToBuy()));
-
-                notificationService.save(
-                        new Notification(
-                                buyStopOrder.getAccount().getUsername(),
-                                NotificationType.BUYSTOPP,
-                                "LONG_BUY_STOP TRIGGERED / " + buyStopOrder.toString()
-                        ));
-
-                clearAndDeleteLimitOrder(buyStopOrder);
-
-            } catch (AccountNotFoundException e) {
-
-                e.printStackTrace();
-
-            }
-
-        } else {
-
-            System.out.println("this LONG_BUY_STOP didn't trigger");
-
-        }
-    }
-
     private void processLongStopLoss(LimitOrder stopLossOrder) {
 
         System.out.println("enter > processLongStopLossOrder");
@@ -174,8 +137,8 @@ public class LimitOrderService {
                 notificationService.save(
                         new Notification(
                                 stopLossOrder.getAccount().getUsername(),
-                                NotificationType.STOPLOSS,
-                                "STOP LOSS triggerd / " + stopLossOrder.toString()
+                                NotificationType.LONG_STOP_LOSS,
+                                "STOP LOSS triggerd /  + stopLossOrder.toString()"
                         ));
 
                 stockOwnedService.sellStockMarketPrice(
@@ -186,6 +149,31 @@ public class LimitOrderService {
 
                 clearAndDeleteLimitOrder(stopLossOrder);
 
+                /////////////////////////////////////////////////////////////////
+                System.out.println("removing the related");
+
+                Optional<LimitOrder> relatedOrderOptional = this.findLimitOrder(stopLossOrder.getRelatedOrderId());
+
+                if (relatedOrderOptional.isPresent()) {
+
+                    LimitOrder relatedOrder = relatedOrderOptional.get(); // Use the user object
+
+                    System.out.println("related order / " + relatedOrder);
+
+                    notificationService.save(
+                            new Notification(
+                                    relatedOrder.getAccount().getUsername(),
+                                    NotificationType.LONG_STOP_LOSS,
+                                    "RELATED TRANSACTION CANCELLED /  + relatedOrder.toString()"
+                            ));
+
+                    clearAndDeleteLimitOrder(relatedOrder);
+
+                } else {
+                    // Handle the case where no relatedOrder is found
+                }
+
+/////////////////////////////////////////////////////////////////
             } catch (AccountNotFoundException exception) {
 
                 exception.printStackTrace();
@@ -275,3 +263,50 @@ public class LimitOrderService {
     }
 
 }
+/*
+
+    private void processLongBuyStop(LimitOrder buyStopOrder) {
+
+        System.out.println("enter > processLongBuyStopLimitOrder");
+
+        System.out.println("buyStopOrder /" + buyStopOrder);
+
+        System.out.println("order.getStrikePrice() /" + buyStopOrder.getStrikePrice());
+
+        System.out.println("order.getStock().getPrice() /" + buyStopOrder.getStock().getPrice());
+
+        if (buyStopOrder.getStock().getPrice() > buyStopOrder.getStrikePrice()) {
+
+            System.out.println("IT'S TIME TO OPEN THIS LONG_BUY_STOP");
+
+            try {
+
+                stockOwnedService.fillBuyStockRequest(
+                        new BuyStockRequest(
+                                buyStopOrder.getAccount().getUsername(),
+                                buyStopOrder.getStock().getTicker(),
+                                buyStopOrder.getSharesToBuy()));
+
+                notificationService.save(
+                        new Notification(
+                                buyStopOrder.getAccount().getUsername(),
+                                NotificationType.BUYSTOPP,
+                                "LONG_BUY_STOP TRIGGERED / " + buyStopOrder.toString()
+                        ));
+
+                clearAndDeleteLimitOrder(buyStopOrder);
+
+            } catch (AccountNotFoundException e) {
+
+                e.printStackTrace();
+
+            }
+
+        } else {
+
+            System.out.println("this LONG_BUY_STOP didn't trigger");
+
+        }
+    }
+
+ */

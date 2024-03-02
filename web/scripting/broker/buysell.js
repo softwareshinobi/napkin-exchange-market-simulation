@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-   //alert("buy stock");
+   alert("buysell.js");
 
  //   fetchAccountInformation();
 
@@ -40,7 +40,7 @@ function processBuyForm() {
 
 		type: "POST",
 		
-		url: apiURL + "/inventory/buy/market/auto-close",
+		url: apiURL + "/broker/buy/market/smart",
 
         data: JSON.stringify({
         

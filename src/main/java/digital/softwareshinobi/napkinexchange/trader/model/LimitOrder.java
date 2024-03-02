@@ -19,7 +19,7 @@ public class LimitOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private Long id;
+    private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Account account;
@@ -37,7 +37,7 @@ public class LimitOrder implements Serializable {
     private Double strikePrice;
 
     @Column
-    private Long relatedOrderId;
+    public Integer relatedOrderId;
 
     public LimitOrder(String limitOrderType, Account account, Stock stock, int sharesToBuy, double limitPrice) {
 
@@ -75,7 +75,7 @@ public class LimitOrder implements Serializable {
         sb.append(", stock=").append(stock);
         sb.append(", sharesToBuy=").append(sharesToBuy);
         sb.append(", strikePrice=").append(strikePrice);
-        sb.append(", relatedOrder=").append(relatedOrderId);
+        sb.append(", relatedOrderId=").append(relatedOrderId);
         sb.append('}');
         return sb.toString();
     }
