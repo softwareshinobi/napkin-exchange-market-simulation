@@ -6,8 +6,6 @@ $(document).ready(function () {
 
 });
 
-
-
 function loginUser() {
 
 	console.debug("enter > loginUser");	

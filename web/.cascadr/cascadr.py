@@ -124,7 +124,7 @@ def cascadeSideNavigation():
 
 	templateSectionEnd="<!-- Sidebar End -->"
 
-	with open('templates/side-navigation.template') as templateFile:
+	with open('templates/sidebar.template') as templateFile:
 
 		substitutionContent = templateFile.read()
 

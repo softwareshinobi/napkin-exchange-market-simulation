@@ -13,6 +13,7 @@ import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceExc
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -130,7 +131,7 @@ public class BrokerController {
         System.out.println("exit < openSmartBuyMarketOrder");
 
     }
-    /*
+
     @RequestMapping(value = "/orders/")
     public List<LimitOrder> fetchActiveLimitOrders() {
 
@@ -144,6 +145,8 @@ public class BrokerController {
         return limitOrderService.findLimitOrders(accountService.getAccountByName(username));
 
     }
+    /*
+
 
     @PostMapping(value = "/buy/market")
     public void placeAssetBuyMarketOrder(@RequestBody BuyStockRequest buyStockRequest)

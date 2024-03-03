@@ -1,9 +1,13 @@
 
 $(document).ready(function () {
 
+  //  alert("leaderboard.js");
+
 	// the first run starts after waiting first
 	
-	setInterval(displayAllActivityRecords,1000);
+displayAllActivityRecords();
+
+	setInterval(displayAllActivityRecords,1000*30);
 	
 });
 
@@ -16,9 +20,7 @@ function displayAllActivityRecords() {
 
 		type: "GET",
 		
-		url: "https://apis.napkinexchange.softwareshinobi.digital/leaderboard/",
-
-//		url: "http://localhost:8888/leaderboard",
+		url: apiURL + "/leaderboard/",
 
 		contentType: "text/plain",
 		
@@ -56,6 +58,8 @@ function setResultsArea(responseData) {
     trHTML += '<td class="METADATA DEBUG">' + responseData[i].ranking + '</td>';
 
     trHTML += '<td class="METADATA DEBUG">' + responseData[i].username + '</td>';
+
+    trHTML += '<td class="METADATA DEBUG">' + responseData[i].accountBalance + '</td>';
 
     trHTML += '<td class="METADATA DEBUG">' + responseData[i].totalProfits + '</td>';
 

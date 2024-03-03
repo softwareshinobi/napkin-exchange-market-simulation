@@ -1,6 +1,5 @@
 package digital.softwareshinobi.napkinexchange.trader.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import digital.softwareshinobi.napkinexchange.security.entity.Stock;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import jakarta.persistence.*;
@@ -18,7 +17,7 @@ public class LimitOrder implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
+    //@JsonIgnore
     private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL)
