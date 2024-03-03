@@ -93,11 +93,11 @@ def cascadeFooterContent():
 
 def cascadeTopNavigation():
 
-	templateSectionBegin="<!-- Navbar -->"
+	templateSectionBegin="<!-- Navbar Start -->"
 
-	templateSectionEnd=" <!-- /.navbar -->"
+	templateSectionEnd="<!-- Navbar End -->"
 
-	with open('templates/navigation-top-menu.template') as templateFile:
+	with open('templates/navbar.template') as templateFile:
 
 		substitutionContent = templateFile.read()
 
@@ -180,13 +180,15 @@ def cascadeFlyoutContent():
 
 cascadeStylingIncludes()
 
+cascadeTopNavigation()
+
 cascadeSideNavigation()
 
 #cascadeJavascriptIncludes()
 
 cascadeFooterContent()
 
-#cascadeTopNavigation()
+
 
 
 
