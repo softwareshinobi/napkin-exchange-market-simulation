@@ -19,22 +19,32 @@
 
 
 
-<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>home</a>
+<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
 
 <div class="nav-item dropdown">
 
 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
 <i class="fa fa-laptop me-2"></i>
-analytics
+
+Market Analytics
+
 </a>
 
 <div class="dropdown-menu bg-transparent border-0">
 
+<a href="dashboard.html" class="dropdown-item">
+
+Asset Metrics [coming soon]
+
+</a>
+
+<!--
 <a href="dashboard.html" class="dropdown-item">dashboard 1</a>
 <a href="dashboard2.html" class="dropdown-item">dashboard 2</a>
 <a href="dashboard3.html" class="dropdown-item">dashboard 3</a>
 <a href="dashboard4.html" class="dropdown-item">dashboard 4</a>
-
+-->
 </div>
 </div>
 
@@ -58,7 +68,7 @@ The Market
 
 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>
 
-Support
+Tech Support
 
 </a>
 

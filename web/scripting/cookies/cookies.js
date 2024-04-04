@@ -15,6 +15,8 @@ $(document).ready(function () {
 
 });
 
+apiURL="http://localhost:8888";
+
 var KEY_USERNAME="traderName";
 
 function traderName() {
@@ -28,7 +30,7 @@ function traderName() {
     return traderName;
 
 }
-apiURL="http://localhost:8888";
+
 
 //currentTraderUsername="";
 

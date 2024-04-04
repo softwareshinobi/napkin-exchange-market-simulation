@@ -92,7 +92,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>digital.softwareshinobi.napkinexchange.NapkinExchangeServer</mainClass>
+					<mainClass>digital.softwareshinobi.napkinexchange.TheNapkinExchange</mainClass>
 				</configuration>
 				<executions>
 					<execution>

@@ -16,7 +16,7 @@ services:
 
             dockerfile: Dockerfile
 
-        restart: always
+        restart: unless-stopped
 
         ports:
 
@@ -41,24 +41,12 @@ services:
       ##  volumes:
         
     ##        - dashboard:/tmp
-            
+
+        restart: unless-stopped          
+
         ports:
 
             - 8881:8000
-
-    napkin-exchange-docs:
-
-        container_name: napkin-exchange-docs
-
-        image: titom73/mkdocs
-      
-        volumes:
-        
-            - ${PWD}:/docs
-            
-        ports:
-
-            - 8880:8000
 
     napkin-exchange-database:
 
@@ -66,6 +54,7 @@ services:
 
         image: mariadb
 
+        restart: unless-stopped
      ##   volumes:
 
      ##       - ./.container-volumes/mysql-server:/var/lib/mysql
@@ -90,6 +79,8 @@ services:
 
         image: beeyev/phpmyadmin-lightweight
 
+        restart: unless-stopped
+
         depends_on:
 
            - napkin-exchange-database
@@ -106,6 +97,7 @@ services:
 
             PMA_HOST: napkin-exchange-database
 
-            PMA_PORT: 3306
-
-            PMA_ARBITRARY: 1
+##            PMA_PORT: 3306
+##
+##            PMA_ARBITRARY: 1
+##

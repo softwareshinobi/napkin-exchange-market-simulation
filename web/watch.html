@@ -1,8 +1,9 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-
-    <title>Buy/Sell Currency / The Napkin Exchange</title>
-
+    <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -12,8 +13,8 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -21,7 +22,7 @@
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +34,7 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -233,139 +234,514 @@ template
 <!-- Navbar End -->
 
 
-            <!-- Form Start -->
+            <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Buy Currency / Smart Order</h6>
-                            <form>
 
 
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ticker</label>
-                                    <div class="col-sm-10">
-               <select id="buyOrderSymbol" class="form-select mb-3" aria-label="Default select example">
+<div class="row">
 
+<div class="col-xl-3 col-lg-12 stretch-card grid-margin">
 
-                                <option value="dione">DIONE</option>
-                                <option value="callisto">CALLISTO</option>
-                                <option value="europa">EUROPA</option>
-                                <option value="pandora">PANDORA</option>
+<div class="row">
 
+<div onclick="onClickDionePanel()" class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
 
-                            </select>
-                                    </div>
-                                </div>
+<div class="card bg-warning">
 
+<div class="card-body px-3 py-4">
 
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">price</label>
-                                    <div class="col-sm-10">
-        <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <input readonly="" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                               
-                            </div>   </div>
-                                </div>
+<div class="d-flex justify-content-between align-items-start">
 
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">units</label>
-                                    <div class="col-sm-10">
-        <div class="input-group mb-3">
+<div class="color-card">
 
-                                <input id="buyOrderUnits" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">units</span>
-                            </div>   </div>
-                                </div><div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">total</label>
-                                    <div class="col-sm-10">
-        <div class="input-group mb-3">
+<p class="mb-0 color-card-head">
 
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">$</span>
-                            </div>   </div>
-                                </div>
+Dione
 
+</p>
 
+<h2 id="panel-dione-pricing" class="text-white">
 
+--
 
-                        <div class="d-grid gap-2">
-  <button onclick="processBuyForm()" class="btn btn-lg btn-primary" type="button">Place SMART BUY Order</button>
+</h2>
 
-</div>        
-                                
-                            </form>
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-warning"></i>
+
+</div>
+
+<h6 id="panel-dione-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+
+</div>
+
+</div>
+
+<div onclick="onClickCallistoPanel()" class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+
+<div class="card bg-danger">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 color-card-head">
+
+Callisto
+
+</p>
+
+<h2 id="panel-callisto-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
+
+</div>
+
+<h6 id="panel-callisto-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+
+</div>
+
+</div>
+
+<div onclick="onClickEuropaPanel()" class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
+
+<div class="card bg-primary">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 color-card-head">
+
+Europa
+
+</p>
+
+<h2 id="panel-europa-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-primary"></i>
+
+</div>
+
+<h6 id="panel-europa-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+
+</div>
+
+</div>
+
+<div onclick="onClickPandoraPanel()" class="col-xl-12 col-md-6 stretch-card pb-sm-3 pb-lg-0">
+
+<div class="card bg-success">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 color-card-head">
+
+Pandora
+
+</p>
+
+<h2 id="panel-pandora-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-success"></i>
+
+</div>
+
+<h6 id="panel-pandora-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div onclick="onClickEuropaPanel()" class="col-xl-9 stretch-card grid-margin">
+<div class="card">
+<div class="card-body">
+<div class="row">
+
+<div class="col-sm-7">
+
+<h5 id="symbolTicker">
+
+--
+
+</h5>
+
+<p class="text-muted">
+ 
+<b id="symbolName">
+
+--
+
+</b>
+
+/
+
+<b id="symbolSector">
+
+--
+
+</b>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="row" style="display:none"> 
+
+<div class="col-sm-4">
+
+<div class="card mb-3 mb-sm-0">
+
+<div class="card-body py-3 px-4">
+
+<p class="m-0 survey-head">
+
+1M
+
+</p>
+
+<div class="d-flex justify-content-between align-items-end flot-bar-wrapper">
+
+<div>
+
+<h3 class="m-0 survey-value">
+
+0.85025
+
+</h3>
+
+<p class="text-success m-0">
+
++0.0045 / +18.33%
+
+</p>
+
+</div>
+
+                              <div id="earningChart" class="flot-chart" style="padding: 0px;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas></div>
+                            </div>
+                          </div>
                         </div>
-                    </div><div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Sell Currency / Smart Order</h6>
-                            <form>
-
-
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">ticker</label>
-                                    <div class="col-sm-10">
-               <select class="form-select mb-3" aria-label="Default select example">
-
-                                <option value="dione">DIONE</option>
-                                <option value="callisto">CALLISTO</option>
-                                <option value="europa">EUROPA</option>
-                                <option value="pandora">PANDORA</option>
-                            </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">price</label>
-                                    <div class="col-sm-10">
-        <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <input readonly="" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                               
-                            </div>   </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">units</label>
-                                    <div class="col-sm-10">
-        <div class="input-group mb-3">
-
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">units</span>
-                            </div>   </div>
-                                </div><div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">total</label>
-                                    <div class="col-sm-10">
-        <div class="input-group mb-3">
-
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">$</span>
-                            </div>   </div>
-                                </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card mb-3 mb-sm-0">
+                          <div class="card-body py-3 px-4">
 
 
 
+<p class="m-0 survey-head">
 
-                        <div class="d-grid gap-2">
-  <button class="btn btn-lg btn-primary" type="button">Place SMART SELL Order</button>
+5M
 
-</div>        
-                                
-                            </form>
+</p>
+
+<div class="d-flex justify-content-between align-items-end flot-bar-wrapper">
+
+<div>
+
+<h3 class="m-0 survey-value">
+
+0.85025
+
+</h3>
+
+<p class="text-success m-0">
+
++0.0045 / +18.33%
+
+</p>
+
+</div>
+
+                              <div id="productChart" class="flot-chart" style="padding: 0px;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas></div>
+                            </div>
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body py-3 px-4">
+
+<p class="m-0 survey-head">
+
+30M
+
+</p>
+
+<div class="d-flex justify-content-between align-items-end flot-bar-wrapper">
+
+<div>
+
+<h3 class="m-0 survey-value">
+
+0.85025
+
+</h3>
+
+<p class="text-success m-0">
+
++0.0045 / +18.33%
+
+</p>
+
+</div>
+
+                              <div id="orderChart" class="flot-chart" style="padding: 0px;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    <div class="row my-3">
+                      <div class="col-sm-12">
                     
-                    
-                    
-                    
-                    
-                    
+  <canvas id="mycanvas" style="display: block; box-sizing: border-box; height: 418px; width: 836px;" width="836" height="418"></canvas>
+
+     </div>
+               
+                        
+                    </div>
+                    <div class="row">
+
+<div style="visibility:hidden" class="col-sm-8">
+
+<p class="text-muted mb-0">
+
+DIONE is a lifestyle brand for the post-modern Saturnalian. 
+
+<a target="blank" class="text-muted mb-0" href="https://en.wikipedia.org/wiki/Dione_(moon)">
+
+<b>
+
+Learn More
+
+</b>
+
+</a>
+
+</p>
+
+</div>
+
+<div class="col-sm-4">
+
+<p class="mb-0 text-muted">
+
+Live Pricing
+
+</p>
+
+<h5 id="bottom-corner-symbol-pricing" class="d-inline-block survey-value mb-0">
+
+--
+
+</h5>
+                        
+<p id="bottom-corner-symbol-diff" class="d-inline-block text-primary mb-0">
+
+--
+
+</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+
+<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+								
+								
+									<h2>Buy Stock<small>purchase virtual securities for your portfolio.
+
+
+</small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+									
+									
+									
+										<li class="dropdown" style="visibility: hidden">
+										
+										
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+											<ul class="dropdown-menu" role="menu">
+												<li><a class="dropdown-item" href="#">Settings 1</a>
+												</li>
+												<li><a class="dropdown-item" href="#">Settings 2</a>
+												</li>
+											</ul>
+										</li>
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+										
+										<li><a class="close-link"><i class="fa fa-close"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br>
+									
+<div class="item form-group">
+    
+    <label class="col-form-label col-md-3 col-sm-3 label-align">
+    
+username
+        
+        <span class="required"></span>
+        
+    </label>
+    
+    <div class="col-md-6 col-sm-6 ">
+    
+        <input readonly="" id="trader-username" type="text" required="required" class="form-control " value="--">
+            
+    </div>
+
+</div>
+	
+<div class="item form-group">
+    
+    <label class="col-form-label col-md-3 col-sm-3 label-align">
+    
+ticker
+        
+        <span class="required"></span>
+        
+    </label>
+    
+    <div class="col-md-6 col-sm-6 ">
+    
+        <input id="buy-ticker" type="text" required="required" class="form-control " value="PANDORA">
+            
+    </div>
+
+</div>
+
+<div class="item form-group">
+    
+    <label class="col-form-label col-md-3 col-sm-3 label-align">
+    
+# shares to buy
+        
+        <span class="required"></span>
+        
+    </label>
+    
+    <div class="col-md-6 col-sm-6 ">
+    
+        <input id="buy-units" type="text" required="required" class="form-control " value="">
+            
+    </div>
+
+</div>	
+<div class="item form-group">
+    
+
+
+</div>
+											
+
+
+										
+									
+										<div class="ln_solid"></div>
+										
+										<div class="item form-group">
+										
+											<div class="col-md-6 col-sm-6 offset-md-3">
+																							
+												<button class="btn btn-primary" onclick="clearForm()" type="reset">
+
+Clear Form
+
+</button>
+												
+												<button onclick="processForm()" type="submit" class="btn btn-success">
+												
+												Add Funds To Account
+												
+												</button>
+												
+											</div>
+										</div>
+
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+
+
+                    <div class="col-md-6 text-center">
+                        <h3>This is blank page</h3>
+                    </div>
                 </div>
             </div>
-            <!-- Form End -->
+            <!-- Blank End -->
 
 
             <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
@@ -393,7 +769,7 @@ template
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -409,15 +785,6 @@ template
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+</body>
 
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script> 
-
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
-
-<script src="scripting/cookies/cookies.js"></script>
-
-<script src="scripting/broker/buysell.js"></script>
-
-
-
-</body></html>
+</html>

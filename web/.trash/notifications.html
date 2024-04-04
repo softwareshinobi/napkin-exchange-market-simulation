@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-    <title>Home / Napkin Exchange</title>
+    <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -11,8 +13,8 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -20,7 +22,7 @@
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +34,7 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -61,22 +63,32 @@
 
 
 
-<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>home</a>
+<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
 
 <div class="nav-item dropdown">
 
 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
 <i class="fa fa-laptop me-2"></i>
-analytics
+
+Market Analytics
+
 </a>
 
 <div class="dropdown-menu bg-transparent border-0">
 
+<a href="dashboard.html" class="dropdown-item">
+
+Asset Metrics [coming soon]
+
+</a>
+
+<!--
 <a href="dashboard.html" class="dropdown-item">dashboard 1</a>
 <a href="dashboard2.html" class="dropdown-item">dashboard 2</a>
 <a href="dashboard3.html" class="dropdown-item">dashboard 3</a>
 <a href="dashboard4.html" class="dropdown-item">dashboard 4</a>
-
+-->
 </div>
 </div>
 
@@ -100,7 +112,7 @@ The Market
 
 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>
 
-Support
+Tech Support
 
 </a>
 
@@ -132,8 +144,7 @@ template
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <!-- Navbar Start --><nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
@@ -147,7 +158,7 @@ template
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
+                            <span class="d-none d-lg-inline-flex">Messages</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -186,7 +197,7 @@ template
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                            <span class="d-none d-lg-inline-flex">Notifications</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -210,7 +221,7 @@ template
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span id="dropdownTraderName" class="d-none d-lg-inline-flex">mateo</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
@@ -220,63 +231,83 @@ template
                     </div>
                 </div>
             </nav>
-            <!-- Navbar End -->
+<!-- Navbar End -->
 
 
             <!-- Table Start -->
-            <div class="container-fluid pt-4 px-4"><div class="row g-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">$1,884,287.03</h6>
-                            </div>
-                        </div>
-                    </div><div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">$1,884,287.03</h6>
-                            </div>
-                        </div>
-                    </div><div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">$1,884,287.03</h6>
-                            </div>
-                        </div>
-                    </div><div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">$1,884,287.03</h6>
-                            </div>
-                        </div>
-                    </div>
-                    
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Market Watch</h6>
-                            <table id="marketwatch" class="table table-hover">
+                            <h6 class="mb-4">Basic Table</h6>
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Symbol</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">% change</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
                                     </tr>
                                 </thead>
-
-                                <tbody></tbody>
-
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>jhon@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mark@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>jacob@email.com</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
-                    </div><div class="col-sm-12 col-xl-6">
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Accented Table</h6>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>jhon@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mark@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>jacob@email.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Hoverable Table</h6>
                             <table class="table table-hover">
@@ -311,155 +342,163 @@ template
                             </table>
                         </div>
                     </div>
-                    
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">holdings</h6>
-                            <table id="holdings" class="table table-bordered">
+                            <h6 class="mb-4">Color Table</h6>
+                            <table class="table table-dark">
                                 <thead>
                                     <tr>
-
-                                        <th scope="col">ticker</th>
-                                        <th scope="col">units</th>
-                                        <th scope="col">costBasis</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
                                     </tr>
                                 </thead>
-
-                                <tbody><tr><td class="">europa</td><td class="">444</td><td class="">1.69</td></tr><tr><td class="">callisto</td><td class="">444</td><td class="">217.76</td></tr><tr><td class="">dione</td><td class="">1</td><td class="">1.13</td></tr></tbody>
-
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>jhon@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mark@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>jacob@email.com</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">trader rankings</h6>
-                            <table id="activity-display-table" class="table table-borderless">
-                               <thead>
+                            <h6 class="mb-4">Bordered Table</h6>
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-
-                                        <th>
-
-                                           rank
-
-                                        </th>
-
-                                        <th>
-
-                                            username
-
-                                        </th>
-
-                                        <th>
-
-                                            balance
-
-                                        </th>
-                                                <th>
-
-                                            profit
-
-                                        </th>
-
+                                        <th scope="col">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
                                     </tr>
-
-                                    </thead>
-
-<tbody><tr><td class="METADATA DEBUG">1</td><td class="METADATA DEBUG">mateo</td><td class="METADATA DEBUG">1932665.27</td><td class="METADATA DEBUG">398410.08</td></tr></tbody>
-
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>jhon@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mark@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>jacob@email.com</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
-
-
-
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Table Without Border</h6>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>jhon@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mark@email.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>jacob@email.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">orders</h6>
+                            <h6 class="mb-4">Responsive Table</h6>
                             <div class="table-responsive">
-                                <table id="orders" class="table">
-
-<thead>
-
-<tr>
-
-<th>id</th>
-
-<th>symbol</th>
-
-<th>type</th>
-
-<th>
-
-sharesToBuy
-
-</th>
-
-<th>
-
-relatedOrderId
-
-</th>
-
-<th>
-
-strikePrice
-
-</th>
-
-<th>
-
-assetPrice
-
-</th>
-</tr>
-
-</thead>
-
-<tbody><tr><td class="">1</td><td class="">EUROPA</td><td class="">LONG_STOP_LOSS</td><td class="">444</td><td class="">2</td><td class="">1.68831</td><td class="">3.57</td></tr><tr><td class="">2</td><td class="">EUROPA</td><td class="">LONG_TAKE_PROFIT</td><td class="">444</td><td class="">1</td><td class="">2.197</td><td class="">3.57</td></tr><tr><td class="">5</td><td class="">DIONE</td><td class="">LONG_STOP_LOSS</td><td class="">1</td><td class="">6</td><td class="">1.1288699999999998</td><td class="">1.13</td></tr><tr><td class="">6</td><td class="">DIONE</td><td class="">LONG_TAKE_PROFIT</td><td class="">1</td><td class="">5</td><td class="">1.4689999999999999</td><td class="">1.13</td></tr></tbody>
-
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">ZIP</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>John</td>
+                                            <td>Doe</td>
+                                            <td>jhon@email.com</td>
+                                            <td>USA</td>
+                                            <td>123</td>
+                                            <td>Member</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>mark@email.com</td>
+                                            <td>UK</td>
+                                            <td>456</td>
+                                            <td>Member</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>jacob@email.com</td>
+                                            <td>AU</td>
+                                            <td>789</td>
+                                            <td>Member</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
-
-
-                    </div><div class="col-12">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">trader activity</h6>
-                            <div class="table-responsive">
-                                <table id="activity" class="table">
-
-<thead>
-
-<tr>
-
-<th>id</th>
-
-<th>username</th>
-
-<th>type</th>
-
-<th>
-
-description
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody></tbody>
-
-                                </table>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
-                
             </div>
-        
+            <!-- Table End -->
 
 
             <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
@@ -487,7 +526,7 @@ description
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -503,19 +542,6 @@ description
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+</body>
 
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script> 
-
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
-
-<script src="scripting/cookies/cookies.js"></script>
-
-<script src="scripting/leaderboard/leaderboard.js"></script>
-
-<script src="scripting/trader/detail.js"></script>
-
-
-
-
-
-</body></html>
+</html>
