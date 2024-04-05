@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-   alert("buysell.js");
+//   alert("buysell.js");
 
  //   fetchAccountInformation();
 

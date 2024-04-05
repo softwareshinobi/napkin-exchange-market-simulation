@@ -299,13 +299,12 @@ template
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Market Watch</h6>
-                            <table id="marketwatch" class="table table-hover">
+                            <table id="livepricing" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Symbol</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Price</th>
-                                        <th scope="col">% change</th>
                                     </tr>
                                 </thead>
 
@@ -351,26 +350,32 @@ template
                     
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">holdings</h6>
-                            <table id="holdings" class="table table-bordered">
+                            <h6 class="mb-4">Portfolio Holdings</h6>
+                            <table id="holdings" class="table table-hover">
                                 <thead>
                                     <tr>
 
-                                        <th scope="col">ticker</th>
-                                        <th scope="col">units</th>
-                                        <th scope="col">costBasis</th>
+                                        <th scope="col">Symbol</th>
+                                        <th scope="col">Units</th>
+                                        <th scope="col">Cost Basis</th>
                                     </tr>
                                 </thead>
 
-                                <tbody><tr><td class="">europa</td><td class="">444</td><td class="">1.69</td></tr><tr><td class="">callisto</td><td class="">444</td><td class="">217.76</td></tr><tr><td class="">dione</td><td class="">1</td><td class="">1.13</td></tr></tbody>
+                                <tbody>
+</tbody>
 
                             </table>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">trader rankings</h6>
-                            <table id="activity-display-table" class="table table-borderless">
+
+                            <h6 class="mb-4">
+
+Profit Leaderboard
+
+</h6>
+                            <table id="leaderboard" class="table table-hover">
                                <thead>
                                     <tr>
 
@@ -401,7 +406,7 @@ template
 
                                     </thead>
 
-<tbody><tr><td class="METADATA DEBUG">1</td><td class="METADATA DEBUG">mateo</td><td class="METADATA DEBUG">1932665.27</td><td class="METADATA DEBUG">398410.08</td></tr></tbody>
+<tbody></tbody>
 
                             </table>
                         </div>
@@ -411,73 +416,84 @@ template
 
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">orders</h6>
-                            <div class="table-responsive">
-                                <table id="orders" class="table">
+                            <h6 class="mb-4">
+
+Open Orders
+
+</h6>
+                         
+   <div class="table-responsive">
+           
+                     <table id="orders" class="table table-hover">
 
 <thead>
 
 <tr>
 
-<th>id</th>
+<th>Id</th>
 
-<th>symbol</th>
+<th>Symbol</th>
 
-<th>type</th>
+<th>Type</th>
 
 <th>
 
-sharesToBuy
+Units
 
 </th>
 
 <th>
 
-relatedOrderId
+Related Id
 
 </th>
 
 <th>
 
-strikePrice
+Trigger Price
 
 </th>
 
 <th>
 
-assetPrice
+Current Price
 
 </th>
 </tr>
 
 </thead>
 
-<tbody><tr><td class="">1</td><td class="">EUROPA</td><td class="">LONG_STOP_LOSS</td><td class="">444</td><td class="">2</td><td class="">1.68831</td><td class="">3.57</td></tr><tr><td class="">2</td><td class="">EUROPA</td><td class="">LONG_TAKE_PROFIT</td><td class="">444</td><td class="">1</td><td class="">2.197</td><td class="">3.57</td></tr><tr><td class="">5</td><td class="">DIONE</td><td class="">LONG_STOP_LOSS</td><td class="">1</td><td class="">6</td><td class="">1.1288699999999998</td><td class="">1.13</td></tr><tr><td class="">6</td><td class="">DIONE</td><td class="">LONG_TAKE_PROFIT</td><td class="">1</td><td class="">5</td><td class="">1.4689999999999999</td><td class="">1.13</td></tr></tbody>
+<tbody>
+</tbody>
 
                                 </table>
                             </div>
                         </div>
 
+</div><div class="col-12">
 
-                    </div><div class="col-12">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">trader activity</h6>
-                            <div class="table-responsive">
-                                <table id="activity" class="table">
+<div class="bg-light rounded h-100 p-4">
+
+<h6 class="mb-4">
+
+Account Activity Feed
+
+</h6>
+<div class="table-responsive">
+
+<table id="notifications" class="table table-hover">
 
 <thead>
 
 <tr>
 
-<th>id</th>
+<th>Id</th>
 
-<th>username</th>
-
-<th>type</th>
+<th>Type</th>
 
 <th>
 
-description
+Activity Description
 
 </th>
 
@@ -487,17 +503,17 @@ description
 
 <tbody></tbody>
 
-                                </table>
-                            </div>
-                        </div>
+</table>
 
+</div>
 
-                    </div>
-                </div>
-                
-            </div>
-        
+</div>
 
+</div>
+
+</div>
+
+</div>
 
             <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
@@ -551,8 +567,8 @@ description
 
 <script src="scripting/trader/detail.js"></script>
 
+<script src="scripting/trader/notification.js"></script>
 
-
-
+<script src="scripting/marketwatch/livepricing.js"></script>
 
 </body></html>

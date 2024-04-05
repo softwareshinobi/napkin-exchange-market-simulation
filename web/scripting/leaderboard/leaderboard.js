@@ -1,188 +1,75 @@
 
 $(document).ready(function () {
 
-  //  alert("leaderboard.js");
+//    alert("overlord actual");
 
-	// the first run starts after waiting first
-	
-displayAllActivityRecords();
+fetchLeaderboardDetails();
 
-	setInterval(displayAllActivityRecords,1000*30);
-	
+setInterval(fetchLeaderboardDetails, 1000*10);
+
 });
 
+function fetchLeaderboardDetails() {
 
-function displayAllActivityRecords() {
+console.debug(" -> :: fetchLeaderboardDetails()");	
 
-	console.debug(" -> :: displayAllActivityRecords()");	
+$.ajax({
 
-	$.ajax({
+type: "GET",
 
-		type: "GET",
-		
-		url: apiURL + "/leaderboard/",
+url: apiURL + "/leaderboard/",
 
-		contentType: "text/plain",
-		
-		crossDomain: true,				
+contentType: "text/plain",
 
-		success: function (data, status, jqXHR) {
-            
-            setResultsArea(data);
-            
-            showResultsArea();
+crossDomain: true,				
 
-		},
+success: function (data, status, jqXHR) {
 
-		error: function (jqXHR, status) {
+console.log("huh?");
 
-			console.log("Something Went wrong");
-		
-			console.log(jqXHR);
+profitleaderboard(data);
 
-		}
+},
 
-	});
+error: function (jqXHR, status) {
+alert("leaw3333derbeeeeeeeoard.js");
+console.log("Something Went wrong");
+
+console.log(jqXHR);
 
 }
 
-
-function setResultsArea(responseData) {
-
-    var trHTML = '';
-
-    for (var i =0;i< responseData.length; i++) {
-
-    trHTML += '<tr>';
-
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].ranking + '</td>';
-
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].username + '</td>';
-
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].accountBalance + '</td>';
-
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].totalProfits + '</td>';
-
-    trHTML += '</tr>';	
-		  
-}
-
-    $('#activity-display-table  > tbody').html(trHTML); 
-
-    
-
-    console.log("trHTML", trHTML);
+});
 
 }
 
-function clearFormBoxes(){
-$("#category").val(newValue);
-    setcategory("");
+function profitleaderboard(responseData) {
 
-    setRemoteServerIP("");
-	$("#description").val(newValue);
-    setRemoteServerPort(""); 
-    	$("#state").val(newValue);
+console.log("yo profitleaderboard");
+
+console.log(responseData);
+
+var trHTML = '';
+
+for (var i =0;i< responseData.length; i++) {
+
+trHTML += '<tr>';
+
+trHTML += '<td class="METADATA DEBUG">' + responseData[i].ranking + '</td>';
+
+trHTML += '<td class="METADATA DEBUG">' + responseData[i].username + '</td>';
+
+trHTML += '<td class="METADATA DEBUG">' + responseData[i].accountBalance + '</td>';
+
+trHTML += '<td class="METADATA DEBUG">' + responseData[i].totalProfits + '</td>';
+
+trHTML += '</tr>';	
+
 }
 
+console.log(trHTML);
 
-function showResultsArea() {
-	$("#results-area-parent-div").show();
+$('#leaderboard > tbody').html(trHTML); 
 
-
-}
-
-function hideResultsArea() {
-
-	$("#results-area-parent-div").hide();
-
-}
-
-
-
-
-function processForm() {
-
-	//console.debug(" -> :: processForm()");	
-
-	//
-
-	activityCategory=$("#category").val();
-
-	console.debug("activityCategory: " + activityCategory);
-
-	//
-	
-    activityState=$("#state").val();
-
-	console.debug("activityState: " + activityState);
-
-	//
-	
-    activityDescription=$("#description").val();
-
-	console.debug("activityDescription: " + activityDescription);
-
-	//
-	
-	$.ajax({
-
-		type: "POST",
-		
-		url: "https://api.softwareshinobi.online/activity-manager/add-activity",
-
-        data: JSON.stringify({
-        
-            category: activityCategory,
-
-            state: activityState,
-
-            description: activityDescription,
-			
-            jewellerId: "asdfas", locale: "adfa"
-              
-        }),
-
-		contentType: "text/plain",
-		
-		crossDomain: true,
-		
-		dataType: "text",		
-
-		success: function (data, status, jqXHR) {
-
-            //console.log("everything went good.");
-                        
-			//console.log("data");
-
-            //console.log(data);
-            
-           // setResultsArea(data);
-            
-           // showResultsArea();
-		     clearFormBoxes();
-displayAllActivityRecords();		 
-
-		},
-
-		error: function (jqXHR, status) {
-
-			console.log("Something Went wrong");
-
-			console.log("exception");
-			
-			console.log(jqXHR);
-
-			console.log("status");
-			
-			console.log(status);
-
-		}
-
-	});
-
-	//
-
-	//console.debug(" <- :: processForm()");
-  
+console.log("oy");
 }
