@@ -24,7 +24,7 @@ function visualizeTraderDetails() {
 		crossDomain: true,				
 
 		success: function (data, status, jqXHR) {
-            
+
             insertTradeDetailContent(data);           
 
 		},
@@ -118,7 +118,7 @@ function visualizeTraderOpenOrders() {
 
 		type: "GET",
 		
-		url: traderExchangeURL + "/inventory/orders/" + currentTraderUsername,
+		url: apiURL + "/inventory/orders/" + traderName(),
 
 		contentType: "text/plain",
 		

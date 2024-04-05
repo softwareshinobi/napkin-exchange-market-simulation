@@ -1,16 +1,17 @@
+
 $(document).ready(function () {
 
-doWork();
+    doWork();
 
-setInterval(doWork,1000*8);
+    setInterval(doWork,1000*8);
 
 });
 
 function doWork(){
+
     visualizeTraderOpenOrders();
+
     visualizeTraderDetails();
-
-
 
 }
 

@@ -57,7 +57,6 @@ function processCreateForm() {
 
             console.log("response / ", data);
 
-            // Simulate an HTTP redirect:
             window.location.replace("login.html");
 
 		},

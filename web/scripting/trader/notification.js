@@ -1,20 +1,15 @@
 
 $(document).ready(function () {
 
-  //alert("notification.js");
+    fetchNotifications();
 
-	// the first run starts after waiting first
-	
-displayAllActivityRecords();
+    setInterval(fetchNotifications, 1000 * 10);
 
-	setInterval(displayAllActivityRecords,1000*30);
-	
 });
 
+function fetchNotifications() {
 
-function displayAllActivityRecords() {
-
-	console.debug(" -> :: displayAllActivityRecords()");	
+	console.debug(" enter > fetchNotifications()");
 
 	$.ajax({
 
@@ -28,7 +23,7 @@ function displayAllActivityRecords() {
 
 		success: function (data, status, jqXHR) {
             
-            setResultsArea(data);           
+            displayNotifications(data);           
 
 		},
 
@@ -44,26 +39,26 @@ function displayAllActivityRecords() {
 
 }
 
-function setResultsArea(responseData) {
+function displayNotifications(notifications) {
 
-    var trHTML = '';
+    var content = '';
 
-    for (var i =0;i< responseData.length; i++) {
+    for (var index = 0; index < notifications.length; index++) {
 
-    trHTML += '<tr>';
+        content += '<tr>';
 
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].id + '</td>';
+        content += '<td>' + notifications[index].id + '</td>';
 
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].type + '</td>';
+        content += '<td>' + notifications[index].type + '</td>';
 
-    trHTML += '<td class="METADATA DEBUG">' + responseData[i].description + '</td>';
+        content += '<td>' + notifications[index].description + '</td>';
 
-    trHTML += '</tr>';	
-		  
-}
+        content += '</tr>';	
 
-    $('#notifications > tbody').html(trHTML);     
+    }
 
-    console.log("trHTML", trHTML);
+        $('#notifications > tbody').html(content);     
+
+        console.log("content", content);
 
 }
