@@ -66,3 +66,7 @@ bash start.bash
 ```bash
 firefox http://localhost:8888
 ```
+
+or click this link:
+
+[Access Local Deployment](http://localhost:8888)
