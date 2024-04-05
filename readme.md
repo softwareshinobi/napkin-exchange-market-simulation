@@ -17,9 +17,9 @@
 
 ## Shoutouts
 
-A Huge Thank You to Gemini.
-
 A special thanks to Gemini, a large language model from Google AI, for its assistance in creating this documentation. 
+
+and a perpetual huge thank you to my assistant, elle. she helps me in more ways than this text box can explain.
 
 ## Things To Do
 
@@ -37,7 +37,7 @@ The Napkin Exchange can be used in conjunction with a companion open-source trad
 
 *A live demo of The Napkin Exchange is coming soon! Stay tuned for updates.*
 
-[Link to your Trading Robot Repository]
+[The Napkin Exchange Live](https://napkinexchange.softwareshinobi.digital)
 
 ## Roll Your Own
 
@@ -45,7 +45,20 @@ The Napkin Exchange is a breeze to set up and use. Simply follow these steps:
 
 1. `Fork the Repository:` Fork this repository on GitHub to get your own copy of the project.
 2. `Clone Your Fork:` Clone your forked repository to your local machine.
-3. `Run the Start Script:` Execute the `start.bash` script to set up the environment and launch the application.
-4. `Access the Dashboard:` Open your web browser and navigate to `http://localhost:8080` to access the interactive dashboard.
 
-[Link to your Trading Robot Repository]
+```bash
+git clone --single-branch -b selfish https://github.com/softwareshinobi/napkin-exchange-server
+```
+
+3. `Run the Start Script:` Execute the `start.bash` script to set up the environment and launch the application.
+
+```bash
+bash start.bash
+```
+
+4. `Access the Dashboard:` Open your web browser and navigate to `http://localhost:8888` to access the interactive dashboard.
+
+
+```bash
+firefox http://localhost:8888
+```
