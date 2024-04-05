@@ -1,71 +1,60 @@
 
 $(document).ready(function () {
 
-	setInterval(getLivePricing, 1000);
+	setInterval(fetchLivePricing, 1000);
 
 });
 
-function getLivePricing(){
+function fetchLivePricing(){
 
-//    alert("getLisssvePricing");
+    console.debug("enter > fetchLivePricing()");	
 
-console.debug(" -> :: getLivePricing()");	
+    $.ajax({
 
-$.ajax({
+        type: "GET",
 
-type: "GET",
+        url: apiURL + "/candlestick",
 
-url: apiURL + "/candlestick",
+        contentType: "text/plain",
 
-contentType: "text/plain",
+        crossDomain: true,				
 
-crossDomain: true,				
+        success: function (data, status, jqXHR) {
 
-success: function (data, status, jqXHR) {
+            displayLivePricing(data);
 
-console.log("huh?");
+        }, error: function (exception, status) {
 
-yo(data);
+            console.log("error / " + exception);
 
-},
+        }
 
-error: function (jqXHR, status) {
-alert("leaw3333derbeeeeeeeoard.js");
-console.log("Something Went wrong");
-
-console.log(jqXHR);
+    });
 
 }
 
-});
+function displayLivePricing(priceData) {
+
+    console.log("priceData / " + priceData);
+
+    var html = '';
+
+    for (var index = 0; index < priceData.length; index++) {
+
+        html += '<tr>';
+
+        html += '<td>' + priceData[index].ticker + '</td>';
+
+        html += '<td>' + priceData[index].companyName + '</td>';
+
+        html += '<td>' + priceData[index].price + '</td>';
+
+        html += '</tr>';	
+
+    }
+
+    console.log(html);
+
+    $('#livepricing > tbody').html(html); 
 
 }
-function yo(responseData) {
-
-console.log("price");
-
-console.log(responseData);
-
-var trHTML = '';
-
-for (var i =0;i< responseData.length; i++) {
-
-trHTML += '<tr>';
-
-trHTML += '<td>' + responseData[i].ticker + '</td>';
-
-trHTML += '<td>' + responseData[i].companyName + '</td>';
-
-trHTML += '<td>' + responseData[i].price + '</td>';
-
-trHTML += '</tr>';	
-
-}
-
-console.log(trHTML);
-
-$('#livepricing > tbody').html(trHTML); 
-
-console.log("ecirp");
-}
-

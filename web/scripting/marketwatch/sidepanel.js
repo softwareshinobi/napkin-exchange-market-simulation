@@ -31,7 +31,7 @@ function updateCallistoPanel() {
 
 		type: "GET",
 
-		url: apiURLBase + "/candlestick/CALLISTO",
+		url: apiURL + "/candlestick/CALLISTO",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -94,7 +94,7 @@ function updateDionePanel() {
 
 		type: "GET",
 
-		url: apiURLBase + "/candlestick/DIONE",
+		url: apiURL + "/candlestick/DIONE",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -158,7 +158,7 @@ function updateEuropaPanel() {
 
 		type: "GET",
 
-		url: apiURLBase + "/candlestick/EUROPA",
+		url: apiURL + "/candlestick/EUROPA",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -221,7 +221,7 @@ function updatePandoraPanel() {
 
 		type: "GET",
 
-		url: apiURLBase + "/candlestick/PANDORA",
+		url: apiURL + "/candlestick/PANDORA",
 
 		contentType: "application/json; charset=utf-8",
 

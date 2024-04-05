@@ -12,7 +12,7 @@ function fetchCandlestickHistory() {
 
 		type: "GET",
 
-		url: apiURLBase + "/candlestick/" + apiSymbol,
+		url: apiURL + "/candlestick/" + apiSymbol,
 
 		contentType: "application/json; charset=utf-8",
 
