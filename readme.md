@@ -63,12 +63,4 @@ cd napkin-exchange-server
 bash start.bash
 ```
 
-3. `Access the Dashboard:` Open your web browser and navigate to `http://localhost:8888` to access the interactive dashboard.
-
-```bash
-firefox http://localhost:8888
-```
-
-or click this link:
-
-[Access Local Deployment](http://localhost:8888)
+3. `Access the Dashboard:` Open your web browser and navigate to [the local deployment](http://localhost:8888) and access the napkin exchange platform.
