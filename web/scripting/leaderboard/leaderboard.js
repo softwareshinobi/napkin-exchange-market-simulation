@@ -32,10 +32,10 @@ profitleaderboard(data);
 },
 
 error: function (jqXHR, status) {
-alert("leaw3333derbeeeeeeeoard.js");
-console.log("Something Went wrong");
 
-console.log(jqXHR);
+    console.log("Something Went wrong");
+
+    console.log(jqXHR);
 
 }
 
