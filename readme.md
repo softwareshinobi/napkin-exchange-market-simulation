@@ -58,6 +58,8 @@ git clone --single-branch -b selfish https://github.com/softwareshinobi/napkin-e
 2. `Run the Start Script:` Execute the `start.bash` script to set up the environment and launch the application.
 
 ```bash
+cd napkin-exchange-server
+
 bash start.bash
 ```
 
