@@ -12,30 +12,36 @@
 * `RESTful APIs:` Exposes APIs for common trading functionalities like buying, selling, and account management, allowing for integration with automated trading tools.
 * `Interactive Dashboard:` A user-friendly front-end dashboard with live market updates, charting tools, and order execution capabilities.
 * `Leaderboards:` Track your performance and compete with other users on the built-in leaderboards.
-* `Open Source:` The entire project is open source, allowing for community contributions and customization.
+* `Open Source:` The entire project is open source (MIT), allowing for community contributions and customization.
 * `Test Bed for Algorithmic Trading:` Use The Napkin Exchange as a platform to develop and test your automated trading robots. (See the included link for more details on the companion trading robot!)
 
 ## Shoutouts
 
 A special thanks to Gemini, a large language model from Google AI, for its assistance in creating this documentation. 
 
-and a perpetual huge thank you to my assistant, elle. she helps me in more ways than this text box can explain.
+and a perpetual huge thank you to my assistant, Elle. everyday she gets me more money and more honey.
 
 ## Things To Do
 
-So check out all the shit i need to do to fix this...
+there's alot of shit to be done.
 
-[Link to your Trading Robot Repository]
+click here to see the ones i bothered to both.
+
+@somebody: help. lol.
+
+[See Project Issues](/docs/project/issues.md)
 
 ## View the Trading Robot`
 
 The Napkin Exchange can be used in conjunction with a companion open-source trading robot.  Click the link below to learn more about the robot and how to integrate it with the simulator:
 
-[Link to your Trading Robot Repository]
+[See Autonomous Trading Robot](https://github.com/softwareshinobi/project-chimba)
 
 ## Live Demo (Optional)
 
-*A live demo of The Napkin Exchange is coming soon! Stay tuned for updates.*
+A live demo of The Napkin Exchange is coming soon!
+
+*Stay tuned for updates.*
 
 [The Napkin Exchange Live](https://napkinexchange.softwareshinobi.digital)
 
@@ -55,7 +61,7 @@ git clone --single-branch -b selfish https://github.com/softwareshinobi/napkin-e
 bash start.bash
 ```
 
-4. `Access the Dashboard:` Open your web browser and navigate to `http://localhost:8888` to access the interactive dashboard.
+3. `Access the Dashboard:` Open your web browser and navigate to `http://localhost:8888` to access the interactive dashboard.
 
 ```bash
 firefox http://localhost:8888
