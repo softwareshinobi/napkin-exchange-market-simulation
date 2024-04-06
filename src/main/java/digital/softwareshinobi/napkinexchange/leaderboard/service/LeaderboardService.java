@@ -1,5 +1,7 @@
-package digital.softwareshinobi.napkinexchange.leaderboard;
+package digital.softwareshinobi.napkinexchange.leaderboard.service;
 
+import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
+import digital.softwareshinobi.napkinexchange.leaderboard.util.SortAccountProfits;
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import java.util.List;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-class ProcessLeaderboard {
+public class LeaderboardService {
 
     @Autowired
     private final AccountService accountService;

@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.leaderboard;
+package digital.softwareshinobi.napkinexchange.leaderboard.model;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;

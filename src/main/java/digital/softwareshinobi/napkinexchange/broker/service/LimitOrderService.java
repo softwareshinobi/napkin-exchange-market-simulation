@@ -2,9 +2,9 @@ package digital.softwareshinobi.napkinexchange.broker.service;
 
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
-import digital.softwareshinobi.napkinexchange.notification.Notification;
-import digital.softwareshinobi.napkinexchange.notification.NotificationService;
-import digital.softwareshinobi.napkinexchange.notification.NotificationType;
+import digital.softwareshinobi.napkinexchange.notification.model.Notification;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;

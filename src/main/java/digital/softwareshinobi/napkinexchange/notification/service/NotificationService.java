@@ -1,5 +1,7 @@
-package digital.softwareshinobi.napkinexchange.notification;
+package digital.softwareshinobi.napkinexchange.notification.service;
 
+import digital.softwareshinobi.napkinexchange.notification.model.Notification;
+import digital.softwareshinobi.napkinexchange.notification.repository.NotificationRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +24,13 @@ public class NotificationService {
 
     }
 
-    List<Notification> findByUsername(String username) {
+    public List<Notification> findByUsername(String username) {
 
         return this.notificationRepository.findByUsername(username);
 
     }
 
-    List<Notification> findAll() {
+    public List<Notification> findAll() {
 
         return this.notificationRepository.findAll();
 

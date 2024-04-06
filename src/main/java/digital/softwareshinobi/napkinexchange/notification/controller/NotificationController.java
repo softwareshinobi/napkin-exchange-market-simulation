@@ -1,5 +1,7 @@
-package digital.softwareshinobi.napkinexchange.notification;
+package digital.softwareshinobi.napkinexchange.notification.controller;
 
+import digital.softwareshinobi.napkinexchange.notification.model.Notification;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

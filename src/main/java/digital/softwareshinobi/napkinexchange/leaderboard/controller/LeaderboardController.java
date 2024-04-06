@@ -1,5 +1,7 @@
-package digital.softwareshinobi.napkinexchange.leaderboard;
+package digital.softwareshinobi.napkinexchange.leaderboard.controller;
 
+import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
+import digital.softwareshinobi.napkinexchange.leaderboard.service.LeaderboardService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +17,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class LeaderboardController {
 
     @Autowired
-    private final ProcessLeaderboard processLeaderboard;
+    private final LeaderboardService leaderboardService;
 
     @RequestMapping(value = "/")
     public List<Leaderboard> getLeaderboardTopTen() {
 
-        return processLeaderboard.topTenAccounts();
+        return leaderboardService.topTenAccounts();
 
     }
 
     @RequestMapping(value = "/podium")
     public List<Leaderboard> getLeaderboardPodium() {
 
-        return processLeaderboard.topThreeAccounts();
+        return leaderboardService.topThreeAccounts();
 
     }
 
     @RequestMapping(value = "/rank/{username}")
     public Leaderboard getLeaderboardByUsername(@PathVariable String username) {
 
-        return processLeaderboard.findAccountRanking(username);
+        return leaderboardService.findAccountRanking(username);
 
     }
 

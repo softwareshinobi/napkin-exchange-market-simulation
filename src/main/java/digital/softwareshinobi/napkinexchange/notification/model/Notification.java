@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.notification;
+package digital.softwareshinobi.napkinexchange.notification.model;
 
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import jakarta.persistence.Column;

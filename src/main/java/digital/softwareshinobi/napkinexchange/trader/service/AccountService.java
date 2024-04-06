@@ -1,9 +1,9 @@
 package digital.softwareshinobi.napkinexchange.trader.service;
 
 import digital.softwareshinobi.napkinexchange.broker.types.AccountTransaction;
-import digital.softwareshinobi.napkinexchange.notification.Notification;
-import digital.softwareshinobi.napkinexchange.notification.NotificationService;
-import digital.softwareshinobi.napkinexchange.notification.NotificationType;
+import digital.softwareshinobi.napkinexchange.notification.model.Notification;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;

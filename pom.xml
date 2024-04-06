@@ -18,11 +18,11 @@
 
 	<groupId>digital.softwareshinobi</groupId>
 
-	<artifactId>napkin-exchange-server</artifactId>
+	<artifactId>napkin-exchange-simulator</artifactId>
 
-	<version>2.0</version>
+	<version>1.0</version>
 
-	<name>napkin-exchange-server</name>
+	<name>napkin-exchange-simulator</name>
 
 	<properties>
 		<java.version>17</java.version>
@@ -105,5 +105,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+    <description>the napkin-exchange-simulator!</description>
 </project>

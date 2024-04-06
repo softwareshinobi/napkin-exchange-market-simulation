@@ -1,10 +1,10 @@
-package digital.softwareshinobi.napkinexchange.leaderboard;
+package digital.softwareshinobi.napkinexchange.leaderboard.util;
 
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import java.util.Comparator;
 import java.util.List;
 
-class SortAccountProfits {
+public class SortAccountProfits {
 
     public static List<Account> sortAccountByProfits(List<Account> accounts) {
 
