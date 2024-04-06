@@ -53,11 +53,20 @@ Dashboard / The Napkin Exchange
         <!-- Spinner End -->
 
 <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a href="dashboard.html" class="navbar-brand mx-4 mb-3">
-                    <h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>NapkinExchange</h5>
-                </a>
+<div class="sidebar pe-4 pb-3">
+
+<nav class="navbar bg-light navbar-light">
+
+<a href="dashboard.html" class="navbar-brand mx-4 mb-3">
+
+<h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>
+
+TheNapkinExchange
+
+</h5>
+
+</a>
+
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -75,32 +84,7 @@ Dashboard / The Napkin Exchange
 
 <a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
 
-<div class="nav-item dropdown">
 
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-
-<i class="fa fa-laptop me-2"></i>
-
-Market Analytics
-
-</a>
-
-<div class="dropdown-menu bg-transparent border-0">
-
-<a href="dashboard.html" class="dropdown-item">
-
-Asset Metrics [coming soon]
-
-</a>
-
-<!--
-<a href="dashboard.html" class="dropdown-item">dashboard 1</a>
-<a href="dashboard2.html" class="dropdown-item">dashboard 2</a>
-<a href="dashboard3.html" class="dropdown-item">dashboard 3</a>
-<a href="dashboard4.html" class="dropdown-item">dashboard 4</a>
--->
-</div>
-</div>
 
 <div class="nav-item dropdown">
 
@@ -128,15 +112,15 @@ Tech Support
 
 <div class="dropdown-menu bg-transparent border-0">
 
-<a href="button.html" class="dropdown-item">
+<a href="monitor.html" class="dropdown-item">
 
-API monitor
+API Monitor
 
 </a>
 
 <a target="template" href="https://themewagon.github.io/dashmin/" class="dropdown-item">
 
-template
+Pristine Template
 
 </a>
 
@@ -160,10 +144,10 @@ template
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <form style="visibility:hidden" class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
-                <div class="navbar-nav align-items-center ms-auto">
+                <div style="visibility:hidden" class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
@@ -227,15 +211,25 @@ template
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span id="dropdownTraderName" class="d-none d-lg-inline-flex">mateo</span>
-                        </a>
+
+<div class="nav-item dropdown">
+
+<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
+<img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+
+<span id="dropdownTraderName" class="d-none d-lg-inline-flex">
+
+--
+
+</span>
+
+</a>
+
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="auth/login.html" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
