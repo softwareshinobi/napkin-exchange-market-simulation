@@ -293,7 +293,7 @@ Pristine Template
                         <div class="bg-light text-center rounded p-4">
 
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Realized Profit & Losses</h6>
+                                <h6 class="mb-0">Realized Profit / Loss</h6>
                                 
 <a href="">See All</a>
 
@@ -308,9 +308,15 @@ Pristine Template
             <!-- Sales Chart End -->
 
 		
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Market Watch</h6>
+   <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light text-center rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Market Watch</h6>
+                                <a href="">See All</a>
+                            </div>
+
+
+
                             <table id="livepricing" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -564,35 +570,5 @@ Activity Description
 <script src="scripting/marketwatch/livepricing.js"></script>
 
 <script src="scripting/dashboard/dashboard.js"></script>
-
-<script>
-
-alert("hey");
-
-    // Doughnut Chart
-    var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "doughnut",
-        data: {
-            labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-            datasets: [{
-                backgroundColor: [
-                    "rgba(0, 156, 255, .7)",
-                    "rgba(0, 156, 255, .6)",
-                    "rgba(0, 156, 255, .5)",
-                    "rgba(0, 156, 255, .4)",
-                    "rgba(0, 156, 255, .3)"
-                ],
-                data: [55, 49, 44, 24, 15]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-
-
-</script>
-
 
 </body></html>

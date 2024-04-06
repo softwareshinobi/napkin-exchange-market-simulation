@@ -8,8 +8,8 @@ RUN mvn install -DskipTests
 
 FROM eclipse-temurin:18-jre-alpine
 
-COPY --from=mavenBuild /target/napkin-exchange-server-2.0.jar /napkin-exchange-server.jar
+COPY --from=mavenBuild /target/napkin-exchange-simulator-1.0.jar /napkin-exchange-simulator.jar
 
 COPY --from=mavenBuild /src/main/resources/application.properties /application.properties
 
-CMD ["java", "-jar", "/napkin-exchange-server.jar"] 
+CMD ["java", "-jar", "/napkin-exchange-simulator.jar"] 
