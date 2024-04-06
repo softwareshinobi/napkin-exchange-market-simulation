@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.enums.Volatility;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

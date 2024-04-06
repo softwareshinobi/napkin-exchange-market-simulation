@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.security.entity;
+package digital.softwareshinobi.napkinexchange.security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

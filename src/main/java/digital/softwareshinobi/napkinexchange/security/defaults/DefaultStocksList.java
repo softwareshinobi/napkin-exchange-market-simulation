@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.security.defaults;
 
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.enums.InvestorRating;
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.enums.Volatility;

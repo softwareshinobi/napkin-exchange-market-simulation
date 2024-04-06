@@ -60,8 +60,8 @@ public class LimitOrderService {
             this.notificationService.save(
                     new Notification(
                             limitOrder.getAccount().getUsername(),
-                            NotificationType.NEW_LIMIT_ORDER,
-                            "Created future or limit order created /  + limitOrder.toString()"
+                            NotificationType.NEW_LIMIT_ORDER_CREATED,
+                            limitOrder.toString()
                     ));
 
         }
@@ -136,7 +136,7 @@ public class LimitOrderService {
                 notificationService.save(
                         new Notification(
                                 stopLossOrder.getAccount().getUsername(),
-                                NotificationType.LONG_STOP_LOSS,
+                                NotificationType.LONG_STOP_LOSS_TRIGGERED,
                                 "STOP LOSS triggerd /  + stopLossOrder.toString()"
                         ));
 
@@ -162,7 +162,7 @@ public class LimitOrderService {
                     notificationService.save(
                             new Notification(
                                     relatedOrder.getAccount().getUsername(),
-                                    NotificationType.LONG_STOP_LOSS,
+                                    NotificationType.LONG_SMART_BUY_PAIR_CANCELLATION,
                                     "RELATED TRANSACTION CANCELLED /  + relatedOrder.toString()"
                             ));
 
@@ -190,6 +190,7 @@ public class LimitOrderService {
 
         System.out.println("enter > processLongTakeProfit");
 
+        System.out.println();
         System.out.println("take profit order / " + takeProfitOrder);
         System.out.println();
         System.out.println("  current price / " + takeProfitOrder.getStock().getPrice());
@@ -203,12 +204,6 @@ public class LimitOrderService {
 
             try {
 
-                stockOwnedService.sellStockMarketPrice(
-                        new SellStockRequest(
-                                takeProfitOrder.getAccount().getUsername(),
-                                takeProfitOrder.getStock().getTicker(),
-                                takeProfitOrder.getSharesToBuy()));
-
                 notificationService.save(
                         new Notification(
                                 takeProfitOrder.getAccount().getUsername(),
@@ -216,6 +211,19 @@ public class LimitOrderService {
                                 takeProfitOrder.toString()
                         ));
 
+                SellStockRequest sellStockRequest = new SellStockRequest(
+                        takeProfitOrder.getAccount().getUsername(),
+                        takeProfitOrder.getStock().getTicker(),
+                        takeProfitOrder.getSharesToBuy());
+
+                stockOwnedService.sellStockMarketPrice(sellStockRequest);
+
+//                notificationService.save(
+//                        new Notification(
+//                                takeProfitOrder.getAccount().getUsername(),
+//                                NotificationType.LONG_SELL_ORDER_FULFILLED,
+//                                sellStockRequest.toString()
+//                        ));
                 clearAndDeleteLimitOrder(takeProfitOrder);
 
             } catch (AccountNotFoundException exception) {
@@ -258,7 +266,7 @@ public class LimitOrderService {
 //        notificationService.save(
 //                new Notification(
 //                        limitOrder.getAccount().getUsername(),
-//                        NotificationType.NEW_LIMIT_ORDER,
+//                        NotificationType.NEW_LIMIT_ORDER_CREATED,
 //                        "limit order cancelled / " + limitOrder.toString()
 //                ));
     }
@@ -282,7 +290,7 @@ public class LimitOrderService {
 
             try {
 
-                stockOwnedService.fillBuyStockRequest(
+                stockOwnedService.fillStandardBuyStockRequest(
                         new BuyStockRequest(
                                 buyStopOrder.getAccount().getUsername(),
                                 buyStopOrder.getStock().getTicker(),

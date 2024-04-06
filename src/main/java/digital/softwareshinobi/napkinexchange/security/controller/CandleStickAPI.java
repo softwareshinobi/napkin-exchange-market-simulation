@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.security.wrapper.StockSummaryDTO;
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.wrapper.StockDTO;
 import digital.softwareshinobi.napkinexchange.security.wrapper.StockPriceHistoryDTO;
 import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;

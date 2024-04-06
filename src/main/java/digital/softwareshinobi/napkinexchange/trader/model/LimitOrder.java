@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.model;
 
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -67,7 +67,7 @@ public class LimitOrder implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("LimitOrder{");
+        sb.append("{");
         sb.append("id=").append(id);
         sb.append(", account=").append(account);
         sb.append(", type=").append(type);

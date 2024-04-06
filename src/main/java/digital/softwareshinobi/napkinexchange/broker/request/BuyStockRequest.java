@@ -20,7 +20,7 @@ public class BuyStockRequest {
     @Override
     public String toString() {
 
-        return "BuyStockRequest{" + "username=" + username + ", ticker=" + ticker + ", sharesToBuy=" + sharesToBuy + '}';
+        return "{" + "username=" + username + ", ticker=" + ticker + ", sharesToBuy=" + sharesToBuy + "}";
 
     }
 

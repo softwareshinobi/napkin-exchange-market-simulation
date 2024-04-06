@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.trader.utility;
 
 import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
@@ -10,7 +10,7 @@ import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
 
 public class ValidateStockTransaction {
 
-    public static boolean doesAccountHaveEnoughMoney(Account account,
+    public static boolean doesTraderHaveEnoughAvailableBalance(Account account,
             BuyStockRequest buyStockRequest,
             StockService stockService) {
         double balance = account.getAccountBalance();

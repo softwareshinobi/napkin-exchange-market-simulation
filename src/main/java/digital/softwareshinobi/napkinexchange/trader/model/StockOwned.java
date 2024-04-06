@@ -2,14 +2,13 @@ package digital.softwareshinobi.napkinexchange.trader.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
+import jakarta.persistence.*;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
-
-import jakarta.persistence.*;
-import java.io.Serializable;
 
 /*
     Entity for handling the stocks that a user owns
@@ -44,15 +43,39 @@ public class StockOwned implements Serializable {
     private Double costBasis;
 
     public StockOwned(Account account, String ticker, int amountOwned, double costBasis) {
+
         this.account = account;
+
         this.ticker = ticker;
+
         this.amountOwned = amountOwned;
+
         this.costBasis = costBasis;
+
     }
 
-    public void updateCostBasisAndAmountOwned(int amountToBuy, double currentStockPrice) {
+    public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
+
         this.setCostBasis(CalculateCostBasisAndProfits.newCostBasis(
-                this.amountOwned, amountToBuy, this.costBasis, currentStockPrice));
-        this.setAmountOwned(this.amountOwned + amountToBuy);
+                this.amountOwned,
+                numberUnits,
+                this.costBasis,
+                currentSecurityPrice));
+
+        this.setAmountOwned(this.amountOwned + numberUnits);
+
     }
+
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("{");
+//        sb.append("id=").append(id);
+//        sb.append(", account=").append(account);
+//        sb.append(", ticker=").append(ticker);
+//        sb.append(", amountOwned=").append(amountOwned);
+//        sb.append(", costBasis=").append(costBasis);
+//        sb.append('}');
+//        return sb.toString();
+//    }
 }

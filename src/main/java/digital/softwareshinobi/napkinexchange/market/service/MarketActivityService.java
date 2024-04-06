@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.market.service;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import java.time.ZonedDateTime;
@@ -32,6 +32,8 @@ public class MarketActivityService {
         this.marketService.saveMarket(market);
 
         ZonedDateTime currentMarketTime = market.getDate();
+
+        market = null;
 
         return currentMarketTime;
 
@@ -65,6 +67,7 @@ public class MarketActivityService {
 
         this.stockService.updateAllStocksInDatabase(stocks);
 
+        stocks = null;
     }
 
     public ZonedDateTime getMarketTime() {
@@ -72,6 +75,8 @@ public class MarketActivityService {
         Market market = this.marketService.getMarket();
 
         ZonedDateTime currentMarketTime = market.getDate();
+
+        market = null;
 
         return currentMarketTime;
 

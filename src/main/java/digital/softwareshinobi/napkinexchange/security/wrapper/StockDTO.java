@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.security.wrapper;
 
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import java.util.List;
 import java.util.stream.Collectors;

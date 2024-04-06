@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.security.wrapper;
 
 import lombok.Getter;
 import lombok.Setter;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 
 //This class is used when getting a list of stocks, where fields such as earnings and price history is not needed

@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.security.utils;
 
 import java.util.List;
 
-import digital.softwareshinobi.napkinexchange.security.entity.StockPriceHistory;
+import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistory;
 import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
 
 public class SortHistory {

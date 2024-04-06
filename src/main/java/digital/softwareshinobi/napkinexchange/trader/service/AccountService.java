@@ -2,8 +2,8 @@ package digital.softwareshinobi.napkinexchange.trader.service;
 
 import digital.softwareshinobi.napkinexchange.broker.types.AccountTransaction;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
@@ -62,8 +62,8 @@ public class AccountService {
         notificationService.save(
                 new Notification(
                         resultAccount,
-                        NotificationType.NEW_ACCOUNT,
-                        "NEW USER CREATED!!! " + resultAccount.toString()
+                        NotificationType.NEW_TRADER_CREATED,
+                        resultAccount.toString()
                 ));
 
         newAccount = null;

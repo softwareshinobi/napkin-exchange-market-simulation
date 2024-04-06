@@ -23,7 +23,7 @@
 	<version>1.0</version>
 
 	<name>napkin-exchange-simulator</name>
-
+<description>the napkin-exchange-simulator!</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -64,11 +64,11 @@
 			<scope>test</scope>
 		</dependency>
                 
-                        <dependency>
+                         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20200518</version>
-        </dependency>               
+        </dependency>              
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -105,5 +105,6 @@
 			</plugin>
 		</plugins>
 	</build>
-    <description>the napkin-exchange-simulator!</description>
+        
+    
 </project>

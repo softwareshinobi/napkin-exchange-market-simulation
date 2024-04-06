@@ -20,7 +20,7 @@ public class Account implements Serializable {
     @Id
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "pin")
     private String password;
 
     @Column(name = "leverage")
@@ -29,7 +29,7 @@ public class Account implements Serializable {
     @Column(name = "balance")
     private Double accountBalance;
 
-    @Column(name = "total_profits")
+    @Column(name = "profit_loss")
     private Double totalProfits;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
@@ -79,14 +79,27 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Account{");
-        sb.append("username=").append(username);
-        sb.append(", accountBalance=").append(accountBalance);
-        sb.append(", totalProfits=").append(totalProfits);
-        sb.append(", stocksOwned=").append(stocksOwned);
-        sb.append('}');
-        return sb.toString();
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(" { ");
+
+        stringBuilder.append("username").append(" : ").append(username).append(", ");
+
+        stringBuilder.append("accountBalance").append(" : ").append(accountBalance).append(", ");
+
+        stringBuilder.append("totalProfits").append(" : ").append(totalProfits).append(", ");
+
+        stringBuilder.append("stocksOwned").append(" : ").append(stocksOwned).append(", ");
+
+        stringBuilder.append(" } ");
+
+        String toString = stringBuilder.toString();
+
+        stringBuilder = null;
+
+        return toString;
+
     }
 
 }

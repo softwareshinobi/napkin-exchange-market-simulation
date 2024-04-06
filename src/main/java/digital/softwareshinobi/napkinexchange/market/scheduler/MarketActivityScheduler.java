@@ -32,21 +32,23 @@ public class MarketActivityScheduler {
     @Autowired
     private final StockPriceHistoryService stockPriceHistoryService;
 
-    @Scheduled(fixedRate = MarketIntervals.ONE_SECOND)
     @SuppressWarnings("unused")
+    @Scheduled(fixedRate = MarketIntervals.T)
     public void dailyMarketActivity() {
 
-        var now = marketActivityService.tickMarket();
+        var currentMarketTime = this.marketActivityService.tickMarket();
 
-        logger.info("market time / " + now);
+        logger.info("market time / " + currentMarketTime);
 
-        marketActivityService.executeMarketTickActivities();
+        this.marketActivityService.executeMarketTickActivities();
 
-        limitOrderService.processLimitOrders();
+        this.limitOrderService.processLimitOrders();
 
-        accountHistoryService.saveDailyAccountHistory();
+        this.accountHistoryService.saveDailyAccountHistory();
 
-        stockPriceHistoryService.saveStockHistoryDaily();
+        this.stockPriceHistoryService.saveStockHistoryDaily();
+
+        currentMarketTime = null;
 
     }
 

@@ -20,7 +20,7 @@ public class SellStockRequest {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SellStockRequest{");
+        sb.append("{");
         sb.append("username=").append(username);
         sb.append(", security=").append(security);
         sb.append(", units=").append(units);

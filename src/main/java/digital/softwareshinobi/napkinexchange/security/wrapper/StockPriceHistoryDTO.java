@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.security.wrapper;
 
 import java.time.ZonedDateTime;
 
-import digital.softwareshinobi.napkinexchange.security.entity.StockPriceHistory;
+import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistory;
 
 import lombok.Getter;
 import lombok.Setter;

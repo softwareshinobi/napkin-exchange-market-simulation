@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.security.entity;
+package digital.softwareshinobi.napkinexchange.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import digital.softwareshinobi.napkinexchange.market.utility.GetRandomNumber;

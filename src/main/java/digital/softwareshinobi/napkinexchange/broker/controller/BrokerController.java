@@ -7,7 +7,7 @@ import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "broker")
 public class BrokerController {
+
+    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.7111;
+
+    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.001;
 
     public BrokerController() {
 
@@ -70,8 +74,6 @@ public class BrokerController {
         return limitOrderService.findLimitOrders(accountService.getAccountByName(username));
 
     }
-    private static final double STOPLOSSLIMIT = 0.01;
-    private static final double TAKEPROFIT = 0.025;
 
     @PostMapping(value = "/buy/market/smart")
     public void openSmartBuyMarketOrder(@RequestBody BuyStockRequest buyStockRequest)
@@ -79,12 +81,28 @@ public class BrokerController {
 
         System.out.println("enter > openSmartBuyMarketOrder");
 
-        System.out.println("buyStockRequest / " + buyStockRequest);
+        this.notificationService.save(
+                new Notification(
+                        buyStockRequest.getUsername(),
+                        NotificationType.LONG_SMART_BUY_CREATED,
+                        buyStockRequest.toString()
+                ));
 
-        stockOwnedService.fillBuyStockRequest(buyStockRequest);
+        ////////////////////
+        System.out.println("buyStockRequest / " + buyStockRequest);
+//
+//        this.notificationService.save(
+//                new Notification(
+//                        limitOrder.getAccount().getUsername(),
+//                        NotificationType.NEW_LONG_SMART_BUY_REQUESTED,
+//                        limitOrder.toString()
+//                ));
+
+        stockOwnedService.fillStandardBuyStockRequest(buyStockRequest);
 
         System.out.println("buyStockRequest / fulfilled");
 
+        //////////doing math ////////////
         Stock stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
 
         System.out.println("stock: " + stock);
@@ -92,16 +110,16 @@ public class BrokerController {
         System.out.println("price / current / " + stock.getPrice());
 
         //
-        Double dynamicStopLossThreshold = stock.getPrice() * (1.0 - STOPLOSSLIMIT);
+        Double dynamicStopLossThreshold = stock.getPrice() * (1.0 - DEFAULT_STOP_LOSS_TARGET_PERCENT);
 
         System.out.println("price / stop loss / " + dynamicStopLossThreshold);
 
         //
-        Double dynamicTakeProfitThreshold = stock.getPrice() * (1.0 + TAKEPROFIT);
+        Double dynamicTakeProfitThreshold = stock.getPrice() * (1.0 + DEFAULT_TAKE_PROFIT_TARGET_PERCENT);
 
         System.out.println("price / take profit / " + dynamicTakeProfitThreshold);
 
-        //
+        //////// creating the stop loss nd take profit orders ////////
         LimitOrder stopLossOrder = new LimitOrder(
                 LimitOrderTypes.LONG_STOP_LOSS,
                 accountService.getAccountByName(buyStockRequest.getUsername()),
@@ -126,41 +144,35 @@ public class BrokerController {
 
         stopLossOrder.setRelatedOrderId(takeProfitOrder.getId());
 
-        //
+////////
         System.out.println("order / stop loss / " + stopLossOrder);
 
         System.out.println("order / take profit / " + takeProfitOrder);
-
-        /// build notification
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("[SMART] created stop loss. ");//.append(stopLossOrder);
-
-        //    StringBuilder sb = new StringBuilder();
-        stringBuffer.append("id=").append(stopLossOrder.getId());
-        // sb.append(", account=").append(account);
-        stringBuffer.append(", type=").append(stopLossOrder.getType());
-        stringBuffer.append(", stock=").append(stopLossOrder.getStock());
-        stringBuffer.append(", sharesToBuy=").append(stopLossOrder.getSharesToBuy());
-        stringBuffer.append(", strikePrice=").append(stopLossOrder.getStrikePrice());
-        stringBuffer.append(", relatedOrder=").append(stopLossOrder.getRelatedOrderId());
-
-        //"Created future or limit order created / " + limitOrder.toString()
-        notificationService.save(
-                new Notification(
-                        stopLossOrder.getAccount().getUsername(),
-                        NotificationType.LONG_STOP_LOSS,
-                        stringBuffer.toString()
-                ));
-
-/////////////////////////////
-        System.out.println("takeProfitOrder / " + takeProfitOrder);
 
         System.out.println("exit < openSmartBuyMarketOrder");
 
     }
 
     /*
-
+        /// build notification
+////        StringBuilder stringBuffer = new StringBuilder();
+////        stringBuffer.append("[SMART] created stop loss. ");//.append(stopLossOrder);
+////        stringBuffer.append("id=").append(stopLossOrder.getId());
+////        stringBuffer.append(", type=").append(stopLossOrder.getType());
+////        stringBuffer.append(", stock=").append(stopLossOrder.getStock());
+////        stringBuffer.append(", sharesToBuy=").append(stopLossOrder.getSharesToBuy());
+////        stringBuffer.append(", strikePrice=").append(stopLossOrder.getStrikePrice());
+////        stringBuffer.append(", relatedOrder=").append(stopLossOrder.getRelatedOrderId());
+////
+////        //"Created future or limit order created / " + limitOrder.toString()
+/////////////////////////////////
+////        //    System.out.println("takeProfitOrder / " + takeProfitOrder);
+////        notificationService.save(
+////                new Notification(
+////                        stopLossOrder.getAccount().getUsername(),
+////                        NotificationType.LONG_SMART_BUY_FULFILLED,
+////                        "long smart buy activities completed"
+////                ));
 
     @PostMapping(value = "/buy/market")
     public void placeAssetBuyMarketOrder(@RequestBody BuyStockRequest buyStockRequest)
@@ -170,7 +182,7 @@ public class BrokerController {
 
         System.out.println("buyStockRequest / " + buyStockRequest);
 
-        stockOwnedService.fillBuyStockRequest(buyStockRequest);
+        stockOwnedService.fillStandardBuyStockRequest(buyStockRequest);
 
         System.out.println("buyStockRequest / fulfilled");
 

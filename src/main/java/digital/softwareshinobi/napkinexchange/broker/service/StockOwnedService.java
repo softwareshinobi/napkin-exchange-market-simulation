@@ -4,9 +4,9 @@ import digital.softwareshinobi.napkinexchange.broker.exception.AccountInventoryE
 import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
-import digital.softwareshinobi.napkinexchange.security.entity.Stock;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
+import digital.softwareshinobi.napkinexchange.security.model.Stock;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
@@ -34,47 +34,68 @@ public class StockOwnedService {
     @Autowired
     private final NotificationService notificationService;
 
-    public void fillBuyStockRequest(BuyStockRequest buyStockRequest) {
+    public void fillStandardBuyStockRequest(BuyStockRequest buyStockRequest) {
 
-        System.out.println("enter > placeAssetBuyMarketOrder");
+        System.out.println("enter > fillStandardBuyStockRequest");
+
+        notificationService.save(
+                new Notification(
+                        buyStockRequest.getUsername(),
+                        NotificationType.MARKET_BUY_ORDER_CREATED,
+                        buyStockRequest.toString()
+                ));
 
         System.out.println("buyStockRequest / " + buyStockRequest);
 
-        Account account = accountService.getAccountByName(buyStockRequest.getUsername());
+        Account traderAccount = this.accountService.getAccountByName(buyStockRequest.getUsername());
 
-        Stock stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
+        Stock securityToBuy = this.stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
 
-        StockOwned stockOwned = findStockOwned(account, stock);
+        StockOwned stockOwnedByUser = this.findStockOwned(traderAccount, securityToBuy);
 
-        if (!ValidateStockTransaction.doesAccountHaveEnoughMoney(account, buyStockRequest, this.stockService)) {
+        if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(traderAccount, buyStockRequest, this.stockService)) {
+
+            notificationService.save(
+                    new Notification(
+                            buyStockRequest.getUsername(),
+                            NotificationType.MARKET_BUY_INSUFFICIENT_FUNDS,
+                            buyStockRequest.toString()
+                    ));
 
             throw new AccountBalanceException("Account does not have funds for this purchase");
 
         }
 
-        notificationService.save(
-                new Notification(
-                        buyStockRequest.getUsername(),
-                        NotificationType.LONGBUY,
-                        "BOUGHT NEW STOCK / " + buyStockRequest.toString()
-                ));
-
-        if (stockOwned != null) {
+        if (stockOwnedByUser != null) {
 
             //subtract transaction value from account balance
-            accountService.updateBalanceAndSave(account, -1 * (buyStockRequest.getSharesToBuy() * stock.getPrice()));
+            accountService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
 
-            stockOwned.updateCostBasisAndAmountOwned(buyStockRequest.getSharesToBuy(), stock.getPrice());
+            stockOwnedByUser.updateCostBasisAndAmountOwned(buyStockRequest.getSharesToBuy(), securityToBuy.getPrice());
 
-            stockOwnedRepository.save(stockOwned);
+            stockOwnedRepository.save(stockOwnedByUser);
+
+            notificationService.save(
+                    new Notification(
+                            buyStockRequest.getUsername(),
+                            NotificationType.MARKET_BUY_ORDER_FULFILLED,
+                            buyStockRequest.toString()
+                    ));
 
             return;
 
         }
 
-        accountService.updateBalanceAndSave(account, -1 * (buyStockRequest.getSharesToBuy() * stock.getPrice()));
+        accountService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
 
-        saveNewStockOwned(buyStockRequest, account, stock.getPrice());
+        saveNewStockOwned(buyStockRequest, traderAccount, securityToBuy.getPrice());
+
+        notificationService.save(
+                new Notification(
+                        buyStockRequest.getUsername(),
+                        NotificationType.MARKET_BUY_ORDER_FULFILLED,
+                        buyStockRequest.toString()
+                ));
 
     }
 
@@ -98,6 +119,13 @@ public class StockOwnedService {
     public void sellStockMarketPrice(SellStockRequest sellStockRequest) {
 
         System.out.println("sellStocksellStocksellStock");
+
+        notificationService.save(
+                new Notification(
+                        sellStockRequest.getUsername(),
+                        NotificationType.MARKET_SELL_ORDER_CREATED,
+                        sellStockRequest.toString()
+                ));
 
         Account account = accountService.getAccountByName(sellStockRequest.getUsername());
 
@@ -128,13 +156,6 @@ public class StockOwnedService {
 
         accountService.updateBalanceAndSave(account, stock.getPrice() * sellStockRequest.getUnits());
 
-        notificationService.save(
-                new Notification(
-                        sellStockRequest.getUsername(),
-                        NotificationType.LONGBUY,
-                        "SOLD NEW STOCK / " + sellStockRequest.toString()
-                ));
-
         System.out.println("5");
 
         if (sellStockRequest.getUnits() - stockOwned.getAmountOwned() == 0) {
@@ -151,6 +172,13 @@ public class StockOwnedService {
             stockOwnedRepository.save(stockOwned);
 
         }
+
+        this.notificationService.save(
+                new Notification(
+                        sellStockRequest.getUsername(),
+                        NotificationType.MARKET_SELL_ORDER_FULFILLED,
+                        sellStockRequest.toString()
+                ));
 
     }
 
