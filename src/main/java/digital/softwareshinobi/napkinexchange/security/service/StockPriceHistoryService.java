@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.security.service;
 
 import lombok.AllArgsConstructor;
-import digital.softwareshinobi.napkinexchange.market.entity.Market;
+import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import digital.softwareshinobi.napkinexchange.security.entity.StockPriceHistory;
 import digital.softwareshinobi.napkinexchange.security.entity.StockPriceHistoryId;
@@ -27,7 +27,7 @@ public class StockPriceHistoryService {
 
     public void saveStockHistoryDaily() {
 
-        Market market = marketService.findMarketEntity();
+        Market market = marketService.getMarket();
 
         stockService.getAllStocks().forEach(stock
                 -> stockPriceHistoryRepository.save(

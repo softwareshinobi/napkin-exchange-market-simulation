@@ -59,7 +59,7 @@ public class AccountController {
     @GetMapping(value = "/history/{username}")
     public List<AccountHistory> getAccountHistory(@PathVariable String username) throws AccountNotFoundException, AccountBalanceException {
 
-        return accountHistoryService.findHistoryOfAccount(username);
+        return accountHistoryService.getHistoryByUsername(username);
 
     }
 

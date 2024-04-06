@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.market.service;
 
-import digital.softwareshinobi.napkinexchange.market.entity.Market;
+import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
 import digital.softwareshinobi.napkinexchange.market.repository.MarketRepository;
 import java.time.LocalDate;
@@ -20,11 +20,11 @@ public class MarketService {
 
     public ZonedDateTime systemTime() {
 
-        return this.findMarketEntity().getDate();
+        return this.getMarket().getDate();
 
     }
 
-    public Market findMarketEntity() {
+    public Market getMarket() {
 
         Market market = marketRepository.findById(1).orElse(null);
 
@@ -40,7 +40,7 @@ public class MarketService {
 
             market = new Market(startingTime, 41.0, MarketTrajectory.NORMAL);
 
-            saveMarketEntity(market);
+            saveMarket(market);
 
         }
 
@@ -48,7 +48,7 @@ public class MarketService {
 
     }
 
-    public void saveMarketEntity(final Market market) {
+    public void saveMarket(final Market market) {
 
         if (market == null) {
 

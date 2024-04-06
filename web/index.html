@@ -1,12 +1,672 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
 <html lang="en">
 
+<head>
+
+<meta charset="utf-8">
+
+<title>
+
+Market Watch / The Napkin Exchange
+
+</title>
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<meta content="" name="keywords">
+
+<meta content="" name="description">
+
+<link href="img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="css/style.css" rel="stylesheet">
+
+</head>
+
 <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
 
-<script>
 
-window.location.replace("auth/login.html");
+        <!-- Sidebar Star33t -->
+<div class="sidebar pe-4 pb-3">
 
-</script>
+<nav class="navbar bg-light navbar-light">
+
+<a href="dashboard.html" class="navbar-brand mx-4 mb-3">
+
+<h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>
+
+TheNapkinExchange
+
+</h5>
+
+</a>
+
+<div class="d-flex align-items-center ms-4 mb-4">
+
+<div class="position-relative">
+
+<img class="rounded-circle" src="img/candlestick.jpg" alt="" style="width: 40px; height: 40px;">
+
+<div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+
+</div>
+
+<div class="ms-3">
+
+<h6 id="1sidebarTraderName" class="mb-0">Market Watch</h6>
+
+<span id="1sidebarTraderBalance">live pricing from across the market</span>
+
+</div>
+
+</div>
+
+<div class="navbar-nav w-100">
+
+<!-- ... -->
+
+<a href="index.html" class="nav-item nav-link active">
+
+<i class="fa fa-tachometer-alt me-2"></i>
+
+Market Watch
+
+</a>
+
+<!-- ... -->
+
+<a href="auth/login.html" class="nav-item nav-link">
+
+<i class="fa fa-tachometer-alt me-2"></i>
+
+Login
+
+</a>
+
+<!-- ... -->
+
+<a href="auth/register.html" class="nav-item nav-link">
+
+<i class="fa fa-tachometer-alt me-2"></i>
+
+Register
+
+</a>
+
+<!-- ... -->
+
+</div>
+
+
+</nav>
+
+</div>
+<!-- Sidebaeeer End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start --><nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form style="visibility:hidden" class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Search">
+                </form>
+                <div style="visibility:hidden" class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Messages</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notifications</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Profile updated</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">New user added</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Password changed</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        </div>
+                    </div>
+
+<div class="nav-item dropdown">
+
+<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
+<img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+
+<span id="dropdownTraderName" class="d-none d-lg-inline-flex">
+
+--
+
+</span>
+
+</a>
+
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="auth/login.html" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+<!-- Navbar End -->
+
+
+            <!-- Blank Start -->
+            <div class="container-fluid pt-4 px-4">
+
+
+<div class="row">
+
+<div class="col-xl-3 col-lg-12 stretch-card grid-margin">
+
+<div class="row">
+
+<div onclick="onClickDionePanel()" class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+
+<div class="card bg-warning">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 text-white">
+
+DIONE
+
+</p>
+
+<h2 id="panel-dione-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-warning"></i>
+
+</div>
+
+<h6 id="panel-dione-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+
+</div>
+
+</div>
+
+<div onclick="onClickCallistoPanel()" class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+
+<div class="card bg-danger">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 text-white">
+
+CALLISTO
+
+</p>
+
+<h2 id="panel-callisto-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
+
+</div>
+
+<h6 id="panel-callisto-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+
+</div>
+
+</div>
+
+<div onclick="onClickEuropaPanel()" class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
+
+<div class="card bg-primary">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 text-white">
+
+EUROPA
+
+</p>
+
+<h2 id="panel-europa-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-primary"></i>
+
+</div>
+
+<h6 id="panel-europa-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+
+</div>
+
+</div>
+
+<div onclick="onClickPandoraPanel()" class="col-xl-12 col-md-6 stretch-card pb-sm-3 pb-lg-0">
+
+<div class="card bg-success">
+
+<div class="card-body px-3 py-4">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div class="color-card">
+
+<p class="mb-0 text-white">
+
+PANDORA
+
+</p>
+
+<h2 id="panel-pandora-pricing" class="text-white">
+
+--
+
+</h2>
+
+</div>
+
+<i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-success"></i>
+
+</div>
+
+<h6 id="panel-pandora-change" class="text-white">
+
+--
+
+</h6>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div onclick="onClickEuropaPanel()" class="col-xl-9 stretch-card grid-margin">
+<div class="card">
+<div class="card-body">
+<div class="row">
+
+<div class="col-sm-7">
+
+<h5 id="symbolTicker">
+
+--
+
+</h5>
+
+<p class="text-muted">
+ 
+<b id="symbolName">
+
+--
+
+</b>
+
+/
+
+<b id="symbolSector">
+
+--
+
+</b>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="row" style="display:none"> 
+
+<div class="col-sm-4">
+
+<div class="card mb-3 mb-sm-0">
+
+<div class="card-body py-3 px-4">
+
+<p class="m-0 survey-head">
+
+1M
+
+</p>
+
+<div class="d-flex justify-content-between align-items-end flot-bar-wrapper">
+
+<div>
+
+<h3 class="m-0 survey-value">
+
+0.85025
+
+</h3>
+
+<p class="text-success m-0">
+
++0.0045 / +18.33%
+
+</p>
+
+</div>
+
+                              <div id="earningChart" class="flot-chart" style="padding: 0px;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card mb-3 mb-sm-0">
+                          <div class="card-body py-3 px-4">
+
+
+
+<p class="m-0 survey-head">
+
+5M
+
+</p>
+
+<div class="d-flex justify-content-between align-items-end flot-bar-wrapper">
+
+<div>
+
+<h3 class="m-0 survey-value">
+
+0.85025
+
+</h3>
+
+<p class="text-success m-0">
+
++0.0045 / +18.33%
+
+</p>
+
+</div>
+
+                              <div id="productChart" class="flot-chart" style="padding: 0px;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body py-3 px-4">
+
+<p class="m-0 survey-head">
+
+30M
+
+</p>
+
+<div class="d-flex justify-content-between align-items-end flot-bar-wrapper">
+
+<div>
+
+<h3 class="m-0 survey-value">
+
+0.85025
+
+</h3>
+
+<p class="text-success m-0">
+
++0.0045 / +18.33%
+
+</p>
+
+</div>
+
+                              <div id="orderChart" class="flot-chart" style="padding: 0px;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 64px; height: 51px;" width="64" height="51"></canvas></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row my-3">
+                      <div class="col-sm-12">
+                    
+  <canvas id="mycanvas" style="display: block; box-sizing: border-box; height: 418px; width: 836px;" width="836" height="418"></canvas>
+
+     </div>
+               
+                        
+                    </div>
+                    <div class="row">
+
+<div style="visibility:hidden" class="col-sm-8">
+
+<p class="text-muted mb-0">
+
+DIONE is a lifestyle brand for the post-modern Saturnalian. 
+
+<a target="blank" class="text-muted mb-0" href="https://en.wikipedia.org/wiki/Dione_(moon)">
+
+<b>
+
+Learn More
+
+</b>
+
+</a>
+
+</p>
+
+</div>
+
+<div class="col-sm-4">
+
+<p class="mb-0 text-muted">
+
+Live Pricing
+
+</p>
+
+<h5 id="bottom-corner-symbol-pricing" class="d-inline-block survey-value mb-0">
+
+--
+
+</h5>
+                        
+<p id="bottom-corner-symbol-diff" class="d-inline-block text-primary mb-0">
+
+--
+
+</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+		  </div>
+            <!-- Blank End -->
+
+
+            <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+
+                            Made with ❤ by the
+
+<a href="https://softwareshinobi.digital" target="softwareshinobi">Software Shinobi</a>.
+
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>.
+
+                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+
+	<script src="js/main.js"></script>
+
+	<script src="https://code.jquery.com/jquery-2.1.3.js"></script> 
+
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+
+	<script src="scripting/cookies/cookies.js"></script>
+
+	<script src="scripting/dashboard/dashboard.js"></script>
+	
+	<script src="scripting/marketwatch/marketwatch.js"></script>
+
+	<script src="scripting/marketwatch/sidepanel.js"></script>
+
+	<script src="scripting/marketwatch/centersinglefocus.js"></script>
+
+	<script src="scripting/marketwatch/charting.js"></script>
 
 </body>
 

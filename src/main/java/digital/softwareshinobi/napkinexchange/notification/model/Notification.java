@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,10 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    //@NonNull
+    @Column(name = "time")
+    private String time = new Date().toGMTString();
+
     @NonNull
     @Column(name = "username")
     private String username;
@@ -34,7 +39,7 @@ public class Notification {
     private NotificationType type;
 
     @NonNull
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "VARCHAR(1000)")
     private String description;
 
     public Notification(Account account, NotificationType notificationType, String string) {

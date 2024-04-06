@@ -9,7 +9,7 @@ $(document).ready(function () {
 
 function fetchNotifications() {
 
-	console.debug(" enter > fetchNotifications()");
+	console.debug("enter > fetchNotifications()");
 
 	$.ajax({
 
@@ -27,16 +27,15 @@ function fetchNotifications() {
 
 		},
 
-		error: function (jqXHR, status) {
+		error: function (exception, status) {
 
-			console.log("Something Went wrong");
-		
-			console.log(jqXHR);
+			console.error("error getting notifications / ", exception);	
 
 		}
 
 	});
 
+	console.debug("exit > fetchNotifications()");
 }
 
 function displayNotifications(notifications) {
@@ -49,6 +48,8 @@ function displayNotifications(notifications) {
 
         content += '<td>' + notifications[index].id + '</td>';
 
+        content += '<td>' + notifications[index].time + '</td>';
+
         content += '<td>' + notifications[index].type + '</td>';
 
         content += '<td>' + notifications[index].description + '</td>';
@@ -57,8 +58,6 @@ function displayNotifications(notifications) {
 
     }
 
-        $('#notifications > tbody').html(content);     
-
-        console.log("content", content);
+    $('#notifications > tbody').html(content);     
 
 }

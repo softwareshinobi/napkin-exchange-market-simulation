@@ -1,7 +1,8 @@
-package digital.softwareshinobi.napkinexchange.market.scheduled;
+package digital.softwareshinobi.napkinexchange.market.scheduler;
 
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
+import digital.softwareshinobi.napkinexchange.market.service.MarketActivityService;
 import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class MarketActivityScheduler {
     private final Logger logger = LoggerFactory.getLogger(MarketActivityScheduler.class);
 
     @Autowired
-    private final HandleMarketActivity handleMarketActivity;
+    private final MarketActivityService marketActivityService;
 
     @Autowired
     private final LimitOrderService limitOrderService;
@@ -35,11 +36,11 @@ public class MarketActivityScheduler {
     @SuppressWarnings("unused")
     public void dailyMarketActivity() {
 
-        var now = handleMarketActivity.tickMarket();
+        var now = marketActivityService.tickMarket();
 
         logger.info("market time / " + now);
 
-        handleMarketActivity.dailyMarketActivity();
+        marketActivityService.executeMarketTickActivities();
 
         limitOrderService.processLimitOrders();
 

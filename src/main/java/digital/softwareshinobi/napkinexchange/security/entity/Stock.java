@@ -87,25 +87,6 @@ public class Stock implements Serializable {
 
     }
 
-    public void updatePriceWithFormulaHack() {
-
-        //Volatile stocks change twice to increase market movements
-        double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
-
-        double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
-
-        double stockPrice = this.getPrice();
-
-        double newPrice = Math.round((stockPrice
-                + (stockPrice * randomNumber)
-                + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
-                + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
-                + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
-
-        setPrice(newPrice + 4.0);
-
-    }
-
     public void updatePriceWithFormula() {
 
         //Volatile stocks change twice to increase market movements
@@ -122,6 +103,25 @@ public class Stock implements Serializable {
                 + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
 
         setPrice(newPrice);
+
+    }
+
+    public void updatePriceWithFormulaHack() {
+
+        //Volatile stocks change twice to increase market movements
+        double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
+
+        double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
+
+        double stockPrice = this.getPrice();
+
+        double newPrice = Math.round((stockPrice
+                + (stockPrice * randomNumber)
+                + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
+                + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
+                + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
+
+        setPrice(newPrice + 4.0);
 
     }
 
@@ -194,37 +194,36 @@ public class Stock implements Serializable {
 
     }
 
-    //these two methods are called only on news and earnings report announcements
-    public void increaseInvestorRating() {
-        switch (this.getInvestorRating()) {
-            case Sell ->
-                this.setInvestorRating(InvestorRating.Hold);
-            case Hold ->
-                this.setInvestorRating(InvestorRating.Neutral);
-            case Neutral ->
-                this.setInvestorRating(InvestorRating.Buy);
-            case Buy ->
-                this.setInvestorRating(InvestorRating.StrongBuy);
-            case StrongBuy -> {
-            }
-        }
-    }
-
-    public void decreaseInvestorRating() {
-        switch (this.getInvestorRating()) {
-            case Sell -> {
-            }
-            case Hold ->
-                this.setInvestorRating(InvestorRating.Sell);
-            case Neutral ->
-                this.setInvestorRating(InvestorRating.Hold);
-            case Buy ->
-                this.setInvestorRating(InvestorRating.Neutral);
-            case StrongBuy ->
-                this.setInvestorRating(InvestorRating.Buy);
-        }
-    }
-
+//    //these two methods are called only on news and earnings report announcements
+//    public void increaseInvestorRating() {
+//        switch (this.getInvestorRating()) {
+//            case Sell ->
+//                this.setInvestorRating(InvestorRating.Hold);
+//            case Hold ->
+//                this.setInvestorRating(InvestorRating.Neutral);
+//            case Neutral ->
+//                this.setInvestorRating(InvestorRating.Buy);
+//            case Buy ->
+//                this.setInvestorRating(InvestorRating.StrongBuy);
+//            case StrongBuy -> {
+//            }
+//        }
+//    }
+//
+//    public void decreaseInvestorRating() {
+//        switch (this.getInvestorRating()) {
+//            case Sell -> {
+//            }
+//            case Hold ->
+//                this.setInvestorRating(InvestorRating.Sell);
+//            case Neutral ->
+//                this.setInvestorRating(InvestorRating.Hold);
+//            case Buy ->
+//                this.setInvestorRating(InvestorRating.Neutral);
+//            case StrongBuy ->
+//                this.setInvestorRating(InvestorRating.Buy);
+//        }
+//    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -3,8 +3,8 @@ package digital.softwareshinobi.napkinexchange.broker.service;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.model.Account;
 import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
@@ -43,7 +43,7 @@ public class LimitOrderService {
 
     }
 
-    public Optional< LimitOrder> findLimitOrder(Integer id) {
+    public Optional<LimitOrder> findLimitOrder(Integer id) {
 
         return limitOrderRepository.findById(id);
 
@@ -53,14 +53,14 @@ public class LimitOrderService {
 
         System.out.println("enter > saveLimitOrder");
 
-        limitOrderRepository.save(limitOrder);
+        this.limitOrderRepository.save(limitOrder);
 
         if (limitOrder.getAccount() != null) {
 
-            notificationService.save(
+            this.notificationService.save(
                     new Notification(
                             limitOrder.getAccount().getUsername(),
-                            NotificationType.LIMITORDER,
+                            NotificationType.NEW_LIMIT_ORDER,
                             "Created future or limit order created /  + limitOrder.toString()"
                     ));
 
@@ -71,11 +71,11 @@ public class LimitOrderService {
     public void processLimitOrders() {
 
         // System.out.println("enter > processLimitOrders");
-        limitOrderRepository.findAll().forEach(limitOrder -> {
+        this.limitOrderRepository.findAll().forEach(limitOrder -> {
 
             System.out.println("limitOrder / " + limitOrder);
 
-            String limitOrderType = limitOrder.getType();
+            final String limitOrderType = limitOrder.getType();
             //   String limitOrderConstant = ;
             //   boolean equal = (limitOrderType.equals(limitOrderConstant));
             //  System.out.println("limitOrderType /" + limitOrderType);
@@ -84,18 +84,17 @@ public class LimitOrderService {
 
             switch (limitOrderType) {
 
-                case LimitOrderTypes.LONG_BUY_STOP:
-
-                    System.out.println("is a LONG_BUY_STOP");
-
-//                    processLongBuyStop(limitOrder);
-                    break;
-
+//                case LimitOrderTypes.LONG_BUY_STOP:
+//
+//                    System.out.println("is a LONG_BUY_STOP");
+//
+////                    processLongBuyStop(limitOrder);
+//                    break;
                 case LimitOrderTypes.LONG_STOP_LOSS:
 
                     System.out.println("is a LONG_STOP_LOSS");
 
-                    processLongStopLoss(limitOrder);
+                    this.processLongStopLoss(limitOrder);
 
                     break;
 
@@ -103,7 +102,7 @@ public class LimitOrderService {
 
                     System.out.println("is a LONG_TAKE_PROFIT");
 
-                    processLongTakeProfit(limitOrder);
+                    this.processLongTakeProfit(limitOrder);
 
                     break;
 
@@ -192,8 +191,10 @@ public class LimitOrderService {
         System.out.println("enter > processLongTakeProfit");
 
         System.out.println("take profit order / " + takeProfitOrder);
+        System.out.println();
         System.out.println("  current price / " + takeProfitOrder.getStock().getPrice());
         System.out.println("   strike price / " + takeProfitOrder.getStrikePrice());
+        System.out.println();
 
         //todo, we shouldn't be compariing doubles like this
         if (takeProfitOrder.getStock().getPrice() > takeProfitOrder.getStrikePrice()) {
@@ -211,8 +212,8 @@ public class LimitOrderService {
                 notificationService.save(
                         new Notification(
                                 takeProfitOrder.getAccount().getUsername(),
-                                NotificationType.TAKEPROFIT,
-                                "STOP LOSS triggerd / " + takeProfitOrder.toString()
+                                NotificationType.LONG_TAKE_PROFIT_TRIGGERED,
+                                takeProfitOrder.toString()
                         ));
 
                 clearAndDeleteLimitOrder(takeProfitOrder);
@@ -257,7 +258,7 @@ public class LimitOrderService {
 //        notificationService.save(
 //                new Notification(
 //                        limitOrder.getAccount().getUsername(),
-//                        NotificationType.LIMITORDER,
+//                        NotificationType.NEW_LIMIT_ORDER,
 //                        "limit order cancelled / " + limitOrder.toString()
 //                ));
     }

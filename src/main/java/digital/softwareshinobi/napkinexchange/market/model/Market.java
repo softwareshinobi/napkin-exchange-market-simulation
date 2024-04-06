@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.market.entity;
+package digital.softwareshinobi.napkinexchange.market.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
@@ -41,9 +41,9 @@ public class Market {
     @Enumerated(EnumType.STRING)
     private MarketTrajectory marketTrajectory;
 
-    public void increment() {
+    public void tick() {
 
-        ZonedDateTime newDate = getDate().plusMinutes(1);
+        ZonedDateTime newDate = this.getDate().plusMinutes(1);
 
         this.setDate(newDate);
 

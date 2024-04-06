@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.market.controller;
 
-import digital.softwareshinobi.napkinexchange.market.entity.Market;
+import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class MarketController {
     @RequestMapping()
     public Market findMarketEntity() {
 
-        return marketService.findMarketEntity();
+        return marketService.getMarket();
 
     }
 

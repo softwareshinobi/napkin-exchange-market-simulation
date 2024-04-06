@@ -5,8 +5,8 @@ import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.broker.service.StockOwnedService;
 import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
+import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.security.entity.Stock;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
@@ -57,6 +57,22 @@ public class BrokerController {
 
     }
 
+    @RequestMapping(value = "/orders/")
+    public List<LimitOrder> fetchActiveLimitOrders() {
+
+        return limitOrderService.findLimitOrders();
+
+    }
+
+    @RequestMapping(value = "/orders/{username}")
+    public List<LimitOrder> fetchActiveLimitOrders(@PathVariable String username) {
+
+        return limitOrderService.findLimitOrders(accountService.getAccountByName(username));
+
+    }
+    private static final double STOPLOSSLIMIT = 0.01;
+    private static final double TAKEPROFIT = 0.025;
+
     @PostMapping(value = "/buy/market/smart")
     public void openSmartBuyMarketOrder(@RequestBody BuyStockRequest buyStockRequest)
             throws AccountNotFoundException, AccountBalanceException {
@@ -73,13 +89,25 @@ public class BrokerController {
 
         System.out.println("stock: " + stock);
 
+        System.out.println("price / current / " + stock.getPrice());
+
+        //
+        Double dynamicStopLossThreshold = stock.getPrice() * (1.0 - STOPLOSSLIMIT);
+
+        System.out.println("price / stop loss / " + dynamicStopLossThreshold);
+
+        //
+        Double dynamicTakeProfitThreshold = stock.getPrice() * (1.0 + TAKEPROFIT);
+
+        System.out.println("price / take profit / " + dynamicTakeProfitThreshold);
+
+        //
         LimitOrder stopLossOrder = new LimitOrder(
                 LimitOrderTypes.LONG_STOP_LOSS,
                 accountService.getAccountByName(buyStockRequest.getUsername()),
                 stockService.getStockByTickerSymbol(buyStockRequest.getTicker()),
                 buyStockRequest.getSharesToBuy(),
-                //todo parameterize this percentage
-                (stock.getPrice() * 0.999)
+                dynamicStopLossThreshold
         );
 
         LimitOrder takeProfitOrder = new LimitOrder(
@@ -87,8 +115,7 @@ public class BrokerController {
                 accountService.getAccountByName(buyStockRequest.getUsername()),
                 stockService.getStockByTickerSymbol(buyStockRequest.getTicker()),
                 buyStockRequest.getSharesToBuy(),
-                //todo parameterize this percentage
-                (stock.getPrice() * 1.3)
+                dynamicTakeProfitThreshold
         );
 
         limitOrderService.saveLimitOrder(stopLossOrder);
@@ -100,9 +127,9 @@ public class BrokerController {
         stopLossOrder.setRelatedOrderId(takeProfitOrder.getId());
 
         //
-        System.out.println("  stopLossOrder / " + stopLossOrder);
-        System.out.println("takeProfitOrder / " + takeProfitOrder);
-        //       System.exit(10);
+        System.out.println("order / stop loss / " + stopLossOrder);
+
+        System.out.println("order / take profit / " + takeProfitOrder);
 
         /// build notification
         StringBuffer stringBuffer = new StringBuffer();
@@ -132,19 +159,6 @@ public class BrokerController {
 
     }
 
-    @RequestMapping(value = "/orders/")
-    public List<LimitOrder> fetchActiveLimitOrders() {
-
-        return limitOrderService.findLimitOrders();
-
-    }
-
-    @RequestMapping(value = "/orders/{username}")
-    public List<LimitOrder> fetchActiveLimitOrders(@PathVariable String username) {
-
-        return limitOrderService.findLimitOrders(accountService.getAccountByName(username));
-
-    }
     /*
 
 
