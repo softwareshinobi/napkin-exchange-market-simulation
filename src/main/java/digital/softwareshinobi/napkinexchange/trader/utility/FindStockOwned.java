@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.utility;
 
-import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
+import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
 
 import java.util.Set;
 
@@ -9,10 +9,14 @@ import java.util.Set;
  */
 public class FindStockOwned {
 
-    public static StockOwned findOwnedStockByTicker(Set<StockOwned> stocksOwned, String ticker) {
-        return stocksOwned.stream()
+    public static SecurityPosition findOwnedStockByTicker(Set<SecurityPosition> securityPositions, String ticker) {
+        
+        return securityPositions.stream()
+                
                 .findFirst()
-                .filter(stock -> stock.getTicker().equalsIgnoreCase(ticker))
+                
+                .filter(security -> security.getSymbol().equalsIgnoreCase(ticker))
+                
                 .orElse(null);
     }
 }

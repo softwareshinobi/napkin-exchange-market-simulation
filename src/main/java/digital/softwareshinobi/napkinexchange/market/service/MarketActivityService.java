@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.market.service;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import java.time.ZonedDateTime;
@@ -51,7 +51,7 @@ public class MarketActivityService {
 
     public void updateStocksOnTick() {
 
-        List<Stock> stocks = this.stockService.getAllStocks();
+        List<Security> stocks = this.stockService.getAllStocks();
 
         stocks.forEach(stock -> {
 

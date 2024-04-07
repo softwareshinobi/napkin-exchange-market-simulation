@@ -31,7 +31,7 @@ public class AccountHistory implements Serializable {
 
     @Id
     @JsonBackReference
-    private Account account;
+    private Trader account;
 
     @Column(name = "account_balance")
     private Double balance;

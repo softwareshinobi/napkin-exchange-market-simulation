@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.trader.repository;
 
-import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
+import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StockOwnedRepository extends JpaRepository<StockOwned, String> {
+public interface StockOwnedRepository extends JpaRepository<SecurityPosition, String> {
 }

@@ -1,17 +1,17 @@
 package digital.softwareshinobi.napkinexchange.leaderboard.util;
 
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import java.util.Comparator;
 import java.util.List;
 
 public class SortAccountProfits {
 
-    public static List<Account> sortAccountByProfits(List<Account> accounts) {
+    public static List<Trader> sortAccountByProfits(List<Trader> accounts) {
 
-        accounts.sort(new Comparator<Account>() {
+        accounts.sort(new Comparator<Trader>() {
 
             @Override
-            public int compare(Account account1, Account account2) {
+            public int compare(Trader account1, Trader account2) {
 
                 return account2.getTotalProfits().compareTo(account1.getTotalProfits());
 

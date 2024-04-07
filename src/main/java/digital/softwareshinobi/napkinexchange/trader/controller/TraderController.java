@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.trader.controller;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "trader")
-public class AccountController {
+public class TraderController {
 
     @Autowired
     private final AccountService accountService;
@@ -26,16 +26,16 @@ public class AccountController {
     private final AccountHistoryService accountHistoryService;
 
     @GetMapping(value = "")
-    public List<Account> listallaccounts() throws AccountNotFoundException {
+    public List<Trader> listallaccounts() throws AccountNotFoundException {
 
         return accountService.findAllAccounts();
 
     }
 
-    @RequestMapping(value = "{username}")
-    public Account getAccountByUsername(@PathVariable String username) throws AccountNotFoundException {
+    @RequestMapping(value = "{traderName}")
+    public Trader getAccountByUsername(@PathVariable String traderName) throws AccountNotFoundException {
 
-        return accountService.getAccountByName(username);
+        return accountService.getAccountByName(traderName);
 
     }
 

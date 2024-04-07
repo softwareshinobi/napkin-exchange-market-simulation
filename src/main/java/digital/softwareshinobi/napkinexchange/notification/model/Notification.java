@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.notification.model;
 
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +42,7 @@ public class Notification {
     @Column(name = "description", columnDefinition = "VARCHAR(1000)")
     private String description;
 
-    public Notification(Account account, NotificationType notificationType, String string) {
+    public Notification(Trader account, NotificationType notificationType, String string) {
 
         this.username = account.getUsername();
 
@@ -61,4 +61,15 @@ public class Notification {
         this.description = string;
 
     }
+
+    public Notification(String username, NotificationType notificationType, Object object) {
+
+        this.username = username;
+
+        this.type = notificationType;
+
+        this.description = object.toString();
+
+    }
+
 }

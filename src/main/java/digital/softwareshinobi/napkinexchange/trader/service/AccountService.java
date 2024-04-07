@@ -7,7 +7,7 @@ import digital.softwareshinobi.napkinexchange.notification.service.NotificationS
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.repository.AccountRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -26,26 +26,26 @@ public class AccountService {
 
     private final Integer DEFAULTBALANCE = 1000000;
 
-    public List<Account> findAllAccounts() {
+    public List<Trader> findAllAccounts() {
 
         return accountRepository.findAll();
 
     }
 
-    public Account getAccountByName(String username) throws AccountNotFoundException {
+    public Trader getAccountByName(String username) throws AccountNotFoundException {
 
         return accountRepository.findById(username)
                 .orElseThrow(() -> new AccountNotFoundException("No account with that username"));
 
     }
 
-    public void saveTraderAccount(Account account) {
+    public void saveTraderAccount(Trader account) {
 
         accountRepository.save(account);
 
     }
 
-    public Account createTraderAccount(String username, String password) throws InvalidAccountException {
+    public Trader createTraderAccount(String username, String password) throws InvalidAccountException {
 
         if (doesTraderAccountExist(username)) {
 
@@ -53,11 +53,11 @@ public class AccountService {
 
         }
 
-        Account newAccount = new Account(username, password);
+        Trader newAccount = new Trader(username, password);
 
         newAccount.updateAccountBalance(DEFAULTBALANCE);
 
-        Account resultAccount = accountRepository.save(newAccount);
+        Trader resultAccount = accountRepository.save(newAccount);
 
         notificationService.save(
                 new Notification(
@@ -91,7 +91,7 @@ public class AccountService {
     public void updateBalanceAndSave(AccountTransaction accountTransaction)
             throws AccountNotFoundException, AccountBalanceException {
 
-        Account account = getAccountByName(accountTransaction.getUsername());
+        Trader account = getAccountByName(accountTransaction.getUsername());
 
         account.updateAccountBalance(accountTransaction.getAmountToAdd());
 
@@ -101,7 +101,7 @@ public class AccountService {
 
     }
 
-    public void updateBalanceAndSave(Account account, double amountToAdd) {
+    public void updateBalanceAndSave(Trader account, double amountToAdd) {
 
         account.updateAccountBalance(amountToAdd);
 

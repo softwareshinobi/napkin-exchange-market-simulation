@@ -1,574 +1,593 @@
 <!DOCTYPE html>
+
 <html lang="en"><head>
-    <meta charset="utf-8">
-    <title>Home / The Napkin Exchange</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+        <meta charset="utf-8">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <title>
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+            Dashboard / The Napkin Exchange
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        </title>
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
 
-<body>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
 
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 
-        <!-- Sidebar Start -->
-<div class="sidebar pe-4 pb-3">
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<nav class="navbar bg-light navbar-light">
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
 
-<a href="dashboard.html" class="navbar-brand mx-4 mb-3">
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
 
-TheNapkinExchange
-
-</h5>
-
-</a>
-
-<div class="d-flex align-items-center ms-4 mb-4">
-
-<div class="position-relative">
-
-<img class="rounded-circle" src="img/candlestick.jpg" alt="" style="width: 40px; height: 40px;">
-
-<div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-
-</div>
-
-<div class="ms-3">
-
-<h6 id="sidebarTraderName" class="mb-0">--</h6>
-
-<span id="sidebarTraderBalance">--</span>
-
-</div>
-
-</div>
-
-<div class="navbar-nav w-100">
-
-
-
-<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
-
-
-
-<div class="nav-item dropdown">
-
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-<i class="fa fa-laptop me-2"></i>
-The Market
-</a>
-
-<div class="dropdown-menu bg-transparent border-0">
-
-<a href="watch.html" class="dropdown-item">Market Watch</a>
-<a href="buysell.html" class="dropdown-item">Buy Sell</a>
-<a href="activity.html" class="dropdown-item">Activity</a>
-
-</div>
-</div>
-
-<div class="nav-item dropdown">
-
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>
-
-Tech Support
-
-</a>
-
-<div class="dropdown-menu bg-transparent border-0">
-
-<a href="monitor.html" class="dropdown-item">
-
-API Monitor
-
-</a>
-
-<a target="template" href="https://themewagon.github.io/dashmin/" class="dropdown-item">
-
-Pristine Template
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</nav>
-
-</div>
-<!-- Sidebar End -->
-
-
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start --><nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form style="visibility:hidden" class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
-                <div style="visibility:hidden" class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Messages</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notifications</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
-
-<div class="nav-item dropdown">
-
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-
-<img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-
-<span id="dropdownTraderName" class="d-none d-lg-inline-flex">
-
---
-
-</span>
-
-</a>
-
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="auth/login.html" class="dropdown-item">Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-<!-- Navbar End -->
-
-
-            <!-- Table Start -->
-            <div class="container-fluid pt-4 px-4"><div class="row g-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
-                            </div>
-                        </div>
-                    </div><div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
-                            </div>
-                        </div>
-                    </div><div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
-                            </div>
-                        </div>
-                    </div><div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Account Balance</p>
-                                <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
-                            </div>
-                        </div>
-                    </div>
-        
-
-
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                 
-
-   <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Portfolio Growth By Asset</h6>
-                                <a href="">See All</a>
-                            </div>
-                            <canvas id="worldwide-sales"></canvas>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Realized Profit / Loss</h6>
-                                
-<a href="">See All</a>
-
-                            </div>
-
-                            <canvas id="salse-revenue"></canvas>
-
-                        </div>
-                    </div>
+    <body>
+        <div class="container-xxl position-relative bg-white d-flex p-0">
+            <!-- Spinner Start -->
+            <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-            <!-- Sales Chart End -->
+            <!-- Spinner End -->
 
-		
-   <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Market Watch</h6>
-                                <a href="">See All</a>
+
+            <!-- Sidebar Start -->
+            <div class="sidebar pe-4 pb-3">
+
+                <nav class="navbar bg-light navbar-light">
+
+                    <a href="dashboard.html" class="navbar-brand mx-4 mb-3">
+
+                        <h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>
+
+                            TheNapkinExchange
+
+                        </h5>
+
+                    </a>
+
+                    <div class="d-flex align-items-center ms-4 mb-4">
+
+                        <div class="position-relative">
+
+                            <img class="rounded-circle" src="img/candlestick.jpg" alt="" style="width: 40px; height: 40px;">
+
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+
+                        </div>
+
+                        <div class="ms-3">
+
+                            <h6 id="sidebarTraderName" class="mb-0">--</h6>
+
+                            <span id="sidebarTraderBalance">--</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="navbar-nav w-100">
+
+
+
+                        <a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
+
+
+
+                        <div class="nav-item dropdown">
+
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-laptop me-2"></i>
+                                The Market
+                            </a>
+
+                            <div class="dropdown-menu bg-transparent border-0">
+
+                                <a href="watch.html" class="dropdown-item">Market Watch</a>
+                                <a href="buysell.html" class="dropdown-item">Buy Sell</a>
+                                <a href="activity.html" class="dropdown-item">Activity</a>
+
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown">
+
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>
+
+                                Tech Support
+
+                            </a>
+
+                            <div class="dropdown-menu bg-transparent border-0">
+
+                                <a href="monitor.html" class="dropdown-item">
+
+                                    API Monitor
+
+                                </a>
+
+                                <a target="template" href="https://themewagon.github.io/dashmin/" class="dropdown-item">
+
+                                    Pristine Template
+
+                                </a>
+
                             </div>
 
-
-
-                            <table id="livepricing" class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Symbol</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Price</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody></tbody>
-
-                            </table>
                         </div>
+
                     </div>
 
-   <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Portfolio Growth By Asset</h6>
-                                <a href="">See All</a>
+                </nav>
+
+            </div>
+            <!-- Sidebar End -->
+
+
+            <!-- Content Start -->
+            <div class="content">
+                <!-- Navbar Start --><nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                    </a>
+                    <a href="#" class="sidebar-toggler flex-shrink-0">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <form style="visibility:hidden" class="d-none d-md-flex ms-4">
+                        <input class="form-control border-0" type="search" placeholder="Search">
+                    </form>
+                    <div style="visibility:hidden" class="navbar-nav align-items-center ms-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-envelope me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Messages</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                        <div class="ms-2">
+                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                            <small>15 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                        <div class="ms-2">
+                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                            <small>15 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                        <div class="ms-2">
+                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                            <small>15 minutes ago</small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item text-center">See all message</a>
                             </div>
-                            <canvas id="line-chart"></canvas>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-bell me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Notifications</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">Profile updated</h6>
+                                    <small>15 minutes ago</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">New user added</h6>
+                                    <small>15 minutes ago</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">Password changed</h6>
+                                    <small>15 minutes ago</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="#" class="dropdown-item text-center">See all notifications</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown">
+
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
+                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+
+                                <span id="dropdownTraderName" class="d-none d-lg-inline-flex">
+
+                                    --
+
+                                </span>
+
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">My Profile</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                                <a href="auth/login.html" class="dropdown-item">Log Out</a>
+                            </div>
                         </div>
                     </div>
+                </nav>
+                <!-- Navbar End -->
 
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Portfolio Holdings</h6>
-                            <table id="holdings" class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
 
-                                        <th scope="col">Symbol</th>
-                                        <th scope="col">Units</th>
-                                        <th scope="col">Cost Basis</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-</tbody>
-
-                            </table>
+                <!-- Table Start -->
+                <div class="container-fluid pt-4 px-4"><div class="row g-4">
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Account Balance</p>
+                                    <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
+                                </div>
+                            </div>
+                        </div><div class="col-sm-6 col-xl-3">
+                            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Account Balance</p>
+                                    <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
+                                </div>
+                            </div>
+                        </div><div class="col-sm-6 col-xl-3">
+                            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Account Balance</p>
+                                    <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
+                                </div>
+                            </div>
+                        </div><div class="col-sm-6 col-xl-3">
+                            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                <div class="ms-3">
+                                    <p class="mb-2">Account Balance</p>
+                                    <h6 id="dashboardAccountBalance" class="mb-0">--</h6>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
 
-                            <h6 class="mb-4">
 
-Profit Leaderboard
 
-</h6>
-                            <table id="leaderboard" class="table table-hover table-striped">
-                               <thead>
-                                    <tr>
+                        <!-- Sales Chart Start -->
+                        <div class="container-fluid pt-4 px-4">
+                            <div class="row g-4">
 
-                                        <th>
 
-                                           rank
+                                <div class="col-sm-12 col-xl-6">
+                                    <div class="bg-light text-center rounded p-4">
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-0">Portfolio Growth By Asset</h6>
+                                            <a href="">See All</a>
+                                        </div>
+                                        <canvas id="worldwide-sales"></canvas>
+                                    </div>
+                                </div>
 
-                                        </th>
 
-                                        <th>
+                                <div class="col-sm-12 col-xl-6">
+                                    <div class="bg-light text-center rounded p-4">
 
-                                            username
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-0">Realized Profit / Loss</h6>
 
-                                        </th>
+                                            <a href="">See All</a>
 
-                                        <th>
+                                        </div>
 
-                                            balance
+                                        <canvas id="salse-revenue"></canvas>
 
-                                        </th>
-                                                <th>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sales Chart End -->
 
-                                            profit
 
-                                        </th>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Market Watch</h6>
+                                    <a href="">See All</a>
+                                </div>
 
-                                    </tr>
 
+
+                                <table id="livepricing" class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Symbol</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                        </tr>
                                     </thead>
 
-<tbody></tbody>
-
-                            </table>
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-12">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">
-
-Open Orders
-
-</h6>
-                         
-   <div class="table-responsive">
-           
-                     <table id="orders" class="table table-hover table-striped">
-
-<thead>
-
-<tr>
-
-<th>Id</th>
-
-<th>Symbol</th>
-
-<th>Type</th>
-
-<th>
-
-Units
-
-</th>
-
-<th>
-
-Related Id
-
-</th>
-
-<th>
-
-Trigger Price
-
-</th>
-
-<th>
-
-Current Price
-
-</th>
-</tr>
-
-</thead>
-
-<tbody>
-</tbody>
+                                    <tbody></tbody>
 
                                 </table>
                             </div>
                         </div>
 
-</div><div class="col-12">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Portfolio Growth By Asset</h6>
+                                    <a href="">See All</a>
+                                </div>
+                                <canvas id="line-chart"></canvas>
+                            </div>
+                        </div>
 
-<div class="bg-light rounded h-100 p-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">Portfolio Holdings</h6>
+                                <table id="holdings" class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
 
-<h6 class="mb-4">
+                                            <th scope="col">Symbol</th>
+                                            <th scope="col">Units</th>
+                                            <th scope="col">Cost Basis</th>
+                                             <th scope="col">Value</th>
+                                        </tr>
+                                    </thead>
 
-Account Notification Feed
+                                    <tbody>
+                                    </tbody>
 
-</h6>
-<div class="table-responsive">
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
 
-<table id="notifications" class="table table-hover table-striped">
+                                <h6 class="mb-4">
 
-<thead>
+                                    Profit Leaderboard
 
-<tr>
+                                </h6>
+                                <table id="leaderboard" class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
 
-<th>Id</th>
+                                            <th>
 
-<th>Time</th>
+                                                rank
 
-<th>Type</th>
+                                            </th>
 
-<th>
+                                            <th>
 
-Activity Description
+                                                username
 
-</th>
+                                            </th>
 
-</tr>
+                                            <th>
 
-</thead>
+                                                balance
 
-<tbody></tbody>
+                                            </th>
+                                            <th>
 
-</table>
+                                                profit
 
-</div>
+                                            </th>
 
-</div>
+                                        </tr>
 
-</div>
+                                    </thead>
 
-</div>
+                                    <tbody></tbody>
 
-</div>
+                                </table>
+                            </div>
+                        </div>
 
-            <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
 
-                            Made with ❤ by the
 
-<a href="https://softwareshinobi.digital" target="softwareshinobi">Software Shinobi</a>.
+                        <div class="col-12">
+                            <div class="bg-light rounded h-100 p-4">
+                                <h6 class="mb-4">
+
+                                    Open Orders
+
+                                </h6>
+
+                                <div class="table-responsive">
+
+                                    <table id="orders" class="table table-hover table-striped">
+
+                                        <thead>
+
+                                            <tr>
+
+                                                <th>Id</th>
+
+                                                <th>Symbol</th>
+
+                                                <th>Type</th>
+
+                                                <th>
+
+                                                    Units
+
+                                                </th>
+
+                                                <th>
+
+                                                    Partner Id
+
+                                                </th>
+
+                                                <th>
+
+                                                    Trigger Price
+
+                                                </th>
+
+                                                <th>
+
+                                                    Current Price
+
+                                                </th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div><div class="col-12">
+
+                            <div class="bg-light rounded h-100 p-4">
+
+                                <h6 class="mb-4">
+
+                                    Account Notification Feed
+
+                                </h6>
+                                <div class="table-responsive">
+
+                                    <table id="notifications" class="table table-hover table-striped">
+
+                                        <thead>
+
+                                            <tr>
+
+                                                <th>Id</th>
+
+                                                <th>Time</th>
+
+                                                <th>Type</th>
+
+                                                <th>
+
+                                                    Activity Description
+
+                                                </th>
+
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody></tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
 
                         </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>.
 
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>.
+                    </div>
+
+                </div>
+
+                <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light rounded-top p-4">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 text-center text-sm-start">
+
+                                Made with ❤ by the
+
+                                <a href="https://softwareshinobi.digital" target="softwareshinobi">Software Shinobi</a>.
+
+                            </div>
+                            <div class="col-12 col-sm-6 text-center text-sm-end">
+                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>.
+
+                                Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>.
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- Footer End -->
             </div>
-<!-- Footer End -->
+            <!-- Content End -->
+
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i class="bi bi-arrow-up"></i></a>
         </div>
-        <!-- Content End -->
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/chart/chart.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+        <!-- Template Javascript -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: none;"><i class="bi bi-arrow-up"></i></a>
-    </div>
+        <script src="js/main.js"></script>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.3.js"></script> 
 
-    <!-- Template Javascript -->\
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
 
+        <script src="scripting/cookies/cookies.js"></script>
 
-    <script src="js/main.js"></script>
+        <script src="scripting/leaderboard/leaderboard.js"></script>
 
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script> 
+        <script src="scripting/trader/detail.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+        <script src="scripting/trader/notification.js"></script>
 
-<script src="scripting/cookies/cookies.js"></script>
+        <script src="scripting/marketwatch/livepricing.js"></script>
 
-<script src="scripting/leaderboard/leaderboard.js"></script>
+        <!-- new world -->
 
-<script src="scripting/trader/detail.js"></script>
+        <script src="scripting/trader/sidebar.js"></script>
 
-<script src="scripting/trader/notification.js"></script>
+        <script src="scripting/dashboard/notifications.js"></script>
 
-<script src="scripting/marketwatch/livepricing.js"></script>
+        <script src="scripting/dashboard/openorders.js"></script>
 
-<script src="scripting/dashboard/dashboard.js"></script>
+        <script src="scripting/dashboard/portfolio.js"></script>
 
-</body></html>
+    </body>
+
+</html>

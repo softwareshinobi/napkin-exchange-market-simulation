@@ -19,6 +19,6 @@ public class AccountHistoryId implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", nullable = false)
     @JsonBackReference
-    private Account account;
+    private Trader account;
 
 }

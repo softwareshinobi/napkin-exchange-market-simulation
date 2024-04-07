@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.leaderboard.service;
 
 import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
 import digital.softwareshinobi.napkinexchange.leaderboard.util.SortAccountProfits;
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ public class LeaderboardService {
 
     public List<Leaderboard> topTenAccounts() {
 
-        List<Account> accounts
+        List<Trader> accounts
                 = SortAccountProfits.sortAccountByProfits(accountService.findAllAccounts());
 
         return accounts.stream()
@@ -36,7 +36,7 @@ public class LeaderboardService {
 
     public List<Leaderboard> topThreeAccounts() {
 
-        List<Account> accounts
+        List<Trader> accounts
                 = SortAccountProfits.sortAccountByProfits(accountService.findAllAccounts());
 
         return accounts.stream()
@@ -52,7 +52,7 @@ public class LeaderboardService {
 
     public Leaderboard findAccountRanking(String username) {
 
-        List<Account> accounts
+        List<Trader> accounts
                 = SortAccountProfits.sortAccountByProfits(accountService.findAllAccounts());
 
         return accounts.stream()

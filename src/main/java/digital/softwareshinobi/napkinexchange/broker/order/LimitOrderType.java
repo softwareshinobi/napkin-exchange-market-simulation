@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.trader.model;
+package digital.softwareshinobi.napkinexchange.broker.order;
 
 public enum LimitOrderType {
 

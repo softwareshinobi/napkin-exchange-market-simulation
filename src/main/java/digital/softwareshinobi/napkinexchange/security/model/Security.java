@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-public class Stock implements Serializable {
+public class Security implements Serializable {
 
     @Id
     private String ticker;
@@ -58,7 +58,7 @@ public class Stock implements Serializable {
     @JsonIgnore
     private List<StockPriceHistory> priceHistory;
 
-    public Stock(String ticker,
+    public Security(String ticker,
             String companyName,
             String sector,
             MarketCap marketCap,

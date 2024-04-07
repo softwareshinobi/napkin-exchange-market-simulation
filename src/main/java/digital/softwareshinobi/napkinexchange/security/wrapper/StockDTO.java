@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.security.wrapper;
 
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +27,7 @@ public class StockDTO {
 
     private List<StockPriceHistoryDTO> priceHistory;
 
-    public StockDTO(Stock stock) {
+    public StockDTO(Security stock) {
         this.ticker = stock.getTicker();
         this.companyName = stock.getCompanyName();
         this.sector = stock.getSector();

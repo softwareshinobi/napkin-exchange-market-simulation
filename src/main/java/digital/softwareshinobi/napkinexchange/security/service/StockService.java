@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.enums.Volatility;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,36 +21,36 @@ public class StockService {
     @Autowired
     private final StockRepository stockRepository;
 
-    public List<Stock> getAllStocks() {
+    public List<Security> getAllStocks() {
         return stockRepository.findAll();
     }
 
     //this method is used to generate random news events
-    public Stock getRandomStock() {
-        List<Stock> stocks = getAllStocks();
+    public Security getRandomStock() {
+        List<Security> stocks = getAllStocks();
         Collections.shuffle(stocks);
         return stocks.get(0);
     }
 
-    public List<Stock> getAllStocksByMarketCap(MarketCap marketCap) {
+    public List<Security> getAllStocksByMarketCap(MarketCap marketCap) {
         return stockRepository.findAll().stream()
                 .filter(stock -> stock.getMarketCap()
                 .equals(marketCap)).collect(Collectors.toList());
     }
 
-    public List<Stock> getAllStocksBySector(String sector) {
+    public List<Security> getAllStocksBySector(String sector) {
         return stockRepository.findAll().stream()
                 .filter(stock -> stock.getSector()
                 .equalsIgnoreCase(sector)).collect(Collectors.toList());
     }
 
-    public List<Stock> getAllStocksByVolatility(Volatility volatility) {
+    public List<Security> getAllStocksByVolatility(Volatility volatility) {
         return stockRepository.findAll().stream()
                 .filter(stock -> stock.getVolatileStock().equals(volatility))
                 .collect(Collectors.toList());
     }
 
-    public Stock getStockByTickerSymbol(String ticker) {
+    public Security getStockByTickerSymbol(String ticker) {
         return stockRepository.findById(ticker.toUpperCase())
                 .orElseThrow(() -> new StockNotFoundException(
                 "No stock with ticker symbol " + ticker + " exists"));
@@ -64,7 +64,7 @@ public class StockService {
     }
 
     //Ignore any stocks that do not currently exist
-    public void updateStockInDatabase(Stock stock) {
+    public void updateStockInDatabase(Security stock) {
         if (stockTickerExists(stock.getTicker())) {
             return;
         }
@@ -72,7 +72,7 @@ public class StockService {
     }
 
     //Ignore any stocks that do not currently exist
-    public void updateAllStocksInDatabase(List<Stock> stocks) {
+    public void updateAllStocksInDatabase(List<Security> stocks) {
         stockRepository.saveAll(stocks);
     }
 
@@ -80,9 +80,9 @@ public class StockService {
         return (int) stockRepository.count();
     }
 
-    public void saveDefaultStockToDatabase(List<Stock> defaultStocks) {
-        List<Stock> currentStocks = stockRepository.findAll();
-        List<Stock> unsavedStocks = new ArrayList<>();
+    public void saveDefaultStockToDatabase(List<Security> defaultStocks) {
+        List<Security> currentStocks = stockRepository.findAll();
+        List<Security> unsavedStocks = new ArrayList<>();
         defaultStocks.forEach(stock -> {
             if (!stockTickerExistsInList(currentStocks, stock.getTicker())) {
                 unsavedStocks.add(stock);
@@ -92,9 +92,9 @@ public class StockService {
     }
 
     //Used for searching which default stocks do not exist and should be saved on startup
-    public static boolean stockTickerExistsInList(List<Stock> stocks, String ticker) {
+    public static boolean stockTickerExistsInList(List<Security> stocks, String ticker) {
         return stocks.stream()
-                .map(Stock::getTicker)
+                .map(Security::getTicker)
                 .anyMatch(stockTicker -> stockTicker.equals(ticker));
     }
 

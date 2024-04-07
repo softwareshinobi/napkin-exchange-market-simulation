@@ -1,5 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import jakarta.persistence.*;
@@ -15,32 +16,35 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Account implements Serializable {
+public class Trader implements Serializable {
 
     @Id
     private String username;
 
+    @JsonIgnore
     @Column(name = "pin")
     private String password;
 
     @Column(name = "leverage")
-    private final Double leverage = 50.0;
+    private Double leverage = 50.0;
 
     @Column(name = "balance")
     private Double accountBalance;
 
+    @JsonIgnore
     @Column(name = "profit_loss")
     private Double totalProfits;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "trader", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private Set<StockOwned> stocksOwned;
+    private Set<SecurityPosition> stocksOwned;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<AccountHistory> accountHistory;
 
-    public Account(String username, String password) {
+    public Trader(String username, String password) {
 
         this.username = username;
 
@@ -49,6 +53,8 @@ public class Account implements Serializable {
         this.accountBalance = 0.0;
 
         this.totalProfits = 0.0;
+ 
+        this. leverage = 50.0;
 
     }
 

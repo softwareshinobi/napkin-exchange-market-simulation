@@ -6,11 +6,11 @@ import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
-import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
+import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
 import digital.softwareshinobi.napkinexchange.trader.repository.StockOwnedRepository;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import digital.softwareshinobi.napkinexchange.trader.utility.ValidateStockTransaction;
@@ -26,17 +26,17 @@ public class StockOwnedService {
     private final StockOwnedRepository stockOwnedRepository;
 
     @Autowired
-    private final AccountService accountService;
+    private final AccountService traderService;
 
     @Autowired
-    private final StockService stockService;
+    private final StockService securityService;
 
     @Autowired
     private final NotificationService notificationService;
 
-    public void fillStandardBuyStockRequest(BuyStockRequest buyStockRequest) {
+    public void fillBuyMarketStockRequest(BuyStockRequest buyStockRequest) {
 
-        System.out.println("enter > fillStandardBuyStockRequest");
+        System.out.println("enter > fillBuyMarketStockRequest");
 
         notificationService.save(
                 new Notification(
@@ -47,13 +47,13 @@ public class StockOwnedService {
 
         System.out.println("buyStockRequest / " + buyStockRequest);
 
-        Account traderAccount = this.accountService.getAccountByName(buyStockRequest.getUsername());
+        Trader traderAccount = this.traderService.getAccountByName(buyStockRequest.getUsername());
 
-        Stock securityToBuy = this.stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
+        Security securityToBuy = this.securityService.getStockByTickerSymbol(buyStockRequest.getTicker());
 
-        StockOwned stockOwnedByUser = this.findStockOwned(traderAccount, securityToBuy);
+        SecurityPosition stockOwnedByUser = this.findStockOwned(traderAccount, securityToBuy);
 
-        if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(traderAccount, buyStockRequest, this.stockService)) {
+        if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(traderAccount, buyStockRequest, this.securityService)) {
 
             notificationService.save(
                     new Notification(
@@ -69,7 +69,7 @@ public class StockOwnedService {
         if (stockOwnedByUser != null) {
 
             //subtract transaction value from account balance
-            accountService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
+            traderService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
 
             stockOwnedByUser.updateCostBasisAndAmountOwned(buyStockRequest.getSharesToBuy(), securityToBuy.getPrice());
 
@@ -86,7 +86,7 @@ public class StockOwnedService {
 
         }
 
-        accountService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
+        traderService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
 
         saveNewStockOwned(buyStockRequest, traderAccount, securityToBuy.getPrice());
 
@@ -99,9 +99,9 @@ public class StockOwnedService {
 
     }
 
-    public void saveNewStockOwned(BuyStockRequest buyStockRequest, Account account, double stockPrice) {
+    public void saveNewStockOwned(BuyStockRequest buyStockRequest, Trader account, double stockPrice) {
 
-        stockOwnedRepository.save(new StockOwned(
+        stockOwnedRepository.save(new SecurityPosition(
                 account,
                 buyStockRequest.getTicker(),
                 buyStockRequest.getSharesToBuy(),
@@ -127,11 +127,11 @@ public class StockOwnedService {
                         sellStockRequest.toString()
                 ));
 
-        Account account = accountService.getAccountByName(sellStockRequest.getUsername());
+        Trader trader = traderService.getAccountByName(sellStockRequest.getUsername());
 
         System.out.println("1");
 
-        if (!ValidateStockTransaction.doesAccountHaveEnoughStocks(account, sellStockRequest)) {
+        if (!ValidateStockTransaction.doesAccountHaveEnoughStocks(trader, sellStockRequest)) {
 
             throw new AccountInventoryException("Account does not own enough stocks");
 
@@ -139,37 +139,38 @@ public class StockOwnedService {
 
         System.out.println("2.0");
 
-        Stock stock = stockService.getStockByTickerSymbol(sellStockRequest.getSecurity());
+        Security security = securityService.getStockByTickerSymbol(sellStockRequest.getSecurity());
 
         System.out.println("2");
 
-        StockOwned stockOwned = findStockOwned(account, stock);
+        SecurityPosition securityPosition = findStockOwned(trader, security);
 
         System.out.println("3");
 
-        account.updateTotalProfits(
-                stockOwned.getCostBasis(),
+        trader.updateTotalProfits(
+                securityPosition.getCostBasis(),
                 sellStockRequest.getUnits(),
-                stock.getPrice());
+                security.getPrice());
 
         System.out.println("4");
 
-        accountService.updateBalanceAndSave(account, stock.getPrice() * sellStockRequest.getUnits());
+        traderService.updateBalanceAndSave(trader, security.getPrice() * sellStockRequest.getUnits());
 
         System.out.println("5");
 
-        if (sellStockRequest.getUnits() - stockOwned.getAmountOwned() == 0) {
+        if (sellStockRequest.getUnits() - securityPosition.getUnits() == 0) {
 
             System.out.println("6");
 
-//            clearAndDeleteStockOwned(stockOwned);
+            stockOwnedRepository.delete(securityPosition);
+          //  clearAndDeleteStockOwned(securityPosition);
         } else {
 
             System.out.println("7");
 
-            stockOwned.setAmountOwned(stockOwned.getAmountOwned() - sellStockRequest.getUnits());
+            securityPosition.setUnits(securityPosition.getUnits() - sellStockRequest.getUnits());
 
-            stockOwnedRepository.save(stockOwned);
+            stockOwnedRepository.save(securityPosition);
 
         }
 
@@ -182,11 +183,11 @@ public class StockOwnedService {
 
     }
 
-    public StockOwned findStockOwned(Account account, Stock stock) {
+    public SecurityPosition findStockOwned(Trader trader, Security security) {
 
         return stockOwnedRepository.findAll().stream()
-                .filter(stockOwned -> stockOwned.getTicker().equalsIgnoreCase(stock.getTicker()))
-                .filter(stockOwned -> stockOwned.getAccount().getUsername().equals(account.getUsername()))
+                .filter(securityPosition -> securityPosition.getSymbol().equalsIgnoreCase(security.getTicker()))
+                .filter(securityPosition -> securityPosition.getTrader().getUsername().equals(trader.getUsername()))
                 .findFirst()
                 .orElse(null);
 

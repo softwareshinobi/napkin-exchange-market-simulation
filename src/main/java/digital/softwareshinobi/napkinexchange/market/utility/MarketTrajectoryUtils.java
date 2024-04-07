@@ -2,13 +2,13 @@ package digital.softwareshinobi.napkinexchange.market.utility;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 
 import java.util.List;
 
 public class MarketTrajectoryUtils {
 
-    public static MarketTrajectory getNewMarketTrajectory(Market market, List<Stock> stockList) {
+    public static MarketTrajectory getNewMarketTrajectory(Market market, List<Security> stockList) {
         if (stockList == null || stockList.size() == 0) {
             return MarketTrajectory.NORMAL;
         }
@@ -24,13 +24,13 @@ public class MarketTrajectoryUtils {
         return MarketTrajectory.NORMAL;
     }
 
-    public static double stockPricesAverage(List<Stock> stockList) {
+    public static double stockPricesAverage(List<Security> stockList) {
         return Math.round((stockPricesSum(stockList) / stockList.size()) * 100.00) / 100.00;
     }
 
-    public static double stockPricesSum(List<Stock> stockList) {
+    public static double stockPricesSum(List<Security> stockList) {
         double priceSum = 0;
-        for (Stock stock : stockList) {
+        for (Security stock : stockList) {
             priceSum += stock.getPrice();
         }
         return priceSum;

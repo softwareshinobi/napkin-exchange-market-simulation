@@ -2,19 +2,19 @@ package digital.softwareshinobi.napkinexchange.trader.utility;
 
 import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
-import digital.softwareshinobi.napkinexchange.trader.model.StockOwned;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
+import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
 
 public class ValidateStockTransaction {
 
-    public static boolean doesTraderHaveEnoughAvailableBalance(Account account,
+    public static boolean doesTraderHaveEnoughAvailableBalance(Trader account,
             BuyStockRequest buyStockRequest,
             StockService stockService) {
         double balance = account.getAccountBalance();
-        Stock stock;
+        Security stock;
         try {
             stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
         } catch (StockNotFoundException ex) {
@@ -24,10 +24,10 @@ public class ValidateStockTransaction {
     }
 
     public static boolean doesAccountHaveEnoughStocks(
-            Account account,
+            Trader account,
             SellStockRequest sellStockRequest) {
 
-        StockOwned stock = FindStockOwned.findOwnedStockByTicker(
+        SecurityPosition stock = FindStockOwned.findOwnedStockByTicker(
                 account.getStocksOwned(),
                 sellStockRequest.getSecurity());
 
@@ -36,7 +36,7 @@ public class ValidateStockTransaction {
             return false;
         }
 
-        return stock.getAmountOwned() >= sellStockRequest.getUnits();
+        return stock.getUnits() >= sellStockRequest.getUnits();
 
     }
 

@@ -1,13 +1,15 @@
 
 $(document).ready(function () {
 
-	setInterval(fetchLivePricing, 1000);
+    fetchLivePricing();
+
+    setInterval(fetchLivePricing, 1000 * 10);
 
 });
 
-function fetchLivePricing(){
+function fetchLivePricing() {
 
-    console.debug("enter > fetchLivePricing()");	
+    console.debug("enter > fetchLivePricing()");
 
     $.ajax({
 
@@ -17,7 +19,7 @@ function fetchLivePricing(){
 
         contentType: "text/plain",
 
-        crossDomain: true,				
+        crossDomain: true,
 
         success: function (data, status, jqXHR) {
 
@@ -49,12 +51,12 @@ function displayLivePricing(priceData) {
 
         html += '<td>' + priceData[index].price + '</td>';
 
-        html += '</tr>';	
+        html += '</tr>';
 
     }
 
     console.log(html);
 
-    $('#livepricing > tbody').html(html); 
+    $('#livepricing > tbody').html(html);
 
 }

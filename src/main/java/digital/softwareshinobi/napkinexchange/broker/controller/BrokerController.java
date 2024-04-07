@@ -7,11 +7,11 @@ import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
-import digital.softwareshinobi.napkinexchange.security.model.Stock;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
-import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
+import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "broker")
 public class BrokerController {
 
-    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.7111;
+    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.01_0;
 
-    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.001;
+    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.04_44;
 
     public BrokerController() {
 
-        System.out.println("init > BrokerController");
+        System.out.println("");
+        System.out.println("init > Broker Controller");
+        System.out.println("");
 
     }
 
@@ -98,12 +100,12 @@ public class BrokerController {
 //                        limitOrder.toString()
 //                ));
 
-        stockOwnedService.fillStandardBuyStockRequest(buyStockRequest);
+        stockOwnedService.fillBuyMarketStockRequest(buyStockRequest);
 
         System.out.println("buyStockRequest / fulfilled");
 
         //////////doing math ////////////
-        Stock stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
+        Security stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
 
         System.out.println("stock: " + stock);
 
@@ -139,11 +141,13 @@ public class BrokerController {
         limitOrderService.saveLimitOrder(stopLossOrder);
 
         limitOrderService.saveLimitOrder(takeProfitOrder);
-
         takeProfitOrder.setRelatedOrderId(stopLossOrder.getId());
 
         stopLossOrder.setRelatedOrderId(takeProfitOrder.getId());
 
+        limitOrderService.saveLimitOrder(stopLossOrder);
+
+        limitOrderService.saveLimitOrder(takeProfitOrder);
 ////////
         System.out.println("order / stop loss / " + stopLossOrder);
 

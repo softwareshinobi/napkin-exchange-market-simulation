@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StockOwned implements Serializable {
+public class SecurityPosition implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,51 +31,47 @@ public class StockOwned implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_id", nullable = false)
     @JsonBackReference
-    private Account account;
+    private Trader trader;
 
-    @Column(name = "ticker")
-    private String ticker;
+    @Column(name = "symbol")
+    private String symbol;
 
-    @Column(name = "owned")
-    private Integer amountOwned;
+    @Column(name = "units")
+    private Integer units;
 
     @Column(name = "cost_basis")
     private Double costBasis;
+//
+//     @JsonIgnore
+//     @Column(name = "value")
+//    public Double value;
 
-    public StockOwned(Account account, String ticker, int amountOwned, double costBasis) {
+    public SecurityPosition(Trader trader, String symbol, Integer units, Double costBasis) {
 
-        this.account = account;
+        this.trader = trader;
 
-        this.ticker = ticker;
+        this.symbol = symbol;
 
-        this.amountOwned = amountOwned;
+        this.units = units;
 
         this.costBasis = costBasis;
+
+      //  this.value = units * costBasis;
 
     }
 
     public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
 
         this.setCostBasis(CalculateCostBasisAndProfits.newCostBasis(
-                this.amountOwned,
+                this.units,
                 numberUnits,
                 this.costBasis,
                 currentSecurityPrice));
 
-        this.setAmountOwned(this.amountOwned + numberUnits);
+        this.setUnits(this.units + numberUnits);
+        
+    //    this.setValue(this.costBasis * this.amountOwned);
 
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("{");
-//        sb.append("id=").append(id);
-//        sb.append(", account=").append(account);
-//        sb.append(", ticker=").append(ticker);
-//        sb.append(", amountOwned=").append(amountOwned);
-//        sb.append(", costBasis=").append(costBasis);
-//        sb.append('}');
-//        return sb.toString();
-//    }
 }

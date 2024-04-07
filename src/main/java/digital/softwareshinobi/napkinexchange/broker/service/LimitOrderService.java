@@ -6,8 +6,8 @@ import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
-import digital.softwareshinobi.napkinexchange.trader.model.Account;
-import digital.softwareshinobi.napkinexchange.trader.model.LimitOrder;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
+import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class LimitOrderService {
 
     }
 
-    public List<LimitOrder> findLimitOrders(Account account) {
+    public List<LimitOrder> findLimitOrders(Trader account) {
 
         return limitOrderRepository.findAll().stream()
                 .filter(order -> order.getAccount().getUsername().equals(account.getUsername()))
@@ -94,7 +94,7 @@ public class LimitOrderService {
 
                     System.out.println("is a LONG_STOP_LOSS");
 
-                    this.processLongStopLoss(limitOrder);
+                    this.evaluateLimitOrderLongStopLoss(limitOrder);
 
                     break;
 
@@ -102,7 +102,7 @@ public class LimitOrderService {
 
                     System.out.println("is a LONG_TAKE_PROFIT");
 
-                    this.processLongTakeProfit(limitOrder);
+                    this.evaluateLimitOrderLongTakeProfit(limitOrder);
 
                     break;
 
@@ -119,13 +119,17 @@ public class LimitOrderService {
         // System.out.println("exit < processLimitOrders");
     }
 
-    private void processLongStopLoss(LimitOrder stopLossOrder) {
+    private void evaluateLimitOrderLongStopLoss(LimitOrder stopLossOrder) {
 
-        System.out.println("enter > processLongStopLossOrder");
+        System.out.println("enter > evaluateLimitOrderLongStopLoss");
 
-//        System.out.println("stop loss order / " + stopLossOrder);
-//        System.out.println("  current price / " + stopLossOrder.getStock().getPrice());
-//        System.out.println("   strike price / " + stopLossOrder.getStrikePrice());
+        System.out.println();
+        System.out.println("stop loss order / " + stopLossOrder);
+        System.out.println();
+        System.out.println("  current price / " + stopLossOrder.getStock().getPrice());
+        System.out.println("   strike price / " + stopLossOrder.getStrikePrice());
+        System.out.println();
+
 //todo, we shouldn't be compariing doubles like this
         if (stopLossOrder.getStock().getPrice() < stopLossOrder.getStrikePrice()) {
 
@@ -137,42 +141,21 @@ public class LimitOrderService {
                         new Notification(
                                 stopLossOrder.getAccount().getUsername(),
                                 NotificationType.LONG_STOP_LOSS_TRIGGERED,
-                                "STOP LOSS triggerd /  + stopLossOrder.toString()"
+                                stopLossOrder
                         ));
 
-                stockOwnedService.sellStockMarketPrice(
-                        new SellStockRequest(
-                                stopLossOrder.getAccount().getUsername(),
-                                stopLossOrder.getStock().getTicker(),
-                                stopLossOrder.getSharesToBuy()));
+                SellStockRequest sellStockRequest = new SellStockRequest(
+                        stopLossOrder.getAccount().getUsername(),
+                        stopLossOrder.getStock().getTicker(),
+                        stopLossOrder.getSharesToBuy()
+                );
 
-                clearAndDeleteLimitOrder(stopLossOrder);
+                stockOwnedService.sellStockMarketPrice(sellStockRequest);
 
-                /////////////////////////////////////////////////////////////////
-                System.out.println("removing the related");
+                this.clearAndDeleteLimitOrder(stopLossOrder);
 
-                Optional<LimitOrder> relatedOrderOptional = this.findLimitOrder(stopLossOrder.getRelatedOrderId());
+                this.removeSmartRelated(stopLossOrder);
 
-                if (relatedOrderOptional.isPresent()) {
-
-                    LimitOrder relatedOrder = relatedOrderOptional.get(); // Use the user object
-
-                    System.out.println("related order / " + relatedOrder);
-
-                    notificationService.save(
-                            new Notification(
-                                    relatedOrder.getAccount().getUsername(),
-                                    NotificationType.LONG_SMART_BUY_PAIR_CANCELLATION,
-                                    "RELATED TRANSACTION CANCELLED /  + relatedOrder.toString()"
-                            ));
-
-                    clearAndDeleteLimitOrder(relatedOrder);
-
-                } else {
-                    // Handle the case where no relatedOrder is found
-                }
-
-/////////////////////////////////////////////////////////////////
             } catch (AccountNotFoundException exception) {
 
                 exception.printStackTrace();
@@ -186,9 +169,9 @@ public class LimitOrderService {
 
     }
 
-    private void processLongTakeProfit(LimitOrder takeProfitOrder) {
+    private void evaluateLimitOrderLongTakeProfit(LimitOrder takeProfitOrder) {
 
-        System.out.println("enter > processLongTakeProfit");
+        System.out.println("enter > evaluateLimitOrderLongTakeProfit");
 
         System.out.println();
         System.out.println("take profit order / " + takeProfitOrder);
@@ -208,23 +191,19 @@ public class LimitOrderService {
                         new Notification(
                                 takeProfitOrder.getAccount().getUsername(),
                                 NotificationType.LONG_TAKE_PROFIT_TRIGGERED,
-                                takeProfitOrder.toString()
+                                takeProfitOrder
                         ));
 
-                SellStockRequest sellStockRequest = new SellStockRequest(
+                SellStockRequest marketSellStockRequest = new SellStockRequest(
                         takeProfitOrder.getAccount().getUsername(),
                         takeProfitOrder.getStock().getTicker(),
                         takeProfitOrder.getSharesToBuy());
 
-                stockOwnedService.sellStockMarketPrice(sellStockRequest);
+                stockOwnedService.sellStockMarketPrice(marketSellStockRequest);
 
-//                notificationService.save(
-//                        new Notification(
-//                                takeProfitOrder.getAccount().getUsername(),
-//                                NotificationType.LONG_SELL_ORDER_FULFILLED,
-//                                sellStockRequest.toString()
-//                        ));
-                clearAndDeleteLimitOrder(takeProfitOrder);
+                this.clearAndDeleteLimitOrder(takeProfitOrder);
+
+                this.removeSmartRelated(takeProfitOrder);
 
             } catch (AccountNotFoundException exception) {
 
@@ -242,6 +221,34 @@ public class LimitOrderService {
 //    public void truncateLimitOrders() {
 //        limitOrderRepository.truncateTable();
 //    }
+
+    private void removeSmartRelated(LimitOrder limitOrder) {
+        /////////////////////////////////////////////////////////////////
+        System.out.println("removing the related");
+
+        Optional<LimitOrder> relatedOrderOptional = this.findLimitOrder(limitOrder.getRelatedOrderId());
+
+        if (relatedOrderOptional.isPresent()) {
+
+            LimitOrder relatedOrder = relatedOrderOptional.get(); // Use the user object
+
+            System.out.println("related order / " + relatedOrder);
+
+            notificationService.save(
+                    new Notification(
+                            relatedOrder.getAccount().getUsername(),
+                            NotificationType.LONG_SMART_BUY_CANCELLATION,
+                            relatedOrder
+                    ));
+
+            clearAndDeleteLimitOrder(relatedOrder);
+
+        } else {
+            // Handle the case where no relatedOrder is found
+        }
+
+/////////////////////////////////////////////////////////////////
+    }
 
     private void clearAndDeleteLimitOrder(LimitOrder limitOrder) {
 

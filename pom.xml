@@ -18,12 +18,12 @@
 
 	<groupId>digital.softwareshinobi</groupId>
 
-	<artifactId>napkin-exchange-simulator</artifactId>
+	<artifactId>napkin-exchange-market-simulator</artifactId>
 
 	<version>1.0</version>
 
-	<name>napkin-exchange-simulator</name>
-<description>the napkin-exchange-simulator!</description>
+	<name>napkin-exchange-market-simulator</name>
+<description>napkin-exchange-market-simulator</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

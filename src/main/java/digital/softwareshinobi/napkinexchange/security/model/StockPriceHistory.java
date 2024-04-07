@@ -24,7 +24,7 @@ public class StockPriceHistory implements Serializable {
 
     @MapsId(value = "ticker")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Stock stock;
+    private Security stock;
 
     @Column(name = "price")
     private Double stockPrice;
