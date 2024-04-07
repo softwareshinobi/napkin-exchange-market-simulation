@@ -1,4 +1,6 @@
-FROM maven:3.8.7-openjdk-18-slim AS mavenBuild
+FROM maven:3.8.7-openjdk-18-slim AS MAVEN_BUILD
+
+MAINTAINER Software Shinobi "the.software.shinobi@gmail.com"
 
 WORKDIR /
 
@@ -8,8 +10,8 @@ RUN mvn install -DskipTests
 
 FROM eclipse-temurin:18-jre-alpine
 
-COPY --from=mavenBuild /target/napkin-exchange-simulator-1.0.jar /napkin-exchange-simulator.jar
+COPY --from=MAVEN_BUILD /target/valorant-digital-workspace-api-1.0.jar /valorant-digital-workspace.jar
 
-COPY --from=mavenBuild /src/main/resources/application.properties /application.properties
+COPY --from=MAVEN_BUILD /src/main/resources/application.properties /application.properties
 
-CMD ["java", "-jar", "/napkin-exchange-simulator.jar"] 
+CMD ["java", "-jar", "/valorant-digital-workspace.jar"] 

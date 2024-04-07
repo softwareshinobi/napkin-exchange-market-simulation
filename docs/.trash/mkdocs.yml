@@ -1,0 +1,55 @@
+
+docs_dir: docs
+
+site_name: Usher Rule Trading System
+
+theme:
+
+    ## https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/
+
+    palette:
+        
+        scheme: slate
+        
+        primary: cyan
+        
+     ##   accent: purple
+        
+    ##
+    ## Find More Themes Here:
+    ##
+    ##     https://mkdocs.github.io/mkdocs-bootswatch/
+    ##
+    ## List of theme values:
+    ##
+    ##     mkdocs, readthedocs, material, cerulean, cosmo, 
+    ##     cyborg, darkly, flatly, journal, litera, lumen, lux,
+    ##     materia, minty, pulse, sandstone, simplex, slate, solar,
+    ##     spacelab, superhero, united, yeti 
+    ##
+        
+    name: material
+    
+    ## 
+    ## you can alternate colors for the navigation header.
+    ##
+    ## Allowed values: primary (the default), dark, and light:
+    ##
+    
+    nav_style: primary
+
+extra_css: [assets/extra.css]
+
+plugins:
+  - search
+  - blog:
+      paginate: 10  # Number of posts per page
+      sort_by: date  # Sort blog posts by date
+
+markdown_extensions:
+  - meta
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML

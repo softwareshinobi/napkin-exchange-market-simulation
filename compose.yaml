@@ -1,22 +1,70 @@
 services:
 
-    napkin-exchange-server:
+    valorant-digital-workspace-web:
 
-        container_name: napkin-exchange-server
+        container_name: valorant-digital-workspace-web
+
+        image: softwareshinobi/valorant-digital-workspace-web
+
+        build: 
+
+            context: web
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8880:80
+
+    valorant-digital-workspace-links:
+
+        container_name: valorant-digital-workspace-links
+
+        image: softwareshinobi/valorant-digital-workspace-links
+
+        build: 
+
+            context: links
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8881:80
+
+    valorant-digital-workspace-docs:
+
+        container_name: valorant-digital-workspace-docs
+
+        image: softwareshinobi/valorant-digital-workspace-docs
+
+        build: 
+
+            context: docs
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8882:80
+
+    valorant-digital-workspace-api:
+
+        container_name: valorant-digital-workspace-api
         
-        image: softwareshinobi/napkin-exchange-server
+        image: softwareshinobi/valorant-digital-workspace-api
 
         depends_on:
 
-           - napkin-exchange-database
+           - valorant-digital-workspace-database
 
         build: 
 
             context: .
 
             dockerfile: Dockerfile
-
-        restart: unless-stopped
+    
+        restart: always
 
         ports:
 
@@ -24,80 +72,60 @@ services:
 
         environment:
 
-            DB_HOST: napkin-exchange-database
+            DB_HOST: valorant-digital-workspace-database
 
-            DB_NAME: napkin_exchange_server
+            DB_NAME: valorant_digital_workspace
 
-            DB_USER: napkin_exchange_server
+            DB_USER: valorant_digital_workspace
 
-            DB_PASS: napkin_exchange_server
+            DB_PASS: valorant_digital_workspace
 
-    napkin-exchange-workflow:
+    valorant-digital-workspace-database:
 
-        container_name: napkin-exchange-workflow
-
-        image: nginx
-      
-      ##  volumes:
-        
-    ##        - dashboard:/tmp
-
-        restart: unless-stopped          
-
-        ports:
-
-            - 8881:8000
-
-    napkin-exchange-database:
-
-        container_name: napkin-exchange-database
+        container_name: valorant-digital-workspace-database
 
         image: mariadb
 
-        restart: unless-stopped
-     ##   volumes:
+        ##   volumes:
 
-     ##       - ./.container-volumes/mysql-server:/var/lib/mysql
+        ##       - ./.container-volumes/mariadb-server:/var/lib/mysql
 
-        ports:
+        ##   ports:
 
-            - "3306:3306"
+        ##       - "8886:3306"
 
         environment:
 
             MYSQL_ROOT_PASSWORD: aggiepride
 
-            MYSQL_DATABASE: napkin_exchange_server
+            MYSQL_DATABASE: valorant_digital_workspace
 
-            MYSQL_USER: napkin_exchange_server
+            MYSQL_USER: valorant_digital_workspace
 
-            MYSQL_PASSWORD: napkin_exchange_server
+            MYSQL_PASSWORD: valorant_digital_workspace
 
-    napkin-exchange-phpmyadmin:
+    valorant-digital-workspace-phpmyadmin:
 
-        container_name: napkin-exchange-phpmyadmin
+        container_name: valorant-digital-workspace-phpmyadmin
 
         image: beeyev/phpmyadmin-lightweight
 
-        restart: unless-stopped
-
         depends_on:
 
-           - napkin-exchange-database
+           - valorant-digital-workspace-database
 
         links:
 
-           - napkin-exchange-database
+           - valorant-digital-workspace-database
 
         ports:
 
-            - 8830:80
+            - 8885:80
 
         environment:
 
-            PMA_HOST: napkin-exchange-database
+            PMA_HOST: valorant-digital-workspace-database
 
-##            PMA_PORT: 3306
-##
-##            PMA_ARBITRARY: 1
-##
+            PMA_PORT: 3306
+
+            PMA_ARBITRARY: 1

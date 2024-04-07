@@ -1,0 +1,17 @@
+  898  cat /etc/issue
+  899  cat /etc/passwd
+  900  cd /home/jenkins-controller/
+  901  ls -lha
+  902  su - jenkins-controller 
+  903  deluser jen
+  904  userdlel jen
+  905  deluser jen
+  906  userdel jenkins-controller 
+  907  pkill -u jenkins-controller
+  908  userdel jenkins-controller 
+  909  rm -r /home/jenkins-controller/
+  910  assuser 
+  911  adduser jenkins-worker
+  912  usermod -a -G docker jenkins-worker 
+  913  history
+root@callisto:/home/jenkins-controller# 

@@ -1,19 +1,7 @@
-#!/bin/bash
-
 set -e
 
-set -x 
+set -x
 
-reset
+cd .automatr
 
-clear
-
-docker-compose rm
-
-docker-compose build
-
-docker-compose down
-
-docker-compose rm
-
-docker-compose up -d
+bash start.bash
