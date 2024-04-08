@@ -12,4 +12,4 @@ docker-compose down --remove-orphans
 
 docker-compose up -d
 
-docker-compose stats
+docker stats
