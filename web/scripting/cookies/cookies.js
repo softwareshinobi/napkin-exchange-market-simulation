@@ -1,23 +1,25 @@
+
+//
+// keys and things
+//
+
+var KEY_USERNAME="traderName";
+
+//
+// backend string info. hack.
+//
+
+apiURL="https://apis.napkinexchange.softwareshinobi.digital";
+
+// apiURL="http://localhost:8888";
+
 $(document).ready(function () {
   
-  console.log("list / cookies / all");
+    console.log("list / cookies / all");
 
     console.log(Cookies.get());
 
-  //  console.log("list / cookies / all");
-
-  //  console.log(Cookies.get());
-
-  //  currentTraderUsername=Cookies.get('trader-username');
-
-// alert("currentTraderUsername / "+currentTraderUsername);
- //   displayAllActivityRecords();
-
 });
-
-apiURL="http://localhost:8888";
-
-var KEY_USERNAME="traderName";
 
 function traderName() {
 
@@ -30,32 +32,3 @@ function traderName() {
     return traderName;
 
 }
-
-
-//currentTraderUsername="";
-
-
-
-/*
-function s444aveUsername() {
-
-	console.debug(" -> :: saveUsername()");	
-
-    console.log("list / cookies / before");
-
-    console.log(Cookies.get());
-
-    Cookies.set('trader-username', $("#current-trader-username").val(), { path: '/' , expires: 365 })
-
-    console.log("list / cookies / after");
-
-    console.log(Cookies.get());
-
-    console.log("list / cookies / target");
-
-    console.log(Cookies.get('trader-username'));
-
-    console.debug(" <- :: saveUsername()");	
-
-}
-*/

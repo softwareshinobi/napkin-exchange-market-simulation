@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "broker")
 public class BrokerController {
 
-    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.01_0;
+    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.01;
 
-    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.04_44;
+    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.04;
 
     public BrokerController() {
 

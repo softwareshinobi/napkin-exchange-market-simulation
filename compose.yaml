@@ -1,10 +1,166 @@
 services:
 
-    valorant-digital-workspace-web:
+##########################################
+##
+## network infrastructure
+##
+##########################################
 
-        container_name: valorant-digital-workspace-web
+    napkin-exchange-market-proxy:
 
-        image: softwareshinobi/valorant-digital-workspace-web
+        container_name: napkin-exchange-market-proxy
+
+        image: nginxproxy/nginx-proxy
+
+        restart: unless-stopped
+
+        ports:
+
+            - 80:80
+
+            - 443:443
+
+        volumes:
+
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+
+            - /var/docker/nginx/html:/usr/share/nginx/html
+
+            - /var/docker/nginx/certs:/etc/nginx/certs
+
+            - /var/docker/nginx/vhost:/etc/nginx/vhost.d
+
+        logging:
+
+            options:
+
+                max-size: "10m"
+
+                max-file: "3"
+
+    napkin-exchange-market-letsencrypt:
+
+        container_name: napkin-exchange-market-letsencrypt
+
+        image: jrcs/letsencrypt-nginx-proxy-companion
+
+        restart: unless-stopped
+
+        volumes_from:
+
+            - napkin-exchange-market-proxy
+
+        volumes:
+
+            - /var/run/docker.sock:/var/run/docker.sock
+
+            - /var/docker/nginx/acme:/etc/acme.sh
+
+        environment:
+
+            DEFAULT_EMAIL: the.software.shinobi@gmail.com
+
+##########################################
+##
+## storage infrastructure
+##
+##########################################
+
+    napkin-exchange-market-database:
+
+        container_name: napkin-exchange-market-database
+
+        image: mariadb
+
+        volumes:
+
+            - ./.volumes/database:/var/lib/mysql
+
+        environment:
+
+            MYSQL_ROOT_PASSWORD: aggiepride
+
+            MYSQL_DATABASE: napkin_exchange_market
+
+            MYSQL_USER: napkin_exchange_market
+
+            MYSQL_PASSWORD: napkin_exchange_market
+
+    napkin-exchange-market-phpmyadmin:
+
+        container_name: napkin-exchange-market-phpmyadmin
+
+        image: beeyev/phpmyadmin-lightweight
+
+        depends_on:
+
+           - napkin-exchange-market-database
+
+        links:
+
+           - napkin-exchange-market-database
+
+        ports:
+
+            - 8885:80
+
+        environment:
+
+            VIRTUAL_HOST: database.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: database.napkinexchange.softwareshinobi.digital
+
+            PMA_HOST: napkin-exchange-market-database
+
+##########################################
+##
+## market simulation
+##
+##########################################
+
+    napkin-exchange-market-simulation:
+
+        container_name: napkin-exchange-market-simulation
+        
+        image: softwareshinobi/napkin-exchange-market-simulation
+
+        depends_on:
+
+           - napkin-exchange-market-database
+
+        build: 
+
+            context: .
+
+            dockerfile: Dockerfile
+    
+        restart: unless-stopped
+
+        ports:
+
+            - "8888:8888"
+
+        environment:
+
+            VIRTUAL_HOST: apis.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: apis.napkinexchange.softwareshinobi.digital
+
+            DB_HOST: napkin-exchange-market-database
+
+            DB_PORT: 3306
+
+            DB_NAME: napkin_exchange_market
+
+            DB_USER: napkin_exchange_market
+
+            DB_PASS: napkin_exchange_market
+
+    napkin-exchange-market-web:
+
+        container_name: napkin-exchange-market-web
+
+        image: softwareshinobi/napkin-exchange-market-web
 
         build: 
 
@@ -16,11 +172,41 @@ services:
 
             - 8880:80
 
-    valorant-digital-workspace-links:
+        environment:
 
-        container_name: valorant-digital-workspace-links
+            VIRTUAL_HOST: napkinexchange.softwareshinobi.digital
 
-        image: softwareshinobi/valorant-digital-workspace-links
+            LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
+
+    napkin-exchange-market-watch:
+
+        container_name: napkin-exchange-market-watch
+
+        image: softwareshinobi/napkin-exchange-market-watch
+
+        build: 
+
+            context: watch
+
+            dockerfile: Dockerfile
+
+        environment:
+
+            VIRTUAL_HOST: watch.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: watch.napkinexchange.softwareshinobi.digital
+
+##########################################
+##
+## project documentation
+##
+##########################################
+
+    napkin-exchange-market-links:
+
+        container_name: napkin-exchange-market-links
+
+        image: softwareshinobi/napkin-exchange-market-links
 
         build: 
 
@@ -32,11 +218,17 @@ services:
 
             - 8881:80
 
-    valorant-digital-workspace-docs:
+        environment:
 
-        container_name: valorant-digital-workspace-docs
+            VIRTUAL_HOST: links.napkinexchange.softwareshinobi.digital
 
-        image: softwareshinobi/valorant-digital-workspace-docs
+            LETSENCRYPT_HOST: links.napkinexchange.softwareshinobi.digital
+
+    napkin-exchange-market-docs:
+
+        container_name: napkin-exchange-market-docs
+
+        image: softwareshinobi/napkin-exchange-market-docs
 
         build: 
 
@@ -48,84 +240,9 @@ services:
 
             - 8882:80
 
-    valorant-digital-workspace-api:
-
-        container_name: valorant-digital-workspace-api
-        
-        image: softwareshinobi/valorant-digital-workspace-api
-
-        depends_on:
-
-           - valorant-digital-workspace-database
-
-        build: 
-
-            context: .
-
-            dockerfile: Dockerfile
-    
-        restart: always
-
-        ports:
-
-            - "8888:8888"
-
         environment:
 
-            DB_HOST: valorant-digital-workspace-database
+            VIRTUAL_HOST: docs.napkinexchange.softwareshinobi.digital
 
-            DB_NAME: valorant_digital_workspace
+            LETSENCRYPT_HOST: docs.napkinexchange.softwareshinobi.digital
 
-            DB_USER: valorant_digital_workspace
-
-            DB_PASS: valorant_digital_workspace
-
-    valorant-digital-workspace-database:
-
-        container_name: valorant-digital-workspace-database
-
-        image: mariadb
-
-        ##   volumes:
-
-        ##       - ./.container-volumes/mariadb-server:/var/lib/mysql
-
-        ##   ports:
-
-        ##       - "8886:3306"
-
-        environment:
-
-            MYSQL_ROOT_PASSWORD: aggiepride
-
-            MYSQL_DATABASE: valorant_digital_workspace
-
-            MYSQL_USER: valorant_digital_workspace
-
-            MYSQL_PASSWORD: valorant_digital_workspace
-
-    valorant-digital-workspace-phpmyadmin:
-
-        container_name: valorant-digital-workspace-phpmyadmin
-
-        image: beeyev/phpmyadmin-lightweight
-
-        depends_on:
-
-           - valorant-digital-workspace-database
-
-        links:
-
-           - valorant-digital-workspace-database
-
-        ports:
-
-            - 8885:80
-
-        environment:
-
-            PMA_HOST: valorant-digital-workspace-database
-
-            PMA_PORT: 3306
-
-            PMA_ARBITRARY: 1
