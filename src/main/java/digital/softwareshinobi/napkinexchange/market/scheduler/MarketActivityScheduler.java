@@ -33,7 +33,7 @@ public class MarketActivityScheduler {
     private final StockPriceHistoryService stockPriceHistoryService;
 
     @SuppressWarnings("unused")
-    @Scheduled(fixedRate = MarketIntervals.T)
+    @Scheduled(fixedRate = MarketIntervals.M1)
     public void dailyMarketActivity() {
 
         var currentMarketTime = this.marketActivityService.tickMarket();

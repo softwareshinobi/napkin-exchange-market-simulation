@@ -1,21 +1,139 @@
 services:
 
-    napkin-exchange-server:
+##########################################
+##
+## network infrastructure
+##
+##########################################
 
-        container_name: napkin-exchange-server
-        
-        image: softwareshinobi/napkin-exchange-server
+    napkin-exchange-market-proxy:
+
+        container_name: napkin-exchange-market-proxy
+
+        image: nginxproxy/nginx-proxy
+
+        restart: unless-stopped
+
+        ports:
+
+            - 80:80
+
+            - 443:443
+
+        volumes:
+
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+
+            - /var/docker/nginx/html:/usr/share/nginx/html
+
+            - /var/docker/nginx/certs:/etc/nginx/certs
+
+            - /var/docker/nginx/vhost:/etc/nginx/vhost.d
+
+        logging:
+
+            options:
+
+                max-size: "10m"
+
+                max-file: "3"
+
+    napkin-exchange-market-letsencrypt:
+
+        container_name: napkin-exchange-market-letsencrypt
+
+        image: jrcs/letsencrypt-nginx-proxy-companion
+
+        restart: unless-stopped
+
+        volumes_from:
+
+            - napkin-exchange-market-proxy
+
+        volumes:
+
+            - /var/run/docker.sock:/var/run/docker.sock
+
+            - /var/docker/nginx/acme:/etc/acme.sh
+
+        environment:
+
+            DEFAULT_EMAIL: the.software.shinobi@gmail.com
+
+##########################################
+##
+## storage infrastructure
+##
+##########################################
+
+    napkin-exchange-market-database:
+
+        container_name: napkin-exchange-market-database
+
+        image: mariadb
+
+        volumes:
+
+            - ./.volumes/database:/var/lib/mysql
+
+        environment:
+
+            MYSQL_ROOT_PASSWORD: aggiepride
+
+            MYSQL_DATABASE: napkin_exchange_market
+
+            MYSQL_USER: napkin_exchange_market
+
+            MYSQL_PASSWORD: napkin_exchange_market
+
+    napkin-exchange-market-phpmyadmin:
+
+        container_name: napkin-exchange-market-phpmyadmin
+
+        image: beeyev/phpmyadmin-lightweight
 
         depends_on:
 
-           - napkin-exchange-database
+           - napkin-exchange-market-database
+
+        links:
+
+           - napkin-exchange-market-database
+
+        ports:
+
+            - 8885:80
+
+        environment:
+
+            VIRTUAL_HOST: database.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: database.napkinexchange.softwareshinobi.digital
+
+            PMA_HOST: napkin-exchange-market-database
+
+##########################################
+##
+## market simulation
+##
+##########################################
+
+    napkin-exchange-market-simulation:
+
+        container_name: napkin-exchange-market-simulation
+        
+        image: softwareshinobi/napkin-exchange-market-simulation
+
+        depends_on:
+
+           - napkin-exchange-market-database
 
         build: 
 
             context: .
 
             dockerfile: Dockerfile
-
+    
         restart: unless-stopped
 
         ports:
@@ -24,80 +142,107 @@ services:
 
         environment:
 
-            DB_HOST: napkin-exchange-database
+            VIRTUAL_HOST: apis.napkinexchange.softwareshinobi.digital
 
-            DB_NAME: napkin_exchange_server
+            LETSENCRYPT_HOST: apis.napkinexchange.softwareshinobi.digital
 
-            DB_USER: napkin_exchange_server
+            DB_HOST: napkin-exchange-market-database
 
-            DB_PASS: napkin_exchange_server
+            DB_PORT: 3306
 
-    napkin-exchange-workflow:
+            DB_NAME: napkin_exchange_market
 
-        container_name: napkin-exchange-workflow
+            DB_USER: napkin_exchange_market
 
-        image: nginx
-      
-      ##  volumes:
-        
-    ##        - dashboard:/tmp
+            DB_PASS: napkin_exchange_market
 
-        restart: unless-stopped          
+    napkin-exchange-market-web:
 
-        ports:
+        container_name: napkin-exchange-market-web
 
-            - 8881:8000
+        image: softwareshinobi/napkin-exchange-market-web
 
-    napkin-exchange-database:
+        build: 
 
-        container_name: napkin-exchange-database
+            context: web
 
-        image: mariadb
-
-        restart: unless-stopped
-     ##   volumes:
-
-     ##       - ./.container-volumes/mysql-server:/var/lib/mysql
+            dockerfile: Dockerfile
 
         ports:
 
-            - "3306:3306"
+            - 8880:80
 
         environment:
 
-            MYSQL_ROOT_PASSWORD: aggiepride
+            VIRTUAL_HOST: napkinexchange.softwareshinobi.digital
 
-            MYSQL_DATABASE: napkin_exchange_server
+            LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
 
-            MYSQL_USER: napkin_exchange_server
+    napkin-exchange-market-watch:
 
-            MYSQL_PASSWORD: napkin_exchange_server
+        container_name: napkin-exchange-market-watch
 
-    napkin-exchange-phpmyadmin:
+        image: softwareshinobi/napkin-exchange-market-watch
 
-        container_name: napkin-exchange-phpmyadmin
+        build: 
 
-        image: beeyev/phpmyadmin-lightweight
+            context: watch
 
-        restart: unless-stopped
-
-        depends_on:
-
-           - napkin-exchange-database
-
-        links:
-
-           - napkin-exchange-database
-
-        ports:
-
-            - 8830:80
+            dockerfile: Dockerfile
 
         environment:
 
-            PMA_HOST: napkin-exchange-database
+            VIRTUAL_HOST: watch.napkinexchange.softwareshinobi.digital
 
-##            PMA_PORT: 3306
+            LETSENCRYPT_HOST: watch.napkinexchange.softwareshinobi.digital
+
+##########################################
 ##
-##            PMA_ARBITRARY: 1
+## project documentation
 ##
+##########################################
+
+    napkin-exchange-market-links:
+
+        container_name: napkin-exchange-market-links
+
+        image: softwareshinobi/napkin-exchange-market-links
+
+        build: 
+
+            context: links
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8881:80
+
+        environment:
+
+            VIRTUAL_HOST: links.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: links.napkinexchange.softwareshinobi.digital
+
+    napkin-exchange-market-docs:
+
+        container_name: napkin-exchange-market-docs
+
+        image: softwareshinobi/napkin-exchange-market-docs
+
+        build: 
+
+            context: docs
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8882:80
+
+        environment:
+
+            VIRTUAL_HOST: docs.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: docs.napkinexchange.softwareshinobi.digital
+

@@ -1,0 +1,105 @@
+##########################################
+##
+##  this docker compose script creates
+##    a minimal wordpress server situation.
+##
+##  there is no https support.
+##
+##  it is expected to put a reverse proxy
+##    in front of the http traffic
+##    to and from thewordpress server.
+## 
+###########################################
+
+version: "3"
+
+networks:
+
+  software-shinobi-net:
+  
+    name: software-shinobi-net
+    
+    external: true
+    
+services:
+
+    softwareshinobi-wordpress-server:
+
+        container_name: softwareshinobi-wordpress-server
+        
+        image: wordpress:latest
+        
+        networks:
+        
+            - software-shinobi-net
+       
+        depends_on:
+        
+            - softwareshinobi-wordpress-database
+
+        ports:
+        
+            - "9999:80"
+        
+        volumes:
+        
+            - ./volume-data/softwareshinobi-wordpress-server:/var/www/html/wp-content      
+        
+        environment:
+        
+            WORDPRESS_DB_HOST: softwareshinobi-wordpress-database:3306
+            
+            WORDPRESS_DB_NAME: softwareshinobi
+            
+            WORDPRESS_DB_USER: softwareshinobi
+            
+            WORDPRESS_DB_PASSWORD: Nu4HOTOpk5DIlX9
+
+    softwareshinobi-wordpress-database:
+
+        container_name: softwareshinobi-wordpress-database
+
+        image: mysql:5.7
+         
+        networks:
+
+            - software-shinobi-net
+
+        volumes:
+
+            - ./volume-data/softwareshinobi-wordpress-database:/var/lib/mysql
+
+        environment:
+
+            MYSQL_ROOT_PASSWORD: 3hsLU4DEtFNDDNsb
+            
+            MYSQL_DATABASE: softwareshinobi
+
+            MYSQL_USER: softwareshinobi
+
+            MYSQL_PASSWORD: Nu4HOTOpk5DIlX9
+
+    softwareshinobi-database-administration:
+
+        container_name: softwareshinobi-wordpress-phpmyadmin
+
+        image: phpmyadmin/phpmyadmin
+
+        depends_on:
+        
+            - softwareshinobi-wordpress-database
+
+        networks:
+
+            - software-shinobi-net
+
+        ports:
+    
+            - 8888:80
+
+        environment:
+    
+            PMA_HOST: softwareshinobi-wordpress-database
+    
+            MYSQL_ROOT_PASSWORD: 3hsLU4DEtFNDDNsb
+           
