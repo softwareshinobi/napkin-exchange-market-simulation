@@ -43,115 +43,68 @@
 
 
         <!-- Sidebar Start -->
-<div class="sidebar pe-4 pb-3">
-
-<nav class="navbar bg-light navbar-light">
-
-<a href="dashboard.html" class="navbar-brand mx-4 mb-3">
-
-<h5 class="text-primary"><i class="fa fa-hashtag me-2"></i>
-
-TheNapkinExchange
-
-</h5>
-
-</a>
-
-<div class="d-flex align-items-center ms-4 mb-4">
-
-<div class="position-relative">
-
-<img class="rounded-circle" src="img/candlestick.jpg" alt="" style="width: 40px; height: 40px;">
-
-<div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-
-</div>
-
-<div class="ms-3">
-
-<h6 id="sidebarTraderName" class="mb-0">--</h6>
-
-<span id="sidebarTraderBalance">--</span>
-
-</div>
-
-</div>
-
-<div class="navbar-nav w-100">
-
-
-
-<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
-
-
-
-<div class="nav-item dropdown">
-
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-<i class="fa fa-laptop me-2"></i>
-The Market
-</a>
-
-<div class="dropdown-menu bg-transparent border-0">
-
-<a href="watch.html" class="dropdown-item">Market Watch</a>
-<a href="buysell.html" class="dropdown-item">Buy Sell</a>
-<a href="activity.html" class="dropdown-item">Activity</a>
-
-</div>
-</div>
-
-<div class="nav-item dropdown">
-
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>
-
-Tech Support
-
-</a>
-
-<div class="dropdown-menu bg-transparent border-0">
-
-<a href="monitor.html" class="dropdown-item">
-
-API Monitor
-
-</a>
-
-<a target="template" href="https://themewagon.github.io/dashmin/" class="dropdown-item">
-
-Pristine Template
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</nav>
-
-</div>
-<!-- Sidebar End -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">Jhon Doe</h6>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="button.html" class="dropdown-item">Buttons</a>
+                            <a href="typography.html" class="dropdown-item">Typography</a>
+                            <a href="element.html" class="dropdown-item">Other Elements</a>
+                        </div>
+                    </div>
+                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
+                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="signin.html" class="dropdown-item">Sign In</a>
+                            <a href="signup.html" class="dropdown-item">Sign Up</a>
+                            <a href="404.html" class="dropdown-item">404 Error</a>
+                            <a href="blank.html" class="dropdown-item active">Blank Page</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
 
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start --><nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form style="visibility:hidden" class="d-none d-md-flex ms-4">
+                <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
-                <div style="visibility:hidden" class="navbar-nav align-items-center ms-auto">
+                <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Messages</span>
+                            <span class="d-none d-lg-inline-flex">Message</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -190,7 +143,7 @@ Pristine Template
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notifications</span>
+                            <span class="d-none d-lg-inline-flex">Notificatin</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -211,232 +164,48 @@ Pristine Template
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>
-
-<div class="nav-item dropdown">
-
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-
-<img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-
-<span id="dropdownTraderName" class="d-none d-lg-inline-flex">
-
---
-
-</span>
-
-</a>
-
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="auth/login.html" class="dropdown-item">Log Out</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
-<!-- Navbar End -->
+            <!-- Navbar End -->
 
 
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-
-<div class="row">
-
-
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-								
-								
-									<h2>Buy Stock<small>purchase virtual securities for your portfolio.
-
-
-</small></h2>
-									<ul class="nav navbar-right panel_toolbox">
-									
-									
-									
-										<li class="dropdown" style="visibility: hidden">
-										
-										
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-											<ul class="dropdown-menu" role="menu">
-												<li><a class="dropdown-item" href="#">Settings 1</a>
-												</li>
-												<li><a class="dropdown-item" href="#">Settings 2</a>
-												</li>
-											</ul>
-										</li>
-										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-										</li>
-										
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<br>
-									
-<div class="item form-group">
-    
-    <label class="col-form-label col-md-3 col-sm-3 label-align">
-    
-username
-        
-        <span class="required"></span>
-        
-    </label>
-    
-    <div class="col-md-6 col-sm-6 ">
-    
-        <input readonly="" id="trader-username" type="text" required="required" class="form-control " value="--">
-            
-    </div>
-
-</div>
-	
-<div class="item form-group">
-    
-    <label class="col-form-label col-md-3 col-sm-3 label-align">
-    
-ticker
-        
-        <span class="required"></span>
-        
-    </label>
-    
-    <div class="col-md-6 col-sm-6 ">
-    
-        <input id="buy-ticker" type="text" required="required" class="form-control " value="PANDORA">
-            
-    </div>
-
-</div>
-
-<div class="item form-group">
-    
-    <label class="col-form-label col-md-3 col-sm-3 label-align">
-    
-# shares to buy
-        
-        <span class="required"></span>
-        
-    </label>
-    
-    <div class="col-md-6 col-sm-6 ">
-    
-        <input id="buy-units" type="text" required="required" class="form-control " value="">
-            
-    </div>
-
-</div>	
-<div class="item form-group">
-    
-
-
-</div>
-											
-
-
-										
-									
-										<div class="ln_solid"></div>
-										
-										<div class="item form-group">
-										
-											<div class="col-md-6 col-sm-6 offset-md-3">
-																							
-												<button class="btn btn-primary" onclick="clearForm()" type="reset">
-
-Clear Form
-
-</button>
-												
-												<button onclick="processForm()" type="submit" class="btn btn-success">
-												
-												Add Funds To Account
-												
-												</button>
-												
-											</div>
-										</div>
-
-									
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
-
-
-
                     <div class="col-md-6 text-center">
                         <h3>This is blank page</h3>
-
-
-
-
-
-<div class="modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
             <!-- Blank End -->
 
 
-            <!-- Footer Start -->            <div class="container-fluid pt-4 px-4">
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-
-                            Made with ❤ by the
-
-<a href="https://softwareshinobi.digital" target="softwareshinobi">Software Shinobi</a>.
-
+                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>.
-
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>.
+                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
                         </div>
                     </div>
                 </div>
             </div>
-<!-- Footer End -->
+            <!-- Footer End -->
         </div>
         <!-- Content End -->
 
