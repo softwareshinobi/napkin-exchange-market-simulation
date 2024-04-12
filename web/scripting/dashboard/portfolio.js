@@ -55,17 +55,17 @@ function insertTraderHoldings(holdings) {
 
     var html = '';
 
-    for (var i = 0; i < holdings.stocksOwned.length; i++) {
+    for (var i = 0; i < holdings.securityPortfolio.length; i++) {
 
         html += '<tr>';
 
-        html += '<td>' + holdings.stocksOwned[i].symbol + '</td>';
+        html += '<td>' + holdings.securityPortfolio[i].symbol + '</td>';
 
-        html += '<td>' + holdings.stocksOwned[i].units + '</td>';
+        html += '<td>' + holdings.securityPortfolio[i].units + '</td>';
 
-        html += '<td>' + holdings.stocksOwned[i].costBasis + '</td>';
+        html += '<td>' + holdings.securityPortfolio[i].costBasis + '</td>';
 
-        html += '<td>' + holdings.stocksOwned[i].value + '</td>';
+        html += '<td>' + holdings.securityPortfolio[i].value + '</td>';
 
         html += '</tr>';
 
