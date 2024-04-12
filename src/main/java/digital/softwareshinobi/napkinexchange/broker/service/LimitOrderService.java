@@ -24,7 +24,7 @@ public class LimitOrderService {
     private final LimitOrderRepository limitOrderRepository;
 
     @Autowired
-    private final StockOwnedService stockOwnedService;
+    private final SecurityPortfolioService stockOwnedService;
 
     @Autowired
     private final NotificationService notificationService;

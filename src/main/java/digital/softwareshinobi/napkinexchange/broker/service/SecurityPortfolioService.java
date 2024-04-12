@@ -10,17 +10,19 @@ import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
-import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
+import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 import digital.softwareshinobi.napkinexchange.trader.repository.StockOwnedRepository;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import digital.softwareshinobi.napkinexchange.trader.utility.ValidateStockTransaction;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class StockOwnedService {
+public class SecurityPortfolioService {
 
     @Autowired
     private final StockOwnedRepository stockOwnedRepository;
@@ -163,7 +165,7 @@ public class StockOwnedService {
             System.out.println("6");
 
             stockOwnedRepository.delete(securityPosition);
-          //  clearAndDeleteStockOwned(securityPosition);
+            //  clearAndDeleteStockOwned(securityPosition);
         } else {
 
             System.out.println("7");
@@ -183,6 +185,14 @@ public class StockOwnedService {
 
     }
 
+    public List<SecurityPosition> findStockOwned(Trader trader) {
+
+        return stockOwnedRepository.findAll().stream()
+                .filter(securityPosition -> securityPosition.getTrader().getUsername().equals(trader.getUsername()))
+                .collect(Collectors.toList());
+
+    }
+
     public SecurityPosition findStockOwned(Trader trader, Security security) {
 
         return stockOwnedRepository.findAll().stream()
@@ -193,9 +203,31 @@ public class StockOwnedService {
 
     }
 
-//    public void clearAndDeleteStockOwned(StockOwned stockOwned) {
-//
-//        stockOwnedRepository.delete(stockOwned);
-//
-//    }
+    public Double calculatePortfolioValue(Trader trader) {
+        
+    
+     List<SecurityPosition> securityPortfolio = this.findStockOwned(trader);
+
+            System.out.println("security portfolio for trader / " + trader.getUsername());
+
+         //   System.out.println(securityPortfolio);
+
+            double securityPortfolioValue = 0;
+            
+            for (SecurityPosition securityPosition : securityPortfolio) {
+
+                System.out.println("position / " + securityPosition);
+
+                Security security = this.securityService.getStockByTickerSymbol(securityPosition.symbol);
+
+                securityPortfolioValue = securityPortfolioValue + (security.getPrice() * securityPosition.units);
+
+            }
+
+            System.out.println("portfolio value / " + securityPortfolioValue);
+            
+            return securityPortfolioValue;
+            
+    }
+    
 }

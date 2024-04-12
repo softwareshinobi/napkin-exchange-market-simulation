@@ -1,7 +1,8 @@
-package digital.softwareshinobi.napkinexchange.trader.model;
+package digital.softwareshinobi.napkinexchange.trader.portfolio;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class SecurityPosition implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private Integer id;
+    public Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_id", nullable = false)
@@ -34,13 +35,19 @@ public class SecurityPosition implements Serializable {
     private Trader trader;
 
     @Column(name = "symbol")
-    private String symbol;
+    public String symbol;
 
     @Column(name = "units")
-    private Integer units;
+    public Integer units;
 
     @Column(name = "cost_basis")
-    private Double costBasis;
+    public Double costBasis;
+
+    @Column(name = "value")
+    public Double value;
+
+    @Column(name = "price")
+    public Double price;
 //
 //     @JsonIgnore
 //     @Column(name = "value")
@@ -56,8 +63,7 @@ public class SecurityPosition implements Serializable {
 
         this.costBasis = costBasis;
 
-      //  this.value = units * costBasis;
-
+        //  this.value = units * costBasis;
     }
 
     public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
@@ -68,10 +74,22 @@ public class SecurityPosition implements Serializable {
                 this.costBasis,
                 currentSecurityPrice));
 
-        this.setUnits(this.units + numberUnits);
-        
-    //    this.setValue(this.costBasis * this.amountOwned);
 
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SecurityPosition{");
+        sb.append("id=").append(id);
+        sb.append(", symbol=").append(symbol);
+        sb.append(", units=").append(units);
+        sb.append(", costBasis=").append(costBasis);
+        sb.append(", value=").append(value);
+        sb.append(", price=").append(price);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

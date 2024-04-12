@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.broker.controller;
 
 import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
-import digital.softwareshinobi.napkinexchange.broker.service.StockOwnedService;
+import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioService;
 import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
@@ -35,7 +35,7 @@ public class BrokerController {
     }
 
     @Autowired
-    private StockOwnedService stockOwnedService;
+    private SecurityPortfolioService stockOwnedService;
 
     @Autowired
     private LimitOrderService limitOrderService;

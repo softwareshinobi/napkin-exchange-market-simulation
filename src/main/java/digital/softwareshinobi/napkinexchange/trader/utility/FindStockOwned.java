@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.utility;
 
-import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
+import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 
 import java.util.Set;
 

@@ -25,7 +25,7 @@ public class StockPriceHistoryService {
     @Autowired
     private final MarketService marketService;
 
-    public void saveStockHistoryDaily() {
+    public void updateSecurityHistory() {
 
         Market market = marketService.getMarket();
 
