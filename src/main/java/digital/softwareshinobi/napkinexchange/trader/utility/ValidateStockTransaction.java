@@ -6,7 +6,7 @@ import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.service.StockService;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
-import digital.softwareshinobi.napkinexchange.trader.model.SecurityPosition;
+import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 
 public class ValidateStockTransaction {
 
@@ -28,7 +28,7 @@ public class ValidateStockTransaction {
             SellStockRequest sellStockRequest) {
 
         SecurityPosition stock = FindStockOwned.findOwnedStockByTicker(
-                account.getStocksOwned(),
+                account.getSecurityPortfolio(),
                 sellStockRequest.getSecurity());
 
         if (stock == null) {

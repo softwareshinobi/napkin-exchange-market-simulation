@@ -35,7 +35,7 @@ public class TraderController {
     @RequestMapping(value = "{traderName}")
     public Trader getAccountByUsername(@PathVariable String traderName) throws AccountNotFoundException {
 
-        return accountService.getAccountByName(traderName);
+        return this.accountService.getAccountByName(traderName);
 
     }
 
@@ -59,7 +59,7 @@ public class TraderController {
     @GetMapping(value = "/history/{username}")
     public List<AccountHistory> getAccountHistory(@PathVariable String username) throws AccountNotFoundException, AccountBalanceException {
 
-        return accountHistoryService.getHistoryByUsername(username);
+        return accountHistoryService.getHistoryByTraderName(username);
 
     }
 

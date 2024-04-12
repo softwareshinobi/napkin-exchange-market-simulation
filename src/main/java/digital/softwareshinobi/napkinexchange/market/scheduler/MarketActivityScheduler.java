@@ -33,7 +33,7 @@ public class MarketActivityScheduler {
     private final StockPriceHistoryService stockPriceHistoryService;
 
     @SuppressWarnings("unused")
-    @Scheduled(fixedRate = MarketIntervals.M1)
+    @Scheduled(fixedRate = MarketIntervals.T*4)
     public void dailyMarketActivity() {
 
         var currentMarketTime = this.marketActivityService.tickMarket();
@@ -44,9 +44,9 @@ public class MarketActivityScheduler {
 
         this.limitOrderService.processLimitOrders();
 
-        this.accountHistoryService.saveDailyAccountHistory();
+        this.accountHistoryService.updateTraderAccountHistory();
 
-        this.stockPriceHistoryService.saveStockHistoryDaily();
+        this.stockPriceHistoryService.updateSecurityHistory();
 
         currentMarketTime = null;
 
