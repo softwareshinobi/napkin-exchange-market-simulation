@@ -6,7 +6,7 @@ import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistory;
 import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistoryId;
 import digital.softwareshinobi.napkinexchange.security.repository.StockPriceHistoryRepository;
-import digital.softwareshinobi.napkinexchange.security.utils.SortHistory;
+import digital.softwareshinobi.napkinexchange.security.utility.SortHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

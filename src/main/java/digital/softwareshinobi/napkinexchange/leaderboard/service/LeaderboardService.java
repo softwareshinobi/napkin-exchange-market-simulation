@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.leaderboard.service;
 
 import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
-import digital.softwareshinobi.napkinexchange.leaderboard.util.SortAccountProfits;
+import digital.softwareshinobi.napkinexchange.leaderboard.utility.SortAccountProfits;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import java.util.List;

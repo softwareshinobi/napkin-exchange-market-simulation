@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.security.utils;
+package digital.softwareshinobi.napkinexchange.security.utility;
 
 import java.util.List;
 
