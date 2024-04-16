@@ -8,7 +8,7 @@ import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
-import digital.softwareshinobi.napkinexchange.security.service.StockService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
@@ -44,7 +44,7 @@ public class BrokerController {
     private AccountService accountService;
 
     @Autowired
-    private StockService stockService;
+    private SecurityService stockService;
 
     @Autowired
     private NotificationService notificationService;

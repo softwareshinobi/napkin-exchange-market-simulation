@@ -6,7 +6,7 @@ import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistory;
 import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistoryId;
 import digital.softwareshinobi.napkinexchange.security.repository.StockPriceHistoryRepository;
-import digital.softwareshinobi.napkinexchange.security.utils.SortHistory;
+import digital.softwareshinobi.napkinexchange.security.utility.SortHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class StockPriceHistoryService {
+public class SecurityPricingHistoryService {
 
     @Autowired
     private final StockPriceHistoryRepository stockPriceHistoryRepository;
     @Autowired
-    private final StockService stockService;
+    private final SecurityService stockService;
     @Autowired
     private final MarketService marketService;
 
@@ -29,7 +29,7 @@ public class StockPriceHistoryService {
 
         Market market = marketService.getMarket();
 
-        stockService.getAllStocks().forEach(stock
+        stockService.getAllSecurities().forEach(stock
                 -> stockPriceHistoryRepository.save(
                         new StockPriceHistory(
                                 new StockPriceHistoryId(market.getDate(), stock.getTicker()),

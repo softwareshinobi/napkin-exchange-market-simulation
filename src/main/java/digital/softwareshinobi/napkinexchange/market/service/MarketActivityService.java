@@ -2,8 +2,8 @@ package digital.softwareshinobi.napkinexchange.market.service;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
-import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
-import digital.softwareshinobi.napkinexchange.security.service.StockService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityPricingHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import java.time.ZonedDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class MarketActivityService {
 
     @Autowired
-    private final StockService stockService;
+    private final SecurityService stockService;
 
     @Autowired
     private final MarketService marketService;
 
     @Autowired
-    private final StockPriceHistoryService stockPriceHistoryService;
+    private final SecurityPricingHistoryService stockPriceHistoryService;
 
     public ZonedDateTime tickMarket() {
 
@@ -51,7 +51,7 @@ public class MarketActivityService {
 
     public void updateStocksOnTick() {
 
-        List<Security> stocks = this.stockService.getAllStocks();
+        List<Security> stocks = this.stockService.getAllSecurities();
 
         stocks.forEach(stock -> {
 

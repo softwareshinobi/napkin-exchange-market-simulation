@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.market.service;
 
-import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.enums.MarketTrajectory;
+import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.repository.MarketRepository;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,21 +26,21 @@ public class MarketService {
 
     public Market getMarket() {
 
-        Market market = marketRepository.findById(1).orElse(null);
+        Market market = this.marketRepository.findById(1).orElse(null);
 
         if (market == null) {
 
-            LocalDate localDate = LocalDate.now();
+            LocalDate newYearsDayYear3005 = LocalDate.of(3005, 1, 1);
 
-            LocalTime localTime = LocalTime.now();
+            ZoneId bogotaTimeZone = ZoneId.of("America/Bogota");
 
-            ZoneId zoneId = ZoneId.of("GMT-05:00");
+            LocalTime openingTime = LocalTime.of(8, 0);
 
-            var startingTime = ZonedDateTime.of(localDate, localTime, zoneId);
+            var startingTime = ZonedDateTime.of(newYearsDayYear3005, openingTime, bogotaTimeZone);
 
             market = new Market(startingTime, 41.0, MarketTrajectory.NORMAL);
 
-            saveMarket(market);
+            this.saveMarket(market);
 
         }
 
@@ -56,7 +56,8 @@ public class MarketService {
 
         }
 
-        marketRepository.save(market);
+        this.marketRepository.save(market);
 
     }
+
 }

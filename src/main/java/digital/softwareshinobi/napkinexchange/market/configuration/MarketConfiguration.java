@@ -33,7 +33,7 @@ public class MarketConfiguration {
 
         this.notificationService.save(
                 new Notification(
-                        "system",
+                        "SYSTEM",
                         NotificationType.SYSTEM_NOTIFICATION,
                         "napkin exchange simulated stock market initialized"
                 ));

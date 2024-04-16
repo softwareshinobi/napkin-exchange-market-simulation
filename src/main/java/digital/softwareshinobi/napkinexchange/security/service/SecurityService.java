@@ -1,37 +1,34 @@
 package digital.softwareshinobi.napkinexchange.security.service;
 
-import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.enums.Volatility;
 import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.repository.StockRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @AllArgsConstructor
-public class StockService {
+public class SecurityService {
 
     @Autowired
     private final StockRepository stockRepository;
 
-    public List<Security> getAllStocks() {
+    public List<Security> getAllSecurities() {
         return stockRepository.findAll();
     }
 
-    //this method is used to generate random news events
-    public Security getRandomStock() {
-        List<Security> stocks = getAllStocks();
-        Collections.shuffle(stocks);
-        return stocks.get(0);
-    }
-
+//    //this method is used to generate random news events
+//    public Security getRandomStock() {
+//        List<Security> stocks = getAllSecurities();
+//        Collections.shuffle(stocks);
+//        return stocks.get(0);
+//    }
     public List<Security> getAllStocksByMarketCap(MarketCap marketCap) {
         return stockRepository.findAll().stream()
                 .filter(stock -> stock.getMarketCap()

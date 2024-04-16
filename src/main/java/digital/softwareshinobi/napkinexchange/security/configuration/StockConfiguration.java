@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.security.configuration;
 
 import digital.softwareshinobi.napkinexchange.security.defaults.DefaultStocksList;
-import digital.softwareshinobi.napkinexchange.security.service.StockService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class StockConfiguration {
 
     @Autowired
-    private StockService stockService;
+    private SecurityService stockService;
 
     private final Logger logger = LoggerFactory.getLogger(StockConfiguration.class);
 

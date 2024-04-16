@@ -56,7 +56,7 @@ public class Security implements Serializable {
 
     @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<StockPriceHistory> priceHistory;
+    private List<StockPriceHistory> securityPricingHistory;
 
     public Security(String ticker,
             String companyName,

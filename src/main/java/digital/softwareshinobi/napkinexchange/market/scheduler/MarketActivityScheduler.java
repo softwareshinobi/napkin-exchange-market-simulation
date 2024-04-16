@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.market.scheduler;
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
 import digital.softwareshinobi.napkinexchange.market.service.MarketActivityService;
-import digital.softwareshinobi.napkinexchange.security.service.StockPriceHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityPricingHistoryService;
 import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class MarketActivityScheduler {
     private final AccountHistoryService accountHistoryService;
 
     @Autowired
-    private final StockPriceHistoryService stockPriceHistoryService;
+    private final SecurityPricingHistoryService stockPriceHistoryService;
 
     @SuppressWarnings("unused")
     @Scheduled(fixedRate = MarketIntervals.T*4)

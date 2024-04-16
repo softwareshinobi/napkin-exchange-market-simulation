@@ -4,8 +4,8 @@ import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioSe
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
-import digital.softwareshinobi.napkinexchange.security.service.StockService;
-import digital.softwareshinobi.napkinexchange.security.utils.SortHistory;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
+import digital.softwareshinobi.napkinexchange.security.utility.SortHistory;
 import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
@@ -33,7 +33,7 @@ public class AccountHistoryService {
     private final SecurityPortfolioService securityPortfolioService;
 
     @Autowired
-    private final StockService stockService;
+    private final SecurityService stockService;
 
     public void updateTraderAccountHistory() {
 

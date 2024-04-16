@@ -7,7 +7,7 @@ import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
-import digital.softwareshinobi.napkinexchange.security.service.StockService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
@@ -31,7 +31,7 @@ public class SecurityPortfolioService {
     private final AccountService traderService;
 
     @Autowired
-    private final StockService securityService;
+    private final SecurityService securityService;
 
     @Autowired
     private final NotificationService notificationService;

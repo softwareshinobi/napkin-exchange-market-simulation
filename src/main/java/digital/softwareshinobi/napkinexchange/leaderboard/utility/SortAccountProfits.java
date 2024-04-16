@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.leaderboard.util;
+package digital.softwareshinobi.napkinexchange.leaderboard.utility;
 
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import java.util.Comparator;

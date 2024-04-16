@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AccountConfiguration {
+public class TraderConfiguration {
 
-    private final Logger logger = LoggerFactory.getLogger(AccountConfiguration.class);
+    private final Logger logger = LoggerFactory.getLogger(TraderConfiguration.class);
 
     @Autowired
     private AccountService accountService;
