@@ -15,7 +15,7 @@ function fetchLivePricing() {
 
         type: "GET",
 
-        url: apiURL + "/candlestick",
+        url: apiURL + "/security",
 
         contentType: "text/plain",
 

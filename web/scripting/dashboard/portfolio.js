@@ -39,8 +39,6 @@ function visualizeTraderDetails() {
 
         error: function (exception, status) {
 
-            alert("eorrrrrrrrrrrrrr?");
-
             console.error("error fetting trader details / ", exception);
 
         }
@@ -48,32 +46,58 @@ function visualizeTraderDetails() {
     });
 
 }
-
 function insertTraderHoldings(holdings) {
 
-    console.debug(" -> :: insertTraderHoldings()");
+  console.debug(" -> :: insertTraderHoldings()");
 
-    var html = '';
+  var html = '';
+  var totalUnits = 0;
+  var totalValue = 0;
 
-    for (var i = 0; i < holdings.securityPortfolio.length; i++) {
+  for (var i = 0; i < holdings.securityPortfolio.length; i++) {
 
-        html += '<tr>';
+    html += '<tr>';
 
-        html += '<td>' + holdings.securityPortfolio[i].symbol + '</td>';
+    html += '<td>' + holdings.securityPortfolio[i].symbol.toUpperCase() + '</td>';
 
-        html += '<td>' + holdings.securityPortfolio[i].units + '</td>';
+    html += '<td>' + holdings.securityPortfolio[i].units.toLocaleString() + '</td>';
 
-        html += '<td>' + holdings.securityPortfolio[i].costBasis + '</td>';
+    html += '<td>$ ' + holdings.securityPortfolio[i].costBasis.toLocaleString() + '</td>';  // Format cost basis with 2 decimals and USD symbol
 
-        html += '<td>' + holdings.securityPortfolio[i].value + '</td>';
+    var value = holdings.securityPortfolio[i].units * holdings.securityPortfolio[i].costBasis.toLocaleString();
 
-        html += '</tr>';
+    html += '<td>$ ' + value.toLocaleString() + '</td>';  // Format value with 2 decimals and USD symbol
 
-    }
+    totalUnits += holdings.securityPortfolio[i].units;
 
-    console.warn("html / ", html);
+    totalValue += value;
 
-    $('#holdings > tbody').html(html);
+html += '<td> -- </td>';
 
+    html += '</tr>';
+
+  }
+
+  // Add sum row with formatting
+  html += '<tr style="font-weight: bold;">';
+  html += '<td>TOTAL</td>';  // Bold "Total" text
+  html += '<td>' + totalUnits.toLocaleString() + '</td>';  // Format units with comma separator
+
+html += '<td> -- </td>';
+
+
+
+html += '<td>$ ' + totalValue.toLocaleString() + '</td>';
+
+html += '<td>$ ' + holdings.portfolioValue.toLocaleString() + '</td>';
+
+  html += '</tr>';
+
+//  console.long("html / ", html);
+
+  $('#securityPortfolio > tbody').html("");
+
+  $('#securityPortfolio > tbody').html(html);
 
 }
+

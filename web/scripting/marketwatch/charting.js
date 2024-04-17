@@ -61,7 +61,7 @@ var getData = function() {
 
     $.ajax({
 
-		url: apiURL + "/candlestick/history/" + apiSymbol,
+		url: apiURL + "/security/pricing/" + apiSymbol,
 
         success: function(data) {
 

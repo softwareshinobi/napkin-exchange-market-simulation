@@ -9,6 +9,7 @@ var KEY_USERNAME="traderName";
 // backend string info. hack.
 //
 
+
 //apiURL="https://apis.napkinexchange.softwareshinobi.digital";
 
  apiURL="http://localhost:8888";
@@ -32,3 +33,6 @@ function traderName() {
     return traderName;
 
 }
+
+
+apiSymbol="CALLISTO"

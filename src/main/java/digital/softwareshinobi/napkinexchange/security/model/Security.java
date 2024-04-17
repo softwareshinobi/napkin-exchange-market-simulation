@@ -56,7 +56,7 @@ public class Security implements Serializable {
 
     @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<StockPriceHistory> securityPricingHistory;
+    private List<SecurityPricingHistory> securityPricingHistory;
 
     public Security(String ticker,
             String companyName,
@@ -102,7 +102,7 @@ public class Security implements Serializable {
                 + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
                 + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
 
-        setPrice(newPrice);
+        this.setPrice(newPrice);
 
     }
 

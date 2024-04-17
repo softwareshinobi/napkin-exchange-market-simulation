@@ -19,7 +19,7 @@ import lombok.Setter;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockPriceHistoryId implements Serializable {
+public class SecurityPricingHistoryId implements Serializable {
 
     @Column(name = "market_date")
     @Temporal(TemporalType.TIMESTAMP)

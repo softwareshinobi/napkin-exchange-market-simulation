@@ -1,12 +1,13 @@
 package digital.softwareshinobi.napkinexchange.market.utility;
 
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
-
 import java.util.Random;
 
 public class GetRandomNumber {
 
-    private static final Random random = new Random();
+    private static final Long seed = 42l;
+
+    private static final Random random = new Random(seed);
 
     public static double getRandomNumberForStocks(MarketCap marketCap) {
         return switch (marketCap) {

@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.security.service;
 
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.enums.Volatility;
-import digital.softwareshinobi.napkinexchange.security.exception.StockNotFoundException;
+import digital.softwareshinobi.napkinexchange.security.exception.SecurityNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.repository.StockRepository;
 import java.util.ArrayList;
@@ -49,16 +49,16 @@ public class SecurityService {
 
     public Security getStockByTickerSymbol(String ticker) {
         return stockRepository.findById(ticker.toUpperCase())
-                .orElseThrow(() -> new StockNotFoundException(
-                "No stock with ticker symbol " + ticker + " exists"));
+                .orElseThrow(() -> new SecurityNotFoundException(
+                "There is no security found with the ticker / " + ticker));
     }
-
-    public double getStockPriceWithTickerSymbol(String ticker) {
-        if (stockTickerExists(ticker)) {
-            throw new StockNotFoundException("No stock with ticker symbol " + ticker + " exists");
-        }
-        return getStockByTickerSymbol(ticker).getPrice();
-    }
+//
+//    public double getSecurityPricingBySymbol(String ticker) {
+//        if (stockTickerExists(ticker)) {
+//            throw new SecurityNotFoundException("No stock with ticker symbol " + ticker + " exists");
+//        }
+//        return getStockByTickerSymbol(ticker).getPrice();
+//    }
 
     //Ignore any stocks that do not currently exist
     public void updateStockInDatabase(Security stock) {

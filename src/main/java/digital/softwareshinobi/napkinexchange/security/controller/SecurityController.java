@@ -1,6 +1,8 @@
 package digital.softwareshinobi.napkinexchange.security.controller;
 
+import digital.softwareshinobi.napkinexchange.security.exception.SecurityNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
+import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistory;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityPricingHistoryService;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import java.util.List;
@@ -44,17 +46,22 @@ public class SecurityController {
 
     }
 
-    /*
-    @GetMapping(value = "/price/{symbol}")
-    public double getStockPrice(@PathVariable String symbol) throws StockNotFoundException {
+    @GetMapping(value = "pricing/{symbol}")
+    public double fetchSecurityPricingBySymbol(@PathVariable String symbol) throws SecurityNotFoundException {
 
-        return this.stockService.getStockPriceWithTickerSymbol(symbol);
+        return this.securityService.getStockByTickerSymbol(symbol).getPrice();
 
     }
 
-     */
+    @GetMapping(value = "/history/{symbol}")
+    public List<SecurityPricingHistory> fetchSecurityPricingHistoryBySymbol(@PathVariable String symbol) {
+
+        return this.securityPriceHistoryService.getSecurityPricingHistoryBySymbol(symbol);
+
+    }
+
 //    @GetMapping(value = "/history/{ticker}")
-//    public List<StockPriceHistoryDTO> getIndividualStockDatahistorty(@PathVariable String ticker) {
+//    public List<StockPriceHistoryDTO> fetchSecurityPricingHistoryBySymbol(@PathVariable String ticker) {
 //
 //        Security security = this.stockService.getStockByTickerSymbol(ticker);
 //

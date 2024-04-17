@@ -39,7 +39,7 @@ function visualizeTraderDetails() {
 
         error: function (exception, status) {
 
-            alert("eorrrrrrrrrrrrrr?");
+       //     alert("eorrrrrrrrrrrrrr?");
 
             console.error("error fetting trader details / ", exception);
 
@@ -54,18 +54,18 @@ function insertTraderHoldings(holdings) {
     console.debug(" -> :: insertTraderHoldings()");
 
     var html = '';
-
+alert("hello");
     for (var i = 0; i < holdings.stocksOwned.length; i++) {
 
         html += '<tr>';
 
-        html += '<td>' + holdings.stocksOwned[i].ticker + '</td>';
+        html += '<td>' + holdings.stocksOwned[i].symbol + '</td>';
 
-        html += '<td>' + holdings.stocksOwned[i].amountOwned + '</td>';
+        html += '<td>' + holdings.stocksOwned[i].units + '</td>';
 
         html += '<td>' + holdings.stocksOwned[i].costBasis + '</td>';
 
-        html += '<td>' + holdings.stocksOwned[i].value + '</td>';
+        html += '<td>' + '444' + '</td>';
 
         html += '</tr>';
 
@@ -73,7 +73,6 @@ function insertTraderHoldings(holdings) {
 
     console.warn("html / ", html);
 
-    $('#holdings > tbody').html(html);
-
+    $('#h444oldings > tbody').html(html);
 
 }

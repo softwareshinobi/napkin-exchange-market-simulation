@@ -1,52 +1,56 @@
 package digital.softwareshinobi.napkinexchange.security.service;
 
-import lombok.AllArgsConstructor;
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
-import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistory;
-import digital.softwareshinobi.napkinexchange.security.model.StockPriceHistoryId;
-import digital.softwareshinobi.napkinexchange.security.repository.StockPriceHistoryRepository;
+import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistory;
+import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistoryId;
+import digital.softwareshinobi.napkinexchange.security.repository.SecurityPricingHistoryRepository;
 import digital.softwareshinobi.napkinexchange.security.utility.SortHistory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class SecurityPricingHistoryService {
 
     @Autowired
-    private final StockPriceHistoryRepository stockPriceHistoryRepository;
+    private final SecurityPricingHistoryRepository securityPricingHistoryRepository;
+
     @Autowired
-    private final SecurityService stockService;
+    private final SecurityService securityService;
+
     @Autowired
     private final MarketService marketService;
 
     public void updateSecurityHistory() {
 
-        Market market = marketService.getMarket();
+        Market market = this.marketService.getMarket();
 
-        stockService.getAllSecurities().forEach(stock
-                -> stockPriceHistoryRepository.save(
-                        new StockPriceHistory(
-                                new StockPriceHistoryId(market.getDate(), stock.getTicker()),
-                                stock,
-                                stock.getPrice())));
+        this.securityService.getAllSecurities().forEach(
+                security -> securityPricingHistoryRepository.save(
+                        new SecurityPricingHistory(
+                                new SecurityPricingHistoryId(
+                                        market.getDate(),
+                                        security.getTicker()),
+                                security,
+                                security.getPrice())));
     }
 
-    public List<StockPriceHistory> findStockHistoryByTicker(String ticker) {
-        List<StockPriceHistory> stockPriceHistory = stockPriceHistoryRepository.findAll().stream()
-                .filter(history -> history.getStock().getTicker().equalsIgnoreCase(ticker))
+    public List<SecurityPricingHistory> getSecurityPricingHistoryBySymbol(String symbol) {
+
+        List<SecurityPricingHistory> securityPricingHistoryList = securityPricingHistoryRepository
+                .findAll().stream()
+                .filter(
+                        history -> history.getStock().getTicker().equalsIgnoreCase(symbol))
                 .collect(Collectors.toList());
-        SortHistory.sortStockHistoryByDate(stockPriceHistory);
-        return stockPriceHistory;
+
+        SortHistory.sortStockHistoryByDate(securityPricingHistoryList);
+
+        return securityPricingHistoryList;
+
     }
 
-    @Transactional
-    public void truncateStockHistoryAtEndOfYear() {
-        stockPriceHistoryRepository.truncateTable();
-    }
 }

@@ -17,10 +17,10 @@ Saves daily stock history for one year.
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StockPriceHistory implements Serializable {
+public class SecurityPricingHistory implements Serializable {
 
     @EmbeddedId
-    private StockPriceHistoryId id;
+    private SecurityPricingHistoryId id;
 
     @MapsId(value = "ticker")
     @ManyToOne(fetch = FetchType.LAZY)
