@@ -32,7 +32,7 @@ public class MarketService {
 
         if (market == null) {
 
-            LocalDate newYearsDay3005 = LocalDate.of(7005, 1, 1);
+            LocalDate newYearsDay3005 = LocalDate.of(3005, 1, 1);
 
             ZoneId bogotaTimeZone = ZoneId.of("America/Bogota");
 
