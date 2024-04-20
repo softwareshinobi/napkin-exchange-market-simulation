@@ -25,6 +25,15 @@ public class SecurityPricingHistory implements Serializable {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "previousprice")
+    private Double previousprice;
+
+    @Column(name = "gainPercent")
+    private Double gainPercent;
+
+    @Column(name = "gainValue")
+    private Double gainValue;
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
