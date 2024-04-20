@@ -36,17 +36,15 @@ public class MarketActivityScheduler {
     @Scheduled(fixedRate = MarketIntervals.S5)
     public void dailyMarketActivity() {
 
-        var currentMarketTime = this.marketActivityService.tickMarket();
+        var currentMarketTime = this.marketActivityService.tick();
 
-        logger.info("market time / " + currentMarketTime);
-
-        this.marketActivityService.executeMarketTickActivities();
+        logger.info("tick / market time / " + currentMarketTime);
 
         this.limitOrderService.processLimitOrders();
 
-        this.accountHistoryService.updateTraderAccountHistory();
-
         this.stockPriceHistoryService.updateSecurityHistory();
+
+        this.accountHistoryService.updateTraderAccountHistory();
 
         currentMarketTime = null;
 

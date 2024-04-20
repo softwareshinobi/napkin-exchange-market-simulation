@@ -23,13 +23,9 @@ public class MarketActivityService {
     @Autowired
     private final SecurityPricingHistoryService stockPriceHistoryService;
 
-    public ZonedDateTime tickMarket() {
+    public ZonedDateTime getTime() {
 
-        Market market = marketService.getMarket();
-
-        market.tick();
-
-        this.marketService.saveMarket(market);
+        Market market = this.marketService.getMarket();
 
         ZonedDateTime currentMarketTime = market.getDate();
 
@@ -39,17 +35,26 @@ public class MarketActivityService {
 
     }
 
-    public ZonedDateTime executeMarketTickActivities() {
+    public ZonedDateTime tick() {
+
+        Market market = this.marketService.getMarket();
+
+        market.tick();
+
+        this.marketService.saveMarket(market);
 
         this.updateStocksOnTick();
 
-        ZonedDateTime marketDate = this.getMarketTime();
+        ////////
+        ZonedDateTime currentMarketTime = market.getDate();
 
-        return marketDate;
+        market = null;
+
+        return currentMarketTime;
 
     }
 
-    public void updateStocksOnTick() {
+    private void updateStocksOnTick() {
 
         List<Security> stocks = this.stockService.getAllSecurities();
 
@@ -68,17 +73,6 @@ public class MarketActivityService {
         this.stockService.updateAllStocksInDatabase(stocks);
 
         stocks = null;
-    }
-
-    public ZonedDateTime getMarketTime() {
-
-        Market market = this.marketService.getMarket();
-
-        ZonedDateTime currentMarketTime = market.getDate();
-
-        market = null;
-
-        return currentMarketTime;
 
     }
 
