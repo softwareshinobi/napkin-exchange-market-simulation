@@ -20,19 +20,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SecurityPricingHistoryId implements Serializable {
 
-    @Column(name = "market_date")
+    @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
-    private ZonedDateTime marketDate;
+    private ZonedDateTime dateTime;
 
-    @Column(name = "ticker")
-    private String ticker;
+    @Column(name = "symbol")
+    private String symbol;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("SecurityPricingHistoryId{");
-        sb.append("marketDate=").append(marketDate);
-        sb.append(", ticker=").append(ticker);
+        sb.append("marketDate=").append(dateTime);
+        sb.append(", ticker=").append(symbol);
         sb.append('}');
         return sb.toString();
     }

@@ -8,6 +8,7 @@ import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHist
 import digital.softwareshinobi.napkinexchange.security.repository.SecurityPricingHistoryRepository;
 import digital.softwareshinobi.napkinexchange.security.utility.SortHistory;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +35,34 @@ public class SecurityPricingHistoryService {
 
             System.out.println("security / " + security);
 
+            Optional<SecurityPricingHistory> mostRecentPricingHistory
+                    = securityPricingHistoryRepository.findTopBySecurityOrderByIdDesc(security);
+
+            if (mostRecentPricingHistory.isPresent()) {
+
+                System.out.println("godddd / ");
+
+                // Access the most recent SecurityPricingHistory object
+                SecurityPricingHistory recentHistory = mostRecentPricingHistory.get();
+
+                // Use recentHistory object
+                System.out.println("recentHistory / " + recentHistory);
+
+            } else {
+
+                System.out.println("nonnneeee // No recent pricing history found for the company");
+
+            }
+
             SecurityPricingHistory newSecurityPricingHistory = new SecurityPricingHistory(
                     new SecurityPricingHistoryId(
                             market.getDate(),
                             security.getTicker()),
                     security,
                     security.getPrice());
-
             System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
 
-            securityPricingHistoryRepository.save(newSecurityPricingHistory);
+            this.securityPricingHistoryRepository.save(newSecurityPricingHistory);
 
         }
 
@@ -54,7 +73,7 @@ public class SecurityPricingHistoryService {
         List<SecurityPricingHistory> securityPricingHistoryList = securityPricingHistoryRepository
                 .findAll().stream()
                 .filter(
-                        history -> history.getStock().getTicker().equalsIgnoreCase(symbol))
+                        history -> history.getSecurity().getTicker().equalsIgnoreCase(symbol))
                 .collect(Collectors.toList());
 
         SortHistory.sortStockHistoryByDate(securityPricingHistoryList);
