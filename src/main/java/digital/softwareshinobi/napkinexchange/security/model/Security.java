@@ -94,15 +94,15 @@ public class Security implements Serializable {
 
         double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
 
-        double stockPrice = this.getPrice();
+        double currentSecurityPrice = this.getPrice();
 
-        double newPrice = Math.round((stockPrice
-                + (stockPrice * randomNumber)
-                + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
+        double newSecurityPrice = Math.round((currentSecurityPrice
+                + (currentSecurityPrice * randomNumber)
+                + (currentSecurityPrice * (randomNumber * this.getVolatileStock().ordinal()))
                 + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
                 + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
 
-        this.setPrice(newPrice);
+        this.setPrice(newSecurityPrice);
 
     }
 
@@ -227,7 +227,7 @@ public class Security implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Stock {");
+        sb.append("security / {");
         sb.append("ticker=").append(ticker);
         sb.append(", price=").append(price);
         sb.append(", lastDayPrice=").append(lastDayPrice);

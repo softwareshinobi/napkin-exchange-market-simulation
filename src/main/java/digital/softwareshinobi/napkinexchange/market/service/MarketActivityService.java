@@ -43,7 +43,7 @@ public class MarketActivityService {
 
         this.marketService.saveMarket(market);
 
-        this.updateStocksOnTick();
+        this.tickSecurities();
 
         ////////
         ZonedDateTime currentMarketTime = market.getDate();
@@ -54,25 +54,25 @@ public class MarketActivityService {
 
     }
 
-    private void updateStocksOnTick() {
+    private void tickSecurities() {
 
-        List<Security> stocks = this.stockService.getAllSecurities();
+        List<Security> securityList = this.stockService.getAllSecurities();
 
-        stocks.forEach(stock -> {
+        securityList.forEach(singleSecurity -> {
 
-            stock.updatePriceWithFormula();
+            singleSecurity.updatePriceWithFormula();
 
-            stock.updateMomentumStreak();
+            singleSecurity.updateMomentumStreak();
 
-            stock.updateMomentum();
+            singleSecurity.updateMomentum();
 
-            stock.setLastDayPrice(stock.getPrice());
+            singleSecurity.setLastDayPrice(singleSecurity.getPrice());
 
         });
 
-        this.stockService.updateAllStocksInDatabase(stocks);
+        this.stockService.updateAllStocksInDatabase(securityList);
 
-        stocks = null;
+        securityList = null;
 
     }
 
