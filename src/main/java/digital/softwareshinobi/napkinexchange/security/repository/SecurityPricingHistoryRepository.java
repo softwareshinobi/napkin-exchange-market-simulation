@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SecurityPricingHistoryRepository extends JpaRepository<SecurityPricingHistory, SecurityPricingHistoryId> {
 
-    Optional<SecurityPricingHistory> findTopBySecurityOrderByIdDesc(Security security);
+    public Optional<SecurityPricingHistory> findTopBySecurityOrderByIdDesc(Security security);
 
 }
