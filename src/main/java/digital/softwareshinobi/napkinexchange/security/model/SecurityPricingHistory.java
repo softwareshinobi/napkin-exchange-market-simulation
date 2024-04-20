@@ -1,12 +1,11 @@
 package digital.softwareshinobi.napkinexchange.security.model;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import jakarta.persistence.*;
-import java.io.Serializable;
 
 /*
 Saves daily stock history for one year.
@@ -28,4 +27,15 @@ public class SecurityPricingHistory implements Serializable {
 
     @Column(name = "price")
     private Double stockPrice;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SecurityPricingHistory{");
+        sb.append("id=").append(id);
+        sb.append(", stock=").append(stock);
+        sb.append(", stockPrice=").append(stockPrice);
+        sb.append('}');
+        return sb.toString();
+    }
 }

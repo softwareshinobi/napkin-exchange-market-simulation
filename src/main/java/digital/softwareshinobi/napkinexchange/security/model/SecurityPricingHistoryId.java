@@ -1,12 +1,11 @@
 package digital.softwareshinobi.napkinexchange.security.model;
 
-import java.io.Serializable;
-import java.time.ZonedDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,4 +26,15 @@ public class SecurityPricingHistoryId implements Serializable {
 
     @Column(name = "ticker")
     private String ticker;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SecurityPricingHistoryId{");
+        sb.append("marketDate=").append(marketDate);
+        sb.append(", ticker=").append(ticker);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }

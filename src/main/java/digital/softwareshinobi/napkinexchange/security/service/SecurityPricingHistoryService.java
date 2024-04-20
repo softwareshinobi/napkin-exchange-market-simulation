@@ -2,6 +2,7 @@ package digital.softwareshinobi.napkinexchange.security.service;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
+import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistory;
 import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistoryId;
 import digital.softwareshinobi.napkinexchange.security.repository.SecurityPricingHistoryRepository;
@@ -29,14 +30,23 @@ public class SecurityPricingHistoryService {
 
         Market market = this.marketService.getMarket();
 
-        this.securityService.getAllSecurities().forEach(
-                security -> securityPricingHistoryRepository.save(
-                        new SecurityPricingHistory(
-                                new SecurityPricingHistoryId(
-                                        market.getDate(),
-                                        security.getTicker()),
-                                security,
-                                security.getPrice())));
+        for (Security security : this.securityService.getAllSecurities()) {
+
+            System.out.println("security / " + security);
+
+            SecurityPricingHistory newSecurityPricingHistory = new SecurityPricingHistory(
+                    new SecurityPricingHistoryId(
+                            market.getDate(),
+                            security.getTicker()),
+                    security,
+                    security.getPrice());
+
+            System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
+
+            securityPricingHistoryRepository.save(newSecurityPricingHistory);
+
+        }
+
     }
 
     public List<SecurityPricingHistory> getSecurityPricingHistoryBySymbol(String symbol) {
