@@ -79,15 +79,15 @@ var getData = function() {
 
                 console.log("value / " + value);
 
-var marketDate = value.id.marketDate;
+var marketDate = value.id.dateTime;
 
                 console.log("value.marketDateee / " + marketDate);
 
-                console.log("value.stockPrice / " + value.stockPrice);
+                console.log("value.stockPrice / " + value.price);
 
                 myChart.data.labels.push(marketDate);
 
-                myChart.data.datasets[0].data.push(value.stockPrice);
+                myChart.data.datasets[0].data.push(value.price);
 
             });
 

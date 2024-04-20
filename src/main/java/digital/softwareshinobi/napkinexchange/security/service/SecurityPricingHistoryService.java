@@ -85,8 +85,9 @@ public class SecurityPricingHistoryService {
                             currentSecurity.getTicker()),
                     currentSecurity,
                     currentSecurity.getPrice(), previousSecurityPricing,
-                    gainValue,
-                    gainPercent);
+                    gainPercent,
+                    gainValue
+            );
 
             System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
 
