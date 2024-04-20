@@ -8,6 +8,7 @@ import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
 import digital.softwareshinobi.napkinexchange.security.enums.Volatility;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,7 +57,7 @@ public class Security implements Serializable {
 
     @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<SecurityPricingHistory> securityPricingHistory;
+    private List<SecurityPricingHistory> securityPricingHistory = new ArrayList();
 
     public Security(String ticker,
             String companyName,
@@ -194,36 +195,6 @@ public class Security implements Serializable {
 
     }
 
-//    //these two methods are called only on news and earnings report announcements
-//    public void increaseInvestorRating() {
-//        switch (this.getInvestorRating()) {
-//            case Sell ->
-//                this.setInvestorRating(InvestorRating.Hold);
-//            case Hold ->
-//                this.setInvestorRating(InvestorRating.Neutral);
-//            case Neutral ->
-//                this.setInvestorRating(InvestorRating.Buy);
-//            case Buy ->
-//                this.setInvestorRating(InvestorRating.StrongBuy);
-//            case StrongBuy -> {
-//            }
-//        }
-//    }
-//
-//    public void decreaseInvestorRating() {
-//        switch (this.getInvestorRating()) {
-//            case Sell -> {
-//            }
-//            case Hold ->
-//                this.setInvestorRating(InvestorRating.Sell);
-//            case Neutral ->
-//                this.setInvestorRating(InvestorRating.Hold);
-//            case Buy ->
-//                this.setInvestorRating(InvestorRating.Neutral);
-//            case StrongBuy ->
-//                this.setInvestorRating(InvestorRating.Buy);
-//        }
-//    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

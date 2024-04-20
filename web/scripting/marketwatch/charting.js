@@ -61,7 +61,7 @@ var getData = function() {
 
     $.ajax({
 
-		url: apiURL + "/security/pricing/" + apiSymbol,
+		url: apiURL + "/security/history/" + apiSymbol,
 
         success: function(data) {
 
@@ -79,11 +79,13 @@ var getData = function() {
 
                 console.log("value / " + value);
 
-                console.log("value.marketDate / " + value.marketDate);
+var marketDate = value.id.marketDate;
+
+                console.log("value.marketDateee / " + marketDate);
 
                 console.log("value.stockPrice / " + value.stockPrice);
 
-                myChart.data.labels.push(value.marketDate);
+                myChart.data.labels.push(marketDate);
 
                 myChart.data.datasets[0].data.push(value.stockPrice);
 

@@ -39,17 +39,17 @@ public class SecurityController {
 
     }
 
-    @GetMapping(value = "/{symbol}")
+    @GetMapping(value = "{symbol}")
     public Security fetchSecurityBySymbol(@PathVariable String symbol) {
 
-        return this.securityService.getStockByTickerSymbol(symbol);
+        return this.securityService.getSecurityBySymbol(symbol);
 
     }
 
-    @GetMapping(value = "pricing/{symbol}")
+    @GetMapping(value = "/pricing/{symbol}")
     public double fetchSecurityPricingBySymbol(@PathVariable String symbol) throws SecurityNotFoundException {
 
-        return this.securityService.getStockByTickerSymbol(symbol).getPrice();
+        return this.securityService.getSecurityBySymbol(symbol).getPrice();
 
     }
 
@@ -63,7 +63,7 @@ public class SecurityController {
 //    @GetMapping(value = "/history/{ticker}")
 //    public List<StockPriceHistoryDTO> fetchSecurityPricingHistoryBySymbol(@PathVariable String ticker) {
 //
-//        Security security = this.stockService.getStockByTickerSymbol(ticker);
+//        Security security = this.stockService.getSecurityBySymbol(ticker);
 //
 //        List<StockPriceHistoryDTO> trimmedCandleStickList = new ArrayList();
 //

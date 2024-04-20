@@ -47,7 +47,7 @@ public class SecurityService {
                 .collect(Collectors.toList());
     }
 
-    public Security getStockByTickerSymbol(String ticker) {
+    public Security getSecurityBySymbol(String ticker) {
         return stockRepository.findById(ticker.toUpperCase())
                 .orElseThrow(() -> new SecurityNotFoundException(
                 "There is no security found with the ticker / " + ticker));
@@ -57,7 +57,7 @@ public class SecurityService {
 //        if (stockTickerExists(ticker)) {
 //            throw new SecurityNotFoundException("No stock with ticker symbol " + ticker + " exists");
 //        }
-//        return getStockByTickerSymbol(ticker).getPrice();
+//        return getSecurityBySymbol(ticker).getPrice();
 //    }
 
     //Ignore any stocks that do not currently exist

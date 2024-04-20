@@ -2,9 +2,9 @@ package digital.softwareshinobi.napkinexchange.market.constants;
 
 public class MarketIntervals {
 
-    public static final long T = 1_000L;
+    public static final long T = 1_00L;
 
-    public static final long S = 1_000L;
+    public static final long S1 = 1_000L;
 
     public static final long S5 = 5_000L;
 

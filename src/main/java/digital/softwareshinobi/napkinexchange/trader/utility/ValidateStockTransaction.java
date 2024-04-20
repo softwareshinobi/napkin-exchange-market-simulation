@@ -16,7 +16,7 @@ public class ValidateStockTransaction {
         double balance = account.getAccountBalance();
         Security stock;
         try {
-            stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
+            stock = stockService.getSecurityBySymbol(buyStockRequest.getTicker());
         } catch (SecurityNotFoundException ex) {
             return false;
         }

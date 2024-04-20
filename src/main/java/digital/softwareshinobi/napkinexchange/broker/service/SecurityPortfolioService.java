@@ -51,7 +51,7 @@ public class SecurityPortfolioService {
 
         Trader traderAccount = this.traderService.getAccountByName(buyStockRequest.getUsername());
 
-        Security securityToBuy = this.securityService.getStockByTickerSymbol(buyStockRequest.getTicker());
+        Security securityToBuy = this.securityService.getSecurityBySymbol(buyStockRequest.getTicker());
 
         SecurityPosition stockOwnedByUser = this.findStockOwned(traderAccount, securityToBuy);
 
@@ -141,7 +141,7 @@ public class SecurityPortfolioService {
 
         System.out.println("2.0");
 
-        Security security = securityService.getStockByTickerSymbol(sellStockRequest.getSecurity());
+        Security security = securityService.getSecurityBySymbol(sellStockRequest.getSecurity());
 
         System.out.println("2");
 
@@ -218,7 +218,7 @@ public class SecurityPortfolioService {
 
                 System.out.println("position / " + securityPosition);
 
-                Security security = this.securityService.getStockByTickerSymbol(securityPosition.symbol);
+                Security security = this.securityService.getSecurityBySymbol(securityPosition.symbol);
 
                 securityPortfolioValue = securityPortfolioValue + (security.getPrice() * securityPosition.units);
 

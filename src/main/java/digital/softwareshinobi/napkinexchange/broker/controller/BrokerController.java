@@ -105,7 +105,7 @@ public class BrokerController {
         System.out.println("buyStockRequest / fulfilled");
 
         //////////doing math ////////////
-        Security stock = stockService.getStockByTickerSymbol(buyStockRequest.getTicker());
+        Security stock = stockService.getSecurityBySymbol(buyStockRequest.getTicker());
 
         System.out.println("stock: " + stock);
 
@@ -125,7 +125,7 @@ public class BrokerController {
         LimitOrder stopLossOrder = new LimitOrder(
                 LimitOrderTypes.LONG_STOP_LOSS,
                 accountService.getAccountByName(buyStockRequest.getUsername()),
-                stockService.getStockByTickerSymbol(buyStockRequest.getTicker()),
+                stockService.getSecurityBySymbol(buyStockRequest.getTicker()),
                 buyStockRequest.getSharesToBuy(),
                 dynamicStopLossThreshold
         );
@@ -133,7 +133,7 @@ public class BrokerController {
         LimitOrder takeProfitOrder = new LimitOrder(
                 LimitOrderTypes.LONG_TAKE_PROFIT,
                 accountService.getAccountByName(buyStockRequest.getUsername()),
-                stockService.getStockByTickerSymbol(buyStockRequest.getTicker()),
+                stockService.getSecurityBySymbol(buyStockRequest.getTicker()),
                 buyStockRequest.getSharesToBuy(),
                 dynamicTakeProfitThreshold
         );
@@ -205,7 +205,7 @@ public class BrokerController {
                 new LimitOrder(
                         LimitOrderTypes.LONG_BUY_STOP,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getStockByTickerSymbol(limitOrderRequest.getTicker()),
+                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
                         limitOrderRequest.getStrikePrice()
                 )
@@ -232,7 +232,7 @@ public class BrokerController {
                 new LimitOrder(
                         LimitOrderTypes.LONG_BUY_STOP,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getStockByTickerSymbol(limitOrderRequest.getTicker()),
+                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
                         limitOrderRequest.getStrikePrice()
                 )
@@ -242,7 +242,7 @@ public class BrokerController {
                 new LimitOrder(
                         LimitOrderTypes.LONG_STOP_LOSS,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getStockByTickerSymbol(limitOrderRequest.getTicker()),
+                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
                         (limitOrderRequest.getStrikePrice() * 0.99)
                 )
@@ -252,7 +252,7 @@ public class BrokerController {
                 new LimitOrder(
                         LimitOrderTypes.LONG_TAKE_PROFIT,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getStockByTickerSymbol(limitOrderRequest.getTicker()),
+                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
                         (limitOrderRequest.getStrikePrice() * 1.03)
                 )
@@ -292,7 +292,7 @@ public class BrokerController {
                 new LimitOrder(
                         LimitOrderTypes.LONG_STOP_LOSS,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getStockByTickerSymbol(limitOrderRequest.getTicker()),
+                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
                         limitOrderRequest.getStrikePrice())
         );
@@ -318,7 +318,7 @@ public class BrokerController {
                 new LimitOrder(
                         LimitOrderTypes.LONG_TAKE_PROFIT,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getStockByTickerSymbol(limitOrderRequest.getTicker()),
+                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
                         limitOrderRequest.getStrikePrice()
                 )
