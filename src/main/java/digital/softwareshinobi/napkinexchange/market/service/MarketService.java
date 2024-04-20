@@ -25,7 +25,6 @@ public class MarketService {
     }
 
     public Market getMarket() {
-        System.out.println("getMarketgetMarketgetMarketgetMarketgetMarket");
 
         Market market = this.marketRepository.findById(1).orElse(null);
 
@@ -33,24 +32,20 @@ public class MarketService {
 
         if (market == null) {
 
-            System.out.println("was n7ull");
-
-            LocalDate newYearsDayYear3005 = LocalDate.of(3005, 1, 1);
+            LocalDate newYearsDay3005 = LocalDate.of(7005, 1, 1);
 
             ZoneId bogotaTimeZone = ZoneId.of("America/Bogota");
 
             LocalTime openingTime = LocalTime.of(8, 0);
 
-            var startingTime = ZonedDateTime.of(newYearsDayYear3005, openingTime, bogotaTimeZone);
+            var startingTime = ZonedDateTime.of(newYearsDay3005, openingTime, bogotaTimeZone);
 
-            market = new Market(startingTime, 72.0, MarketTrajectory.BULL);
+            market = new Market(startingTime, 42d, MarketTrajectory.BULL);
 
             this.saveMarket(market);
 
         }
 
-        System.out.println("Market / " + market);
-        System.exit(34);
         return market;
 
     }
