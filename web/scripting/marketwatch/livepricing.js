@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     fetchLivePricing();
 
-    setInterval(fetchLivePricing, 1000 * 10);
+    setInterval(fetchLivePricing, 1000 * 8);
 
 });
 
@@ -49,7 +49,7 @@ function displayLivePricing(priceData) {
 
         html += '<td>' + priceData[index].companyName + '</td>';
 
-        html += '<td>' + priceData[index].price + '</td>';
+        html += '<td>' + '$' + priceData[index].price.toFixed(2).toLocaleString() + '</td>';
 
         html += '</tr>';
 

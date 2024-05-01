@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     visualizeTraderOpenOrders();
 
-    setInterval(visualizeTraderOpenOrders, 1000 * 14);
+    setInterval(visualizeTraderOpenOrders, 1000 * 8);
 
 });
 
@@ -43,22 +43,21 @@ function visualizeTraderOpenOrders() {
 
 }
 
-function populateOrderDetailSections(responseData) {
+function populateOrderDetailSections(openOrderList) {
 
     var html = '';
 
-    for (var i = 0; i < responseData.length; i++) {
+    for (var i = 0; i < openOrderList.length; i++) {
 
         html += '<tr>';
 
-        html += '<td class="">' + responseData[i].id + '</td>';
-        html += '<td class="">' + responseData[i].stock.ticker + '</td>';
-        html += '<td class="">' + responseData[i].type + '</td>';
-        html += '<td class="">' + responseData[i].sharesToBuy + '</td>';
-        html += '<td class="">' + responseData[i].relatedOrderId + '</td>';
-        html += '<td class="">' + responseData[i].strikePrice + '</td>';
-        html += '<td class="">' + responseData[i].stock.price + '</td>';
-
+html += '<td class="">' + openOrderList[i].id + '</td>';  // Integer (order ID)
+html += '<td class="">' + openOrderList[i].stock.ticker + '</td>';  // String (stock symbol)
+html += '<td class="">' + openOrderList[i].type + '</td>';  // String (order type)
+html += '<td class="">' + openOrderList[i].sharesToBuy.toLocaleString() + '</td>';  // Number (shares) with commas
+html += '<td class="">' + openOrderList[i].relatedOrderId + '</td>';  // Integer (related order ID)
+html += '<td class="">' + '$' + openOrderList[i].strikePrice.toFixed(2).toLocaleString() + '</td>';  // Number (strike price) with 2 decimal places
+html += '<td class="">' + '$' + openOrderList[i].stock.price.toFixed(2).toLocaleString() + '</td>';  // Number (stock price) with 2 decimal places and dollar sign
 
         html += '</tr>';
 
@@ -118,17 +117,17 @@ function populateOrderDetailSections(responseData) {
 //
 //}
 
-//function insertTraderDetail(responseData) {
+//function insertTraderDetail(openOrderList) {
 //
 //    var html = '';
 //
 //    html += '<tr>';
 //
-//    html += '<td class="">' + responseData.username + '</td>';
+//    html += '<td class="">' + openOrderList.username + '</td>';
 //
-//    html += '<td class="">' + responseData.accountBalance + '</td>';
+//    html += '<td class="">' + openOrderList.accountBalance + '</td>';
 //
-//    html += '<td class="">' + responseData.totalProfits + '</td>';
+//    html += '<td class="">' + openOrderList.totalProfits + '</td>';
 //
 //    html += '</tr>';
 //
@@ -138,21 +137,21 @@ function populateOrderDetailSections(responseData) {
 //
 //}
 //
-//function insertTraderHoldings(responseData) {
+//function insertTraderHoldings(openOrderList) {
 //
 //    alert("hello");
 //
 //    var html = '';
 //
-//    for (var i = 0; i < responseData.stocksOwned.length; i++) {
+//    for (var i = 0; i < openOrderList.stocksOwned.length; i++) {
 //
 //        html += '<tr>';
 //
-//        html += '<td class="">' + responseData.stocksOwned[i].ticker + '</td>';
+//        html += '<td class="">' + openOrderList.stocksOwned[i].ticker + '</td>';
 //
-//        html += '<td class="">' + responseData.stocksOwned[i].amountOwned + '</td>';
+//        html += '<td class="">' + openOrderList.stocksOwned[i].amountOwned + '</td>';
 //
-//        html += '<td class="">' + responseData.stocksOwned[i].costBasis + '</td>';
+//        html += '<td class="">' + openOrderList.stocksOwned[i].costBasis + '</td>';
 //
 //        html += '</tr>';
 //

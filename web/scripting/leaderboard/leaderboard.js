@@ -43,33 +43,23 @@ error: function (jqXHR, status) {
 
 }
 
-function profitleaderboard(responseData) {
+function profitleaderboard(leaderBoardList) {
 
-console.log("yo profitleaderboard");
+    var html = '';
 
-console.log(responseData);
+    for (var i =0;i< leaderBoardList.length; i++) {
 
-var trHTML = '';
+        html += '<tr>';
 
-for (var i =0;i< responseData.length; i++) {
+        html += '<td class="METADATA DEBUG">' + leaderBoardList[i].ranking + '</td>';  // Integer (ranking)
+        html += '<td class="METADATA DEBUG">' + leaderBoardList[i].username + '</td>';  // String (username)
+        html += '<td class="METADATA DEBUG">' + "$" + leaderBoardList[i].accountBalance.toLocaleString() + '</td>';  // Number (account balance) with 2 decimal places
+        html += '<td class="METADATA DEBUG">' + "$" + leaderBoardList[i].totalProfits.toLocaleString() + '</td>';  // Number (total profits) with 2 decimal places
 
-trHTML += '<tr>';
+        html += '</tr>';
 
-trHTML += '<td class="METADATA DEBUG">' + responseData[i].ranking + '</td>';
+    }
 
-trHTML += '<td class="METADATA DEBUG">' + responseData[i].username + '</td>';
+    $('#leaderboard > tbody').html(html); 
 
-trHTML += '<td class="METADATA DEBUG">' + responseData[i].accountBalance + '</td>';
-
-trHTML += '<td class="METADATA DEBUG">' + responseData[i].totalProfits + '</td>';
-
-trHTML += '</tr>';	
-
-}
-
-console.log(trHTML);
-
-$('#leaderboard > tbody').html(trHTML); 
-
-console.log("oy");
 }
