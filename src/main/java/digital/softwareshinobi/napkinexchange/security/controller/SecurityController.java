@@ -60,6 +60,15 @@ public class SecurityController {
 
     }
 
+    @GetMapping(value = "/last/{symbol}")
+    public SecurityPricingHistory fetchLastSecurityPricingHistoryBySymbol(@PathVariable String symbol) {
+//this is a hack
+
+        List<SecurityPricingHistory> list = this.fetchSecurityPricingHistoryBySymbol(symbol);
+
+        return list.get(list.size() - 1);
+
+    }
 //    @GetMapping(value = "/history/{ticker}")
 //    public List<StockPriceHistoryDTO> fetchSecurityPricingHistoryBySymbol(@PathVariable String ticker) {
 //

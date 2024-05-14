@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     fetchNotifications();
 
-    setInterval(fetchNotifications, 1000 * 10);
+    setInterval(fetchNotifications, 1000 * 5);
 
 });
 
@@ -36,12 +36,15 @@ function fetchNotifications() {
     });
 
     console.debug("exit > fetchNotifications()");
+
 }
 
 function displayNotifications(notifications) {
 
     var content = '';
 
+    var counter=0;
+    
     for (var index = notifications.length - 1; index >= 0; index--) {
 
         content += '<tr>';
@@ -55,6 +58,14 @@ function displayNotifications(notifications) {
         content += '<td>' + notifications[index].description + '</td>';
 
         content += '</tr>';
+
+        counter++;
+
+        if(counter > 8){
+
+            break;
+
+        }
 
     }
 

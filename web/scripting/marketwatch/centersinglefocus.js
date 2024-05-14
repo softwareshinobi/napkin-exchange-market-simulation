@@ -12,7 +12,7 @@ function fetchCandlestickHistory() {
 
 		type: "GET",
 
-		url: apiURL + "/security/" + apiSymbol,
+		url: apiURL + "/security/last/" + apiSymbol,
 
 		contentType: "application/json; charset=utf-8",
 
@@ -20,13 +20,58 @@ function fetchCandlestickHistory() {
 
 		dataType: "text",
 
-		success: function (data, status, jqXHR) {
+		success: function (responsePayload, status, jqXHR) {
 
-			updateBottomCornerPricing(data);
+			var responsePayloadParsed = JSON.parse(responsePayload);
 
-		},
+////
 
-		error: function (jqXHR, status) {
+    $("#symbolTicker").text(responsePayloadParsed.security.ticker);
+
+    $("#symbolName").text(responsePayloadParsed.security.companyName);
+
+    $("#symbolSector").text(responsePayloadParsed.security.sector);
+
+    $("#symbolCap").text(responsePayloadParsed.security.marketCap);
+
+
+////
+
+            var amountGain = responsePayloadParsed.gainValue;
+
+            var gainPercent = responsePayloadParsed.gainPercent;
+
+            var gainPercentString = amountGain.toFixed(2)+" / " + (100*gainPercent).toFixed(2)+"%";
+
+            if (gainPercent >= 0) {
+
+            gainPercentString = "+" + gainPercentString;
+    $("#bottom-corner-symbol-diff").removeClass("text-danger");
+
+        $("#bottom-corner-symbol-diff").addClass("text-success");
+
+            } else {
+
+
+        $("#bottom-corner-symbol-diff").addClass("text-danger");
+
+    }
+            $("#bottom-corner-symbol-diff").text(gainPercentString);
+
+    $("#bottom-corner-symbol-pricing").text(responsePayloadParsed.price);
+
+
+          //  $("#panel-callisto-pricing").text(responsePayloadParsed.price);
+
+
+
+
+
+
+
+		}, 		error: function (exception, status) {
+
+			console.log("error / ", exception);
 
 		}
 
@@ -34,13 +79,18 @@ function fetchCandlestickHistory() {
   
 }
 
+
+
+
+
+
 function updateBottomCornerPricing(responsePayload) {
 
     console.debug(" -> :: updateBottomCornerPricing()");
 
     var responsePayloadParsed  = JSON.parse(responsePayload);
 
-    $("#bottom-corner-symbol-pricing").text(responsePayloadParsed.price);
+
 
     var amountGain = (responsePayloadParsed.price - responsePayloadParsed.lastDayPrice).toFixed(2);
 
@@ -67,12 +117,5 @@ function updateBottomCornerPricing(responsePayload) {
 
 // updat stuff at the top
 
-    $("#symbolTicker").text(responsePayloadParsed.ticker);
-
-    $("#symbolName").text(responsePayloadParsed.companyName);
-
-    $("#symbolSector").text(responsePayloadParsed.sector);
-
-    $("#symbolCap").text(responsePayloadParsed.marketCap);
 
 }

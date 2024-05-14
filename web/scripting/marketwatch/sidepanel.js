@@ -1,4 +1,13 @@
 
+const formatter = new Intl.NumberFormat('en-US', {
+   minimumFractionDigits: 1,      
+   maximumFractionDigits: 1,
+});
+
+//console.log(); // "2.01"
+   // $("#traderAccountUsage").html(formatter.format(100*trader.utilizationPercentage)+"%");
+
+
 $(document).ready(function () {
 
 	setInterval(updateCallistoPanel, 1000);
@@ -31,7 +40,7 @@ function updateCallistoPanel() {
 
 		type: "GET",
 
-		url: apiURL + "/security/CALLISTO",
+		url: apiURL + "/security/last/callisto",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -43,30 +52,27 @@ function updateCallistoPanel() {
 
 			var responsePayloadParsed  = JSON.parse(responsePayload);
 
-            $("#panel-callisto-pricing").text(responsePayloadParsed.price);
-           
-            var amountGain = (responsePayloadParsed.price - responsePayloadParsed.lastDayPrice).toFixed(2);
+            var amountGain = responsePayloadParsed.gainValue;
 
-            var percentageChange = ((amountGain / responsePayloadParsed.lastDayPrice) * 100).toFixed(2);;
+            var gainPercent = responsePayloadParsed.gainPercent;
 
-            if (percentageChange >= 0) {
+            var gainPercentString = amountGain.toFixed(2)+" / " + (100*gainPercent).toFixed(2)+"%";
 
-            $("#panel-callisto-change").text("+"+amountGain+" / " + "+"+percentageChange+"%");
+            if (gainPercent >= 0) {
 
-            } else {
-
-            $("#panel-callisto-change").text(amountGain+" / " +percentageChange+"%");
+            gainPercentString = "+" + gainPercentString;
 
             }
+
+            $("#panel-callisto-pricing").text(responsePayloadParsed.price);
+
+            $("#panel-callisto-change").text(gainPercentString);
+
 		},
 
-		error: function (jqXHR, status) {
+		error: function (exception, status) {
 
-			console.log("Something Went Wrong Issuing Post Request");
-
-			console.log(jqXHR);
-
-			console.log(status);
+			console.log("error / ", exception);
 
 		}
 
@@ -94,7 +100,7 @@ function updateDionePanel() {
 
 		type: "GET",
 
-		url: apiURL + "/security/DIONE",
+		url: apiURL + "/security/last/dione",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -106,36 +112,32 @@ function updateDionePanel() {
 
 			var responsePayloadParsed  = JSON.parse(responsePayload);
 
-            $("#panel-dione-pricing").text(responsePayloadParsed.price);
+            var amountGain = responsePayloadParsed.gainValue;
 
-            var amountGain = (responsePayloadParsed.price - responsePayloadParsed.lastDayPrice).toFixed(2);
+            var gainPercent = responsePayloadParsed.gainPercent;
 
-            var percentageChange = ((amountGain / responsePayloadParsed.lastDayPrice) * 100).toFixed(2);;
+            var gainPercentString = amountGain.toFixed(2)+" / " + (100*gainPercent).toFixed(2)+"%";
 
-            if (percentageChange >= 0) {
+            if (gainPercent >= 0) {
 
-            $("#panel-dione-change").text("+"+amountGain+" / " + "+"+percentageChange+"%");
-
-            } else {
-
-            $("#panel-dione-change").text(amountGain+" / " +percentageChange+"%");
+            gainPercentString = "+" + gainPercentString;
 
             }
 
+            $("#panel-dione-pricing").text(responsePayloadParsed.price);
+
+            $("#panel-dione-change").text(gainPercentString);
+
 		},
 
-		error: function (jqXHR, status) {
+		error: function (exception, status) {
 
-			console.log("Something Went Wrong Issuing Post Request");
-
-			console.log(jqXHR);
-
-			console.log(status);
+			console.log("error / ", exception);
 
 		}
 
 	});
-  
+
 }
 
 // Europa Things //
@@ -158,7 +160,7 @@ function updateEuropaPanel() {
 
 		type: "GET",
 
-		url: apiURL + "/security/EUROPA",
+		url: apiURL + "/security/last/europa",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -170,35 +172,32 @@ function updateEuropaPanel() {
 
 			var responsePayloadParsed  = JSON.parse(responsePayload);
 
-            $("#panel-europa-pricing").text(responsePayloadParsed.price);
+            var amountGain = responsePayloadParsed.gainValue;
 
-            var amountGain = (responsePayloadParsed.price - responsePayloadParsed.lastDayPrice).toFixed(2);
+            var gainPercent = responsePayloadParsed.gainPercent;
 
-            var percentageChange = ((amountGain / responsePayloadParsed.lastDayPrice) * 100).toFixed(2);;
+            var gainPercentString = amountGain.toFixed(2)+" / " + (100*gainPercent).toFixed(2)+"%";
 
-            if (percentageChange >= 0) {
+            if (gainPercent >= 0) {
 
-            $("#panel-europa-change").text("+"+amountGain+" / " + "+"+percentageChange+"%");
-
-            } else {
-
-            $("#panel-europa-change").text(amountGain+" / " +percentageChange+"%");
+            gainPercentString = "+" + gainPercentString;
 
             }
+
+            $("#panel-europa-pricing").text(responsePayloadParsed.price);
+
+            $("#panel-europa-change").text(gainPercentString);
+
 		},
 
-		error: function (jqXHR, status) {
+		error: function (exception, status) {
 
-			console.log("Something Went Wrong Issuing Post Request");
-
-			console.log(jqXHR);
-
-			console.log(status);
+			console.log("error / ", exception);
 
 		}
 
 	});
-  
+
 }
 
 // Pandora Things //
@@ -221,7 +220,7 @@ function updatePandoraPanel() {
 
 		type: "GET",
 
-		url: apiURL + "/security/PANDORA",
+		url: apiURL + "/security/last/pandora",
 
 		contentType: "application/json; charset=utf-8",
 
@@ -233,33 +232,30 @@ function updatePandoraPanel() {
 
 			var responsePayloadParsed  = JSON.parse(responsePayload);
 
-            $("#panel-pandora-pricing").text(responsePayloadParsed.price);
+            var amountGain = responsePayloadParsed.gainValue;
 
-            var amountGain = (responsePayloadParsed.price - responsePayloadParsed.lastDayPrice).toFixed(2);
+            var gainPercent = responsePayloadParsed.gainPercent;
 
-            var percentageChange = ((amountGain / responsePayloadParsed.lastDayPrice) * 100).toFixed(2);;
+            var gainPercentString = amountGain.toFixed(2)+" / " + (100*gainPercent).toFixed(2)+"%";
 
-            if (percentageChange >= 0) {
+            if (gainPercent >= 0) {
 
-            $("#panel-pandora-change").text("+"+amountGain+" / " + "+"+percentageChange+"%");
-
-            } else {
-
-            $("#panel-pandora-change").text(amountGain+" / " +percentageChange+"%");
+            gainPercentString = "+" + gainPercentString;
 
             }
+
+            $("#panel-pandora-pricing").text(responsePayloadParsed.price);
+
+            $("#panel-pandora-change").text(gainPercentString);
+
 		},
 
-		error: function (jqXHR, status) {
+		error: function (exception, status) {
 
-			console.log("Something Went Wrong Issuing Post Request");
-
-			console.log(jqXHR);
-
-			console.log(status);
+			console.log("error / ", exception);
 
 		}
 
 	});
-  
+
 }

@@ -55,7 +55,7 @@ public class Security implements Serializable {
     @Enumerated(EnumType.STRING)
     private InvestorRating investorRating;
 
-    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "security", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<SecurityPricingHistory> securityPricingHistory = new ArrayList();
 

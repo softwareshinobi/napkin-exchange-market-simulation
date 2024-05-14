@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     visualizeTraderDetails();
 
-    setInterval(visualizeTraderDetails, 1000 * 10);
+    setInterval(visualizeTraderDetails, 1000 * 8);
 
 });
 
@@ -24,28 +24,21 @@ function visualizeTraderDetails() {
         crossDomain: true,
 
         success: function (data, status, jqXHR) {
-//
-            console.warn(data);
-//
-//alert("worsssk");
-
-            //   insertTraderDetail(data);
 
             insertTraderHoldings(data);
-
-            //      insertTraderOrders(data);
 
         },
 
         error: function (exception, status) {
 
-            console.error("error fetting trader details / ", exception);
+            console.error("error fetching trader details / ", exception);
 
         }
 
     });
 
 }
+
 function insertTraderHoldings(holdings) {
 
   console.debug(" -> :: insertTraderHoldings()");
