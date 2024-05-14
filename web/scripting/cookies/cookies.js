@@ -10,9 +10,9 @@ var KEY_USERNAME="traderName";
 //
 
 
-//apiURL="https://apis.napkinexchange.softwareshinobi.digital";
+apiURL="https://apis.napkinexchange.softwareshinobi.digital";
 
- apiURL="http://localhost:8888";
+// apiURL="http://localhost:8888";
 
 $(document).ready(function () {
   
