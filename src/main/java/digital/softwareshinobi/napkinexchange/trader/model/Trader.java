@@ -79,9 +79,15 @@ private Double accountValue=0.0;
 
         }
 
-        setTotalProfits(CalculateCostBasisAndProfits.findProfitsAfterSelling(
-                this.totalProfits, costBasis, sharesToSell, currentPrice
-        ));
+        double updatedTotalProfits = CalculateCostBasisAndProfits.findProfitsAfterSelling(
+                this.totalProfits,
+                costBasis,
+                sharesToSell,
+                currentPrice);
+        
+        System.out.println("updatedTotalProfits / "+updatedTotalProfits);
+        
+        this.setTotalProfits(updatedTotalProfits);
 
     }
 

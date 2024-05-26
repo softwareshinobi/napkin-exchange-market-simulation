@@ -24,7 +24,7 @@ public class LimitOrderService {
     private final LimitOrderRepository limitOrderRepository;
 
     @Autowired
-    private final SecurityPortfolioService stockOwnedService;
+    private final SecurityPortfolioService securityPortfolioService;
 
     @Autowired
     private final NotificationService notificationService;
@@ -150,7 +150,7 @@ public class LimitOrderService {
                         stopLossOrder.getSharesToBuy()
                 );
 
-                stockOwnedService.sellStockMarketPrice(sellStockRequest);
+                securityPortfolioService.sellSecurityMarketPrice(sellStockRequest);
 
                 this.clearAndDeleteLimitOrder(stopLossOrder);
 
@@ -199,12 +199,14 @@ public class LimitOrderService {
                         takeProfitOrder.getStock().getTicker(),
                         takeProfitOrder.getSharesToBuy());
 
-                stockOwnedService.sellStockMarketPrice(marketSellStockRequest);
+                securityPortfolioService.sellSecurityMarketPrice(marketSellStockRequest);
 
                 this.clearAndDeleteLimitOrder(takeProfitOrder);
 
                 this.removeSmartRelated(takeProfitOrder);
 
+                marketSellStockRequest =null;
+                
             } catch (AccountNotFoundException exception) {
 
                 exception.printStackTrace();
