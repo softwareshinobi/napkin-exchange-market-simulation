@@ -14,18 +14,6 @@ spring.jackson.serialization.fail-on-empty-beans=false
 server.port=8888
 
 ##
-## upstream database configuration
-##
-
-spring.datasource.url=jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}
-
-spring.datasource.username=${DB_USER}
-
-spring.datasource.password=${DB_PASS}
-
-spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-
-##
 ## Keep the connection alive if idle for a long time (needed in production)
 ## 
 ## https://stackoverflow.com/questions/60310858/possibly-consider-using-a-shorter-maxlifetime-value-hikari-connection-pool-spr
@@ -60,13 +48,3 @@ server.error.include-message= always
 server.error.include-exception=true
 
 server.error.include-binding-errors=always
-
-##
-## trash area
-##
-
-
-##spring.datasource.username=root
-
-##spring.datasource.password=aggiepride
-

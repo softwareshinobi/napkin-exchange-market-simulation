@@ -2,6 +2,14 @@ set -e
 
 set -x
 
-cd .automatr
+cd ..
 
-bash production.bash
+docker-compose pull
+
+docker-compose build
+
+docker-compose down --remove-orphans
+
+docker-compose up -d
+
+docker stats

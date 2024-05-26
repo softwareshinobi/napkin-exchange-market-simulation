@@ -2,10 +2,6 @@ set -e
 
 set -x
 
-reset
+cd ..
 
-clear
-
-cd .automatr
-
-bash development.bash
+docker-compose up --build
