@@ -17,9 +17,9 @@ apiURL="http://localhost:8888";
 
 $(document).ready(function () {
   
-    //console.log("list / cookies / all");
+    console.log("list / cookies / all");
 
-    //console.log(Cookies.get());
+    console.log(Cookies.get());
 
 });
 

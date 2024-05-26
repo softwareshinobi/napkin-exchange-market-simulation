@@ -24,18 +24,18 @@ public class BrokerController {
 
     private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.01;
 
-    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.04;
+    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 100.02;
 
     public BrokerController() {
 
-        System.out.println("");
-        System.out.println("init > Broker Controller");
-        System.out.println("");
+        System.out.println("##");
+        System.out.println("## init > Broker Controller");
+        System.out.println("##");
 
     }
 
     @Autowired
-    private SecurityPortfolioService stockOwnedService;
+    private SecurityPortfolioService securityPortfolioService;
 
     @Autowired
     private LimitOrderService limitOrderService;
@@ -44,7 +44,7 @@ public class BrokerController {
     private AccountService accountService;
 
     @Autowired
-    private SecurityService stockService;
+    private SecurityService securityService;
 
     @Autowired
     private NotificationService notificationService;
@@ -53,13 +53,6 @@ public class BrokerController {
     protected String root() {
 
         return "BrokerController";
-
-    }
-
-    @GetMapping(value = "health")
-    protected String health() {
-
-        return "OK";
 
     }
 
@@ -100,12 +93,12 @@ public class BrokerController {
 //                        limitOrder.toString()
 //                ));
 
-        stockOwnedService.fillBuyMarketStockRequest(buyStockRequest);
+        securityPortfolioService.fillBuyMarketStockRequest(buyStockRequest);
 
         System.out.println("buyStockRequest / fulfilled");
 
         //////////doing math ////////////
-        Security stock = stockService.getSecurityBySymbol(buyStockRequest.getTicker());
+        Security stock = securityService.getSecurityBySymbol(buyStockRequest.getTicker());
 
         System.out.println("stock: " + stock);
 
@@ -125,7 +118,7 @@ public class BrokerController {
         LimitOrder stopLossOrder = new LimitOrder(
                 LimitOrderTypes.LONG_STOP_LOSS,
                 accountService.getAccountByName(buyStockRequest.getUsername()),
-                stockService.getSecurityBySymbol(buyStockRequest.getTicker()),
+                securityService.getSecurityBySymbol(buyStockRequest.getTicker()),
                 buyStockRequest.getSharesToBuy(),
                 dynamicStopLossThreshold
         );
@@ -133,7 +126,7 @@ public class BrokerController {
         LimitOrder takeProfitOrder = new LimitOrder(
                 LimitOrderTypes.LONG_TAKE_PROFIT,
                 accountService.getAccountByName(buyStockRequest.getUsername()),
-                stockService.getSecurityBySymbol(buyStockRequest.getTicker()),
+                securityService.getSecurityBySymbol(buyStockRequest.getTicker()),
                 buyStockRequest.getSharesToBuy(),
                 dynamicTakeProfitThreshold
         );
@@ -141,6 +134,7 @@ public class BrokerController {
         limitOrderService.saveLimitOrder(stopLossOrder);
 
         limitOrderService.saveLimitOrder(takeProfitOrder);
+        
         takeProfitOrder.setRelatedOrderId(stopLossOrder.getId());
 
         stopLossOrder.setRelatedOrderId(takeProfitOrder.getId());
@@ -157,6 +151,13 @@ public class BrokerController {
 
     }
 
+    
+    @GetMapping(value = "health")
+    protected String health() {
+
+        return "OK";
+
+    }
     /*
         /// build notification
 ////        StringBuilder stringBuffer = new StringBuilder();
