@@ -53,14 +53,14 @@ public class AccountHistoryService {
                     portfolioValue
             );
 
-            System.out.println("newAccountHistory / " + newAccountHistory);
+        //    System.out.println("newAccountHistory / " + newAccountHistory);
 
             this.accountHistoryRepository.save(newAccountHistory);
 
             newAccountHistory = null;
-////////
-            System.out.println("portfolioValue / " + portfolioValue);
-            System.out.println("trader / before / " + trader);
+///////////
+          //  System.out.println("portfolioValue / " + portfolioValue);
+        //    System.out.println("trader / before / " + trader);
 
             trader.setPortfolioValue(portfolioValue);
             trader.setAccountValue(trader.getAccountBalance() + trader.getPortfolioValue());
@@ -69,7 +69,7 @@ public class AccountHistoryService {
             //
             this.accountService.saveTraderAccount(trader);
             
-            System.out.println("trader / after / " + trader);
+    //        System.out.println("trader / after / " + trader);
 
         }
 

@@ -33,8 +33,8 @@ public class SecurityPricingHistoryService {
 
         for (Security currentSecurity : this.securityService.getAllSecurities()) {
 
-            System.out.println("currentSecurity / " + currentSecurity);
-
+//System.out.println("currentSecurity / " + currentSecurity);
+//
             Optional<SecurityPricingHistory> previousSecurityPricingHistoryOptional
                     = securityPricingHistoryRepository.findTopBySecurityOrderByIdDesc(currentSecurity);
 
@@ -44,38 +44,38 @@ public class SecurityPricingHistoryService {
 
             if (previousSecurityPricingHistoryOptional.isPresent()) {
 
-                System.out.println("previousSecurityPricingHistoryOptional / " + previousSecurityPricingHistoryOptional);
+           //     System.out.println("previousSecurityPricingHistoryOptional / " + previousSecurityPricingHistoryOptional);
 //
                 SecurityPricingHistory previousSecurityPricingHistory = previousSecurityPricingHistoryOptional.get();
 
-                System.out.println("previousSecurityPricingHistory / " + previousSecurityPricingHistory);
+             //   System.out.println("previousSecurityPricingHistory / " + previousSecurityPricingHistory);
 //
                 previousSecurityPricing = previousSecurityPricingHistory.getPrice();
 
-                System.out.println("previousSecurityPricing / " + previousSecurityPricing);
+              //  System.out.println("previousSecurityPricing / " + previousSecurityPricing);
 
                 Double currentSecurityPricing = currentSecurity.getPrice();
 
-                System.out.println("currentSecurityPricing / " + currentSecurityPricing);
+             //   System.out.println("currentSecurityPricing / " + currentSecurityPricing);
 
                 gainValue = currentSecurityPricing - previousSecurityPricing;
 
-                System.out.println("gainValue / " + gainValue);
+              //  System.out.println("gainValue / " + gainValue);
 
                 if (previousSecurityPricing != 0) { // Avoid division by zero
                     gainPercent = (gainValue / previousSecurityPricing); //* 100;
-                    System.out.println("gainPercent / " + gainPercent);
+             //       System.out.println("gainPercent / " + gainPercent);
                 }
                 //   gain
 
                 // Calculate gain/loss in percentage
                 // Print the results
-                System.out.println("Gain/Loss in Value: " + gainValue);
-                System.out.println("Gain/Loss in Percentage: " + gainPercent + "%");
+             //   System.out.println("Gain/Loss in Value: " + gainValue);
+             //   System.out.println("Gain/Loss in Percentage: " + gainPercent + "%");
 
             } else {
 
-                System.out.println("nonnneeee // No recent pricing history found for the company");
+           //     System.out.println("nonnneeee // No recent pricing history found for the company");
 
             }
 
@@ -89,7 +89,7 @@ public class SecurityPricingHistoryService {
                     gainValue
             );
 
-            System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
+      //      System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
 
             this.securityPricingHistoryRepository.save(newSecurityPricingHistory);
 

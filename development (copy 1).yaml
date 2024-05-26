@@ -118,3 +118,75 @@ services:
 
             LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
 
+    napkin-exchange-market-watch:
+
+        container_name: napkin-exchange-market-watch
+
+        image: softwareshinobi/napkin-exchange-market-watch
+
+        build: 
+
+            context: watch
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8881:80
+            
+        environment:
+
+            VIRTUAL_HOST: watch.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: watch.napkinexchange.softwareshinobi.digital
+
+##########################################
+##
+## project documentation
+##
+##########################################
+
+    napkin-exchange-market-links:
+
+        container_name: napkin-exchange-market-links
+
+        image: softwareshinobi/napkin-exchange-market-links
+
+        build: 
+
+            context: links
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8890:80
+
+        environment:
+
+            VIRTUAL_HOST: links.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: links.napkinexchange.softwareshinobi.digital
+
+    napkin-exchange-market-docs:
+
+        container_name: napkin-exchange-market-docs
+
+        image: softwareshinobi/napkin-exchange-market-docs
+
+        build: 
+
+            context: docs
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8891:80
+
+        environment:
+
+            VIRTUAL_HOST: docs.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: docs.napkinexchange.softwareshinobi.digital
+

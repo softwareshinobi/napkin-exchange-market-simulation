@@ -96,25 +96,3 @@ services:
 
             DB_PASS: napkin_exchange_market
 
-    napkin-exchange-market-web:
-
-        container_name: napkin-exchange-market-web
-
-        image: softwareshinobi/napkin-exchange-market-web
-
-        build: 
-
-            context: web
-
-            dockerfile: Dockerfile
-
-        ports:
-
-            - 8880:80
-
-        environment:
-
-            VIRTUAL_HOST: napkinexchange.softwareshinobi.digital
-
-            LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
-

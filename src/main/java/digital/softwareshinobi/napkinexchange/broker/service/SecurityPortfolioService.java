@@ -208,7 +208,7 @@ public class SecurityPortfolioService {
     
      List<SecurityPosition> securityPortfolio = this.findStockOwned(trader);
 
-            System.out.println("security portfolio for trader / " + trader.getUsername());
+         //   System.out.println("security portfolio for trader / " + trader.getUsername());
 
          //   System.out.println(securityPortfolio);
 
@@ -216,7 +216,7 @@ public class SecurityPortfolioService {
             
             for (SecurityPosition securityPosition : securityPortfolio) {
 
-                System.out.println("position / " + securityPosition);
+             //   System.out.println("position / " + securityPosition);
 
                 Security security = this.securityService.getSecurityBySymbol(securityPosition.symbol);
 
@@ -224,7 +224,7 @@ public class SecurityPortfolioService {
 
             }
 
-            System.out.println("portfolio value / " + securityPortfolioValue);
+      //      System.out.println("portfolio value / " + securityPortfolioValue);
             
             return securityPortfolioValue;
             
