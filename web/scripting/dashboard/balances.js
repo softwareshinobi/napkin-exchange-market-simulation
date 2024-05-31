@@ -41,7 +41,8 @@ function visualizeAccountBalances() {
 
         error: function (exception, status) {
 
-            alert("eorrrrrrrrrrrrrr?");
+alert("error fetching account balance data. is the backend up?");
+        //    alert("eorrrrrrrrrrrrrr?");
 
             console.error("error fetting trader details / ", exception);
 

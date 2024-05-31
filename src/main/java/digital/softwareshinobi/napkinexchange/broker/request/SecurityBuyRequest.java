@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BuyStockRequest {
+public class SecurityBuyRequest {
 
     private String username;
 

@@ -27,7 +27,6 @@ public class MarketConfiguration {
     @PostConstruct
     public void initializeMarket() {
 
-        System.out.println("inityyyyyyyy");
         //Calling this method will automatically create a new Market Entity if one doesn't exist
         //This happens because only a single market entity should exist, with ID 1
         Market market = this.marketService.getMarket();
@@ -36,10 +35,11 @@ public class MarketConfiguration {
                 new Notification(
                         "SYSTEM",
                         NotificationType.SYSTEM_NOTIFICATION,
-                        "napkin exchange simulated stock market initialized"
+                        "napkin exchange market simulation initialized"
                 ));
 
         logger.info("current market conditions: " + market.toString());
 
     }
+
 }

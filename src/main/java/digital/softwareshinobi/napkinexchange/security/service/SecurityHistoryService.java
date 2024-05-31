@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class SecurityPricingHistoryService {
+public class SecurityHistoryService {
 
     @Autowired
     private final SecurityPricingHistoryRepository securityPricingHistoryRepository;

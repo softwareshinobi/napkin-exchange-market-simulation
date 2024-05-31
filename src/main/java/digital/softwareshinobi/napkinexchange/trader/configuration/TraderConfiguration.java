@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.trader.configuration;
 
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
-import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
+import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import jakarta.annotation.PostConstruct;
 import java.util.logging.Level;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ public class TraderConfiguration {
     private final String DEMO_PASS = "whiplashone";
 
     @Autowired
-    private AccountService accountService;
+    private TraderService accountService;
 
     @PostConstruct
     public void createMateoDevelopmentUser() {
@@ -35,7 +35,7 @@ public class TraderConfiguration {
 
             } catch (InvalidAccountException ex) {
 
-                java.util.logging.Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(TraderService.class.getName()).log(Level.SEVERE, null, ex);
 
             }
 

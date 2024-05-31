@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.security.controller;
 import digital.softwareshinobi.napkinexchange.security.exception.SecurityNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistory;
-import digital.softwareshinobi.napkinexchange.security.service.SecurityPricingHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityHistoryService;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class SecurityController {
     private SecurityService securityService;
 
     @Autowired
-    private SecurityPricingHistoryService securityPriceHistoryService;
+    private SecurityHistoryService securityPriceHistoryService;
 
     private static final int TARGET_LIST_SIZE = 100;
 
