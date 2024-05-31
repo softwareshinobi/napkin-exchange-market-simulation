@@ -11,20 +11,21 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @AllArgsConstructor
-public class StockConfiguration {
+public class SecurityConfiguration {
+    
+    private final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 
     @Autowired
-    private SecurityService stockService;
+    private SecurityService securityService;
 
-    private final Logger logger = LoggerFactory.getLogger(StockConfiguration.class);
 
     @PostConstruct
-    public void saveStocksToDatabaseOnStartup() {
-        if (DefaultStocksList.getCountForDefaultStocks() != stockService.findStockRowCount()) {
+    public void saveSecuritiesToDatabase() {
+        if (DefaultStocksList.getCountForDefaultStocks() != securityService.findStockRowCount()) {
 
-            logger.info("Saving Default Stocks");
+            logger.info("Saving Default Securities");
 
-            stockService.saveDefaultStockToDatabase(DefaultStocksList.getAllDefaultStocks());
+  this.          securityService.saveDefaultStockToDatabase(DefaultStocksList.getAllDefaultStocks());
 
         }
     }

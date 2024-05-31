@@ -15,12 +15,12 @@ public class SecurityBuyRequest {
 
     private String ticker;
 
-    private int sharesToBuy;
+    private int units;
 
     @Override
     public String toString() {
 
-        return "{" + "username=" + username + ", ticker=" + ticker + ", sharesToBuy=" + sharesToBuy + "}";
+        return "{" + "username=" + username + ", ticker=" + ticker + ", units=" + units + "}";
 
     }
 

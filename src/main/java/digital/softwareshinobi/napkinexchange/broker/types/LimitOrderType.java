@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.broker.types;
 
-public interface LimitOrderTypes {
+public interface LimitOrderType {
 
     String LONG_BUY_STOP = "LONG_BUY_STOP";
 

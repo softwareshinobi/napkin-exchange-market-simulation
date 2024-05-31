@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import digital.softwareshinobi.napkinexchange.market.utility.GetRandomNumber;
+import digital.softwareshinobi.napkinexchange.market.utility.RandomNumberGenerator;
 import digital.softwareshinobi.napkinexchange.security.defaults.DefaultStockPrices;
 import digital.softwareshinobi.napkinexchange.security.enums.InvestorRating;
 import digital.softwareshinobi.napkinexchange.security.enums.MarketCap;
@@ -49,12 +49,12 @@ public class Security implements Serializable {
 
     @Column(name = "volatile")
     @Enumerated(EnumType.STRING)
-    private Volatility volatileStock;
+    private Volatility volatility;
 
-    @Column(name = "investor_rating")
-    @Enumerated(EnumType.STRING)
-    private InvestorRating investorRating;
 
+//    @Column(name = "investor_rating")
+//    @Enumerated(EnumType.STRING)
+//    private InvestorRating investorRating;
     @OneToMany(mappedBy = "security", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<SecurityPricingHistory> securityPricingHistory = new ArrayList();
@@ -74,10 +74,9 @@ public class Security implements Serializable {
 
         this.marketCap = marketCap;
 
-        this.volatileStock = volatileStock;
+        this.volatility = volatileStock;
 
-        this.investorRating = investorRating;
-
+//        this.investorRating = investorRating;
         this.price = DefaultStockPrices.getDefaultPriceWithCap(marketCap);
 
         this.lastDayPrice = DefaultStockPrices.getDefaultPriceWithCap(marketCap);
@@ -90,42 +89,72 @@ public class Security implements Serializable {
 
     public void updatePriceWithFormula() {
 
-        //Volatile stocks change twice to increase market movements
-        double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
-
-        double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
-
         double currentSecurityPrice = this.getPrice();
 
-        double newSecurityPrice = Math.round((currentSecurityPrice
+        ////
+//@todo move into the class itself and make final
+ final            RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
+
+        double randomNumber = randomNumberGenerator.generateRandomNumberForSecurity(this.marketCap);
+
+        ////
+        double randomPositiveNumber = randomNumberGenerator.getRandomPositiveNumberForStocks(this.marketCap);
+
+        ////
+        int theMomentum = this.getMomentum();
+
+////
+        double theVolatility = this.getVolatility().ordinal();
+
+////
+        double newSecurityPrice = Math.round(
+                (currentSecurityPrice
                 + (currentSecurityPrice * randomNumber)
-                + (currentSecurityPrice * (randomNumber * this.getVolatileStock().ordinal()))
-                + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
-                + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
+                + (currentSecurityPrice * (randomNumber * theVolatility))
+                // + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
+                + (theMomentum * randomPositiveNumber)) * 100.00) / 100.00;
+
+        if (this.ticker.equalsIgnoreCase("callisto")) {
+            System.out.println();
+            System.out.println();
+            System.out.println("//// enter //// ");
+            System.out.println("symbol / " + ticker);
+
+            System.out.println("current price / " + currentSecurityPrice);
+            System.out.println("randomNumber / " + randomNumber);
+            System.out.println("randomPositiveNumber / " + randomPositiveNumber);
+            System.out.println("theMomentum / " + theMomentum);
+            System.out.println("theVolatility / " + theVolatility);
+            System.out.println("newSecurityPrice / " + newSecurityPrice);
+            System.out.println("//// exit //// ");
+            System.out.println();
+            System.out.println();
+        }
 
         this.setPrice(newSecurityPrice);
+        ////
+//        randomNumberGenerator = null;
 
     }
 
-    public void updatePriceWithFormulaHack() {
-
-        //Volatile stocks change twice to increase market movements
-        double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
-
-        double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
-
-        double stockPrice = this.getPrice();
-
-        double newPrice = Math.round((stockPrice
-                + (stockPrice * randomNumber)
-                + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
-                + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
-                + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
-
-        setPrice(newPrice + 4.0);
-
-    }
-
+//    private void updatePriceWithFormulaHack() {
+//
+//        //Volatile stocks change twice to increase market movements
+//        double randomNumber = GetRandomNumber.getRandomNumberForStocks(this.marketCap);
+//
+//        double randomPositiveNumber = GetRandomNumber.getRandomPositiveNumberForStocks(this.marketCap);
+//
+//        double stockPrice = this.getPrice();
+//
+//        double newPrice = Math.round((stockPrice
+//                + (stockPrice * randomNumber)
+//                + (stockPrice * (randomNumber * this.getVolatileStock().ordinal()))
+//                + (this.getInvestorRating().investorRatingMultiplier() * randomPositiveNumber)
+//                + (this.getMomentum() * randomPositiveNumber)) * 100.00) / 100.00;
+//
+//        setPrice(newPrice + 4.0);
+//
+//    }
     public void updateMomentum() {
 
         int momentumStreak = getMomentumStreakInDays();
@@ -137,6 +166,7 @@ public class Security implements Serializable {
             return;
 
         }
+
         if (momentumStreak <= -3) {
 
             setMomentum(-1);

@@ -48,7 +48,7 @@ function processBuyForm() {
             
             ticker: buyOrderSymbol,
 
-            sharesToBuy: buyOrderUnits
+            units: buyOrderUnits
        
         }),
 

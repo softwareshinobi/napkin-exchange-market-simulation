@@ -43,7 +43,7 @@ public class SecurityService {
 
     public List<Security> getAllStocksByVolatility(Volatility volatility) {
         return stockRepository.findAll().stream()
-                .filter(stock -> stock.getVolatileStock().equals(volatility))
+                .filter(stock -> stock.getVolatility().equals(volatility))
                 .collect(Collectors.toList());
     }
 

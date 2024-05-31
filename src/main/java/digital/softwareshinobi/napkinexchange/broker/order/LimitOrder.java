@@ -19,62 +19,77 @@ public class LimitOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@JsonIgnore
     private Integer id;
-
+    
+    @Column
+    public Integer partnerID;
+    
     @ManyToOne(cascade = CascadeType.ALL)
-    private Trader account;
+    private Trader trader;
 
     @Column
     private String type;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Security stock;
+    private Security security;
 
     @Column
-    private Integer sharesToBuy;
+    private Integer units;
 
     @Column
-    private Double strikePrice;
+    private Double strike;
 
-    @Column
-    public Integer relatedOrderId;
 
-    public LimitOrder(String limitOrderType, Trader account, Security stock, int sharesToBuy, double limitPrice) {
 
-        System.out.println("here");
+    public LimitOrder(String type, Trader trader, Security security, int units, double strike) {
 
-        this.type = limitOrderType;
+        this.type = type;
 
-        this.account = account;
+        this.trader = trader;
 
-        this.sharesToBuy = sharesToBuy;
+        this.units = units;
 
-        this.stock = stock;
+        this.security = security;
 
-        this.strikePrice = limitPrice;
+        this.strike = strike;
 
     }
+//
+//    @Override
+//    public String toS66tring() {
+//
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        stringBuilder.append("{");
+//        stringBuilder.append("id=").append(id);
+//        stringBuilder.append(", account=").append(trader);
+//        stringBuilder.append(", type=").append(type);
+//        stringBuilder.append(", stock=").append(security);
+//        stringBuilder.append(", sharesToBuy=").append(units);
+//        stringBuilder.append(", strikePrice=").append(strike);
+//        stringBuilder.append(", relatedOrderId=").append(partnerID);
+//        stringBuilder.append('}');
+//
+//        String returnString = stringBuilder.toString();
+//
+//        stringBuilder = null;
+//
+//        return returnString;
+//
+//    }
 
     @Override
     public String toString() {
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("{");
-        stringBuilder.append("id=").append(id);
-        stringBuilder.append(", account=").append(account);
-        stringBuilder.append(", type=").append(type);
-        stringBuilder.append(", stock=").append(stock);
-        stringBuilder.append(", sharesToBuy=").append(sharesToBuy);
-        stringBuilder.append(", strikePrice=").append(strikePrice);
-        stringBuilder.append(", relatedOrderId=").append(relatedOrderId);
-        stringBuilder.append('}');
-
-        String returnString = stringBuilder.toString();
-
-        stringBuilder = null;
-
-        return returnString;
-
+        StringBuilder sb = new StringBuilder();
+        sb.append("LimitOrder{");
+        sb.append("id=").append(id);
+        sb.append(", partnerID=").append(partnerID);
+        sb.append(", trader=").append(trader);
+        sb.append(", type=").append(type);
+        sb.append(", security=").append(security);
+        sb.append(", units=").append(units);
+        sb.append(", strike=").append(strike);
+        sb.append('}');
+        return sb.toString();
     }
 
 }
