@@ -8,45 +8,57 @@ import java.util.Random;
 
 public class RandomNumberGenerator {
 
-    private  final Long randomNumberSeed = 42L;
+    private static final Long randomNumberSeed = 42L;
 
-    private  final Random randomNumberGenerator = new Random(randomNumberSeed);
+    private static final Random randomNumberGenerator = new Random();
 
-    public  double generateRandomNumberForSecurity(final MarketCap marketCap) {
+    public double generateRandomNumberForSecurity(final MarketCap marketCap) {
 
-        return switch (marketCap) {
+        System.out.println("marketCap / " + marketCap);
+
+        double randomNumber;
+
+        switch (marketCap) {
 
             case Large ->
 
-             this.   randomNumberGenerator.nextDouble(-.002, .002);
+                randomNumber = this.randomNumberGenerator.nextDouble(-.002, .002);
 
             case Mid ->
 
-              this.  randomNumberGenerator.nextDouble(-.001, .001);
+                randomNumber = this.randomNumberGenerator.nextDouble(-.001, .001);
 
             case Small ->
 
-              this.  randomNumberGenerator.nextDouble(-.003, .003);
+                randomNumber = this.randomNumberGenerator.nextDouble(-.003, .003);
 
-        };
+            default ->
+
+                randomNumber = -1.0;
+
+        }
+
+        System.out.println("randomNumber / " + randomNumber);
+
+        return randomNumber;
 
     }
 
-    public  double getRandomPositiveNumberForStocks(final MarketCap marketCap) {
+    public double getRandomPositiveNumberForStocks(final MarketCap marketCap) {
 
         return switch (marketCap) {
 
             case Large ->
 
-              this.  randomNumberGenerator.nextDouble(0, .0018);
+                this.randomNumberGenerator.nextDouble(0, .0018);
 
             case Mid ->
 
-             this.   randomNumberGenerator.nextDouble(0, .0008);
+                this.randomNumberGenerator.nextDouble(0, .0008);
 
             case Small ->
 
-             this.   randomNumberGenerator.nextDouble(0, .00028);
+                this.randomNumberGenerator.nextDouble(0, .00028);
 
         };
 
