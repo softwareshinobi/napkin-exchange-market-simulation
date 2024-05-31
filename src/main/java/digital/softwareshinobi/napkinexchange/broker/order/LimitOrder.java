@@ -77,4 +77,19 @@ public class LimitOrder implements Serializable {
 //
 //    }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("LimitOrder{");
+        sb.append("id=").append(id);
+        sb.append(", partnerID=").append(partnerID);
+        sb.append(", trader=").append(trader);
+        sb.append(", type=").append(type);
+        sb.append(", security=").append(security);
+        sb.append(", units=").append(units);
+        sb.append(", strike=").append(strike);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }

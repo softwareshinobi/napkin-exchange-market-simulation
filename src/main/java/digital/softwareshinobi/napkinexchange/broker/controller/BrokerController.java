@@ -129,12 +129,10 @@ public class BrokerController {
         System.out.println("takeProfitOrder / " + takeProfitOrder);
 
         this.limitOrderService.saveLimitOrder(takeProfitOrder);
+      
+        takeProfitOrder.setPartnerID(stopLossOrder.getId());
 
-        //
-        
-        takeProfitOrder.setRelatedOrderId(stopLossOrder.getId());
-
-        stopLossOrder.setRelatedOrderId(takeProfitOrder.getId());
+        stopLossOrder.setPartnerID(takeProfitOrder.getId());
              
                 System.out.println("updating the related order id");
 
