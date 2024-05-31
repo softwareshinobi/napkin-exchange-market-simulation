@@ -35,10 +35,10 @@ public class LimitOrderService {
 
     }
 
-    public List<LimitOrder> findLimitOrders(Trader account) {
+    public List<LimitOrder> findLimitOrders(Trader trader) {
 
         return this.limitOrderRepository.findAll().stream()
-                .filter(order -> order.getAccount().getUsername().equals(account.getUsername()))
+                .filter(limitOrder -> limitOrder.getTrader().getUsername().equals(trader.getUsername()))
                 .collect(Collectors.toList());
 
     }
@@ -55,11 +55,11 @@ public class LimitOrderService {
 
         this.limitOrderRepository.save(limitOrder);
 
-        if (limitOrder.getAccount() != null) {
+        if (limitOrder.getTrader() != null) {
 
             this.notificationService.save(
                     new Notification(
-                            limitOrder.getAccount().getUsername(),
+                            limitOrder.getTrader().getUsername(),
                             NotificationType.NEW_LIMIT_ORDER_CREATED,
                             limitOrder.toString()
                     ));
@@ -71,7 +71,7 @@ public class LimitOrderService {
     public void processLimitOrders() {
 
         // //System.out.println("enter > processLimitOrders");
-        this.limitOrderRepository.findAll().forEach(openLimitOrder -> {
+        this.limitOrderRepository.findAll().forEach(limitOrder -> {
 
             //System.out.println("limitOrder / " + limitOrder);
 
@@ -82,7 +82,7 @@ public class LimitOrderService {
             //  //System.out.println("limitOrderConstant /" + limitOrderConstant);
             //   //System.out.println("equal /" + equal);
 
-            switch (openLimitOrder.getType()) {
+            switch (limitOrder.getType()) {
 
 //                case LimitOrderTypes.LONG_BUY_STOP:
 //
@@ -94,7 +94,7 @@ public class LimitOrderService {
 
                     //System.out.println("is a LONG_STOP_LOSS");
 
-                    this.evaluateLimitOrderLongStopLoss(openLimitOrder);
+                    this.evaluateLimitOrderLongStopLoss(limitOrder);
 
                     break;
 
@@ -102,7 +102,7 @@ public class LimitOrderService {
 
                     //System.out.println("is a LONG_TAKE_PROFIT");
 
-                    this.evaluateLimitOrderLongTakeProfit(openLimitOrder);
+                    this.evaluateLimitOrderLongTakeProfit(limitOrder);
 
                     break;
 
@@ -119,7 +119,7 @@ public class LimitOrderService {
         // //System.out.println("exit < processLimitOrders");
     }
 
-    private void evaluateLimitOrderLongStopLoss(LimitOrder stopLossOrder) {
+    private void evaluateLimitOrderLongStopLoss(LimitOrder stopLossLimitOrder) {
 
         //System.out.println("enter > evaluateLimitOrderLongStopLoss");
 
@@ -127,11 +127,11 @@ public class LimitOrderService {
         //System.out.println("stop loss order / " + stopLossOrder);
         //System.out.println();
         //System.out.println("  current price / " + stopLossOrder.getStock().getPrice());
-        //System.out.println("   strike price / " + stopLossOrder.getStrikePrice());
+        //System.out.println("   strike price / " + stopLossOrder.getStrike());
         //System.out.println();
 
 //todo, we shouldn't be compariing doubles like this
-        if (stopLossOrder.getStock().getPrice() < stopLossOrder.getStrikePrice()) {
+        if (stopLossLimitOrder.getStock().getPrice() < stopLossLimitOrder.getStrike()) {
 
             //System.out.println("IT'S TIME TO TRIGGER THIS STOP LOSS");
 
@@ -139,22 +139,22 @@ public class LimitOrderService {
 
                 notificationService.save(
                         new Notification(
-                                stopLossOrder.getAccount().getUsername(),
+                                stopLossLimitOrder.getAccount().getUsername(),
                                 NotificationType.LONG_STOP_LOSS_TRIGGERED,
-                                stopLossOrder
+                                stopLossLimitOrder
                         ));
 
                 SellStockRequest sellStockRequest = new SellStockRequest(
-                        stopLossOrder.getAccount().getUsername(),
-                        stopLossOrder.getStock().getTicker(),
-                        stopLossOrder.getSharesToBuy()
+                        stopLossLimitOrder.getAccount().getUsername(),
+                        stopLossLimitOrder.getStock().getTicker(),
+                        stopLossLimitOrder.getSharesToBuy()
                 );
 
                 securityPortfolioService.sellSecurityMarketPrice(sellStockRequest);
 
-                this.clearAndDeleteLimitOrder(stopLossOrder);
+                this.clearAndDeleteLimitOrder(stopLossLimitOrder);
 
-                this.removeSmartRelated(stopLossOrder);
+                this.removeSmartRelated(stopLossLimitOrder);
 
             } catch (AccountNotFoundException exception) {
 
@@ -169,7 +169,7 @@ public class LimitOrderService {
 
     }
 
-    private void evaluateLimitOrderLongTakeProfit(LimitOrder takeProfitOrder) {
+    private void evaluateLimitOrderLongTakeProfit(LimitOrder takeProfitLimitOrder) {
 
         //System.out.println("enter > evaluateLimitOrderLongTakeProfit");
 
@@ -177,11 +177,11 @@ public class LimitOrderService {
         //System.out.println("take profit order / " + takeProfitOrder);
         //System.out.println();
         //System.out.println("  current price / " + takeProfitOrder.getStock().getPrice());
-        //System.out.println("   strike price / " + takeProfitOrder.getStrikePrice());
+        //System.out.println("   strike price / " + takeProfitOrder.getStrike());
         //System.out.println();
 
         //todo, we shouldn't be compariing doubles like this
-        if (takeProfitOrder.getStock().getPrice() > takeProfitOrder.getStrikePrice()) {
+        if (takeProfitLimitOrder.getStock().getPrice() > takeProfitLimitOrder.getStrike()) {
 
             //System.out.println("IT'S TIME TO TRIGGER THIS TAKE PROFIT");
 
@@ -189,21 +189,21 @@ public class LimitOrderService {
 
                 notificationService.save(
                         new Notification(
-                                takeProfitOrder.getAccount().getUsername(),
+                                takeProfitLimitOrder.getAccount().getUsername(),
                                 NotificationType.LONG_TAKE_PROFIT_TRIGGERED,
-                                takeProfitOrder
+                                takeProfitLimitOrder
                         ));
 
                 SellStockRequest marketSellStockRequest = new SellStockRequest(
-                        takeProfitOrder.getAccount().getUsername(),
-                        takeProfitOrder.getStock().getTicker(),
-                        takeProfitOrder.getSharesToBuy());
+                        takeProfitLimitOrder.getAccount().getUsername(),
+                        takeProfitLimitOrder.getStock().getTicker(),
+                        takeProfitLimitOrder.getSharesToBuy());
 
                 securityPortfolioService.sellSecurityMarketPrice(marketSellStockRequest);
 
-                this.clearAndDeleteLimitOrder(takeProfitOrder);
+                this.clearAndDeleteLimitOrder(takeProfitLimitOrder);
 
-                this.removeSmartRelated(takeProfitOrder);
+                this.removeSmartRelated(takeProfitLimitOrder);
 
                 marketSellStockRequest =null;
                 
@@ -254,11 +254,11 @@ public class LimitOrderService {
 
     private void clearAndDeleteLimitOrder(LimitOrder limitOrder) {
 
-        if (true) {
-            //     return;
-        }
+//        if (true) {
+//            //     return;
+//        }
 
-        limitOrder.setAccount(null);
+        limitOrder.setTrader(null);
 
         limitOrder.setStock(null);
 
@@ -289,11 +289,11 @@ public class LimitOrderService {
 
         //System.out.println("buyStopOrder /" + buyStopOrder);
 
-        //System.out.println("order.getStrikePrice() /" + buyStopOrder.getStrikePrice());
+        //System.out.println("order.getStrike() /" + buyStopOrder.getStrike());
 
         //System.out.println("order.getStock().getPrice() /" + buyStopOrder.getStock().getPrice());
 
-        if (buyStopOrder.getStock().getPrice() > buyStopOrder.getStrikePrice()) {
+        if (buyStopOrder.getStock().getPrice() > buyStopOrder.getStrike()) {
 
             //System.out.println("IT'S TIME TO OPEN THIS LONG_BUY_STOP");
 

@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class MarketActivityService {
 
     @Autowired
-    private final SecurityService stockService;
+    private final SecurityService securityService;
 
     @Autowired
     private final MarketService marketService;
 
     @Autowired
-    private final SecurityHistoryService stockPriceHistoryService;
+    private final SecurityHistoryService securityHistoryService;
 
     public ZonedDateTime getTime() {
 
@@ -46,6 +46,7 @@ public class MarketActivityService {
         this.tickSecurities();
 
         ////////
+        
         ZonedDateTime currentMarketTime = market.getDate();
 
         market = null;
@@ -56,21 +57,21 @@ public class MarketActivityService {
 
     private void tickSecurities() {
 
-        List<Security> securityList = this.stockService.getAllSecurities();
+        List<Security> securityList = this.securityService.getAllSecurities();
 
-        securityList.forEach(singleSecurity -> {
+        securityList.forEach(security -> {
 
-            singleSecurity.updatePriceWithFormula();
+            security.updatePriceWithFormula();
 
-            singleSecurity.updateMomentumStreak();
+            security.updateMomentumStreak();
 
-            singleSecurity.updateMomentum();
+            security.updateMomentum();
 
-            singleSecurity.setLastDayPrice(singleSecurity.getPrice());
+            security.setLastDayPrice(security.getPrice());
 
         });
 
-        this.stockService.updateAllStocksInDatabase(securityList);
+        this.securityService.updateAllStocksInDatabase(securityList);
 
         securityList = null;
 

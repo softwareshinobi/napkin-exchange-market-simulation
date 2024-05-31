@@ -173,7 +173,7 @@ public class BrokerController {
 ////        stringBuffer.append(", type=").append(stopLossOrder.getType());
 ////        stringBuffer.append(", stock=").append(stopLossOrder.getStock());
 ////        stringBuffer.append(", sharesToBuy=").append(stopLossOrder.getSharesToBuy());
-////        stringBuffer.append(", strikePrice=").append(stopLossOrder.getStrikePrice());
+////        stringBuffer.append(", strikePrice=").append(stopLossOrder.getStrike());
 ////        stringBuffer.append(", relatedOrder=").append(stopLossOrder.getRelatedOrderId());
 ////
 ////        //"Created future or limit order created / " + limitOrder.toString()
@@ -215,7 +215,7 @@ public class BrokerController {
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
-                        limitOrderRequest.getStrikePrice()
+                        limitOrderRequest.getStrike()
                 )
         );
 
@@ -242,7 +242,7 @@ public class BrokerController {
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
-                        limitOrderRequest.getStrikePrice()
+                        limitOrderRequest.getStrike()
                 )
         );
 
@@ -252,7 +252,7 @@ public class BrokerController {
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
-                        (limitOrderRequest.getStrikePrice() * 0.99)
+                        (limitOrderRequest.getStrike() * 0.99)
                 )
         );
 
@@ -262,7 +262,7 @@ public class BrokerController {
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
-                        (limitOrderRequest.getStrikePrice() * 1.03)
+                        (limitOrderRequest.getStrike() * 1.03)
                 )
         );
 
@@ -302,7 +302,7 @@ public class BrokerController {
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
-                        limitOrderRequest.getStrikePrice())
+                        limitOrderRequest.getStrike())
         );
 
         List<LimitOrder> userLimitOrderList
@@ -328,7 +328,7 @@ public class BrokerController {
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
                         limitOrderRequest.getSharesToBuy(),
-                        limitOrderRequest.getStrikePrice()
+                        limitOrderRequest.getStrike()
                 )
         );
 

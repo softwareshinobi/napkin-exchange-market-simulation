@@ -6,6 +6,18 @@
 
 `The Napkin Exchange` provides a realistic trading environment for research and development activities of interest in the real of automated trading.
 
+## issues
+
+i bought two sets of dione (by accident) the pair id values was mix and matching incorrectly.
+
+i bought two sets of dione (by accident) the two transaction show up seperate in the security portfolio.
+
+profit calculations are still incorrect in the leaderboard
+
+the notification service needs to use the system time not the clock time.
+
+limit order type needs to be a type not a string (limitorder.java)
+
 ## Key Features:
 
 * `Account Management:` Create and manage user accounts with secure logins and dedicated portfolios.
