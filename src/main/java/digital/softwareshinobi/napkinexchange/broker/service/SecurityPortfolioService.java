@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.broker.service;
 
 import digital.softwareshinobi.napkinexchange.broker.exception.AccountInventoryException;
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
-import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.broker.request.SecuritySellRequest;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
@@ -69,14 +69,14 @@ public class SecurityPortfolioService {
         /////////////////////////
         this.traderService.updateBalanceAndSave(
                 traderAccount,
-                -1 * (securityBuyRequest.getSharesToBuy() * securityToBuy.getPrice()));
+                -1 * (securityBuyRequest.getUnits() * securityToBuy.getPrice()));
 
         if (traderSecurityPosition == null) {
 
             //       System.out.println("trader DOES NOT own any of this security");
             //stock IS CURRENTLY owned by the user: "+ securityBuyRequest.getUsername());
-            //    traderService.updateBalanceAndSave(traderAccount, -1 * (securityBuyRequest.getSharesToBuy() * securityToBuy.getPrice()));
-            //   traderSecurityPosition.updateCostBasisAndAmountOwned(securityBuyRequest.getSharesToBuy(), securityToBuy.getPrice());
+            //    traderService.updateBalanceAndSave(traderAccount, -1 * (securityBuyRequest.getUnits() * securityToBuy.getPrice()));
+            //   traderSecurityPosition.updateCostBasisAndAmountOwned(securityBuyRequest.getUnits(), securityToBuy.getPrice());
             this.saveNewStockOwned(securityBuyRequest, traderAccount, securityToBuy.getPrice());
 
         } else {
@@ -85,7 +85,7 @@ public class SecurityPortfolioService {
             //subtract transaction value from account balance
             //    System.out.println("before / " + traderSecurityPosition);
             traderSecurityPosition.updateCostBasisAndAmountOwned(
-                    securityBuyRequest.getSharesToBuy(),
+                    securityBuyRequest.getUnits(),
                     securityToBuy.getPrice());
 
             //    System.out.println("after / " + traderSecurityPosition);
@@ -109,7 +109,7 @@ public class SecurityPortfolioService {
                 new SecurityPosition(
                         account,
                         buyStockRequest.getTicker(),
-                        buyStockRequest.getSharesToBuy(),
+                        buyStockRequest.getUnits(),
                         stockPrice
                 ));
 
@@ -121,7 +121,7 @@ public class SecurityPortfolioService {
 //                ));
     }
 
-    public void sellSecurityMarketPrice(SellStockRequest sellStockRequest) {
+    public void sellSecurityMarketPrice(SecuritySellRequest sellStockRequest) {
 
         System.out.println("sellStocksellStocksellStock");
 

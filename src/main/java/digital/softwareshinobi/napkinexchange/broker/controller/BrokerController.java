@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.broker.controller;
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioService;
-import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderTypes;
+import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderType;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
@@ -81,7 +81,7 @@ public class BrokerController {
 //
 //        this.notificationService.save(
 //                new Notification(
-//                        limitOrder.getAccount().getUsername(),
+//                        limitOrder.getTrader().getUsername(),
 //                        NotificationType.NEW_LONG_SMART_BUY_REQUESTED,
 //                        limitOrder.toString()
 //                ));
@@ -107,10 +107,10 @@ public class BrokerController {
          System.out.println("price / take profit / " + dynamicTakeProfitThreshold);
         //////// creating the stop loss nd take profit orders ////////
         LimitOrder stopLossOrder = new LimitOrder(
-                LimitOrderTypes.LONG_STOP_LOSS,
+                LimitOrderType.LONG_STOP_LOSS,
                 this.traderService.getAccountByName(securityBuyRequest.getUsername()),
                 this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker()),
-                securityBuyRequest.getSharesToBuy(),
+                securityBuyRequest.getUnits(),
                 dynamicStopLossThreshold
         );
 
@@ -119,10 +119,10 @@ public class BrokerController {
         this.limitOrderService.saveLimitOrder(stopLossOrder);
 
         LimitOrder takeProfitOrder = new LimitOrder(
-                LimitOrderTypes.LONG_TAKE_PROFIT,
+                LimitOrderType.LONG_TAKE_PROFIT,
                 this.traderService.getAccountByName(securityBuyRequest.getUsername()),
                 this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker()),
-                securityBuyRequest.getSharesToBuy(),
+                securityBuyRequest.getUnits(),
                 dynamicTakeProfitThreshold
         );
         
@@ -171,8 +171,8 @@ public class BrokerController {
 ////        stringBuffer.append("[SMART] created stop loss. ");//.append(stopLossOrder);
 ////        stringBuffer.append("id=").append(stopLossOrder.getId());
 ////        stringBuffer.append(", type=").append(stopLossOrder.getType());
-////        stringBuffer.append(", stock=").append(stopLossOrder.getStock());
-////        stringBuffer.append(", sharesToBuy=").append(stopLossOrder.getSharesToBuy());
+////        stringBuffer.append(", stock=").append(stopLossOrder.getSecurity());
+////        stringBuffer.append(", sharesToBuy=").append(stopLossOrder.getUnits());
 ////        stringBuffer.append(", strikePrice=").append(stopLossOrder.getStrike());
 ////        stringBuffer.append(", relatedOrder=").append(stopLossOrder.getRelatedOrderId());
 ////
@@ -181,7 +181,7 @@ public class BrokerController {
 ////        //    System.out.println("takeProfitOrder / " + takeProfitOrder);
 ////        notificationService.save(
 ////                new Notification(
-////                        stopLossOrder.getAccount().getUsername(),
+////                        stopLossOrder.getTrader().getUsername(),
 ////                        NotificationType.LONG_SMART_BUY_FULFILLED,
 ////                        "long smart buy activities completed"
 ////                ));
@@ -211,10 +211,10 @@ public class BrokerController {
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
-                        LimitOrderTypes.LONG_BUY_STOP,
+                        LimitOrderType.LONG_BUY_STOP,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getSharesToBuy(),
+                        limitOrderRequest.getUnits(),
                         limitOrderRequest.getStrike()
                 )
         );
@@ -238,30 +238,30 @@ public class BrokerController {
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
-                        LimitOrderTypes.LONG_BUY_STOP,
+                        LimitOrderType.LONG_BUY_STOP,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getSharesToBuy(),
+                        limitOrderRequest.getUnits(),
                         limitOrderRequest.getStrike()
                 )
         );
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
-                        LimitOrderTypes.LONG_STOP_LOSS,
+                        LimitOrderType.LONG_STOP_LOSS,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getSharesToBuy(),
+                        limitOrderRequest.getUnits(),
                         (limitOrderRequest.getStrike() * 0.99)
                 )
         );
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
-                        LimitOrderTypes.LONG_TAKE_PROFIT,
+                        LimitOrderType.LONG_TAKE_PROFIT,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getSharesToBuy(),
+                        limitOrderRequest.getUnits(),
                         (limitOrderRequest.getStrike() * 1.03)
                 )
         );
@@ -298,10 +298,10 @@ public class BrokerController {
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
-                        LimitOrderTypes.LONG_STOP_LOSS,
+                        LimitOrderType.LONG_STOP_LOSS,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getSharesToBuy(),
+                        limitOrderRequest.getUnits(),
                         limitOrderRequest.getStrike())
         );
 
@@ -324,10 +324,10 @@ public class BrokerController {
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
-                        LimitOrderTypes.LONG_TAKE_PROFIT,
+                        LimitOrderType.LONG_TAKE_PROFIT,
                         accountService.getAccountByName(limitOrderRequest.getUsername()),
                         stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getSharesToBuy(),
+                        limitOrderRequest.getUnits(),
                         limitOrderRequest.getStrike()
                 )
         );

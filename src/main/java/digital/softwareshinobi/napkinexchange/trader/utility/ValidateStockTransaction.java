@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.trader.utility;
 
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
-import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
+import digital.softwareshinobi.napkinexchange.broker.request.SecuritySellRequest;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.exception.SecurityNotFoundException;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
@@ -10,33 +10,42 @@ import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 
 public class ValidateStockTransaction {
 
-    public static boolean doesTraderHaveEnoughAvailableBalance(Trader account,
-            SecurityBuyRequest buyStockRequest,
-            SecurityService stockService) {
-        double balance = account.getAccountBalance();
-        Security stock;
+    public static boolean doesTraderHaveEnoughAvailableBalance(
+            Trader trader,
+            SecurityBuyRequest securityBuyRequest,
+            SecurityService securityService) {
+        
+        double balance = trader.getAccountBalance();
+        
+        Security security;
+        
         try {
-            stock = stockService.getSecurityBySymbol(buyStockRequest.getTicker());
-        } catch (SecurityNotFoundException ex) {
+        
+            security = securityService.getSecurityBySymbol(securityBuyRequest.getTicker());
+        
+        } catch (SecurityNotFoundException securityNotFoundException) {
+        
             return false;
+        
         }
-        return balance > (stock.getPrice() * buyStockRequest.getSharesToBuy());
+        
+        return balance > (security.getPrice() * securityBuyRequest.getUnits());
     }
 
     public static boolean doesAccountHaveEnoughStocks(
-            Trader account,
-            SellStockRequest sellStockRequest) {
+            Trader trader,
+            SecuritySellRequest securitySellRequest) {
 
-        SecurityPosition stock = FindStockOwned.findOwnedStockByTicker(
-                account.getSecurityPortfolio(),
-                sellStockRequest.getSecurity());
+        SecurityPosition securityPosition = FindStockOwned.findOwnedStockByTicker(
+                trader.getSecurityPortfolio(),
+                securitySellRequest.getSecurity());
 
-        if (stock == null) {
+        if (securityPosition == null) {
 
             return false;
         }
 
-        return stock.getUnits() >= sellStockRequest.getUnits();
+        return securityPosition.getUnits() >= securitySellRequest.getUnits();
 
     }
 

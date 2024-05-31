@@ -2,7 +2,7 @@
 
 `The Napkin Exchange` is a fully-functional, open-source stock market trading simulator built with Java/Spring and Docker.
 
-![The Napkin Exchange](/docs/imagery/cover.png)
+![The Napkin Exchange](/docs/docs/imagery/cover.png)
 
 `The Napkin Exchange` provides a realistic trading environment for research and development activities of interest in the real of automated trading.
 
@@ -13,6 +13,8 @@ i bought two sets of dione (by accident) the pair id values was mix and matching
 i bought two sets of dione (by accident) the two transaction show up seperate in the security portfolio.
 
 profit calculations are still incorrect in the leaderboard
+
+leaderboard should sort by total account value not just how much is in cash
 
 the notification service needs to use the system time not the clock time.
 

@@ -19,7 +19,10 @@ public class LimitOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@JsonIgnore
     private Integer id;
-
+    
+    @Column
+    public Integer partnerID;
+    
     @ManyToOne(cascade = CascadeType.ALL)
     private Trader trader;
 
@@ -35,8 +38,7 @@ public class LimitOrder implements Serializable {
     @Column
     private Double strike;
 
-    @Column
-    public Integer partnerID;
+
 
     public LimitOrder(String type, Trader trader, Security security, int units, double strike) {
 
