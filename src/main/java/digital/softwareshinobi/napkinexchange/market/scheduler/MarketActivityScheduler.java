@@ -3,8 +3,8 @@ package digital.softwareshinobi.napkinexchange.market.scheduler;
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
 import digital.softwareshinobi.napkinexchange.market.service.MarketActivityService;
-import digital.softwareshinobi.napkinexchange.security.service.SecurityPricingHistoryService;
-import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityHistoryService;
+import digital.softwareshinobi.napkinexchange.trader.service.TraderHistoryService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +27,10 @@ public class MarketActivityScheduler {
     private final LimitOrderService limitOrderService;
 
     @Autowired
-    private final AccountHistoryService accountHistoryService;
+    private final TraderHistoryService traderHistoryService;
 
     @Autowired
-    private final SecurityPricingHistoryService stockPriceHistoryService;
+    private final SecurityHistoryService securityHistoryService;
 
     @SuppressWarnings("unused")
     @Scheduled(fixedRate = MarketIntervals.T)
@@ -38,13 +38,13 @@ public class MarketActivityScheduler {
 
         var currentMarketTime = this.marketActivityService.tick();
 
-        logger.info("tick / market time / " + currentMarketTime);
+    //    logger.info("tick / market time / " + currentMarketTime);
 
         this.limitOrderService.processLimitOrders();
 
-        this.stockPriceHistoryService.updateSecurityHistory();
+        this.securityHistoryService.updateSecurityHistory();
 
-        this.accountHistoryService.updateTraderAccountHistory();
+        this.traderHistoryService.updateTraderAccountHistory();
 
         currentMarketTime = null;
 

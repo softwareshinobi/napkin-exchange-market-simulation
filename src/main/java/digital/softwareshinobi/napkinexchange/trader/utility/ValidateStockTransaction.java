@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.utility;
 
-import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
+import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.exception.SecurityNotFoundException;
@@ -11,7 +11,7 @@ import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 public class ValidateStockTransaction {
 
     public static boolean doesTraderHaveEnoughAvailableBalance(Trader account,
-            BuyStockRequest buyStockRequest,
+            SecurityBuyRequest buyStockRequest,
             SecurityService stockService) {
         double balance = account.getAccountBalance();
         Security stock;

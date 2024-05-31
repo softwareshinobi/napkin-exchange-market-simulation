@@ -2,7 +2,7 @@ package digital.softwareshinobi.napkinexchange.market.service;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
-import digital.softwareshinobi.napkinexchange.security.service.SecurityPricingHistoryService;
+import digital.softwareshinobi.napkinexchange.security.service.SecurityHistoryService;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -21,7 +21,7 @@ public class MarketActivityService {
     private final MarketService marketService;
 
     @Autowired
-    private final SecurityPricingHistoryService stockPriceHistoryService;
+    private final SecurityHistoryService stockPriceHistoryService;
 
     public ZonedDateTime getTime() {
 

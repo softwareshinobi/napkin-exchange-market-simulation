@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.broker.service;
 
 import digital.softwareshinobi.napkinexchange.broker.exception.AccountInventoryException;
-import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
+import digital.softwareshinobi.napkinexchange.broker.request.BuyStockRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SellStockRequest;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
@@ -11,24 +11,24 @@ import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
-import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
+import digital.softwareshinobi.napkinexchange.trader.repository.StockOwnedRepository;
+import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
 import digital.softwareshinobi.napkinexchange.trader.utility.ValidateStockTransaction;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import digital.softwareshinobi.napkinexchange.trader.repository.SecurityPortfolioRepository;
 
 @Service
 @AllArgsConstructor
 public class SecurityPortfolioService {
 
     @Autowired
-    private final SecurityPortfolioRepository securityPortfolioRepository;
+    private final StockOwnedRepository stockOwnedRepository;
 
     @Autowired
-    private final TraderService traderService;
+    private final AccountService traderService;
 
     @Autowired
     private final SecurityService securityService;
@@ -36,82 +36,89 @@ public class SecurityPortfolioService {
     @Autowired
     private final NotificationService notificationService;
 
-    public void fillBuyMarketStockRequest(SecurityBuyRequest securityBuyRequest) {
+    public void fillBuyMarketStockRequest(BuyStockRequest buyStockRequest) {
 
-        //  System.out.println("enter > fillBuyMarketStockRequest");
-        //      System.out.println("buyStockRequest / " + securityBuyRequest);
-        this.notificationService.save(
+        System.out.println("enter > fillBuyMarketStockRequest");
+
+        notificationService.save(
                 new Notification(
-                        securityBuyRequest.getUsername(),
+                        buyStockRequest.getUsername(),
                         NotificationType.MARKET_BUY_ORDER_CREATED,
-                        securityBuyRequest.toString()
+                        buyStockRequest.toString()
                 ));
 
-        final Trader traderAccount = this.traderService.getAccountByName(securityBuyRequest.getUsername());
+        System.out.println("buyStockRequest / " + buyStockRequest);
 
-        final Security securityToBuy = this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker());
+       final Trader traderAccount = this.traderService.getAccountByName(buyStockRequest.getUsername());
 
-        final SecurityPosition traderSecurityPosition = this.findStockOwned(traderAccount, securityToBuy);
+   final     Security securityToBuy = this.securityService.getSecurityBySymbol(buyStockRequest.getTicker());
 
-        if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(traderAccount, securityBuyRequest, this.securityService)) {
+       final  SecurityPosition stockOwnedByUser = this.findStockOwned(traderAccount, securityToBuy);
 
-            this.notificationService.save(
+        if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(traderAccount, buyStockRequest, this.securityService)) {
+
+            notificationService.save(
                     new Notification(
-                            securityBuyRequest.getUsername(),
+                            buyStockRequest.getUsername(),
                             NotificationType.MARKET_BUY_INSUFFICIENT_FUNDS,
-                            securityBuyRequest.toString()
+                            buyStockRequest.toString()
                     ));
 
             throw new AccountBalanceException("Account does not have funds for this purchase");
 
         }
 
-        /////////////////////////
-        this.traderService.updateBalanceAndSave(
-                traderAccount,
-                -1 * (securityBuyRequest.getSharesToBuy() * securityToBuy.getPrice()));
+        if (stockOwnedByUser != null) {
 
-        if (traderSecurityPosition == null) {
+System.out.println("this stock IS NOT currently owned by the user: {}",buyStockRequest.getUsername());
 
-            //       System.out.println("trader DOES NOT own any of this security");
-            //stock IS CURRENTLY owned by the user: "+ securityBuyRequest.getUsername());
-            //    traderService.updateBalanceAndSave(traderAccount, -1 * (securityBuyRequest.getSharesToBuy() * securityToBuy.getPrice()));
-            //   traderSecurityPosition.updateCostBasisAndAmountOwned(securityBuyRequest.getSharesToBuy(), securityToBuy.getPrice());
-            this.saveNewStockOwned(securityBuyRequest, traderAccount, securityToBuy.getPrice());
-
-        } else {
-
-            //  System.out.println("trader OWNS UNITS of this security");
             //subtract transaction value from account balance
-            //    System.out.println("before / " + traderSecurityPosition);
-            traderSecurityPosition.updateCostBasisAndAmountOwned(
-                    securityBuyRequest.getSharesToBuy(),
-                    securityToBuy.getPrice());
+            traderService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
 
-            //    System.out.println("after / " + traderSecurityPosition);
-            this.securityPortfolioRepository.save(traderSecurityPosition);
+            stockOwnedByUser.updateCostBasisAndAmountOwned(buyStockRequest.getSharesToBuy(), securityToBuy.getPrice());
 
-        }
+            stockOwnedRepository.save(stockOwnedByUser);
 
-        this.notificationService.save(
+            notificationService.save(
+                    new Notification(
+                            buyStockRequest.getUsername(),
+                            NotificationType.MARKET_BUY_ORDER_FULFILLED,
+                            buyStockRequest.toString()
+                    ));
+
+         //   return;
+
+        }else{
+        
+System.out.println("this stock IS CURRENTLY owned by the user: {}",buyStockRequest.getUsername());
+
+        traderService.updateBalanceAndSave(traderAccount, -1 * (buyStockRequest.getSharesToBuy() * securityToBuy.getPrice()));
+
+            stockOwnedByUser.updateCostBasisAndAmountOwned(buyStockRequest.getSharesToBuy(), securityToBuy.getPrice());
+        saveNewStockOwned(buyStockRequest, traderAccount, securityToBuy.getPrice());
+
+        notificationService.save(
                 new Notification(
-                        securityBuyRequest.getUsername(),
+                        buyStockRequest.getUsername(),
                         NotificationType.MARKET_BUY_ORDER_FULFILLED,
-                        securityBuyRequest.toString()
+                        buyStockRequest.toString()
                 ));
 
-        //  System.out.println("doing done order things");
+ }
+ 
+System.out.println("doing done order things");
+
     }
 
-    public void saveNewStockOwned(SecurityBuyRequest buyStockRequest, Trader account, double stockPrice) {
+    public void saveNewStockOwned(BuyStockRequest buyStockRequest, Trader account, double stockPrice) {
 
-        this.securityPortfolioRepository.save(
-                new SecurityPosition(
-                        account,
-                        buyStockRequest.getTicker(),
-                        buyStockRequest.getSharesToBuy(),
-                        stockPrice
-                ));
+        stockOwnedRepository.save(
+        new SecurityPosition(
+                account,
+                buyStockRequest.getTicker(),
+                buyStockRequest.getSharesToBuy(),
+                stockPrice
+        ));
 
 //        notificationService.save(
 //                new Notification(
@@ -167,7 +174,7 @@ public class SecurityPortfolioService {
 
             System.out.println("6");
 
-            securityPortfolioRepository.delete(securityPosition);
+            stockOwnedRepository.delete(securityPosition);
             //  clearAndDeleteStockOwned(securityPosition);
         } else {
 
@@ -175,7 +182,7 @@ public class SecurityPortfolioService {
 
             securityPosition.setUnits(securityPosition.getUnits() - sellStockRequest.getUnits());
 
-            securityPortfolioRepository.save(securityPosition);
+            stockOwnedRepository.save(securityPosition);
 
         }
 
@@ -190,7 +197,7 @@ public class SecurityPortfolioService {
 
     public List<SecurityPosition> findStockOwned(Trader trader) {
 
-        return this.securityPortfolioRepository.findAll().stream()
+        return stockOwnedRepository.findAll().stream()
                 .filter(securityPosition -> securityPosition.getTrader().getUsername().equals(trader.getUsername()))
                 .collect(Collectors.toList());
 
@@ -198,7 +205,7 @@ public class SecurityPortfolioService {
 
     public SecurityPosition findStockOwned(Trader trader, Security security) {
 
-        return this.securityPortfolioRepository.findAll().stream()
+        return stockOwnedRepository.findAll().stream()
                 .filter(securityPosition -> securityPosition.getSymbol().equalsIgnoreCase(security.getTicker()))
                 .filter(securityPosition -> securityPosition.getTrader().getUsername().equals(trader.getUsername()))
                 .findFirst()
@@ -207,25 +214,30 @@ public class SecurityPortfolioService {
     }
 
     public Double calculatePortfolioValue(Trader trader) {
+        
+    
+     List<SecurityPosition> securityPortfolio = this.findStockOwned(trader);
 
-        List<SecurityPosition> securityPortfolio = this.findStockOwned(trader);
+         ///   System.out.println("security portfolio for trader / " + trader.getUsername());
 
-        ///   System.out.println("security portfolio for trader / " + trader.getUsername());
-        //   System.out.println(securityPortfolio);
-        double securityPortfolioValue = 0;
+         //   System.out.println(securityPortfolio);
 
-        for (SecurityPosition securityPosition : securityPortfolio) {
+            double securityPortfolioValue = 0;
+            
+            for (SecurityPosition securityPosition : securityPortfolio) {
 
-            //       System.out.println("position / " + securityPosition);
-            Security security = this.securityService.getSecurityBySymbol(securityPosition.symbol);
+         //       System.out.println("position / " + securityPosition);
 
-            securityPortfolioValue = securityPortfolioValue + (security.getPrice() * securityPosition.units);
+                Security security = this.securityService.getSecurityBySymbol(securityPosition.symbol);
 
-        }
+                securityPortfolioValue = securityPortfolioValue + (security.getPrice() * securityPosition.units);
+
+            }
 
         //    System.out.println("portfolio value / " + securityPortfolioValue);
-        return securityPortfolioValue;
-
+            
+            return securityPortfolioValue;
+            
     }
-
+    
 }

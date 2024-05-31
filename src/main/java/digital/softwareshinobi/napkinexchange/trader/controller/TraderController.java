@@ -5,8 +5,8 @@ import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundEx
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
-import digital.softwareshinobi.napkinexchange.trader.service.AccountHistoryService;
-import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
+import digital.softwareshinobi.napkinexchange.trader.service.TraderHistoryService;
+import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class TraderController {
 
     @Autowired
-    private final AccountService accountService;
+    private final TraderService accountService;
 
     @Autowired
-    private final AccountHistoryService accountHistoryService;
+    private final TraderHistoryService accountHistoryService;
 
     @GetMapping(value = "")
     public List<Trader> listallaccounts() throws AccountNotFoundException {

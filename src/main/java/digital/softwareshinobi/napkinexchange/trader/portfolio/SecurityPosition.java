@@ -11,13 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/*
-    Entity for handling the stocks that a user owns
-    Includes the ticker symbol and amount owned for each stock type, as well as
-    a call back to the account username for sorting each inventory
- */
 @Entity
-@Table(name = "stock_owned")
+@Table(name = "security_positions")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -42,12 +37,12 @@ public class SecurityPosition implements Serializable {
 
     @Column(name = "cost_basis")
     public Double costBasis;
-
-    @Column(name = "value")
-    public Double value;
-
-    @Column(name = "price")
-    public Double price;
+//
+//    @Column(name = "value")
+//    public Double value;
+//
+//    @Column(name = "price")
+//    public Double price;
 //
 //     @JsonIgnore
 //     @Column(name = "value")
@@ -68,15 +63,24 @@ public class SecurityPosition implements Serializable {
 
     public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
 
-        this.setCostBasis(CalculateCostBasisAndProfits.newCostBasis(
+       // System.out.println("cost / before / "+ this.costBasis);
+        
+      //  System.out.println("units / before / "+ this.units);
+        
+      //  System.out.println("current price / "+ currentSecurityPrice);
+        
+        this.costBasis = CalculateCostBasisAndProfits.newCostBasis(
                 this.units,
                 numberUnits,
                 this.costBasis,
-                currentSecurityPrice));
+                currentSecurityPrice);
 
-
+        this.units                = this.units + numberUnits;
+   
+        
+     //   System.out.println("cost / after / "+ this.costBasis);
+     //   System.out.println("units / after / "+ this.units);
     }
-
 
     @Override
     public String toString() {
@@ -86,8 +90,8 @@ public class SecurityPosition implements Serializable {
         sb.append(", symbol=").append(symbol);
         sb.append(", units=").append(units);
         sb.append(", costBasis=").append(costBasis);
-        sb.append(", value=").append(value);
-        sb.append(", price=").append(price);
+    //    sb.append(", value=").append(value);
+     //   sb.append(", price=").append(price);
         sb.append('}');
         return sb.toString();
     }

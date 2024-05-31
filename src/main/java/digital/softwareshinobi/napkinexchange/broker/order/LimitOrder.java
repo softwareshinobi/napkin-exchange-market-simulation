@@ -1,7 +1,6 @@
 package digital.softwareshinobi.napkinexchange.broker.order;
 
 import digital.softwareshinobi.napkinexchange.security.model.Security;
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -41,6 +40,8 @@ public class LimitOrder implements Serializable {
 
     public LimitOrder(String limitOrderType, Trader account, Security stock, int sharesToBuy, double limitPrice) {
 
+        System.out.println("here");
+
         this.type = limitOrderType;
 
         this.account = account;
@@ -51,33 +52,29 @@ public class LimitOrder implements Serializable {
 
         this.strikePrice = limitPrice;
 
-        if (!validOrderRequest()) {
-
-            throw new AccountBalanceException("Cannot Process Order");
-
-        }
-
-    }
-
-    public boolean validOrderRequest() {
-
-        return !(sharesToBuy * stock.getPrice() > account.getAccountBalance());
-
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("id=").append(id);
-        sb.append(", account=").append(account);
-        sb.append(", type=").append(type);
-        sb.append(", stock=").append(stock);
-        sb.append(", sharesToBuy=").append(sharesToBuy);
-        sb.append(", strikePrice=").append(strikePrice);
-        sb.append(", relatedOrderId=").append(relatedOrderId);
-        sb.append('}');
-        return sb.toString();
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("{");
+        stringBuilder.append("id=").append(id);
+        stringBuilder.append(", account=").append(account);
+        stringBuilder.append(", type=").append(type);
+        stringBuilder.append(", stock=").append(stock);
+        stringBuilder.append(", sharesToBuy=").append(sharesToBuy);
+        stringBuilder.append(", strikePrice=").append(strikePrice);
+        stringBuilder.append(", relatedOrderId=").append(relatedOrderId);
+        stringBuilder.append('}');
+
+        String returnString = stringBuilder.toString();
+
+        stringBuilder = null;
+
+        return returnString;
+
     }
 
 }

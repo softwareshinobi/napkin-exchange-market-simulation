@@ -3,7 +3,7 @@ package digital.softwareshinobi.napkinexchange.leaderboard.service;
 import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
 import digital.softwareshinobi.napkinexchange.leaderboard.utility.SortAccountProfits;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
-import digital.softwareshinobi.napkinexchange.trader.service.AccountService;
+import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class LeaderboardService {
 
     @Autowired
-    private final AccountService accountService;
+    private final TraderService accountService;
 
     public List<Leaderboard> topTenAccounts() {
 
