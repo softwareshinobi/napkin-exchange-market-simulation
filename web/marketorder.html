@@ -1,10 +1,17 @@
 <html lang="en"><head>
-    <meta charset="utf-8">
 
-    <title>Buy/Sell Currency / The Napkin Exchange</title>
+<meta charset="utf-8">
+
+<title>
+
+Standard / Buy & Sell / The Napkin Exchange
+
+</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <meta content="" name="keywords">
+
     <meta content="" name="description">
 
     <!-- Favicon -->
@@ -80,22 +87,26 @@ TheNapkinExchange
 
 
 
-<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
+<a href="dashboard.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>
 
+Dashboard
 
+</a>
 
 <div class="nav-item dropdown">
 
-<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+<a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 <i class="fa fa-laptop me-2"></i>
-The Market
+
+Buy & Sell
+
 </a>
 
 <div class="dropdown-menu bg-transparent border-0">
 
-<a href="watch.html" class="dropdown-item">Market Watch</a>
-<a href="buysell.html" class="dropdown-item">Buy Sell</a>
-<a href="activity.html" class="dropdown-item">Activity</a>
+<a href="marketorder.html" class="dropdown-item">Market Orders</a>
+<a href="limitorder.html" class="dropdown-item">Future Orders</a>
+<a href="smartorder.html" class="dropdown-item">Smart Orders</a>
 
 </div>
 </div>
@@ -104,7 +115,7 @@ The Market
 
 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>
 
-Tech Support
+Help Center
 
 </a>
 
@@ -121,6 +132,16 @@ API Monitor
 Pristine Template
 
 </a>
+
+<a target="github" href="https://github.com/softwareshinobi/napkin-exchange-market-simulation" class="dropdown-item">
+
+GitHub
+
+</a>
+
+
+
+
 
 </div>
 
@@ -242,8 +263,14 @@ Pristine Template
                     
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Buy Currency / Smart Order</h6>
-                            <form>
+
+<h6 class="mb-4">
+
+Security > Buy > Standard
+
+</h6>
+
+                           <form>
 
 
                                 <div class="row mb-3">
@@ -422,7 +449,7 @@ Pristine Template
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
     <script src="scripting/cookies/cookies.js"></script>
 
-    <script src="scripting/broker/buysell.js"></script>
+    <script src="scripting/broker/simplebuysell.js"></script>
 
     <script src="scripting/dashboard/dashboard.js"></script>
 
