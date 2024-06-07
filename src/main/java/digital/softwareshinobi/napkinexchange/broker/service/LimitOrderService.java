@@ -79,6 +79,8 @@ public class LimitOrderService {
 
     public void processLimitOrders() {
 
+        if(this.limitOrderRepository.count()==0)return;
+        
         // //System.out.println("enter > processLimitOrders");
         this.limitOrderRepository.findAll().forEach(limitOrder -> {
 
