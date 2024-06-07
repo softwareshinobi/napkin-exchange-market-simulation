@@ -26,8 +26,6 @@ public class BrokerController {
 
     private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.025;
 
-
-
     @Autowired
     private SecurityPortfolioService securityPortfolioService;
 
