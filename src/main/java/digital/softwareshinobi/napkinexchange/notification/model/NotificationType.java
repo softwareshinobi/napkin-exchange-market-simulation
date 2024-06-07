@@ -2,10 +2,13 @@ package digital.softwareshinobi.napkinexchange.notification.model;
 
 public enum NotificationType {
 
+    BUY_STOP_TRIGGER,
     ////////
     SYSTEM_NOTIFICATION,
     ////////
     NEW_TRADER_CREATED,
+    ////////
+    LONG_MARKET_BUY_CREATED,
     ////////
     LONG_SMART_BUY_CREATED,
     LONG_SMART_BUY_FULFILLED,

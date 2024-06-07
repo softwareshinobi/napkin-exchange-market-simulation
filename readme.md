@@ -8,6 +8,8 @@
 
 ## issues
 
+profit calculation on TAKE PROFIT is incorrect
+
 i bought two sets of dione (by accident) the pair id values was mix and matching incorrectly.
 
 i bought two sets of dione (by accident) the two transaction show up seperate in the security portfolio.

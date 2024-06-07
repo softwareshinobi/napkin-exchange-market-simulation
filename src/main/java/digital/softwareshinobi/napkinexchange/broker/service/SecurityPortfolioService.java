@@ -8,7 +8,7 @@ import digital.softwareshinobi.napkinexchange.notification.model.NotificationTyp
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
+import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
@@ -62,7 +62,7 @@ public class SecurityPortfolioService {
                             securityBuyRequest.toString()
                     ));
 
-            throw new AccountBalanceException("Account does not have funds for this purchase");
+            throw new TraderBalanceException("Account does not have funds for this purchase");
 
         }
 

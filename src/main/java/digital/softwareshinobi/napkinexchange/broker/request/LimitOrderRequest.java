@@ -9,12 +9,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LimitOrderRequest {
 
-    private String username;
+    private String trader;
 
     private String ticker;
 
-    private int sharesToBuy;
+    private int units;
 
-    private double strikePrice;
+    private double strike;
 
 }

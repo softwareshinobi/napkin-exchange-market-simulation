@@ -4,8 +4,8 @@ import digital.softwareshinobi.napkinexchange.broker.types.AccountTransaction;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
+import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
+import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.repository.AccountRepository;
@@ -32,10 +32,10 @@ public class TraderService {
 
     }
 
-    public Trader getAccountByName(String username) throws AccountNotFoundException {
+    public Trader getAccountByName(String username) throws TraderNotFoundException {
 
         return accountRepository.findById(username)
-                .orElseThrow(() -> new AccountNotFoundException("No account with that username"));
+                .orElseThrow(() -> new TraderNotFoundException("No account with that username"));
 
     }
 
@@ -80,7 +80,7 @@ public class TraderService {
 
             return true;
 
-        } catch (AccountNotFoundException exception) {
+        } catch (TraderNotFoundException exception) {
 
             return false;
 
@@ -89,7 +89,7 @@ public class TraderService {
     }
 
     public void updateBalanceAndSave(AccountTransaction accountTransaction)
-            throws AccountNotFoundException, AccountBalanceException {
+            throws TraderNotFoundException, TraderBalanceException {
 
         Trader account = getAccountByName(accountTransaction.getUsername());
 
