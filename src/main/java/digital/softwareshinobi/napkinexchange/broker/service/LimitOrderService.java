@@ -5,7 +5,7 @@ import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderType;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
+import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
@@ -156,7 +156,7 @@ public class LimitOrderService {
 
                 this.removeSmartRelated(stopLossLimitOrder);
 
-            } catch (AccountNotFoundException exception) {
+            } catch (TraderNotFoundException exception) {
 
                 exception.printStackTrace();
 
@@ -207,7 +207,7 @@ public class LimitOrderService {
 
                 marketSellStockRequest =null;
                 
-            } catch (AccountNotFoundException exception) {
+            } catch (TraderNotFoundException exception) {
 
                 exception.printStackTrace();
 

@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.trader.controller;
 
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountBalanceException;
-import digital.softwareshinobi.napkinexchange.trader.exception.AccountNotFoundException;
+import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
+import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
@@ -26,14 +26,14 @@ public class TraderController {
     private final TraderHistoryService accountHistoryService;
 
     @GetMapping(value = "")
-    public List<Trader> listallaccounts() throws AccountNotFoundException {
+    public List<Trader> listallaccounts() throws TraderNotFoundException {
 
         return accountService.findAllAccounts();
 
     }
 
     @RequestMapping(value = "{traderName}")
-    public Trader getAccountByUsername(@PathVariable String traderName) throws AccountNotFoundException {
+    public Trader getAccountByUsername(@PathVariable String traderName) throws TraderNotFoundException {
 
         return this.accountService.getAccountByName(traderName);
 
@@ -57,7 +57,7 @@ public class TraderController {
     }
 
     @GetMapping(value = "/history/{username}")
-    public List<AccountHistory> getAccountHistory(@PathVariable String username) throws AccountNotFoundException, AccountBalanceException {
+    public List<AccountHistory> getAccountHistory(@PathVariable String username) throws TraderNotFoundException, TraderBalanceException {
 
         return accountHistoryService.getHistoryByTraderName(username);
 

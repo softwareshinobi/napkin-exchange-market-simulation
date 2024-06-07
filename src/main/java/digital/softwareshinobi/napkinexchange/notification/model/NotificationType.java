@@ -7,6 +7,8 @@ public enum NotificationType {
     ////////
     NEW_TRADER_CREATED,
     ////////
+    LONG_MARKET_BUY_CREATED,
+    ////////
     LONG_SMART_BUY_CREATED,
     LONG_SMART_BUY_FULFILLED,
     LONG_SMART_BUY_CANCELLATION,
