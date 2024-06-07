@@ -16,13 +16,13 @@ echo "##"
 
 ##
 
-docker-compose pull
+docker-compose -f production.yaml pull
 
-docker-compose build
+docker-compose -f production.yaml build
 
-docker-compose down --remove-orphans
+docker-compose -f production.yaml down --remove-orphans
 
-docker-compose up -d
+docker-compose -f production.yaml up -d
 
 ##
 
