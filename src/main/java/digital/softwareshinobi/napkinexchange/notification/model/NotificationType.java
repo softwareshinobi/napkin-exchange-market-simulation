@@ -2,6 +2,7 @@ package digital.softwareshinobi.napkinexchange.notification.model;
 
 public enum NotificationType {
 
+    BUY_STOP_TRIGGER,
     ////////
     SYSTEM_NOTIFICATION,
     ////////

@@ -17,12 +17,13 @@ public class SecurityBuyRequest {
 
     private int units;
 
-    private Double strike;
+  //  private Double strike;
 
     @Override
     public String toString() {
 
-        return "SecurityBuyRequest / {" + "username=" + username + ", ticker=" + ticker + ", units=" + units + ", strike=" + strike + "}";
+        //return "SecurityBuyRequest / {" + "username=" + username + ", ticker=" + ticker + ", units=" + units + ", strike=" + strike + "}";
+return "SecurityBuyRequest / {" + "username=" + username + ", ticker=" + ticker + ", units=" + units +"}";
 
     }
 

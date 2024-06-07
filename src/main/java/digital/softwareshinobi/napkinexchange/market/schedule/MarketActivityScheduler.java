@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.market.scheduler;
+package digital.softwareshinobi.napkinexchange.market.schedule;
 
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
