@@ -12,6 +12,7 @@ import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
+import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class BrokerBuyController {
     }
 
     @PostMapping(value = "market")
-    public void openSimpleBuyOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
+    public void openBuyMarketOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
             throws TraderNotFoundException, TraderBalanceException {
 
         System.out.println("enter > openSimpleBuyOrder");
@@ -74,6 +75,28 @@ public class BrokerBuyController {
         System.out.println("openSimpleBuyOrder / fulfilled");
 
         System.out.println("exit < openSimpleBuyOrder");
+
+    }
+
+    @PostMapping(value = "stop")
+    public void openBuyStopOrder(@RequestBody LimitOrderRequest securityBuyRequest) {
+
+        System.out.println("enter > openBuyStopOrder");
+        
+        System.out.println("securityBuyRequest / " + securityBuyRequest);
+
+        LimitOrder newLimitOrder = new LimitOrder(
+                LimitOrderType.LONG_BUY_STOP,
+                this.traderService.getAccountByName(securityBuyRequest.getTrader()),
+                this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker()),
+                securityBuyRequest.getUnits(),
+                securityBuyRequest.getStrike());
+
+        System.out.println("newLimitOrder / " + newLimitOrder);
+
+        this.limitOrderService.saveLimitOrder(newLimitOrder);
+
+        System.out.println("exit < openBuyStopOrder");
 
     }
 
@@ -166,13 +189,16 @@ public class BrokerBuyController {
 
     @GetMapping(value = "")
     protected String root() {
+     
         return "Broker BUY Controller";
-
+    
     }
 
     @GetMapping(value = "/")
     protected String slash() {
+    
         return this.root();
+    
     }
 
     @GetMapping(value = "health")

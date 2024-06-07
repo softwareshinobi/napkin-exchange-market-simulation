@@ -45,6 +45,8 @@ function visualizeTraderOpenOrders() {
 
 function populateOrderDetailSections(openOrderList) {
 
+console.log("list",openOrderList);
+
     var html = '';
 
     for (var i = 0; i < openOrderList.length; i++) {
@@ -52,12 +54,12 @@ function populateOrderDetailSections(openOrderList) {
         html += '<tr>';
 
 html += '<td class="">' + openOrderList[i].id + '</td>';  // Integer (order ID)
-html += '<td class="">' + openOrderList[i].stock.ticker + '</td>';  // String (stock symbol)
+html += '<td class="">' + openOrderList[i].security.ticker + '</td>';  // String (stock symbol)
 html += '<td class="">' + openOrderList[i].type + '</td>';  // String (order type)
-html += '<td class="">' + openOrderList[i].sharesToBuy.toLocaleString() + '</td>';  // Number (shares) with commas
+html += '<td class="">' + openOrderList[i].units.toLocaleString() + '</td>';  // Number (shares) with commas
 html += '<td class="">' + openOrderList[i].relatedOrderId + '</td>';  // Integer (related order ID)
-html += '<td class="">' + '$' + openOrderList[i].strikePrice.toFixed(2).toLocaleString() + '</td>';  // Number (strike price) with 2 decimal places
-html += '<td class="">' + '$' + openOrderList[i].stock.price.toFixed(2).toLocaleString() + '</td>';  // Number (stock price) with 2 decimal places and dollar sign
+html += '<td class="">' + '$' + openOrderList[i].strike.toFixed(2).toLocaleString() + '</td>';  // Number (strike price) with 2 decimal places
+html += '<td class="">' + '$' + openOrderList[i].security.price.toFixed(2).toLocaleString() + '</td>';  // Number (stock price) with 2 decimal places and dollar sign
 
         html += '</tr>';
 

@@ -98,32 +98,6 @@ public class BrokerController {
 ////                ));
 
 
-    @PostMapping(value = "/buy/limit/")
-    public List<LimitOrder> placeAssetBuyStopSimpleLimitOrder(@RequestBody LimitOrderRequest limitOrderRequest) {
-
-        System.out.println("enter > placeAssetBuyStopLimitOrder");
-
-        limitOrderService.saveLimitOrder(
-                new LimitOrder(
-                        LimitOrderType.LONG_BUY_STOP,
-                        accountService.getAccountByName(limitOrderRequest.getUsername()),
-                        stockService.getSecurityBySymbol(limitOrderRequest.getTicker()),
-                        limitOrderRequest.getUnits(),
-                        limitOrderRequest.getStrike()
-                )
-        );
-
-        List<LimitOrder> userLimitOrderList = limitOrderService.findLimitOrders(
-                accountService.getAccountByName(
-                        limitOrderRequest.getUsername()
-                )
-        );
-
-        System.out.println("exit < placeAssetBuyStopLimitOrder");
-
-        return userLimitOrderList;
-
-    }
 
     @PostMapping(value = "/buy/limit/auto-close")
     public List<LimitOrder> placeAssetBuyStopClosingLimitOrder(@RequestBody LimitOrderRequest limitOrderRequest) {

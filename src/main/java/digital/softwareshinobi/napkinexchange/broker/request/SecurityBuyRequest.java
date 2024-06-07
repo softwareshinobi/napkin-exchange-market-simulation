@@ -11,16 +11,18 @@ import lombok.Setter;
 @Setter
 public class SecurityBuyRequest {
 
-    private String username;
+    private String username;//todo change to tradername
 
     private String ticker;
 
     private int units;
 
+    private Double strike;
+
     @Override
     public String toString() {
 
-        return "{" + "username=" + username + ", ticker=" + ticker + ", units=" + units + "}";
+        return "SecurityBuyRequest / {" + "username=" + username + ", ticker=" + ticker + ", units=" + units + ", strike=" + strike + "}";
 
     }
 
