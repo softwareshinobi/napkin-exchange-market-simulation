@@ -22,21 +22,21 @@ public class LeaderboardController {
     @RequestMapping(value = "/")
     public List<Leaderboard> getLeaderboardTopTen() {
 
-        return leaderboardService.topTenAccounts();
+        return leaderboardService.topTenTraders();
 
     }
 
     @RequestMapping(value = "/podium")
     public List<Leaderboard> getLeaderboardPodium() {
 
-        return leaderboardService.topThreeAccounts();
+        return leaderboardService.topThreeTraders();
 
     }
 
     @RequestMapping(value = "/rank/{username}")
     public Leaderboard getLeaderboardByUsername(@PathVariable String username) {
 
-        return leaderboardService.findAccountRanking(username);
+        return leaderboardService.findByTraderName(username);
 
     }
 

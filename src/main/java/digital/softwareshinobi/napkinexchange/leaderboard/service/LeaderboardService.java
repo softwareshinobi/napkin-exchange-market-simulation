@@ -1,7 +1,7 @@
 package digital.softwareshinobi.napkinexchange.leaderboard.service;
 
 import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
-import digital.softwareshinobi.napkinexchange.leaderboard.utility.SortAccountProfits;
+import digital.softwareshinobi.napkinexchange.leaderboard.utility.TraderSortingUtility;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.List;
@@ -15,50 +15,53 @@ import org.springframework.stereotype.Component;
 public class LeaderboardService {
 
     @Autowired
-    private final TraderService accountService;
+    private final TraderService traderService;
 
-    public List<Leaderboard> topTenAccounts() {
+    public List<Leaderboard> topThreeTraders() {
 
-        List<Trader> accounts
-                = SortAccountProfits.sortAccountByProfits(accountService.findAllAccounts());
+        List<Trader> traderList
+                = TraderSortingUtility.sortTraderByAccountValue(
+                         this.traderService.findAllAccounts());
 
-        return accounts.stream()
-                .map(account
-                        -> new Leaderboard(
-                        accounts.indexOf(account) + 1,
-                        account.getUsername(),
-                        account.getAccountBalance(),
-                        account.getTotalProfits()))
-                .limit(10)
-                .collect(Collectors.toList());
-
-    }
-
-    public List<Leaderboard> topThreeAccounts() {
-
-        List<Trader> accounts
-                = SortAccountProfits.sortAccountByProfits(accountService.findAllAccounts());
-
-        return accounts.stream()
-                .map(account -> new Leaderboard(
-                accounts.indexOf(account) + 1,
-                account.getUsername(),
-                account.getAccountBalance(),
-                account.getTotalProfits()))
+        return traderList.stream()
+                .map(trader -> new Leaderboard(
+                traderList.indexOf(trader) + 1,
+                trader.getUsername(),
+                trader.getAccountBalance(),
+                trader.getTotalProfits()))
                 .limit(3)
                 .collect(Collectors.toList());
 
     }
 
-    public Leaderboard findAccountRanking(String username) {
+    public List<Leaderboard> topTenTraders() {
 
-        List<Trader> accounts
-                = SortAccountProfits.sortAccountByProfits(accountService.findAllAccounts());
+        List<Trader> traderList
+                = TraderSortingUtility.sortTraderByAccountValue(
+                         this.traderService.findAllAccounts());
 
-        return accounts.stream()
-                .filter(account -> account.getUsername().equals(username))
+        return traderList.stream()
+                .map(trader
+                        -> new Leaderboard(
+                        traderList.indexOf(trader) + 1,
+                        trader.getUsername(),
+                        trader.getAccountBalance(),
+                        trader.getTotalProfits()))
+                .limit(10)
+                .collect(Collectors.toList());
+
+    }
+
+    public Leaderboard findByTraderName(String traderName) {
+
+        List<Trader> traderList
+                = TraderSortingUtility.sortTraderByAccountValue(
+                        this.traderService.findAllAccounts());
+
+        return traderList.stream()
+                .filter(account -> account.getUsername().equals(traderName))
                 .map(account -> new Leaderboard(
-                accounts.indexOf(account) + 1,
+                traderList.indexOf(account) + 1,
                 account.getUsername(),
                 account.getAccountBalance(),
                 account.getTotalProfits()))

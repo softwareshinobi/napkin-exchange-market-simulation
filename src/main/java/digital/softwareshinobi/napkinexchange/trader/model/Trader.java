@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "trader")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,13 +23,13 @@ public class Trader implements Serializable {
     private String username;
 
     @JsonIgnore
-    @Column(name = "pin")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "leverage")
     private Double leverage = 50.0;
 
-    @Column(name = "balance")
+    @Column(name = "available_funds")
     private Double accountBalance;
 
     @JsonIgnore
@@ -40,16 +40,15 @@ public class Trader implements Serializable {
     @JsonManagedReference
     private Set<SecurityPosition> securityPortfolio;
 
-    
-    @Column(name = "portfolioValue")
+    @Column(name = "portfolio_value")
     private Double portfolioValue;
 
-    @Column(name = "accountValue")
-private Double accountValue=0.0;
+    @Column(name = "account_value")
+    private Double accountValue = 0.0;
 
-        @Column(name = "utilizationPercentage")
-    private Double utilizationPercentage=0.0;
-    
+    @Column(name = "utilization")
+    private Double utilizationPercentage = 0.0;
+
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -63,15 +62,15 @@ private Double accountValue=0.0;
 
         this.accountBalance = 0.0;
 
-        this.portfolioValue=0.0;
-        
+        this.portfolioValue = 0.0;
+
         this.totalProfits = 0.0;
 
         this.leverage = 50.0;
 
     }
 
-    public void updateTotalProfits(double costBasis, int sharesToSell, double currentPrice) {
+    public void updateTotalProfits(double costBasis, int units, double price) {
 
         if (this.totalProfits == null) {
 
@@ -82,11 +81,11 @@ private Double accountValue=0.0;
         double updatedTotalProfits = CalculateCostBasisAndProfits.findProfitsAfterSelling(
                 this.totalProfits,
                 costBasis,
-                sharesToSell,
-                currentPrice);
-        
-        System.out.println("updatedTotalProfits / "+updatedTotalProfits);
-        
+                units,
+                price);
+
+        System.out.println("updatedTotalProfits / " + updatedTotalProfits);
+
         this.setTotalProfits(updatedTotalProfits);
 
     }
