@@ -40,7 +40,7 @@ function processBuyForm() {
 
 		type: "POST",
 		
-		url: apiURL + "/broker/buy/market/smart",
+		url: apiURL + "/broker/buy/smart",
 
         data: JSON.stringify({
         
