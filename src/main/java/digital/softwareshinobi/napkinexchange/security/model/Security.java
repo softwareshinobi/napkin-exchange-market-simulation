@@ -115,20 +115,20 @@ public class Security implements Serializable {
                 + (theMomentum * randomPositiveNumber)) * 100.00) / 100.00;
 
         if (this.ticker.equalsIgnoreCase("callisto")) {
-            System.out.println();
-            System.out.println();
-            System.out.println("//// enter //// ");
-            System.out.println("symbol / " + ticker);
-
-            System.out.println("current price / " + currentSecurityPrice);
-            System.out.println("randomNumber / " + randomNumber);
-            System.out.println("randomPositiveNumber / " + randomPositiveNumber);
-            System.out.println("theMomentum / " + theMomentum);
-            System.out.println("theVolatility / " + theVolatility);
-            System.out.println("newSecurityPrice / " + newSecurityPrice);
-            System.out.println("//// exit //// ");
-            System.out.println();
-            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println("//// enter //// ");
+//            System.out.println("symbol / " + ticker);
+//
+//            System.out.println("current price / " + currentSecurityPrice);
+//            System.out.println("randomNumber / " + randomNumber);
+//            System.out.println("randomPositiveNumber / " + randomPositiveNumber);
+//            System.out.println("theMomentum / " + theMomentum);
+//            System.out.println("theVolatility / " + theVolatility);
+//            System.out.println("newSecurityPrice / " + newSecurityPrice);
+//            System.out.println("//// exit //// ");
+//            System.out.println();
+//            System.out.println();
         }
 
         this.setPrice(newSecurityPrice);

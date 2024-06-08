@@ -57,7 +57,7 @@ html += '<td class="">' + openOrderList[i].id + '</td>';  // Integer (order ID)
 html += '<td class="">' + openOrderList[i].security.ticker + '</td>';  // String (stock symbol)
 html += '<td class="">' + openOrderList[i].type + '</td>';  // String (order type)
 html += '<td class="">' + openOrderList[i].units.toLocaleString() + '</td>';  // Number (shares) with commas
-html += '<td class="">' + openOrderList[i].relatedOrderId + '</td>';  // Integer (related order ID)
+html += '<td class="">' + openOrderList[i].partnerID + '</td>';  // Integer (related order ID)
 html += '<td class="">' + '$' + openOrderList[i].strike.toFixed(2).toLocaleString() + '</td>';  // Number (strike price) with 2 decimal places
 html += '<td class="">' + '$' + openOrderList[i].security.price.toFixed(2).toLocaleString() + '</td>';  // Number (stock price) with 2 decimal places and dollar sign
 

@@ -16,9 +16,11 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class LimitOrderService {
 
     @Autowired
@@ -50,7 +52,8 @@ public class LimitOrderService {
 
     }
 
-    public LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
+  @Transactional
+  public LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
 
         System.out.println("enter > saveLimitOrder");
 
@@ -60,7 +63,11 @@ public class LimitOrderService {
 
             return null;
 
+        } else {
+            System.out.println("tradername set, all good");
         }
+
+                System.out.println("saving...");
 
         LimitOrder savedLimitOrder = this.limitOrderRepository.save(limitOrder);
 
@@ -77,10 +84,13 @@ public class LimitOrderService {
 
     }
 
-    public void processLimitOrders() {
+  @Transactional
+  public void processLimitOrders() {
 
-        if(this.limitOrderRepository.count()==0)return;
-        
+        if (this.limitOrderRepository.count() == 0) {
+            return;
+        }
+
         // //System.out.println("enter > processLimitOrders");
         this.limitOrderRepository.findAll().forEach(limitOrder -> {
 
@@ -108,8 +118,9 @@ public class LimitOrderService {
 
                 case LimitOrderType.LONG_TAKE_PROFIT:
 
-                    //System.out.println("is a LONG_TAKE_PROFIT");
-                    this.evaluateLimitOrderLongTakeProfit(limitOrder);
+                    System.out.println("is a LONG_TAKE_PROFIT");
+
+                    this.qualifyTakeProfitOrder(limitOrder);
 
                     break;
 
@@ -172,7 +183,8 @@ public class LimitOrderService {
 
     }
 
-    private void processBuyStopOrder(LimitOrder buyStopOrder) {
+  @Transactional
+  private void processBuyStopOrder(LimitOrder buyStopOrder) {
 
         System.out.println("enter > processBuyStopOrder");
 
@@ -194,9 +206,9 @@ public class LimitOrderService {
                     ));
 
             try {
-        System.out.println("1");
+                System.out.println("1");
 
-                this.securityPortfolioService.fillBuyMarketStockRequest(
+                this.securityPortfolioService.buySecurityMarketPrice(
                         new SecurityBuyRequest(
                                 buyStopOrder.getTrader().getUsername(),
                                 buyStopOrder.getSecurity().getTicker(),
@@ -208,7 +220,7 @@ public class LimitOrderService {
 //                                NotificationType.BUY_STOP_TRIGGER,
 //                                "LONG_BUY_STOP TRIGGERED / " + buyStopOrder.toString()
 //                        ));
-System.out.println("2");
+                System.out.println("2");
 
                 this.purgeLimitOrder(buyStopOrder);
 
@@ -230,38 +242,41 @@ System.out.println("2");
         }
     }
 
-    private void evaluateLimitOrderLongTakeProfit(LimitOrder takeProfitLimitOrder) {
+  @Transactional
+  private void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
 
-        //System.out.println("enter > evaluateLimitOrderLongTakeProfit");
-        //System.out.println();
-        //System.out.println("take profit order / " + takeProfitOrder);
-        //System.out.println();
-        //System.out.println("  current price / " + takeProfitOrder.getSecurity().getPrice());
-        //System.out.println("   strike price / " + takeProfitOrder.getStrike());
-        //System.out.println();
-        //todo, we shouldn't be compariing doubles like this
-        if (takeProfitLimitOrder.getSecurity().getPrice() > takeProfitLimitOrder.getStrike()) {
+        System.out.println("enter > qualifyTakeProfitOrder");
+        System.out.println();
+        System.out.println("takeProfitOrder / " + takeProfitOrder);
+        System.out.println();
+        System.out.println("  current price / " + takeProfitOrder.getSecurity().getPrice());
+        System.out.println("   strike price / " + takeProfitOrder.getStrike());
+        System.out.println();
 
-            //System.out.println("IT'S TIME TO TRIGGER THIS TAKE PROFIT");
+//todo, we shouldn't be compariing doubles like this
+        if (takeProfitOrder.getSecurity().getPrice() >= takeProfitOrder.getStrike()) {
+
+            System.out.println("IT'S TIME TO TRIGGER THIS TAKE PROFIT");
+
             try {
 
                 notificationService.save(
                         new Notification(
-                                takeProfitLimitOrder.getTrader().getUsername(),
+                                takeProfitOrder.getTrader().getUsername(),
                                 NotificationType.LONG_TAKE_PROFIT_TRIGGERED,
-                                takeProfitLimitOrder
+                                takeProfitOrder
                         ));
 
                 SecuritySellRequest marketSellStockRequest = new SecuritySellRequest(
-                        takeProfitLimitOrder.getTrader().getUsername(),
-                        takeProfitLimitOrder.getSecurity().getTicker(),
-                        takeProfitLimitOrder.getUnits());
+                        takeProfitOrder.getTrader().getUsername(),
+                        takeProfitOrder.getSecurity().getTicker(),
+                        takeProfitOrder.getUnits());
 
                 securityPortfolioService.sellSecurityMarketPrice(marketSellStockRequest);
 
-                this.purgeLimitOrder(takeProfitLimitOrder);
+                this.purgeLimitOrder(takeProfitOrder);
 
-                this.removeSmartRelated(takeProfitLimitOrder);
+                this.removeSmartRelated(takeProfitOrder);
 
                 marketSellStockRequest = null;
 
@@ -273,7 +288,7 @@ System.out.println("2");
 
         } else {
 
-            //   //System.out.println("this one didn't trigger");
+            System.out.println("this one didn't trigger");
         }
 
     }
@@ -282,7 +297,8 @@ System.out.println("2");
 //        limitOrderRepository.truncateTable();
 //    }
 
-    private void removeSmartRelated(LimitOrder limitOrder) {
+   @Transactional
+   private void removeSmartRelated(LimitOrder limitOrder) {
         /////////////////////////////////////////////////////////////////
         //System.out.println("removing the related");
 
@@ -309,7 +325,8 @@ System.out.println("2");
 /////////////////////////////////////////////////////////////////
     }
 
-    private void purgeLimitOrder(LimitOrder limitOrder) {
+ @Transactional
+ private void purgeLimitOrder(LimitOrder limitOrder) {
 
         limitOrder.setTrader(null);
 
@@ -321,7 +338,8 @@ System.out.println("2");
 
     }
 
-    private void deleteLimitOrder(LimitOrder limitOrder) {
+  @Transactional
+  private void deleteLimitOrder(LimitOrder limitOrder) {
 
         limitOrderRepository.delete(limitOrder);
 
