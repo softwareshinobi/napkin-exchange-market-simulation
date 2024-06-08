@@ -32,14 +32,7 @@ public class TraderController {
 
     }
 
-    @RequestMapping(value = "{traderName}")
-    public Trader getAccountByUsername(@PathVariable String traderName) throws TraderNotFoundException {
-
-        return this.accountService.getAccountByName(traderName);
-
-    }
-
-    @PostMapping(value = "create")
+    @PostMapping(value = "")
     public void createTrader(@RequestBody Map traderDetails) throws InvalidAccountException {
 
         System.out.println("enter > createTrader");
@@ -53,6 +46,13 @@ public class TraderController {
         System.out.println("new trader / " + username);
 
         accountService.createTraderAccount(username, password);
+
+    }
+
+    @RequestMapping(value = "{traderName}")
+    public Trader getAccountByUsername(@PathVariable String traderName) throws TraderNotFoundException {
+
+        return this.accountService.getAccountByName(traderName);
 
     }
 
