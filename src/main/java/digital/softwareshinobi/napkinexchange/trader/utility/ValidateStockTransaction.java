@@ -40,13 +40,20 @@ public class ValidateStockTransaction {
                 trader.getSecurityPortfolio(),
                 securitySellRequest.getSecurity());
 
+        System.out.println("securityPosition / "+securityPosition);
+                System.out.println("securitySellRequest / "+securitySellRequest);
+
         if (securityPosition == null) {
 
             return false;
         }
 
-        return securityPosition.getUnits() >= securitySellRequest.getUnits();
+      boolean hasEnough= securityPosition.getUnits() >= securitySellRequest.getUnits();
 
+                      System.out.println("hasEnough / "+hasEnough);
+
+                      
+      return hasEnough;
     }
 
 }

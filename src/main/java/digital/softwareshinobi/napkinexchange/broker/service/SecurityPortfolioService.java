@@ -19,9 +19,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import digital.softwareshinobi.napkinexchange.trader.repository.SecurityPortfolioRepository;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class SecurityPortfolioService {
 
     @Autowired
@@ -36,7 +40,7 @@ public class SecurityPortfolioService {
     @Autowired
     private final NotificationService notificationService;
 
-    public void fillBuyMarketStockRequest(SecurityBuyRequest securityBuyRequest) {
+    public void buySecurityMarketPrice(SecurityBuyRequest securityBuyRequest) {
 
         //  System.out.println("enter > fillBuyMarketStockRequest");
         //      System.out.println("buyStockRequest / " + securityBuyRequest);
@@ -123,7 +127,7 @@ public class SecurityPortfolioService {
 
     public void sellSecurityMarketPrice(SecuritySellRequest sellStockRequest) {
 
-        System.out.println("sellStocksellStocksellStock");
+        System.out.println("enter > sellSecurityMarketPrice");
 
         notificationService.save(
                 new Notification(
@@ -158,6 +162,34 @@ public class SecurityPortfolioService {
                 security.getPrice());
 
         System.out.println("4");
+
+        double sellValue = sellStockRequest.getUnits() * security.getPrice();
+        System.out.println("sellValue / " + sellValue);
+
+        double purchaseValue = sellStockRequest.getUnits() * securityPosition.getCostBasis();
+        System.out.println("purchaseValue / " + purchaseValue);
+
+        double profit = sellValue - purchaseValue;
+        System.out.println("profit / " + profit);
+
+        Map as = new HashMap();
+
+        as.put("sellValue", sellValue);
+        as.put("purchaseValue", purchaseValue);
+
+        as.put("units", sellStockRequest.getUnits());
+
+        as.put("price", security.getPrice());
+
+        as.put("basis", securityPosition.getCostBasis());
+        as.put("profit", profit);
+
+        this.notificationService.save(
+                new Notification(
+                        sellStockRequest.getUsername(),
+                        NotificationType.MARKET_SELL_ORDER_FULFILLED,
+                        as.toString()
+                ));
 
         traderService.updateBalanceAndSave(trader, security.getPrice() * sellStockRequest.getUnits());
 

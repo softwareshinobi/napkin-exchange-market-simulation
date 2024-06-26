@@ -25,8 +25,6 @@ crossDomain: true,
 
 success: function (data, status, jqXHR) {
 
-console.log("huh?");
-
 profitleaderboard(data);
 
 },
@@ -53,9 +51,8 @@ function profitleaderboard(leaderBoardList) {
 
         html += '<td class="METADATA DEBUG">' + leaderBoardList[i].ranking + '</td>';  // Integer (ranking)
         html += '<td class="METADATA DEBUG">' + leaderBoardList[i].username + '</td>';  // String (username)
-        html += '<td class="METADATA DEBUG">' + "$" + leaderBoardList[i].accountBalance.toLocaleString() + '</td>';  // Number (account balance) with 2 decimal places
-        html += '<td class="METADATA DEBUG">' + "$" + leaderBoardList[i].totalProfits.toLocaleString() + '</td>';  // Number (total profits) with 2 decimal places
-
+        html += '<td class="METADATA DEBUG">' + " $ " + leaderBoardList[i].accountBalance.toLocaleString() + '</td>';
+        
         html += '</tr>';
 
     }

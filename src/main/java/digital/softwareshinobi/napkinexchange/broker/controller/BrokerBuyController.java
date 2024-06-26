@@ -15,6 +15,7 @@ import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -22,9 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "broker/buy")
 public class BrokerBuyController {
 
-    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.01;
+    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.005;
 
-    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.025;
+    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.015;
 
     @Autowired
     private SecurityPortfolioService securityPortfolioService;
@@ -66,7 +67,7 @@ public class BrokerBuyController {
 
         System.out.println("openSimpleBuyOrder / fufilling");
 
-        this.securityPortfolioService.fillBuyMarketStockRequest(securityBuyRequest);
+        this.securityPortfolioService.buySecurityMarketPrice(securityBuyRequest);
 
         System.out.println("openSimpleBuyOrder / fulfilled");
         //////////doing math ////////////
@@ -82,7 +83,7 @@ public class BrokerBuyController {
     public void openBuyStopOrder(@RequestBody LimitOrderRequest securityBuyRequest) {
 
         System.out.println("enter > openBuyStopOrder");
-        
+
         System.out.println("securityBuyRequest / " + securityBuyRequest);
 
         LimitOrder newLimitOrder = new LimitOrder(
@@ -101,7 +102,8 @@ public class BrokerBuyController {
     }
 
     @PostMapping(value = "smart")
-    public void openSmartBuyMarketOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
+    @Transactional
+    public void openSmartBuyOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
             throws TraderNotFoundException, TraderBalanceException {
 
         System.out.println("enter > openSmartBuyMarketOrder");
@@ -125,7 +127,7 @@ public class BrokerBuyController {
 
         System.out.println("buyStockRequest / filling");
 
-        this.securityPortfolioService.fillBuyMarketStockRequest(securityBuyRequest);
+        this.securityPortfolioService.buySecurityMarketPrice(securityBuyRequest);
 
         System.out.println("buyStockRequest / fulfilled");
         //////////doing math ////////////
@@ -175,30 +177,33 @@ public class BrokerBuyController {
 
         System.out.println("stopLossOrder / " + stopLossOrder);
 
-        System.out.println("takeProfitOrder / " + takeProfitOrder);
+        System.out.println("updating SL orders");
 
-        this.limitOrderService.saveLimitOrder(stopLossOrder);
+        Object oo = this.limitOrderService.saveLimitOrder(stopLossOrder);
 
-        this.limitOrderService.saveLimitOrder(takeProfitOrder);
+        System.out.println("order / stop loss / " + oo);
 ////////
-        //   System.out.println("order / stop loss / " + stopLossOrder);
+        System.out.println("takeProfitOrder / " + takeProfitOrder);
+        System.out.println("updating TP orders");
 
-        //   System.out.println("order / take profit / " + takeProfitOrder);
+        Object bb = this.limitOrderService.saveLimitOrder(takeProfitOrder);
+        System.out.println("order / take profit / " + bb);
+
         System.out.println("exit < openSmartBuyMarketOrder");
     }
 
     @GetMapping(value = "")
     protected String root() {
-     
+
         return "Broker BUY Controller";
-    
+
     }
 
     @GetMapping(value = "/")
     protected String slash() {
-    
+
         return this.root();
-    
+
     }
 
     @GetMapping(value = "health")
