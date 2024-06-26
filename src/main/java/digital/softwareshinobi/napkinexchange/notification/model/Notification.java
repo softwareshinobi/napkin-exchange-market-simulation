@@ -1,5 +1,6 @@
 package digital.softwareshinobi.napkinexchange.notification.model;
 
+import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Date;
+import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,49 +27,49 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@NonNull
+    @NonNull
     @Column(name = "time")
-    private String time = new Date().toGMTString();
+    private ZonedDateTime time;
 
     @NonNull
-    @Column(name = "username")
-    private String username;
+    @Column(name = "trader")
+    private String trader;
 
     @NonNull
     @Column(name = "type")
     private NotificationType type;
 
     @NonNull
-    @Column(name = "description", columnDefinition = "VARCHAR(1000)")
-    private String description;
+    @Column(name = "message", columnDefinition = "VARCHAR(1000)")
+    private String message;
 
-    public Notification(Trader account, NotificationType notificationType, String string) {
+    public Notification(Trader trader, NotificationType notificationType, String message) {
 
-        this.username = account.getUsername();
+        this.trader = trader.getUsername();
 
         this.type = notificationType;
 
-        this.description = string;
+        this.message = message;
 
     }
 
-    public Notification(String username, NotificationType notificationType, String string) {
+    public Notification(String trader, NotificationType notificationType, String message) {
 
-        this.username = username;
+        this.trader = trader;
 
         this.type = notificationType;
 
-        this.description = string;
+        this.message = message;
 
     }
 
-    public Notification(String username, NotificationType notificationType, Object object) {
+    public Notification(String trader, NotificationType notificationType, Object payload) {
 
-        this.username = username;
+        this.trader = trader;
 
         this.type = notificationType;
 
-        this.description = object.toString();
+        this.message = payload.toString();
 
     }
 

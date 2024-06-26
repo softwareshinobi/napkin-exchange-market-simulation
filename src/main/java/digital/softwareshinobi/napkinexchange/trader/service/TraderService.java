@@ -2,8 +2,8 @@ package digital.softwareshinobi.napkinexchange.trader.service;
 
 import digital.softwareshinobi.napkinexchange.broker.types.AccountTransaction;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
@@ -59,8 +59,7 @@ public class TraderService {
 
         Trader resultAccount = accountRepository.save(newAccount);
 
-        notificationService.save(
-                new Notification(
+        notificationService.save(new Notification(
                         resultAccount,
                         NotificationType.NEW_TRADER_CREATED,
                         resultAccount.toString()

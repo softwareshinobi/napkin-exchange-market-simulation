@@ -5,7 +5,6 @@ import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
 import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioService;
 import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderType;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
@@ -14,6 +13,7 @@ import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundExc
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
 import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
+import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,8 +57,7 @@ public class BrokerBuyController {
 
         System.out.println("enter > openMarketOrder");
 
-        this.notificationService.save(
-                new Notification(
+        this.notificationService.save(new Notification(
                         securityBuyRequest.getUsername(),
                         NotificationType.LONG_MARKET_BUY_CREATED,
                         securityBuyRequest.toString()
@@ -108,8 +107,7 @@ public class BrokerBuyController {
 
         System.out.println("enter > openSmartBuyMarketOrder");
 
-        this.notificationService.save(
-                new Notification(
+        this.notificationService.save(new Notification(
                         securityBuyRequest.getUsername(),
                         NotificationType.LONG_SMART_BUY_CREATED,
                         securityBuyRequest.toString()

@@ -66,7 +66,7 @@ public class NotificationController {
     @GetMapping("/{username}")
     List<Notification> findByUsername(@PathVariable String username) {
 
-        return this.notificationService.findByUsername(username);
+        return this.notificationService.findByTrader(username);
 
     }
 

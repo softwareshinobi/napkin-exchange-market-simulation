@@ -1,4 +1,4 @@
-package digital.softwareshinobi.napkinexchange.notification.model;
+package digital.softwareshinobi.napkinexchange.notification.type;
 
 public enum NotificationType {
 

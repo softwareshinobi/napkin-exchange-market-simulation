@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-    public List<Notification> findByUsername(String username);
+    public List<Notification> findByTrader(String trader);
 
 }

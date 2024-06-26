@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     fetchNotifications();
 
-    setInterval(fetchNotifications, 1000 * 5);
+    setInterval(fetchNotifications, 1000 * 4);
 
 });
 
@@ -55,7 +55,7 @@ function displayNotifications(notifications) {
 
         content += '<td>' + notifications[index].type + '</td>';
 
-        content += '<td>' + notifications[index].description + '</td>';
+        content += '<td>' + notifications[index].message + '</td>';
 
         content += '</tr>';
 

@@ -3,8 +3,8 @@ package digital.softwareshinobi.napkinexchange.market.configuration;
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -31,8 +31,7 @@ public class MarketConfiguration {
         //This happens because only a single market entity should exist, with ID 1
         Market market = this.marketService.getMarket();
 
-        this.notificationService.save(
-                new Notification(
+        this.notificationService.save(new Notification(
                         "SYSTEM",
                         NotificationType.SYSTEM_NOTIFICATION,
                         "napkin exchange market simulation initialized"

@@ -1,38 +1,45 @@
 package digital.softwareshinobi.napkinexchange.notification.service;
 
+import digital.softwareshinobi.napkinexchange.market.service.MarketActivityService;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.repository.NotificationRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import digital.softwareshinobi.napkinexchange.notification.repository.NotificationRepository;
 
 @Service
 public class NotificationService {
 
-    NotificationRepository notificationRepository;
+    @Autowired
+    private NotificationRepository systemNotificationRepository;
+
+    @Autowired
+    private MarketActivityService marketActivityService;
 
     @Autowired
     public NotificationService(NotificationRepository notificationRepository) {
 
-        this.notificationRepository = notificationRepository;
+        this.systemNotificationRepository = notificationRepository;
 
     }
 
-    public Notification save(Notification notification) {
+    public Notification save(Notification systemNotification) {
 
-        return this.notificationRepository.save(notification);
+        systemNotification.setTime(this.marketActivityService.getTime());
+
+        return this.systemNotificationRepository.save(systemNotification);
 
     }
 
-    public List<Notification> findByUsername(String username) {
+    public List<Notification> findByTrader(String trader) {
 
-        return this.notificationRepository.findByUsername(username);
+        return this.systemNotificationRepository.findByTrader(trader);
 
     }
 
     public List<Notification> findAll() {
 
-        return this.notificationRepository.findAll();
+        return this.systemNotificationRepository.findAll();
 
     }
 

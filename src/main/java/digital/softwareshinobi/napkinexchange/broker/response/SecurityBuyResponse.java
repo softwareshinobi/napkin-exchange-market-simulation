@@ -17,7 +17,7 @@ public class SecurityBuyResponse {
 
     private String ticker;
 
-    private int units;
+    private Integer units;
 
     private Double price;
 

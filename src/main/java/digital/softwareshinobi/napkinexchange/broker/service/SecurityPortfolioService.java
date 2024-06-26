@@ -5,8 +5,8 @@ import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SecuritySellRequest;
 import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
+import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
@@ -47,12 +47,11 @@ public class SecurityPortfolioService {
 
         System.out.println("securityBuyRequest / " + securityBuyRequest);
 
-        this.notificationService.save(
-                new Notification(
-                        securityBuyRequest.getUsername(),
-                        NotificationType.MARKET_BUY_ORDER_CREATED,
-                        securityBuyRequest.toString()
-                ));
+        this.notificationService.save(new Notification(
+                securityBuyRequest.getUsername(),
+                NotificationType.MARKET_BUY_ORDER_CREATED,
+                securityBuyRequest.toString()
+        ));
 
         final Trader trader = this.traderService.getAccountByName(securityBuyRequest.getUsername());
 
@@ -62,12 +61,11 @@ public class SecurityPortfolioService {
 
         if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(trader, securityBuyRequest, this.securityService)) {
 
-            this.notificationService.save(
-                    new Notification(
-                            securityBuyRequest.getUsername(),
-                            NotificationType.MARKET_BUY_INSUFFICIENT_FUNDS,
-                            securityBuyRequest.toString()
-                    ));
+            this.notificationService.save(new Notification(
+                    securityBuyRequest.getUsername(),
+                    NotificationType.MARKET_BUY_INSUFFICIENT_FUNDS,
+                    securityBuyRequest.toString()
+            ));
 
             throw new TraderBalanceException("Trader does not have funds for this purchase");
 
@@ -80,21 +78,19 @@ public class SecurityPortfolioService {
 
         if (traderSecurityPosition == null) {
 
-               System.out.println("trader DOES NOT own any of this security");
+            System.out.println("trader DOES NOT own any of this security");
 
-               //stock IS CURRENTLY owned by the user: "+ securityBuyRequest.getUsername());
+            //stock IS CURRENTLY owned by the user: "+ securityBuyRequest.getUsername());
             //    traderService.updateBalanceAndSave(traderAccount, -1 * (securityBuyRequest.getUnits() * securityToBuy.getPrice()));
             //   traderSecurityPosition.updateCostBasisAndAmountOwned(securityBuyRequest.getUnits(), securityToBuy.getPrice());
-        
             this.saveNewStockOwned(securityBuyRequest, trader, security.getPrice());
 
         } else {
 
-           System.out.println("trader does OWNS UNITS of this security");
-            
+            System.out.println("trader does OWNS UNITS of this security");
+
 //subtract transaction value from account balance
             //    System.out.println("before / " + traderSecurityPosition);
-     
             traderSecurityPosition.updateCostBasisAndAmountOwned(
                     securityBuyRequest.getUnits(),
                     security.getPrice());
@@ -108,12 +104,11 @@ public class SecurityPortfolioService {
 
         SecurityBuyResponse securityBuyResponse = new SecurityBuyResponse(securityBuyRequest, security);
 
-        this.notificationService.save(
-                new Notification(
-                        securityBuyResponse.getTrader(),
-                        NotificationType.MARKET_BUY_ORDER_FULFILLED,
-                        securityBuyResponse.toString()
-                ));
+        this.notificationService.save(new Notification(
+                securityBuyResponse.getTrader(),
+                NotificationType.MARKET_BUY_ORDER_FULFILLED,
+                securityBuyResponse.toString()
+        ));
 
         System.out.println("returning / " + securityBuyResponse);
 
@@ -139,12 +134,11 @@ public class SecurityPortfolioService {
 
         System.out.println("enter > sellSecurityMarketPrice");
 
-        notificationService.save(
-                new Notification(
-                        sellStockRequest.getUsername(),
-                        NotificationType.MARKET_SELL_ORDER_CREATED,
-                        sellStockRequest.toString()
-                ));
+        notificationService.save(new Notification(
+                sellStockRequest.getUsername(),
+                NotificationType.MARKET_SELL_ORDER_CREATED,
+                sellStockRequest.toString()
+        ));
 
         Trader trader = traderService.getAccountByName(sellStockRequest.getUsername());
 
@@ -194,12 +188,11 @@ public class SecurityPortfolioService {
         as.put("basis", securityPosition.getCostBasis());
         as.put("profit", profit);
 
-        this.notificationService.save(
-                new Notification(
-                        sellStockRequest.getUsername(),
-                        NotificationType.MARKET_SELL_ORDER_FULFILLED,
-                        as.toString()
-                ));
+        this.notificationService.save(new Notification(
+                sellStockRequest.getUsername(),
+                NotificationType.MARKET_SELL_ORDER_FULFILLED,
+                as.toString()
+        ));
 
         traderService.updateBalanceAndSave(trader, security.getPrice() * sellStockRequest.getUnits());
 
@@ -221,12 +214,11 @@ public class SecurityPortfolioService {
 
         }
 
-        this.notificationService.save(
-                new Notification(
-                        sellStockRequest.getUsername(),
-                        NotificationType.MARKET_SELL_ORDER_FULFILLED,
-                        sellStockRequest.toString()
-                ));
+        this.notificationService.save(new Notification(
+                sellStockRequest.getUsername(),
+                NotificationType.MARKET_SELL_ORDER_FULFILLED,
+                sellStockRequest.toString()
+        ));
 
     }
 

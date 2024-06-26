@@ -3,12 +3,12 @@ package digital.softwareshinobi.napkinexchange.broker.service;
 import digital.softwareshinobi.napkinexchange.broker.request.SecuritySellRequest;
 import digital.softwareshinobi.napkinexchange.broker.types.LimitOrderType;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
-import digital.softwareshinobi.napkinexchange.notification.model.NotificationType;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
+import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
 import java.util.List;
 import java.util.Optional;
@@ -73,8 +73,7 @@ public class LimitOrderService {
 
         System.out.println("savedLimitOrder / " + savedLimitOrder);
 
-        this.notificationService.save(
-                new Notification(
+        this.notificationService.save(new Notification(
                         limitOrder.getTrader().getUsername(),
                         NotificationType.NEW_LIMIT_ORDER_CREATED,
                         limitOrder.toString()
@@ -151,8 +150,7 @@ public class LimitOrderService {
             //System.out.println("IT'S TIME TO TRIGGER THIS STOP LOSS");
             try {
 
-                notificationService.save(
-                        new Notification(
+                notificationService.save(new Notification(
                                 stopLossLimitOrder.getTrader().getUsername(),
                                 NotificationType.LONG_STOP_LOSS_TRIGGERED,
                                 stopLossLimitOrder
@@ -198,8 +196,7 @@ public class LimitOrderService {
 
             System.out.println("TRIGGER A MARKET BUY B/C STRIKE CROSSED");
 
-            notificationService.save(
-                    new Notification(
+            notificationService.save(new Notification(
                             buyStopOrder.getTrader().getUsername(),
                             NotificationType.BUY_STOP_TRIGGER,
                             "LONG_BUY_STOP TRIGGERED / " + buyStopOrder.toString()
@@ -260,8 +257,7 @@ public class LimitOrderService {
 
             try {
 
-                notificationService.save(
-                        new Notification(
+                notificationService.save(new Notification(
                                 takeProfitOrder.getTrader().getUsername(),
                                 NotificationType.LONG_TAKE_PROFIT_TRIGGERED,
                                 takeProfitOrder
@@ -309,8 +305,7 @@ public class LimitOrderService {
             LimitOrder relatedOrder = limitOrderPartner.get(); // Use the user object
 
             //System.out.println("related order / " + relatedOrder);
-            this.notificationService.save(
-                    new Notification(
+            this.notificationService.save(new Notification(
                             relatedOrder.getTrader().getUsername(),
                             NotificationType.LONG_SMART_BUY_CANCELLATION,
                             relatedOrder

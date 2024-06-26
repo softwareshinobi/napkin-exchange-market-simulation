@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class TraderController {
 
     @Autowired
-    private final TraderService accountService;
+    private final TraderService traderService;
 
     @Autowired
     private final TraderHistoryService accountHistoryService;
@@ -28,7 +28,7 @@ public class TraderController {
     @GetMapping(value = "")
     public List<Trader> getAllTraders() throws TraderNotFoundException {
 
-        return this.accountService.findAllAccounts();
+        return this.traderService.findAllAccounts();
 
     }
 
@@ -45,14 +45,14 @@ public class TraderController {
 
         System.out.println("new trader / " + username);
 
-     this.   accountService.createTraderAccount(username, password);
+     this.   traderService.createTraderAccount(username, password);
 
     }
 
     @RequestMapping(value = "{traderName}")
     public Trader getTraderByName(@PathVariable String traderName) throws TraderNotFoundException {
 
-        return this.accountService.getAccountByName(traderName);
+        return this.traderService.getAccountByName(traderName);
 
     }
 
