@@ -13,6 +13,7 @@ import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceExce
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
+import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,10 +52,10 @@ public class BrokerBuyController {
     }
 
     @PostMapping(value = "market")
-    public void openBuyMarketOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
+    public SecurityBuyResponse openMarketOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
             throws TraderNotFoundException, TraderBalanceException {
 
-        System.out.println("enter > openSimpleBuyOrder");
+        System.out.println("enter > openMarketOrder");
 
         this.notificationService.save(
                 new Notification(
@@ -67,16 +68,15 @@ public class BrokerBuyController {
 
         System.out.println("openSimpleBuyOrder / fufilling");
 
-        this.securityPortfolioService.buySecurityMarketPrice(securityBuyRequest);
+        SecurityBuyResponse SecurityBuyResponse = this.securityPortfolioService.buyMarketPrice(securityBuyRequest);
 
         System.out.println("openSimpleBuyOrder / fulfilled");
-        //////////doing math ////////////
 
-        //  stockOwnedService.fillStandardBuyStockRequest(buyStockRequest);
-        System.out.println("openSimpleBuyOrder / fulfilled");
+        System.out.println("returning / " + SecurityBuyResponse);
 
-        System.out.println("exit < openSimpleBuyOrder");
+        System.out.println("exit < openMarketOrder");
 
+        return SecurityBuyResponse;
     }
 
     @PostMapping(value = "stop")
@@ -127,7 +127,7 @@ public class BrokerBuyController {
 
         System.out.println("buyStockRequest / filling");
 
-        this.securityPortfolioService.buySecurityMarketPrice(securityBuyRequest);
+        this.securityPortfolioService.buyMarketPrice(securityBuyRequest);
 
         System.out.println("buyStockRequest / fulfilled");
         //////////doing math ////////////

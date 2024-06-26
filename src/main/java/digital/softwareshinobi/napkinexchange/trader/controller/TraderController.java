@@ -26,9 +26,9 @@ public class TraderController {
     private final TraderHistoryService accountHistoryService;
 
     @GetMapping(value = "")
-    public List<Trader> listallaccounts() throws TraderNotFoundException {
+    public List<Trader> getAllTraders() throws TraderNotFoundException {
 
-        return accountService.findAllAccounts();
+        return this.accountService.findAllAccounts();
 
     }
 
@@ -45,21 +45,21 @@ public class TraderController {
 
         System.out.println("new trader / " + username);
 
-        accountService.createTraderAccount(username, password);
+     this.   accountService.createTraderAccount(username, password);
 
     }
 
     @RequestMapping(value = "{traderName}")
-    public Trader getAccountByUsername(@PathVariable String traderName) throws TraderNotFoundException {
+    public Trader getTraderByName(@PathVariable String traderName) throws TraderNotFoundException {
 
         return this.accountService.getAccountByName(traderName);
 
     }
 
     @GetMapping(value = "/history/{username}")
-    public List<AccountHistory> getAccountHistory(@PathVariable String username) throws TraderNotFoundException, TraderBalanceException {
+    public List<AccountHistory> getTraderAccountHistory(@PathVariable String username) throws TraderNotFoundException, TraderBalanceException {
 
-        return accountHistoryService.getHistoryByTraderName(username);
+        return this.accountHistoryService.getHistoryByTraderName(username);
 
     }
 

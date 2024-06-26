@@ -21,7 +21,7 @@ public class NotificationController {
     public NotificationController() {
 
         System.out.println("## ");
-        System.out.println("## init > NotificationController");
+        System.out.println("## init > System Notification Controller");
         System.out.println("## ");
 
     }

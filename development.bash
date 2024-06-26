@@ -16,4 +16,6 @@ set -x
 
 docker-compose -f development.yaml down --remove-orphans
 
-docker-compose -f development.yaml up --build
+docker-compose -f development.yaml up --build -d
+
+docker stop napkin-exchange-market-simulation

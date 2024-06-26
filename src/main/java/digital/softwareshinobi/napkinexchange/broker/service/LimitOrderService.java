@@ -208,7 +208,7 @@ public class LimitOrderService {
             try {
                 System.out.println("1");
 
-                this.securityPortfolioService.buySecurityMarketPrice(
+                this.securityPortfolioService.buyMarketPrice(
                         new SecurityBuyRequest(
                                 buyStopOrder.getTrader().getUsername(),
                                 buyStopOrder.getSecurity().getTicker(),
