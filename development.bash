@@ -16,6 +16,12 @@ set -x
 
 docker-compose -f development.yaml down --remove-orphans
 
-docker-compose -f development.yaml up --build -d
+docker-compose -f development.yaml up --build 
 
-docker stop napkin-exchange-market-simulation
+##
+
+docker stop napkin-exchange-market-phpmyadmin
+
+#docker stop napkin-exchange-market-simulation
+
+docker stats
