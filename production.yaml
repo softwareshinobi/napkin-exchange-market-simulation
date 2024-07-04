@@ -182,24 +182,6 @@ services:
 
             LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
 
-    napkin-exchange-market-watch:
-
-        container_name: napkin-exchange-market-watch
-
-        image: softwareshinobi/napkin-exchange-market-watch
-
-        build: 
-
-            context: watch
-
-            dockerfile: Dockerfile
-
-        environment:
-
-            VIRTUAL_HOST: watch.napkinexchange.softwareshinobi.digital
-
-            LETSENCRYPT_HOST: watch.napkinexchange.softwareshinobi.digital
-
 ##########################################
 ##
 ## project documentation
