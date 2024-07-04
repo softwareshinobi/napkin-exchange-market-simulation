@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs>-DDB_HOST=localhost -DDB_PORT=3306 -DDB_NAME=napkin_exchange_market -DDB_USER=napkin_exchange_market -DDB_PASS=napkin_exchange_market</exec.vmArgs>
+                <exec.vmArgs>-DDB_HOST=database.softwareshinobi.digital -DDB_PORT=3306 -DDB_NAME=napkinexchange -DDB_USER=napkinexchange -DDB_PASS=napkinexchange</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>digital.softwareshinobi.napkinexchange.TheNapkinExchange</exec.mainClass>
@@ -27,7 +27,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs>-DDB_HOST=localhost -DDB_PORT=3306 -DDB_NAME=napkin_exchange_market -DDB_USER=napkin_exchange_market -DDB_PASS=napkin_exchange_market -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
+                <exec.vmArgs>-DDB_HOST=database.softwareshinobi.digital -DDB_PORT=3306 -DDB_NAME=napkinexchange -DDB_USER=napkinexchange -DDB_PASS=napkinexchange -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>digital.softwareshinobi.napkinexchange.TheNapkinExchange</exec.mainClass>
@@ -45,7 +45,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs>-DDB_HOST=localhost -DDB_PORT=3306 -DDB_NAME=napkin_exchange_market -DDB_USER=napkin_exchange_market -DDB_PASS=napkin_exchange_market</exec.vmArgs>
+                <exec.vmArgs>-DDB_HOST=database.softwareshinobi.digital -DDB_PORT=3306 -DDB_NAME=napkinexchange -DDB_USER=napkinexchange -DDB_PASS=napkinexchange</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>digital.softwareshinobi.napkinexchange.TheNapkinExchange</exec.mainClass>
                 <exec.executable>java</exec.executable>
