@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SortHistory {
 
-    public static void sortStockHistoryByDate(List<SecurityPricingHistory> stockPriceHistory) {
+    public static void sortSecurityHistoryListByDate(List<SecurityPricingHistory> stockPriceHistory) {
         stockPriceHistory.sort((history1, history2) -> {
             return history1.getId().getDateTime().compareTo(history2.getId().getDateTime());
         });

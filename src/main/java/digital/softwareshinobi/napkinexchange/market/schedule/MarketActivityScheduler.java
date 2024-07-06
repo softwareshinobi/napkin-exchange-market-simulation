@@ -38,7 +38,7 @@ public class MarketActivityScheduler {
 
         var currentMarketTime = this.marketActivityService.tick();
 
-    //    logger.info("tick / market time / " + currentMarketTime);
+        logger.info("tick / market time / " + currentMarketTime);
 
         this.limitOrderService.processLimitOrders();
 

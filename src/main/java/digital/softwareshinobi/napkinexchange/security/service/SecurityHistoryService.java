@@ -27,6 +27,8 @@ public class SecurityHistoryService {
     @Autowired
     private final MarketService marketService;
 
+    private static final int DEFAULT_MAX_LIST_SIZE = 100;
+
     public void updateSecurityHistory() {
 
         Market market = this.marketService.getMarket();
@@ -44,39 +46,34 @@ public class SecurityHistoryService {
 
             if (previousSecurityPricingHistoryOptional.isPresent()) {
 
-           //     System.out.println("previousSecurityPricingHistoryOptional / " + previousSecurityPricingHistoryOptional);
+                //     System.out.println("previousSecurityPricingHistoryOptional / " + previousSecurityPricingHistoryOptional);
 //
                 SecurityPricingHistory previousSecurityPricingHistory = previousSecurityPricingHistoryOptional.get();
 
-             //   System.out.println("previousSecurityPricingHistory / " + previousSecurityPricingHistory);
+                //   System.out.println("previousSecurityPricingHistory / " + previousSecurityPricingHistory);
 //
                 previousSecurityPricing = previousSecurityPricingHistory.getPrice();
 
-              //  System.out.println("previousSecurityPricing / " + previousSecurityPricing);
-
+                //  System.out.println("previousSecurityPricing / " + previousSecurityPricing);
                 Double currentSecurityPricing = currentSecurity.getPrice();
 
-             //   System.out.println("currentSecurityPricing / " + currentSecurityPricing);
-
+                //   System.out.println("currentSecurityPricing / " + currentSecurityPricing);
                 gainValue = currentSecurityPricing - previousSecurityPricing;
 
-              //  System.out.println("gainValue / " + gainValue);
-
+                //  System.out.println("gainValue / " + gainValue);
                 if (previousSecurityPricing != 0) { // Avoid division by zero
                     gainPercent = (gainValue / previousSecurityPricing); //* 100;
-             //       System.out.println("gainPercent / " + gainPercent);
+                    //       System.out.println("gainPercent / " + gainPercent);
                 }
                 //   gain
 
                 // Calculate gain/loss in percentage
                 // Print the results
-             //   System.out.println("Gain/Loss in Value: " + gainValue);
-             //   System.out.println("Gain/Loss in Percentage: " + gainPercent + "%");
-
+                //   System.out.println("Gain/Loss in Value: " + gainValue);
+                //   System.out.println("Gain/Loss in Percentage: " + gainPercent + "%");
             } else {
 
-           //     System.out.println("nonnneeee // No recent pricing history found for the company");
-
+                //     System.out.println("nonnneeee // No recent pricing history found for the company");
             }
 
             SecurityPricingHistory newSecurityPricingHistory = new SecurityPricingHistory(
@@ -89,8 +86,7 @@ public class SecurityHistoryService {
                     gainValue
             );
 
-      //      System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
-
+            //      System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
             this.securityPricingHistoryRepository.save(newSecurityPricingHistory);
 
         }
@@ -99,13 +95,13 @@ public class SecurityHistoryService {
 
     public List<SecurityPricingHistory> getSecurityPricingHistoryBySymbol(String symbol) {
 
-        List<SecurityPricingHistory> securityPricingHistoryList = securityPricingHistoryRepository
+        List<SecurityPricingHistory> securityPricingHistoryList = this.securityPricingHistoryRepository
                 .findAll().stream()
-                .filter(
-                        history -> history.getSecurity().getTicker().equalsIgnoreCase(symbol))
+                .filter(history -> history.getSecurity().getTicker().equalsIgnoreCase(symbol))
+                .limit(DEFAULT_MAX_LIST_SIZE)
                 .collect(Collectors.toList());
 
-        SortHistory.sortStockHistoryByDate(securityPricingHistoryList);
+        SortHistory.sortSecurityHistoryListByDate(securityPricingHistoryList);
 
         return securityPricingHistoryList;
 

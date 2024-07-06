@@ -14,9 +14,9 @@ public class TraderConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(TraderConfiguration.class);
 
-    private final String DEMO_USER = "demo";
+    private final String DEMO_USER = "whiplashone";
 
-    private final String DEMO_PASS = "whiplashone";
+    private final String DEMO_PASS = "aventador";
 
     @Autowired
     private TraderService accountService;
@@ -24,14 +24,13 @@ public class TraderConfiguration {
     @PostConstruct
     public void createMateoDevelopmentUser() {
 
-
         if (!accountService.doesTraderAccountExist(DEMO_USER)) {
 
-            logger.info("creating the new {} user", DEMO_USER);
+            logger.info("creating system user / [{}]", DEMO_USER);
 
             try {
 
-                accountService.createTraderAccount(DEMO_USER, DEMO_PASS);
+                this.accountService.createTraderAccount(DEMO_USER, DEMO_PASS);
 
             } catch (InvalidAccountException ex) {
 

@@ -21,16 +21,8 @@ public class SecurityController {
     private SecurityService securityService;
 
     @Autowired
-    private SecurityHistoryService securityPriceHistoryService;
+    private SecurityHistoryService securityHistoryService;
 
-    private static final int TARGET_LIST_SIZE = 100;
-
-    @GetMapping(value = "health")
-    public String health() {
-
-        return "OK";
-
-    }
 
     @GetMapping(value = "")
     public List<Security> fetchAllSecurities() {
@@ -56,7 +48,7 @@ public class SecurityController {
     @GetMapping(value = "/history/{symbol}")
     public List<SecurityPricingHistory> fetchSecurityPricingHistoryBySymbol(@PathVariable String symbol) {
 
-        return this.securityPriceHistoryService.getSecurityPricingHistoryBySymbol(symbol);
+        return this.securityHistoryService.getSecurityPricingHistoryBySymbol(symbol);
 
     }
 
@@ -69,6 +61,15 @@ public class SecurityController {
         return list.get(list.size() - 1);
 
     }
+    
+       @GetMapping(value = "health")
+    public String health() {
+
+        return "OK";
+
+    }
+    
+    
 //    @GetMapping(value = "/history/{ticker}")
 //    public List<StockPriceHistoryDTO> fetchSecurityPricingHistoryBySymbol(@PathVariable String ticker) {
 //

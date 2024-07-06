@@ -1,74 +1,3 @@
-package digital.softwareshinobi.napkinexchange.broker.controller;
-
-import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
-import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioService;
-import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
-import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
-import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
-import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-@CrossOrigin
-@RestController
-@RequestMapping(value = "broker")
-public class BrokerController {
-
-    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.01;
-
-    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.025;
-
-    @Autowired
-    private SecurityPortfolioService securityPortfolioService;
-
-    @Autowired
-    private LimitOrderService limitOrderService;
-
-    @Autowired
-    private TraderService traderService;
-
-    @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private NotificationService notificationService;
-
-    public BrokerController() {
-
-        System.out.println("##");
-        System.out.println("## init > Broker Controller");
-        System.out.println("##");
-
-    }
-
-    @RequestMapping(value = "/orders/")
-    public List<LimitOrder> fetchActiveLimitOrders() {
-
-        return this.limitOrderService.findLimitOrders();
-
-    }
-
-    @RequestMapping(value = "/orders/{username}")
-    public List<LimitOrder> fetchActiveLimitOrders(@PathVariable String username) {
-
-        return this.limitOrderService.findLimitOrders(traderService.getAccountByName(username));
-
-    }
-
-    @GetMapping(value = "/")
-    protected String root() {
-
-        return "BrokerController";
-
-    }
-
-    @GetMapping(value = "health")
-    protected String health() {
-
-        return "OK";
-
-    }
     /*
         /// build notification
 ////        StringBuilder stringBuffer = new StringBuilder();
@@ -207,4 +136,3 @@ public class BrokerController {
     }
 
      */
-}
