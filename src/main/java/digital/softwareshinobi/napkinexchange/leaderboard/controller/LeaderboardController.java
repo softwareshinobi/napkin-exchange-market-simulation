@@ -19,24 +19,17 @@ public class LeaderboardController {
     @Autowired
     private final LeaderboardService leaderboardService;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "")
     public List<Leaderboard> getLeaderboardTopTen() {
 
-        return leaderboardService.topTenTraders();
+        return this.leaderboardService.topTenTraders();
 
     }
 
-    @RequestMapping(value = "/podium")
-    public List<Leaderboard> getLeaderboardPodium() {
-
-        return leaderboardService.topThreeTraders();
-
-    }
-
-    @RequestMapping(value = "/rank/{username}")
+    @RequestMapping(value = "{username}")
     public Leaderboard getLeaderboardByUsername(@PathVariable String username) {
 
-        return leaderboardService.findByTraderName(username);
+        return this.leaderboardService.findByTraderName(username);
 
     }
 

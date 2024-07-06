@@ -16,8 +16,8 @@ public class Leaderboard {
 
     private String username;
 
-    private Double accountBalance;
+    private Double cashBalance;
 
-    private Double totalProfits;
+    private Double accountNetWorth;
 
 }

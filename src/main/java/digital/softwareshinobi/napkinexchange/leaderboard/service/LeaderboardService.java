@@ -17,28 +17,11 @@ public class LeaderboardService {
     @Autowired
     private final TraderService traderService;
 
-    public List<Leaderboard> topThreeTraders() {
-
-        List<Trader> traderList
-                = TraderSortingUtility.sortTraderByAccountValue(
-                         this.traderService.findAllAccounts());
-
-        return traderList.stream()
-                .map(trader -> new Leaderboard(
-                traderList.indexOf(trader) + 1,
-                trader.getUsername(),
-                trader.getAccountBalance(),
-                trader.getTotalProfits()))
-                .limit(3)
-                .collect(Collectors.toList());
-
-    }
-
     public List<Leaderboard> topTenTraders() {
 
         List<Trader> traderList
                 = TraderSortingUtility.sortTraderByAccountValue(
-                         this.traderService.findAllAccounts());
+                        this.traderService.findAllAccounts());
 
         return traderList.stream()
                 .map(trader
@@ -70,3 +53,24 @@ public class LeaderboardService {
     }
 
 }
+
+/*
+
+    public List<Leaderboard> topThreeTraders() {
+
+        List<Trader> traderList
+                = TraderSortingUtility.sortTraderByAccountValue(
+                         this.traderService.findAllAccounts());
+
+        return traderList.stream()
+                .map(trader -> new Leaderboard(
+                traderList.indexOf(trader) + 1,
+                trader.getUsername(),
+                trader.getAccountBalance(),
+                trader.getTotalProfits()))
+                .limit(3)
+                .collect(Collectors.toList());
+
+    }
+
+*/

@@ -14,9 +14,9 @@ public class TraderConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(TraderConfiguration.class);
 
-    private final String DEMO_USER = "whiplashone";
+    private final String DEMO_USER = "projectchimba";
 
-    private final String DEMO_PASS = "aventador";
+    private final String DEMO_PASS = "whiplashone";
 
     @Autowired
     private TraderService accountService;
