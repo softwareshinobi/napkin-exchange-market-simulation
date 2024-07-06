@@ -23,13 +23,17 @@ public class LeaderboardService {
                 = TraderSortingUtility.sortTraderByAccountValue(
                         this.traderService.findAllAccounts());
 
+        System.out.println("trader list:");
+        
+        System.out.println(traderList);
+                
         return traderList.stream()
                 .map(trader
                         -> new Leaderboard(
                         traderList.indexOf(trader) + 1,
                         trader.getUsername(),
                         trader.getAccountBalance(),
-                        trader.getTotalProfits()))
+                        trader.getAccountValue()))
                 .limit(10)
                 .collect(Collectors.toList());
 
@@ -42,12 +46,12 @@ public class LeaderboardService {
                         this.traderService.findAllAccounts());
 
         return traderList.stream()
-                .filter(account -> account.getUsername().equals(traderName))
-                .map(account -> new Leaderboard(
-                traderList.indexOf(account) + 1,
-                account.getUsername(),
-                account.getAccountBalance(),
-                account.getTotalProfits()))
+                .filter(trader -> trader.getUsername().equals(traderName))
+                .map(trader -> new Leaderboard(
+                traderList.indexOf(trader) + 1,
+                trader.getUsername(),
+                             trader.getAccountBalance(),
+                        trader.getAccountValue()))
                 .findFirst().orElse(null);
 
     }
