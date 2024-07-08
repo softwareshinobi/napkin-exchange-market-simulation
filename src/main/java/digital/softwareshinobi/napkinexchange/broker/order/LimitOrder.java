@@ -19,10 +19,10 @@ public class LimitOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@JsonIgnore
     private Integer id;
-    
+
     @Column
     public Integer partnerID;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Trader trader;
 
@@ -38,7 +38,8 @@ public class LimitOrder implements Serializable {
     @Column
     private Double strike;
 
-
+    @Column
+    private Boolean active = true;
 
     public LimitOrder(String type, Trader trader, Security security, int units, double strike) {
 
@@ -53,29 +54,6 @@ public class LimitOrder implements Serializable {
         this.strike = strike;
 
     }
-//
-//    @Override
-//    public String toS66tring() {
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//
-//        stringBuilder.append("{");
-//        stringBuilder.append("id=").append(id);
-//        stringBuilder.append(", account=").append(trader);
-//        stringBuilder.append(", type=").append(type);
-//        stringBuilder.append(", stock=").append(security);
-//        stringBuilder.append(", sharesToBuy=").append(units);
-//        stringBuilder.append(", strikePrice=").append(strike);
-//        stringBuilder.append(", relatedOrderId=").append(partnerID);
-//        stringBuilder.append('}');
-//
-//        String returnString = stringBuilder.toString();
-//
-//        stringBuilder = null;
-//
-//        return returnString;
-//
-//    }
 
     @Override
     public String toString() {
@@ -88,6 +66,7 @@ public class LimitOrder implements Serializable {
         sb.append(", security=").append(security);
         sb.append(", units=").append(units);
         sb.append(", strike=").append(strike);
+        sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
     }
