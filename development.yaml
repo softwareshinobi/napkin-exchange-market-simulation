@@ -118,3 +118,25 @@ services:
 
             LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
 
+    napkin-exchange-market-docs:
+
+        container_name: napkin-exchange-market-docs
+
+        image: softwareshinobi/napkin-exchange-market-docs
+
+        build: 
+
+            context: docs
+
+            dockerfile: Dockerfile
+
+        ports:
+
+            - 8882:80
+
+        environment:
+
+            VIRTUAL_HOST: docs.napkinexchange.softwareshinobi.digital
+
+            LETSENCRYPT_HOST: docs.napkinexchange.softwareshinobi.digital
+
