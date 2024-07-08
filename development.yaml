@@ -139,4 +139,3 @@ services:
             VIRTUAL_HOST: docs.napkinexchange.softwareshinobi.digital
 
             LETSENCRYPT_HOST: docs.napkinexchange.softwareshinobi.digital
-
