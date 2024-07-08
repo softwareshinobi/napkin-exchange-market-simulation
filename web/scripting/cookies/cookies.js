@@ -13,7 +13,7 @@ var apiSymbol="CALLISTO"
 
 apiURL="https://apis.napkinexchange.softwareshinobi.digital";
 
-apiURL="http://localhost:8888";
+//apiURL="http://localhost:8888";
 
 $(document).ready(function () {
   

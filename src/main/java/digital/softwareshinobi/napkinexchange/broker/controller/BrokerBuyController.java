@@ -15,6 +15,8 @@ import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
 import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
 import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +26,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "broker/buy")
 public class BrokerBuyController {
 
-    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.005;
+    private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.001;
 
-    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.015;
+    private static final double DEFAULT_TAKE_PROFIT_TARGET_PERCENT = 0.004;
 
     @Autowired
     private SecurityPortfolioService securityPortfolioService;
@@ -165,6 +167,8 @@ public class BrokerBuyController {
 
         System.out.println("takeProfitOrder / " + takeProfitOrder);
 
+        System.out.println("7777");
+      
         this.limitOrderService.saveLimitOrder(takeProfitOrder);
 
         takeProfitOrder.setPartnerID(stopLossOrder.getId());

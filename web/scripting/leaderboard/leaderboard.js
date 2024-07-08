@@ -17,7 +17,7 @@ $.ajax({
 
 type: "GET",
 
-url: apiURL + "/leaderboard/",
+url: apiURL + "/leaderboard",
 
 contentType: "text/plain",
 
@@ -29,11 +29,9 @@ profitleaderboard(data);
 
 },
 
-error: function (jqXHR, status) {
+error: function (error, status) {
 
-    console.log("Something Went wrong");
-
-    console.log(jqXHR);
+    console.log("error fetching leaderboard", error);
 
 }
 
@@ -51,7 +49,7 @@ function profitleaderboard(leaderBoardList) {
 
         html += '<td class="METADATA DEBUG">' + leaderBoardList[i].ranking + '</td>';  // Integer (ranking)
         html += '<td class="METADATA DEBUG">' + leaderBoardList[i].username + '</td>';  // String (username)
-        html += '<td class="METADATA DEBUG">' + " $ " + leaderBoardList[i].accountBalance.toLocaleString() + '</td>';
+        html += '<td class="METADATA DEBUG">' + " $ " + leaderBoardList[i].accountNetWorth.toLocaleString() + '</td>';
         
         html += '</tr>';
 
