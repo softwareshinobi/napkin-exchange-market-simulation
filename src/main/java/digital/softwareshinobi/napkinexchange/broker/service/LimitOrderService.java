@@ -267,12 +267,12 @@ public class LimitOrderService {
             logger.debug("not active. skipping.");
             return;
         }
-        logger.debug();
+        logger.debug("");
         logger.debug("evaluating TP order / " + takeProfitOrder);
-        logger.debug();
+        logger.debug("");
         logger.debug("  current price / " + takeProfitOrder.getSecurity().getPrice());
         logger.debug("   strike price / " + takeProfitOrder.getStrike());
-        logger.debug();
+        logger.debug("");
 
 //todo, we shouldn't be compariing doubles like this
         if (takeProfitOrder.getSecurity().getPrice() >= takeProfitOrder.getStrike()) {
@@ -377,12 +377,12 @@ public class LimitOrderService {
         logger.debug("contains > " + contains);
 
         logger.debug("rep before > ");
-        logger.debug(this.limitOrderRepository.findAll());
+        logger.debug("{}",this.limitOrderRepository.findAll());
 
         this.limitOrderRepository.delete(limitOrder);
 
         logger.debug("rep after > ");
-        logger.debug(this.limitOrderRepository.findAll());
+        logger.debug("{}",this.limitOrderRepository.findAll());
         boolean noContain = !this.limitOrderRepository.findAll().contains(limitOrder);
 
         logger.debug("contains > " + contains);

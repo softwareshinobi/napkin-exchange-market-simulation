@@ -27,9 +27,7 @@ public class LeaderboardService {
                 = TraderSortingUtility.sortTraderByAccountValue(
                         this.traderService.findAllAccounts());
 
-        logger.debug("trader list:");
-
-        logger.debug(traderList);
+        logger.debug("trader list / {}",traderList);
 
         return traderList.stream()
                 .map(trader

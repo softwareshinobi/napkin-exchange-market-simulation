@@ -47,6 +47,8 @@ public class Market {
 
         this.setDate(newDate);
 
+        newDate=null;
+        
     }
 
 }

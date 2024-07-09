@@ -7,12 +7,11 @@ import digital.softwareshinobi.napkinexchange.security.exception.SecurityNotFoun
 import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
-import digital.softwareshinobi.napkinexchange.trader.service.TraderHistoryService;
 import org.slf4j.LoggerFactory;
 
 public class ValidateStockTransaction {
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(ValidateStockTransaction.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ValidateStockTransaction.class);
 
     public static boolean doesTraderHaveEnoughAvailableBalance(
             Trader trader,
@@ -44,8 +43,8 @@ public class ValidateStockTransaction {
                 trader.getSecurityPortfolio(),
                 securitySellRequest.getSecurity());
 
-        logger.debug("securityPosition / " + securityPosition);
-        logger.debug("securitySellRequest / " + securitySellRequest);
+        logger.debug("securityPosition / {}" , securityPosition);
+        logger.debug("securitySellRequest / {}" , securitySellRequest);
 
         if (securityPosition == null) {
 
@@ -54,7 +53,7 @@ public class ValidateStockTransaction {
 
         boolean hasEnough = securityPosition.getUnits() >= securitySellRequest.getUnits();
 
-        logger.debug("hasEnough / " + hasEnough);
+        logger.debug("hasEnough / {}", hasEnough);
 
         return hasEnough;
     }

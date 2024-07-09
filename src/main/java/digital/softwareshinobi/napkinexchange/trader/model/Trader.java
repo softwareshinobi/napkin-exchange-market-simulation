@@ -21,7 +21,8 @@ import org.slf4j.LoggerFactory;
 @NoArgsConstructor
 public class Trader implements Serializable {
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(Trader.class);
+  @Transient
+  private final org.slf4j.Logger logger = LoggerFactory.getLogger(Trader.class);
 
     @Id
     private String username;
