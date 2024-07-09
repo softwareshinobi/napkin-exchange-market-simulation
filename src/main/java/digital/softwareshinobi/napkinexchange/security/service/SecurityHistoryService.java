@@ -93,16 +93,24 @@ public class SecurityHistoryService {
 
     }
 
-    public List<SecurityPricingHistory> getSecurityPricingHistoryBySymbol(String symbol) {
+   public List<SecurityPricingHistory> getSecurityPricingHistoryByTicker(String symbol) {
 
         List<SecurityPricingHistory> securityPricingHistoryList = this.securityPricingHistoryRepository
-                .findAll().stream()
-                .filter(history -> history.getSecurity().getTicker().equalsIgnoreCase(symbol))
-                .limit(DEFAULT_MAX_LIST_SIZE)
+                .findAll()
+                .stream()
+                .filter(securityPricingHistory
+                        -> securityPricingHistory.getSecurity().getTicker().equalsIgnoreCase(symbol))
+                //    .limit(DEFAULT_MAX_LIST_SIZE)
                 .collect(Collectors.toList());
 
-        SortHistory.sortSecurityHistoryListByDate(securityPricingHistoryList);
+        while (securityPricingHistoryList.size() > DEFAULT_MAX_LIST_SIZE) {
 
+            securityPricingHistoryList.remove(0);
+
+            // logger.debug("size: "+securityPricingHistoryList.size());
+        }
+
+        //  SortHistory.sortSecurityHistoryListByDate(securityPricingHistoryList);
         return securityPricingHistoryList;
 
     }
