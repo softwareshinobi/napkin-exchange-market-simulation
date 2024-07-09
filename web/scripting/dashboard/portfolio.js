@@ -47,6 +47,8 @@ function insertTraderHoldings(holdings) {
   var totalUnits = 0;
   var totalValue = 0;
 
+var totalPurchaseValue = 0;
+
   for (var i = 0; i < holdings.securityPortfolio.length; i++) {
 
     html += '<tr>';
@@ -63,28 +65,24 @@ function insertTraderHoldings(holdings) {
 
     totalUnits += holdings.securityPortfolio[i].units;
 
-    totalValue += value;
+    totalPurchaseValue += holdings.securityPortfolio[i].units * holdings.securityPortfolio[i].costBasis;
 
-html += '<td> -- </td>';
+    html += '<td>$ ' + holdings.securityPortfolio[i].value.toLocaleString() + '</td>';  // Format cost basis with 2
+
+totalValue += holdings.securityPortfolio[i].value;
 
     html += '</tr>';
 
   }
 
   // Add sum row with formatting
-  html += '<tr style="font-weight: bold;">';
-  html += '<td>TOTAL</td>';  // Bold "Total" text
-  html += '<td>' + totalUnits.toLocaleString() + '</td>';  // Format units with comma separator
-
-html += '<td> -- </td>';
-
-
-
-html += '<td>$ ' + totalValue.toLocaleString() + '</td>';
-
-html += '<td>$ ' + holdings.portfolioValue.toLocaleString() + '</td>';
-
-  html += '</tr>';
+    html += '<tr style="font-weight: bold;">';
+    html += '<td>TOTAL</td>';  // Bold "Total" text
+    html += '<td>' + totalUnits.toLocaleString() + '</td>';  // Format units with comma separator
+    html += '<td> -- </td>';
+    html += '<td>$ ' + totalPurchaseValue.toLocaleString() + '</td>';
+    html += '<td>$ ' + totalValue.toLocaleString() + '</td>';
+    html += '</tr>';
 
 //  console.long("html / ", html);
 

@@ -1,6 +1,7 @@
 package digital.softwareshinobi.napkinexchange.market.schedule;
 
 import digital.softwareshinobi.napkinexchange.broker.service.LimitOrderService;
+import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioService;
 import digital.softwareshinobi.napkinexchange.market.constants.MarketIntervals;
 import digital.softwareshinobi.napkinexchange.market.service.MarketActivityService;
 import digital.softwareshinobi.napkinexchange.security.service.SecurityHistoryService;
@@ -32,6 +33,9 @@ public class MarketActivityScheduler {
     @Autowired
     private final SecurityHistoryService securityHistoryService;
 
+    @Autowired
+    private final SecurityPortfolioService securityPortfolioService;
+
     @SuppressWarnings("unused")
     @Scheduled(fixedRate = MarketIntervals.T)
     public void dailyMarketActivity() {
@@ -40,9 +44,11 @@ public class MarketActivityScheduler {
 
         logger.info("tick / market time / " + currentMarketTime);
 
+        this.securityHistoryService.updateSecurityHistory();
+
         this.limitOrderService.processLimitOrders();
 
-        this.securityHistoryService.updateSecurityHistory();
+        this.securityPortfolioService.updateTraderPortfolioValues();
 
         this.traderHistoryService.updateTraderAccountHistory();
 

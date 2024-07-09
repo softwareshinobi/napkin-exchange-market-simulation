@@ -48,7 +48,7 @@ function injectTraderNameAndBalance(trader) {
 
     $('#dropdownTraderName').html(trader.username);
 
-    var formattedNumber = trader.accountValue.toLocaleString('en-US', {
+    var formattedNumber = trader.totalAccountValue.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
     });

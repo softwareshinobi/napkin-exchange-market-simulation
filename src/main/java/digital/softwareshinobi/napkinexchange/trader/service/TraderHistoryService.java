@@ -40,14 +40,14 @@ public class TraderHistoryService {
 
         for (final Trader trader : traderList) {
 
-            double portfolioValue = this.securityPortfolioService.calculatePortfolioValue(trader);
+//            double portfolioValue = this.securityPortfolioService.calculatePortfolioValue(trader);
 
             ////////
             AccountHistory newAccountHistory = new AccountHistory(
                     market.getDate(),
                     trader,
-                    trader.getTotalProfits(),
-                    portfolioValue
+                    trader.getTotalAccountValue(),
+                    -1.0
             );
 
             //    System.out.println("newAccountHistory / " + newAccountHistory);
@@ -58,9 +58,8 @@ public class TraderHistoryService {
             //  System.out.println("portfolioValue / " + portfolioValue);
             //    System.out.println("trader / before / " + trader);
 
-            trader.setPortfolioValue(portfolioValue);
-            trader.setAccountValue(trader.getAccountBalance() + trader.getPortfolioValue());
-            trader.setUtilizationPercentage(trader.getAccountBalance() / (trader.getAccountBalance() + trader.getPortfolioValue()));
+//            trader.setPortfolioValue(portfolioValue);
+//            trader.setAccountValue(trader.getAccountBalance() + trader.getPortfolioValue());
 
             //
             this.traderService.saveTraderAccount(trader);

@@ -32,8 +32,8 @@ public class LeaderboardService {
                         -> new Leaderboard(
                         traderList.indexOf(trader) + 1,
                         trader.getUsername(),
-                        trader.getAccountBalance(),
-                        trader.getAccountValue()))
+                        trader.getTotalAccountValue(),
+                        trader.getTotalAccountValue()))
                 .limit(10)
                 .collect(Collectors.toList());
 
@@ -50,8 +50,8 @@ public class LeaderboardService {
                 .map(trader -> new Leaderboard(
                 traderList.indexOf(trader) + 1,
                 trader.getUsername(),
-                trader.getAccountBalance(),
-                trader.getAccountValue()))
+                trader.getTotalAccountValue(),
+                trader.getTotalAccountValue()))
                 .findFirst().orElse(null);
 
     }

@@ -30,24 +30,11 @@ public class Trader implements Serializable {
     private Double leverage = 50.0;
 
     @Column(name = "available_funds")
-    private Double accountBalance;
-
-    @JsonIgnore
-    @Column(name = "profit_loss")
-    private Double totalProfits;
+    private Double availableFunds;
 
     @OneToMany(mappedBy = "trader", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<SecurityPosition> securityPortfolio;
-
-    @Column(name = "portfolio_value")
-    private Double portfolioValue;
-
-    @Column(name = "account_value")
-    private Double accountValue = 0.0;
-
-    @Column(name = "utilization")
-    private Double utilizationPercentage = 0.0;
 
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
@@ -60,59 +47,36 @@ public class Trader implements Serializable {
 
         this.password = password;
 
-        this.accountBalance = 0.0;
-
-        this.portfolioValue = 0.0;
-
-        this.totalProfits = 0.0;
+        this.availableFunds = 0.0;
 
         this.leverage = 50.0;
 
     }
 
-    public void updateTotalProfits(double costBasis, int units, double price) {
+    public Double getTotalAccountValue() {
+        return this.availableFunds + this.getPortfolioValue();
+    }   
 
-        if (this.totalProfits == null) {
+    public Double getPortfolioValue() {
 
-            this.totalProfits = 0.0;
+        double portfolioValue = 0;
+
+        if(this.securityPortfolio==null)return 0.0;
+        
+        for (SecurityPosition securityPosition : this.securityPortfolio) {
+
+            portfolioValue = portfolioValue +securityPosition.getValue();
 
         }
 
-        double updatedTotalProfits = CalculateCostBasisAndProfits.findProfitsAfterSelling(
-                this.totalProfits,
-                costBasis,
-                units,
-                price);
-
-        System.out.println("updatedTotalProfits / " + updatedTotalProfits);
-
-        this.setTotalProfits(updatedTotalProfits);
+        return portfolioValue;
 
     }
 
-    public void updateAccountBalance(double amountToAdd) {
-
-//        if (this.getAccountBalance() + amountToAdd < 0) {
-//
-//            throw new AccountBalanceException("Must have more money in account");
-//
-//        }
-        this.setAccountBalance(Math.round((this.getAccountBalance() + amountToAdd) * 100.00) / 100.00);
-
+    public Double getFundsUtilizationPercentage() {
+        return this.getPortfolioValue() / this.getTotalAccountValue();
     }
 
-//    public Double calculateSecurityPortfolioValue(){
-//        
-//        double val=0;
-//        
-//        for(SecurityPosition securityPosition:this.securityPortfolio){
-//        
-//            val = val +securityPosition.value;
-//            
-//        }
-//        return  val;
-//        
-//    }
     @Override
     public String toString() {
 
@@ -120,13 +84,17 @@ public class Trader implements Serializable {
 
         stringBuilder.append(" { ");
 
-        stringBuilder.append("username").append(" : ").append(username).append(", ");
+        stringBuilder.append("trader").append(" : ").append(this.username).append(", ");
 
-        stringBuilder.append("accountBalance").append(" : ").append(accountBalance).append(", ");
+        stringBuilder.append("totalAccountValue").append(" : ").append(this.getTotalAccountValue()).append(", ");
 
-        stringBuilder.append("totalProfits").append(" : ").append(totalProfits).append(", ");
+        stringBuilder.append("availableFunds").append(" : ").append(this.availableFunds).append(", ");
 
-        stringBuilder.append("stocksOwned").append(" : ").append(securityPortfolio).append(", ");
+        stringBuilder.append("portfolioValue").append(" : ").append(this.getPortfolioValue()).append(", ");
+
+        stringBuilder.append("utilization").append(" : ").append(this.getFundsUtilizationPercentage()).append(", ");
+
+        stringBuilder.append("portfolio").append(" : ").append(this.securityPortfolio).append(", ");
 
         stringBuilder.append(" } ");
 

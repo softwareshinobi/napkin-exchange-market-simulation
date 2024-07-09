@@ -58,7 +58,7 @@ function injectAccountBalanceData(trader) {
 
 //    console.warn("html / ", html);
 
-   var formattedNumberTraderAccountValue = trader.accountValue.toLocaleString('en-US', {
+   var formattedNumberTraderAccountValue = trader.totalAccountValue.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
     });
@@ -76,7 +76,7 @@ function injectAccountBalanceData(trader) {
 
 ////////
     
-   var formattedAccountAvailable = trader.accountBalance.toLocaleString('en-US', {
+   var formattedAccountAvailable = trader.availableFunds.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
     });
@@ -87,7 +87,7 @@ function injectAccountBalanceData(trader) {
 
 ///////
 
-var pct = (1.0 - trader.utilizationPercentage) * 100;
+//var pct = (1.0 - trader.fundsUtilizationPercentage) * 100;
 
 
 const formatter = new Intl.NumberFormat('en-US', {
@@ -95,7 +95,6 @@ const formatter = new Intl.NumberFormat('en-US', {
    maximumFractionDigits: 1,
 });
 
-console.log(); // "2.01"
-    $("#traderAccountUsage").html(formatter.format(100*trader.utilizationPercentage)+"%");
+    $("#traderAccountUsage").html(formatter.format(100*trader.fundsUtilizationPercentage)+"%");
 
 }

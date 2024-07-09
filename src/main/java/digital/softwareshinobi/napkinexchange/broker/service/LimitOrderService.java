@@ -81,10 +81,10 @@ public class LimitOrderService {
     @Transactional
     public void processLimitOrders() {
 
-        System.out.println("enter > processLimitOrders");
+     //   System.out.println("enter > processLimitOrders");
 
         if (this.limitOrderRepository.count() == 0) {
-            System.out.println("no limit orders to process. returning;");
+   //         System.out.println("no limit orders to process. returning;");
 
             return;
 
@@ -260,9 +260,13 @@ public class LimitOrderService {
         System.out.println("enter > qualifyTakeProfitOrder");
 
         if (!takeProfitOrder.getActive()) {
+            
             System.out.println("not active. skipping.");
+        
             return;
+        
         }
+        
         System.out.println();
         System.out.println("evaluating TP order / " + takeProfitOrder);
         System.out.println();

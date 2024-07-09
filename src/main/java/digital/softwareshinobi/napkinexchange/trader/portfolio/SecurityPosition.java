@@ -45,8 +45,8 @@ public class SecurityPosition implements Serializable {
 //    public Double price;
 //
 //     @JsonIgnore
-//     @Column(name = "value")
-//    public Double value;
+     @Column(name = "value")
+    public Double value;
 
     public SecurityPosition(Trader trader, String symbol, Integer units, Double costBasis) {
 

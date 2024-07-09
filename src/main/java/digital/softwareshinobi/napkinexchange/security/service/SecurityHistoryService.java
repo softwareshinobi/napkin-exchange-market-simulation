@@ -33,12 +33,12 @@ public class SecurityHistoryService {
 
         Market market = this.marketService.getMarket();
 
-        for (Security currentSecurity : this.securityService.getAllSecurities()) {
+        for (Security security : this.securityService.getAllSecurities()) {
 
 //System.out.println("currentSecurity / " + currentSecurity);
 //
             Optional<SecurityPricingHistory> previousSecurityPricingHistoryOptional
-                    = securityPricingHistoryRepository.findTopBySecurityOrderByIdDesc(currentSecurity);
+                    = securityPricingHistoryRepository.findTopBySecurityOrderByIdDesc(security);
 
             double previousSecurityPricing = -1d;
             double gainPercent = -2d;
@@ -55,7 +55,7 @@ public class SecurityHistoryService {
                 previousSecurityPricing = previousSecurityPricingHistory.getPrice();
 
                 //  System.out.println("previousSecurityPricing / " + previousSecurityPricing);
-                Double currentSecurityPricing = currentSecurity.getPrice();
+                Double currentSecurityPricing = security.getPrice();
 
                 //   System.out.println("currentSecurityPricing / " + currentSecurityPricing);
                 gainValue = currentSecurityPricing - previousSecurityPricing;
@@ -79,21 +79,20 @@ public class SecurityHistoryService {
             SecurityPricingHistory newSecurityPricingHistory = new SecurityPricingHistory(
                     new SecurityPricingHistoryId(
                             market.getDate(),
-                            currentSecurity.getTicker()),
-                    currentSecurity,
-                    currentSecurity.getPrice(), previousSecurityPricing,
+                            security.getTicker()),
+                    security,
+                    security.getPrice(), previousSecurityPricing,
                     gainPercent,
                     gainValue
             );
 
-            //      System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
             this.securityPricingHistoryRepository.save(newSecurityPricingHistory);
 
         }
 
     }
 
-   public List<SecurityPricingHistory> getSecurityPricingHistoryByTicker(String symbol) {
+    public List<SecurityPricingHistory> getSecurityPricingHistoryByTicker(String symbol) {
 
         List<SecurityPricingHistory> securityPricingHistoryList = this.securityPricingHistoryRepository
                 .findAll()

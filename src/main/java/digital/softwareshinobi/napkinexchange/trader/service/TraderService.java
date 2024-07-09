@@ -1,81 +1,79 @@
 package digital.softwareshinobi.napkinexchange.trader.service;
 
-import digital.softwareshinobi.napkinexchange.broker.types.AccountTransaction;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
-import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
-import digital.softwareshinobi.napkinexchange.trader.repository.AccountRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import digital.softwareshinobi.napkinexchange.trader.repository.TraderRepository;
 
 @Service
 @AllArgsConstructor
 public class TraderService {
 
     @Autowired
-    private final AccountRepository accountRepository;
+    private final TraderRepository traderRepository;
 
     @Autowired
     private final NotificationService notificationService;
 
-    private final Integer DEFAULTBALANCE = 1000000;
+    private final Double DEFAULT_NEW_TRADER_BALANCE = 1_000_000.00;
 
     public List<Trader> findAllAccounts() {
 
-        return accountRepository.findAll();
+        return this.traderRepository.findAll();
 
     }
 
     public Trader getAccountByName(String username) throws TraderNotFoundException {
 
-        return accountRepository.findById(username)
+        return this.traderRepository.findById(username)
                 .orElseThrow(() -> new TraderNotFoundException("No account with that username"));
 
     }
 
-    public void saveTraderAccount(Trader account) {
+    public void saveTraderAccount(Trader trader) {
 
-        accountRepository.save(account);
+        this.traderRepository.save(trader);
 
     }
 
-    public Trader createTraderAccount(String username, String password) throws InvalidAccountException {
+    public Trader createTraderAccount(String traderName, String traderPassword) throws InvalidAccountException {
 
-        if (doesTraderAccountExist(username)) {
+        if (doesTraderAccountExist(traderName)) {
 
-            throw new InvalidAccountException("Unable to create account. There is already an account with that username");
+            throw new InvalidAccountException("Unable to create Trader. There is already an Trader with that username");
 
         }
 
-        Trader newAccount = new Trader(username, password);
+        Trader trader = new Trader(traderName, traderPassword);
 
-        newAccount.updateAccountBalance(DEFAULTBALANCE);
+        trader.setAvailableFunds(DEFAULT_NEW_TRADER_BALANCE);
 
-        Trader resultAccount = accountRepository.save(newAccount);
+        Trader savedTrader = this. traderRepository.save(trader);
 
         notificationService.save(new Notification(
-                resultAccount,
+                savedTrader,
                 NotificationType.NEW_TRADER_CREATED,
-                resultAccount.toString()
+                savedTrader.toString()
         ));
 
-        newAccount = null;
+        trader = null;
 
-        return resultAccount;
+        return savedTrader;
 
     }
 
-    public boolean doesTraderAccountExist(String username) {
+    public boolean doesTraderAccountExist(String trader) {
 
         try {
 
-            getAccountByName(username);
+            getAccountByName(trader);
 
             return true;
 
@@ -87,25 +85,24 @@ public class TraderService {
 
     }
 
-    public void updateBalanceAndSave(AccountTransaction accountTransaction)
-            throws TraderNotFoundException, TraderBalanceException {
-
-        Trader account = getAccountByName(accountTransaction.getUsername());
-
-        account.updateAccountBalance(accountTransaction.getAmountToAdd());
-
-        this.saveTraderAccount(account);
-
-        account = null;
-
-    }
-
-    public void updateBalanceAndSave(Trader account, double amountToAdd) {
-
-        account.updateAccountBalance(amountToAdd);
-
-        this.saveTraderAccount(account);
-
-    }
+//    public void updateBalanceAndSave(AccountTransaction accountTransaction)
+//            throws TraderNotFoundException, TraderBalanceException {
+//
+//        Trader account = getAccountByName(accountTransaction.getUsername());
+//
+//        account.updateAccountBalance(accountTransaction.getAmountToAdd());
+//
+//        this.saveTraderAccount(account);
+//
+//        account = null;
+//
+//    }
+//    public void updateBalanceAndSave(Trader trader, double amountToAdd) {
+//
+//        trader.updateAccountBalance(amountToAdd);
+//
+//        this.saveTraderAccount(trader);
+//
+//    }
 
 }

@@ -13,7 +13,7 @@ public class TraderSortingUtility {
             @Override
             public int compare(Trader traderOne, Trader traderTwo) {
 
-                return traderTwo.getAccountValue().compareTo(traderOne.getAccountValue());
+                return traderTwo.getTotalAccountValue().compareTo(traderOne.getTotalAccountValue());
 
             }
 

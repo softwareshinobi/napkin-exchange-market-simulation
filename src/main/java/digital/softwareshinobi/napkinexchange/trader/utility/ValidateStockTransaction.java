@@ -15,7 +15,7 @@ public class ValidateStockTransaction {
             SecurityBuyRequest securityBuyRequest,
             SecurityService securityService) {
 
-        double balance = trader.getAccountBalance();
+        double balance = trader.getAvailableFunds();
 
         Security security;
 
