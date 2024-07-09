@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "broker/buy")
 public class BrokerBuyController {
 
-            private final org.slf4j.Logger logger = LoggerFactory.getLogger(BrokerBuyController.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(BrokerBuyController.class);
 
     private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.001;
 

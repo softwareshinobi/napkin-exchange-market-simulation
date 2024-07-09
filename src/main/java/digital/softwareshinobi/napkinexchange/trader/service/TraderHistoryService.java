@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class TraderHistoryService {
 
-                            private final org.slf4j.Logger logger = LoggerFactory.getLogger(TraderHistoryService.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(TraderHistoryService.class);
 
     @Autowired
     private final AccountHistoryRepository accountHistoryRepository;

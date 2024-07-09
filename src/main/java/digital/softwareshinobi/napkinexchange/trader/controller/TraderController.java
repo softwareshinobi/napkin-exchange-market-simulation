@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "trader")
 public class TraderController {
 
-                private final org.slf4j.Logger logger = LoggerFactory.getLogger(TraderController.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(TraderController.class);
 
     @Autowired
     private final TraderService traderService;

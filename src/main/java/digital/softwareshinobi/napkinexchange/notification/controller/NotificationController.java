@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("notification")
 public class NotificationController {
 
-        private final org.slf4j.Logger logger = LoggerFactory.getLogger(NotificationController.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(NotificationController.class);
 
     @Autowired
     NotificationService notificationService;

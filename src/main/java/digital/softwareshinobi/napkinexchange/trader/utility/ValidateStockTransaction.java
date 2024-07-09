@@ -11,7 +11,7 @@ import digital.softwareshinobi.napkinexchange.trader.service.TraderHistoryServic
 import org.slf4j.LoggerFactory;
 
 public class ValidateStockTransaction {
-                        
+
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(ValidateStockTransaction.class);
 
     public static boolean doesTraderHaveEnoughAvailableBalance(

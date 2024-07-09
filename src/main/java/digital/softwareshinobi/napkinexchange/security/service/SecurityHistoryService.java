@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class SecurityHistoryService {
 
-            private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityHistoryService.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityHistoryService.class);
 
     @Autowired
     private final SecurityPricingHistoryRepository securityPricingHistoryRepository;
@@ -102,17 +102,16 @@ public class SecurityHistoryService {
         List<SecurityPricingHistory> securityPricingHistoryList = this.securityPricingHistoryRepository
                 .findAll()
                 .stream()
-                .filter(securityPricingHistory -> 
-                        securityPricingHistory.getSecurity().getTicker().equalsIgnoreCase(symbol))
+                .filter(securityPricingHistory
+                        -> securityPricingHistory.getSecurity().getTicker().equalsIgnoreCase(symbol))
                 //    .limit(DEFAULT_MAX_LIST_SIZE)
                 .collect(Collectors.toList());
 
         while (securityPricingHistoryList.size() > DEFAULT_MAX_LIST_SIZE) {
-            
+
             securityPricingHistoryList.remove(0);
-                        
-           // logger.debug("size: "+securityPricingHistoryList.size());
-            
+
+            // logger.debug("size: "+securityPricingHistoryList.size());
         }
 
         //  SortHistory.sortSecurityHistoryListByDate(securityPricingHistoryList);

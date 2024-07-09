@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 @NoArgsConstructor
 public class Security implements Serializable {
 
-        private final org.slf4j.Logger logger = LoggerFactory.getLogger(Security.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(Security.class);
 
     @Id
     private String ticker;

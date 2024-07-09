@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 @Transactional
 public class LimitOrderService {
-        
+
     private final Logger logger = LoggerFactory.getLogger(LimitOrderService.class);
 
     @Autowired
@@ -86,10 +86,9 @@ public class LimitOrderService {
     @Transactional
     public void processLimitOrders() {
 
-    //    logger.debug("enter > processLimitOrders");
-
+        //    logger.debug("enter > processLimitOrders");
         if (this.limitOrderRepository.count() == 0) {
-     //       logger.debug("no limit orders to process. returning;");
+            //       logger.debug("no limit orders to process. returning;");
 
             return;
 

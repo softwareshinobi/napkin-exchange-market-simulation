@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "broker/orders")
 public class BrokerOrderController {
 
-                private final org.slf4j.Logger logger = LoggerFactory.getLogger(BrokerOrderController.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(BrokerOrderController.class);
 
     @Autowired
     private SecurityPortfolioService securityPortfolioService;

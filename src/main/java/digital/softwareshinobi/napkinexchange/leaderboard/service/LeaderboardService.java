@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class LeaderboardService {
-              
+
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(LeaderboardService.class);
 
     @Autowired

@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SecurityPortfolioService {
 
-                    private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityPortfolioService.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityPortfolioService.class);
 
     @Autowired
     private final SecurityPortfolioRepository securityPortfolioRepository;

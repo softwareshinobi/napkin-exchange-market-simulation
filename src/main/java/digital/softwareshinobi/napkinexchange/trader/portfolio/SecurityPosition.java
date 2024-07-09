@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @Setter
 public class SecurityPosition implements Serializable {
 
-                        private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityPosition.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityPosition.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
