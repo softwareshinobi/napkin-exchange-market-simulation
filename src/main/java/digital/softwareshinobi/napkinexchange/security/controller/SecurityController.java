@@ -47,7 +47,7 @@ public class SecurityController {
     @GetMapping(value = "/history/{symbol}")
     public List<SecurityPricingHistory> fetchSecurityPricingHistoryBySymbol(@PathVariable String symbol) {
 
-        return this.securityHistoryService.getSecurityPricingHistoryBySymbol(symbol);
+        return this.securityHistoryService.getSecurityPricingHistoryByTicker(symbol);
 
     }
 
