@@ -2,6 +2,7 @@ package digital.softwareshinobi.napkinexchange.trader.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import digital.softwareshinobi.napkinexchange.trader.controller.TraderController;
 import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "trader")
@@ -18,6 +20,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Trader implements Serializable {
+
+                    private final org.slf4j.Logger logger = LoggerFactory.getLogger(Trader.class);
 
     @Id
     private String username;
@@ -84,7 +88,7 @@ public class Trader implements Serializable {
                 units,
                 price);
 
-        System.out.println("updatedTotalProfits / " + updatedTotalProfits);
+        logger.debug("updatedTotalProfits / " + updatedTotalProfits);
 
         this.setTotalProfits(updatedTotalProfits);
 

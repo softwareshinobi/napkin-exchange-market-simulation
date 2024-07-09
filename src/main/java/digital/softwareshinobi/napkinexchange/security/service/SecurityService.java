@@ -47,7 +47,7 @@ public class SecurityService {
                 .collect(Collectors.toList());
     }
 
-    public Security getSecurityBySymbol(String ticker) {
+    public Security getSecurityByTicker(String ticker) {
         return stockRepository.findById(ticker.toUpperCase())
                 .orElseThrow(() -> new SecurityNotFoundException(
                 "There is no security found with the ticker / " + ticker));

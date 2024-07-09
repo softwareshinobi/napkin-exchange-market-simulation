@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "security_positions")
@@ -18,6 +19,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SecurityPosition implements Serializable {
+
+                        private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityPosition.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,9 +66,9 @@ public class SecurityPosition implements Serializable {
 
     public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
 
-        // System.out.println("cost / before / "+ this.costBasis);
-        //  System.out.println("units / before / "+ this.units);
-        //  System.out.println("current price / "+ currentSecurityPrice);
+        // logger.debug("cost / before / "+ this.costBasis);
+        //  logger.debug("units / before / "+ this.units);
+        //  logger.debug("current price / "+ currentSecurityPrice);
         this.costBasis = CalculateCostBasisAndProfits.newCostBasis(
                 this.units,
                 numberUnits,
@@ -74,8 +77,8 @@ public class SecurityPosition implements Serializable {
 
         this.units = this.units + numberUnits;
 
-        //   System.out.println("cost / after / "+ this.costBasis);
-        //   System.out.println("units / after / "+ this.units);
+        //   logger.debug("cost / after / "+ this.costBasis);
+        //   logger.debug("units / after / "+ this.units);
     }
 
     @Override

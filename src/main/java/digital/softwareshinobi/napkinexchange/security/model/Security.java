@@ -1,6 +1,7 @@
 package digital.softwareshinobi.napkinexchange.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import digital.softwareshinobi.napkinexchange.leaderboard.service.LeaderboardService;
 import digital.softwareshinobi.napkinexchange.market.utility.RandomNumberGenerator;
 import digital.softwareshinobi.napkinexchange.security.defaults.DefaultStockPrices;
 import digital.softwareshinobi.napkinexchange.security.enums.InvestorRating;
@@ -13,6 +14,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.LoggerFactory;
 
 @Entity(name = "stock")
 @Table(name = "stock")
@@ -21,6 +23,8 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 public class Security implements Serializable {
+
+        private final org.slf4j.Logger logger = LoggerFactory.getLogger(Security.class);
 
     @Id
     private String ticker;
@@ -114,20 +118,20 @@ public class Security implements Serializable {
                 + (theMomentum * randomPositiveNumber)) * 100.00) / 100.00;
 
         if (this.ticker.equalsIgnoreCase("callisto")) {
-//            System.out.println();
-//            System.out.println();
-//            System.out.println("//// enter //// ");
-//            System.out.println("symbol / " + ticker);
+//            logger.debug();
+//            logger.debug();
+//            logger.debug("//// enter //// ");
+//            logger.debug("symbol / " + ticker);
 //
-//            System.out.println("current price / " + currentSecurityPrice);
-//            System.out.println("randomNumber / " + randomNumber);
-//            System.out.println("randomPositiveNumber / " + randomPositiveNumber);
-//            System.out.println("theMomentum / " + theMomentum);
-//            System.out.println("theVolatility / " + theVolatility);
-//            System.out.println("newSecurityPrice / " + newSecurityPrice);
-//            System.out.println("//// exit //// ");
-//            System.out.println();
-//            System.out.println();
+//            logger.debug("current price / " + currentSecurityPrice);
+//            logger.debug("randomNumber / " + randomNumber);
+//            logger.debug("randomPositiveNumber / " + randomPositiveNumber);
+//            logger.debug("theMomentum / " + theMomentum);
+//            logger.debug("theVolatility / " + theVolatility);
+//            logger.debug("newSecurityPrice / " + newSecurityPrice);
+//            logger.debug("//// exit //// ");
+//            logger.debug();
+//            logger.debug();
         }
 
         this.setPrice(newSecurityPrice);

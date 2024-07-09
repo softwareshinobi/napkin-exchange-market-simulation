@@ -2,6 +2,7 @@ package digital.softwareshinobi.napkinexchange.security.service;
 
 import digital.softwareshinobi.napkinexchange.market.model.Market;
 import digital.softwareshinobi.napkinexchange.market.service.MarketService;
+import digital.softwareshinobi.napkinexchange.notification.controller.NotificationController;
 import digital.softwareshinobi.napkinexchange.security.model.Security;
 import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistory;
 import digital.softwareshinobi.napkinexchange.security.model.SecurityPricingHistoryId;
@@ -11,12 +12,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class SecurityHistoryService {
+
+            private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityHistoryService.class);
 
     @Autowired
     private final SecurityPricingHistoryRepository securityPricingHistoryRepository;
@@ -35,7 +39,7 @@ public class SecurityHistoryService {
 
         for (Security currentSecurity : this.securityService.getAllSecurities()) {
 
-//System.out.println("currentSecurity / " + currentSecurity);
+//logger.debug("currentSecurity / " + currentSecurity);
 //
             Optional<SecurityPricingHistory> previousSecurityPricingHistoryOptional
                     = securityPricingHistoryRepository.findTopBySecurityOrderByIdDesc(currentSecurity);
@@ -46,34 +50,34 @@ public class SecurityHistoryService {
 
             if (previousSecurityPricingHistoryOptional.isPresent()) {
 
-                //     System.out.println("previousSecurityPricingHistoryOptional / " + previousSecurityPricingHistoryOptional);
+                //     logger.debug("previousSecurityPricingHistoryOptional / " + previousSecurityPricingHistoryOptional);
 //
                 SecurityPricingHistory previousSecurityPricingHistory = previousSecurityPricingHistoryOptional.get();
 
-                //   System.out.println("previousSecurityPricingHistory / " + previousSecurityPricingHistory);
+                //   logger.debug("previousSecurityPricingHistory / " + previousSecurityPricingHistory);
 //
                 previousSecurityPricing = previousSecurityPricingHistory.getPrice();
 
-                //  System.out.println("previousSecurityPricing / " + previousSecurityPricing);
+                //  logger.debug("previousSecurityPricing / " + previousSecurityPricing);
                 Double currentSecurityPricing = currentSecurity.getPrice();
 
-                //   System.out.println("currentSecurityPricing / " + currentSecurityPricing);
+                //   logger.debug("currentSecurityPricing / " + currentSecurityPricing);
                 gainValue = currentSecurityPricing - previousSecurityPricing;
 
-                //  System.out.println("gainValue / " + gainValue);
+                //  logger.debug("gainValue / " + gainValue);
                 if (previousSecurityPricing != 0) { // Avoid division by zero
                     gainPercent = (gainValue / previousSecurityPricing); //* 100;
-                    //       System.out.println("gainPercent / " + gainPercent);
+                    //       logger.debug("gainPercent / " + gainPercent);
                 }
                 //   gain
 
                 // Calculate gain/loss in percentage
                 // Print the results
-                //   System.out.println("Gain/Loss in Value: " + gainValue);
-                //   System.out.println("Gain/Loss in Percentage: " + gainPercent + "%");
+                //   logger.debug("Gain/Loss in Value: " + gainValue);
+                //   logger.debug("Gain/Loss in Percentage: " + gainPercent + "%");
             } else {
 
-                //     System.out.println("nonnneeee // No recent pricing history found for the company");
+                //     logger.debug("nonnneeee // No recent pricing history found for the company");
             }
 
             SecurityPricingHistory newSecurityPricingHistory = new SecurityPricingHistory(
@@ -86,23 +90,32 @@ public class SecurityHistoryService {
                     gainValue
             );
 
-            //      System.out.println("newSecurityPricingHistory / " + newSecurityPricingHistory);
+            //      logger.debug("newSecurityPricingHistory / " + newSecurityPricingHistory);
             this.securityPricingHistoryRepository.save(newSecurityPricingHistory);
 
         }
 
     }
 
-    public List<SecurityPricingHistory> getSecurityPricingHistoryBySymbol(String symbol) {
+    public List<SecurityPricingHistory> getSecurityPricingHistoryByTicker(String symbol) {
 
         List<SecurityPricingHistory> securityPricingHistoryList = this.securityPricingHistoryRepository
-                .findAll().stream()
-                .filter(history -> history.getSecurity().getTicker().equalsIgnoreCase(symbol))
-                .limit(DEFAULT_MAX_LIST_SIZE)
+                .findAll()
+                .stream()
+                .filter(securityPricingHistory -> 
+                        securityPricingHistory.getSecurity().getTicker().equalsIgnoreCase(symbol))
+                //    .limit(DEFAULT_MAX_LIST_SIZE)
                 .collect(Collectors.toList());
 
-        SortHistory.sortSecurityHistoryListByDate(securityPricingHistoryList);
+        while (securityPricingHistoryList.size() > DEFAULT_MAX_LIST_SIZE) {
+            
+            securityPricingHistoryList.remove(0);
+                        
+           // logger.debug("size: "+securityPricingHistoryList.size());
+            
+        }
 
+        //  SortHistory.sortSecurityHistoryListByDate(securityPricingHistoryList);
         return securityPricingHistoryList;
 
     }

@@ -16,13 +16,14 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class MarketConfiguration {
 
+        private final Logger logger = LoggerFactory.getLogger(MarketConfiguration.class);
+
     @Autowired
     private final MarketService marketService;
 
     @Autowired
     private final NotificationService notificationService;
 
-    private final Logger logger = LoggerFactory.getLogger(MarketConfiguration.class);
 
     @PostConstruct
     public void initializeMarket() {

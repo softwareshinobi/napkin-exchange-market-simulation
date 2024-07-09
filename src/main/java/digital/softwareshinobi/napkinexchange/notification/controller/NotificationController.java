@@ -1,8 +1,10 @@
 package digital.softwareshinobi.napkinexchange.notification.controller;
 
+import digital.softwareshinobi.napkinexchange.leaderboard.service.LeaderboardService;
 import digital.softwareshinobi.napkinexchange.notification.model.Notification;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("notification")
 public class NotificationController {
 
+        private final org.slf4j.Logger logger = LoggerFactory.getLogger(NotificationController.class);
+
     @Autowired
     NotificationService notificationService;
 
     public NotificationController() {
 
-        System.out.println("## ");
-        System.out.println("## init > System Notification Controller");
-        System.out.println("## ");
+        logger.debug("## ");
+        logger.debug("## init > System Notification Controller");
+        logger.debug("## ");
 
     }
 
@@ -49,15 +53,15 @@ public class NotificationController {
     @GetMapping("/")
     public List<Notification> findAll() {
 //
-//        System.out.println("enter > findAll");
+//        logger.debug("enter > findAll");
 //
         List<Notification> notificationList = this.notificationService.findAll();
 //
-//        System.out.println("projectList / ");
+//        logger.debug("projectList / ");
 //
-//        System.out.println(userStoryList);
+//        logger.debug(userStoryList);
 //
-//        System.out.println("exit < findAll");
+//        logger.debug("exit < findAll");
 //
         return notificationList;
 //
@@ -73,9 +77,9 @@ public class NotificationController {
 //    @PutMapping("/")
 //    Notification createUserStory(@RequestBody Notification userStory) {
 //
-//        System.out.println("enter > createUserStory");
+//        logger.debug("enter > createUserStory");
 //
-//        System.out.println("userStory / " + userStory);
+//        logger.debug("userStory / " + userStory);
 //
 //        return this.notificationService.save(userStory);
 //
@@ -95,15 +99,15 @@ public class NotificationController {
 //    @PostMapping("/update")
 //    public Notification updateUserStory(@RequestBody Notification project) {
 //
-//        System.out.println("enter > updateUserStory");
+//        logger.debug("enter > updateUserStory");
 //
-//        System.out.println("userStory / " + project);
+//        logger.debug("userStory / " + project);
 //
 //        Notification responseUserStory = this.notificationService.save(project);
 //
-//        System.out.println("responseUserStory / " + responseUserStory);
+//        logger.debug("responseUserStory / " + responseUserStory);
 //
-//        System.out.println("exit < updateUserStory");
+//        logger.debug("exit < updateUserStory");
 //
 //        return responseUserStory;
 //

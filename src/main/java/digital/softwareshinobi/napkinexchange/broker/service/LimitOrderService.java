@@ -8,12 +8,15 @@ import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundExc
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
+import digital.softwareshinobi.napkinexchange.market.configuration.MarketConfiguration;
 import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 @Transactional
 public class LimitOrderService {
+        
+    private final Logger logger = LoggerFactory.getLogger(LimitOrderService.class);
 
     @Autowired
     private final LimitOrderRepository limitOrderRepository;
@@ -55,14 +60,14 @@ public class LimitOrderService {
     @Transactional
     public LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
 
-        System.out.println("enter > saveLimitOrder");
-        System.out.println("limitOrder / " + limitOrder);
+        logger.debug("enter > saveLimitOrder");
+        logger.debug("limitOrder / " + limitOrder);
 
-        System.out.println("saving...");
+        logger.debug("saving...");
 
         LimitOrder savedLimitOrder = this.limitOrderRepository.save(limitOrder);
 
-        System.out.println("savedLimitOrder / " + savedLimitOrder);
+        logger.debug("savedLimitOrder / " + savedLimitOrder);
 
         if (limitOrder.getTrader() != null) {
 
@@ -81,32 +86,32 @@ public class LimitOrderService {
     @Transactional
     public void processLimitOrders() {
 
-        System.out.println("enter > processLimitOrders");
+    //    logger.debug("enter > processLimitOrders");
 
         if (this.limitOrderRepository.count() == 0) {
-            System.out.println("no limit orders to process. returning;");
+     //       logger.debug("no limit orders to process. returning;");
 
             return;
 
         }
 
-        System.out.println("looping through all limit orders for processing");
+        logger.debug("looping through all limit orders for processing");
 
         this.limitOrderRepository.findAll().forEach(limitOrder -> {
 
-            System.out.println("limit Order being processed / " + limitOrder);
+            logger.debug("limit Order being processed / " + limitOrder);
 
             //   final String limitOrderType = openLimitOrder.getType();
             //   String limitOrderConstant = ;
             //   boolean equal = (limitOrderType.equals(limitOrderConstant));
-            //  //System.out.println("limitOrderType /" + limitOrderType);
-            //  //System.out.println("limitOrderConstant /" + limitOrderConstant);
-            //   //System.out.println("equal /" + equal);
+            //  //logger.debug("limitOrderType /" + limitOrderType);
+            //  //logger.debug("limitOrderConstant /" + limitOrderConstant);
+            //   //logger.debug("equal /" + equal);
             switch (limitOrder.getType()) {
 
                 case LimitOrderType.LONG_BUY_STOP:
 
-                    System.out.println("is a LONG_BUY_STOP");
+                    logger.debug("is a LONG_BUY_STOP");
 
                     this.qualifyLongBuyStop(limitOrder);
 
@@ -114,7 +119,7 @@ public class LimitOrderService {
 
                 case LimitOrderType.LONG_STOP_LOSS:
 
-                    System.out.println("is a LONG_STOP_LOSS");
+                    logger.debug("is a LONG_STOP_LOSS");
 
                     this.qualifyLongStopLoss(limitOrder);
 
@@ -122,7 +127,7 @@ public class LimitOrderService {
 
                 case LimitOrderType.LONG_TAKE_PROFIT:
 
-                    System.out.println("is a LONG_TAKE_PROFIT");
+                    logger.debug("is a LONG_TAKE_PROFIT");
 
                     this.qualifyTakeProfitOrder(limitOrder);
 
@@ -130,36 +135,36 @@ public class LimitOrderService {
 
                 default:
 
-                    //System.out.println("dont know how to handle this. what is it? /" + limitOrderType);
+                    //logger.debug("dont know how to handle this. what is it? /" + limitOrderType);
                     break;
 
             }
 
         });
 
-        System.out.println("exit < processLimitOrders");
+        logger.debug("exit < processLimitOrders");
 
     }
 
     private void qualifyLongStopLoss(LimitOrder stopLossOrder) {
 
-        System.out.println("enter > qualifyLongStopLoss");
+        logger.debug("enter > qualifyLongStopLoss");
 
         if (!stopLossOrder.getActive()) {
-            System.out.println("not active. skipping.");
+            logger.debug("not active. skipping.");
             return;
         }
-        //System.out.println();
-        System.out.println("stop loss order / " + stopLossOrder);
-        //System.out.println();
-        System.out.println("   strike price / " + stopLossOrder.getStrike());
-        System.out.println("  current price / " + stopLossOrder.getSecurity().getPrice());
+        //logger.debug();
+        logger.debug("stop loss order / " + stopLossOrder);
+        //logger.debug();
+        logger.debug("   strike price / " + stopLossOrder.getStrike());
+        logger.debug("  current price / " + stopLossOrder.getSecurity().getPrice());
 
-        //System.out.println();
+        //logger.debug();
 //todo, we shouldn't be compariing doubles like this
         if (stopLossOrder.getSecurity().getPrice() <= stopLossOrder.getStrike()) {
 
-            System.out.println("IT'S TIME TO TRIGGER THIS STOP LOSS");
+            logger.debug("IT'S TIME TO TRIGGER THIS STOP LOSS");
 
             try {
 
@@ -181,7 +186,7 @@ public class LimitOrderService {
 
                 this.removeSmartRelated(stopLossOrder);
 
-                System.out.println("removing orders");
+                logger.debug("removing orders");
 
             } catch (TraderNotFoundException exception) {
 
@@ -191,7 +196,7 @@ public class LimitOrderService {
 
         } else {
 
-            ////System.out.println("this STOP LOSS did not trigger");
+            ////logger.debug("this STOP LOSS did not trigger");
         }
 
     }
@@ -199,17 +204,17 @@ public class LimitOrderService {
     @Transactional
     private void qualifyLongBuyStop(LimitOrder buyStopOrder) {
 
-        System.out.println("enter > processBuyStopOrder");
+        logger.debug("enter > processBuyStopOrder");
 
-        System.out.println("buyStopOrder /" + buyStopOrder);
+        logger.debug("buyStopOrder /" + buyStopOrder);
 
-        System.out.println("order.getStrike() /" + buyStopOrder.getStrike());
+        logger.debug("order.getStrike() /" + buyStopOrder.getStrike());
 
-        System.out.println("order.getSecurity().getPrice() /" + buyStopOrder.getSecurity().getPrice());
+        logger.debug("order.getSecurity().getPrice() /" + buyStopOrder.getSecurity().getPrice());
 
         if (buyStopOrder.getSecurity().getPrice() > buyStopOrder.getStrike()) {
 
-            System.out.println("TRIGGER A MARKET BUY B/C STRIKE CROSSED");
+            logger.debug("TRIGGER A MARKET BUY B/C STRIKE CROSSED");
 
             notificationService.save(new Notification(
                     buyStopOrder.getTrader().getUsername(),
@@ -218,7 +223,7 @@ public class LimitOrderService {
             ));
 
             try {
-                System.out.println("1");
+                logger.debug("1");
 
                 this.securityPortfolioService.buyMarketPrice(
                         new SecurityBuyRequest(
@@ -232,15 +237,15 @@ public class LimitOrderService {
 //                                NotificationType.BUY_STOP_TRIGGER,
 //                                "LONG_BUY_STOP TRIGGERED / " + buyStopOrder.toString()
 //                        ));
-                System.out.println("2");
+                logger.debug("2");
 
                 this.purgeLimitOrder(buyStopOrder);
 
-                System.out.println("3");
+                logger.debug("3");
 
                 this.removeSmartRelated(buyStopOrder);
 
-                System.out.println("4");
+                logger.debug("4");
 
             } catch (TraderNotFoundException e) {
 
@@ -250,30 +255,30 @@ public class LimitOrderService {
 
         } else {
 
-            //System.out.println("this LONG_BUY_STOP didn't trigger");
+            //logger.debug("this LONG_BUY_STOP didn't trigger");
         }
     }
 
     @Transactional
     private void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
 
-        System.out.println("enter > qualifyTakeProfitOrder");
+        logger.debug("enter > qualifyTakeProfitOrder");
 
         if (!takeProfitOrder.getActive()) {
-            System.out.println("not active. skipping.");
+            logger.debug("not active. skipping.");
             return;
         }
-        System.out.println();
-        System.out.println("evaluating TP order / " + takeProfitOrder);
-        System.out.println();
-        System.out.println("  current price / " + takeProfitOrder.getSecurity().getPrice());
-        System.out.println("   strike price / " + takeProfitOrder.getStrike());
-        System.out.println();
+        logger.debug();
+        logger.debug("evaluating TP order / " + takeProfitOrder);
+        logger.debug();
+        logger.debug("  current price / " + takeProfitOrder.getSecurity().getPrice());
+        logger.debug("   strike price / " + takeProfitOrder.getStrike());
+        logger.debug();
 
 //todo, we shouldn't be compariing doubles like this
         if (takeProfitOrder.getSecurity().getPrice() >= takeProfitOrder.getStrike()) {
 
-            System.out.println("IT'S TIME TO TRIGGER THIS TAKE PROFIT");
+            logger.debug("IT'S TIME TO TRIGGER THIS TAKE PROFIT");
 
             try {
 
@@ -304,7 +309,7 @@ public class LimitOrderService {
 
         } else {
 
-            System.out.println("this one didn't trigger");
+            logger.debug("this one didn't trigger");
         }
 
     }
@@ -316,7 +321,7 @@ public class LimitOrderService {
     @Transactional
     private void removeSmartRelated(LimitOrder limitOrder) {
         /////////////////////////////////////////////////////////////////
-        //System.out.println("removing the related");
+        //logger.debug("removing the related");
 
         Optional<LimitOrder> limitOrderPartner = this.findLimitOrder(limitOrder.getPartnerID());
 
@@ -324,7 +329,7 @@ public class LimitOrderService {
 
             LimitOrder relatedOrder = limitOrderPartner.get(); // Use the user object
 
-            //System.out.println("related order / " + relatedOrder);
+            //logger.debug("related order / " + relatedOrder);
             this.notificationService.save(new Notification(
                     relatedOrder.getTrader().getUsername(),
                     NotificationType.LONG_SMART_BUY_CANCELLATION,
@@ -358,9 +363,9 @@ public class LimitOrderService {
     @Transactional
     private Boolean deleteLimitOrder(LimitOrder limitOrder) {
 
-        System.out.println("enter > delete");
+        logger.debug("enter > delete");
 
-        System.out.println("limitOrder > " + limitOrder);
+        logger.debug("limitOrder > " + limitOrder);
 //        notificationService.save(
 //                new Notification(
 //                        limitOrder.getTrader().getUsername(),
@@ -370,21 +375,21 @@ public class LimitOrderService {
         boolean doDelete = false;
 
         boolean contains = this.limitOrderRepository.findAll().contains(limitOrder);
-        System.out.println("contains > " + contains);
+        logger.debug("contains > " + contains);
 
-        System.out.println("rep before > ");
-        System.out.println(this.limitOrderRepository.findAll());
+        logger.debug("rep before > ");
+        logger.debug(this.limitOrderRepository.findAll());
 
         this.limitOrderRepository.delete(limitOrder);
 
-        System.out.println("rep after > ");
-        System.out.println(this.limitOrderRepository.findAll());
+        logger.debug("rep after > ");
+        logger.debug(this.limitOrderRepository.findAll());
         boolean noContain = !this.limitOrderRepository.findAll().contains(limitOrder);
 
-        System.out.println("contains > " + contains);
+        logger.debug("contains > " + contains);
 
-        System.out.println("returning > " + noContain);
-        System.out.println("exit > delete");
+        logger.debug("returning > " + noContain);
+        logger.debug("exit > delete");
         return noContain;
     }
 

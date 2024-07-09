@@ -7,15 +7,19 @@ import digital.softwareshinobi.napkinexchange.security.service.SecurityService;
 import digital.softwareshinobi.napkinexchange.security.utility.SortHistory;
 import digital.softwareshinobi.napkinexchange.trader.model.AccountHistory;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
+import digital.softwareshinobi.napkinexchange.trader.portfolio.SecurityPosition;
 import digital.softwareshinobi.napkinexchange.trader.repository.AccountHistoryRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class TraderHistoryService {
+
+                            private final org.slf4j.Logger logger = LoggerFactory.getLogger(TraderHistoryService.class);
 
     @Autowired
     private final AccountHistoryRepository accountHistoryRepository;
@@ -50,13 +54,13 @@ public class TraderHistoryService {
                     portfolioValue
             );
 
-            //    System.out.println("newAccountHistory / " + newAccountHistory);
+            //    logger.debug("newAccountHistory / " + newAccountHistory);
             this.accountHistoryRepository.save(newAccountHistory);
 
             newAccountHistory = null;
 ///////////
-            //  System.out.println("portfolioValue / " + portfolioValue);
-            //    System.out.println("trader / before / " + trader);
+            //  logger.debug("portfolioValue / " + portfolioValue);
+            //    logger.debug("trader / before / " + trader);
 
             trader.setPortfolioValue(portfolioValue);
             trader.setAccountValue(trader.getAccountBalance() + trader.getPortfolioValue());
@@ -65,7 +69,7 @@ public class TraderHistoryService {
             //
             this.traderService.saveTraderAccount(trader);
 
-            //        System.out.println("trader / after / " + trader);
+            //        logger.debug("trader / after / " + trader);
         }
 
     }

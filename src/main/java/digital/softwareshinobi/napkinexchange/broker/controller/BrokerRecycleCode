@@ -11,7 +11,7 @@
 ////
 ////        //"Created future or limit order created / " + limitOrder.toString()
 /////////////////////////////////
-////        //    System.out.println("takeProfitOrder / " + takeProfitOrder);
+////        //    logger.debug("takeProfitOrder / " + takeProfitOrder);
 ////        notificationService.save(
 ////                new Notification(
 ////                        stopLossOrder.getTrader().getUsername(),
@@ -24,7 +24,7 @@
     @PostMapping(value = "/buy/limit/auto-close")
     public List<LimitOrder> placeAssetBuyStopClosingLimitOrder(@RequestBody LimitOrderRequest limitOrderRequest) {
 
-        System.out.println("enter > placeAssetBuyStopLimitOrder");
+        logger.debug("enter > placeAssetBuyStopLimitOrder");
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
@@ -62,7 +62,7 @@
                 )
         );
 
-        System.out.println("exit < placeAssetBuyStopLimitOrder");
+        logger.debug("exit < placeAssetBuyStopLimitOrder");
 
         return userLimitOrderList;
 
@@ -72,11 +72,11 @@
     protected void sellAssetUnitsMarketPrice(@RequestBody SellStockRequest sellStockRequest)
             throws AccountNotFoundException, AccountBalanceException, AccountInventoryException {
 
-        System.out.println("enter > sellAssetUnitsMarketPrice");
+        logger.debug("enter > sellAssetUnitsMarketPrice");
 
         stockOwnedService.sellStockMarketPrice(sellStockRequest);
 
-        System.out.println("exit < sellAssetUnitsMarketPrice");
+        logger.debug("exit < sellAssetUnitsMarketPrice");
 
     }
 
@@ -84,7 +84,7 @@
     protected List<LimitOrder> sellAssetUnitsStopLoss(@RequestBody LimitOrderRequest limitOrderRequest)
             throws AccountNotFoundException, AccountBalanceException, AccountInventoryException {
 
-        System.out.println("enter > sellAssetUnitsStopLoss");
+        logger.debug("enter > sellAssetUnitsStopLoss");
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
@@ -100,7 +100,7 @@
                         accountService.getAccountByName(
                                 limitOrderRequest.getUsername()));
 
-        System.out.println("exit < sellAssetUnitsStopLoss");
+        logger.debug("exit < sellAssetUnitsStopLoss");
 
         return userLimitOrderList;
 
@@ -110,7 +110,7 @@
     protected List<LimitOrder> sellAssetUnitsTakeProfit(@RequestBody LimitOrderRequest limitOrderRequest)
             throws AccountNotFoundException, AccountBalanceException, AccountInventoryException {
 
-        System.out.println("enter > sellAssetUnitsTakeProfit");
+        logger.debug("enter > sellAssetUnitsTakeProfit");
 
         limitOrderService.saveLimitOrder(
                 new LimitOrder(
@@ -129,7 +129,7 @@
                         )
                 );
 
-        System.out.println("exit < sellAssetUnitsTakeProfit");
+        logger.debug("exit < sellAssetUnitsTakeProfit");
 
         return userLimitOrderList;
 

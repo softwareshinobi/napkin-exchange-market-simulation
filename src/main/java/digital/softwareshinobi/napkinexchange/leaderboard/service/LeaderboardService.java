@@ -1,5 +1,6 @@
 package digital.softwareshinobi.napkinexchange.leaderboard.service;
 
+import digital.softwareshinobi.napkinexchange.broker.service.SecurityPortfolioService;
 import digital.softwareshinobi.napkinexchange.leaderboard.model.Leaderboard;
 import digital.softwareshinobi.napkinexchange.leaderboard.utility.TraderSortingUtility;
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
@@ -7,12 +8,15 @@ import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class LeaderboardService {
+              
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(LeaderboardService.class);
 
     @Autowired
     private final TraderService traderService;
@@ -23,9 +27,9 @@ public class LeaderboardService {
                 = TraderSortingUtility.sortTraderByAccountValue(
                         this.traderService.findAllAccounts());
 
-        System.out.println("trader list:");
+        logger.debug("trader list:");
 
-        System.out.println(traderList);
+        logger.debug(traderList);
 
         return traderList.stream()
                 .map(trader

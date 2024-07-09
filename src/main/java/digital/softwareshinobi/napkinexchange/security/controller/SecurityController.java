@@ -30,32 +30,32 @@ public class SecurityController {
 
     }
 
-    @GetMapping(value = "{symbol}")
-    public Security fetchSecurityBySymbol(@PathVariable String symbol) {
+    @GetMapping(value = "{ticker}")
+    public Security fetchSecurityByTicker(@PathVariable String ticker) {
 
-        return this.securityService.getSecurityBySymbol(symbol);
-
-    }
-
-    @GetMapping(value = "/pricing/{symbol}")
-    public double fetchSecurityPricingBySymbol(@PathVariable String symbol) throws SecurityNotFoundException {
-
-        return this.securityService.getSecurityBySymbol(symbol).getPrice();
+        return this.securityService.getSecurityByTicker(ticker);
 
     }
 
-    @GetMapping(value = "/history/{symbol}")
-    public List<SecurityPricingHistory> fetchSecurityPricingHistoryBySymbol(@PathVariable String symbol) {
+    @GetMapping(value = "/pricing/{ticker}")
+    public double fetchSecurityPricingByTicker(@PathVariable String ticker) throws SecurityNotFoundException {
 
-        return this.securityHistoryService.getSecurityPricingHistoryBySymbol(symbol);
+        return this.securityService.getSecurityByTicker(ticker).getPrice();
 
     }
 
-    @GetMapping(value = "/last/{symbol}")
-    public SecurityPricingHistory fetchLastSecurityPricingHistoryBySymbol(@PathVariable String symbol) {
+    @GetMapping(value = "/history/{ticker}")
+    public List<SecurityPricingHistory> fetchSecurityPricingHistoryByTicker(@PathVariable String ticker) {
+
+        return this.securityHistoryService.getSecurityPricingHistoryByTicker(ticker);
+
+    }
+
+    @GetMapping(value = "/last/{ticker}")
+    public SecurityPricingHistory fetchLastSecurityPricingHistoryByTicker(@PathVariable String ticker) {
 //this is a hack
 
-        List<SecurityPricingHistory> list = this.fetchSecurityPricingHistoryBySymbol(symbol);
+        List<SecurityPricingHistory> list = this.fetchSecurityPricingHistoryByTicker(ticker);
 
         return list.get(list.size() - 1);
 
@@ -68,46 +68,4 @@ public class SecurityController {
 
     }
 
-//    @GetMapping(value = "/history/{ticker}")
-//    public List<StockPriceHistoryDTO> fetchSecurityPricingHistoryBySymbol(@PathVariable String ticker) {
-//
-//        Security security = this.stockService.getSecurityBySymbol(ticker);
-//
-//        List<StockPriceHistoryDTO> trimmedCandleStickList = new ArrayList();
-//
-//     //   List<StockPriceHistoryDTO> stockPriceHistoryList = security.getPriceHistory();
-//
-////        Collections.reverse(stockPriceHistoryList); // numbers now contains [5, 4, 3, 2, 1]
-//
-//        for (StockPriceHistoryDTO stockPriceHistory : stockPriceHistoryList) {
-//
-//            if (trimmedCandleStickList.size() < TARGET_OUTPUT_LIST_SIZE) {
-//
-//                trimmedCandleStickList.add(stockPriceHistory);
-//
-//            } else {
-//
-//                break;
-//
-//            }
-//
-//        }
-//
-//        Collections.reverse(trimmedCandleStickList); // numbers now contains [5, 4, 3, 2, 1]
-//
-//        return trimmedCandleStickList;
-//
-//    }
-//    @GetMapping
-//    public List<StockSummaryDTO> getAllStockData() {
-//        return stockService.getAllSecurities().stream()
-//                .map(StockSummaryDTO::new)
-//                .collect(Collectors.toList());
-//    }
-//    @GetMapping(value = "/detailed")
-//    public List<Security> getAllDetailedStockData() {
-//        return stockService.getAllSecurities().stream()
-//                .map(Security::new)
-//                .collect(Collectors.toList());
-//    }
 }

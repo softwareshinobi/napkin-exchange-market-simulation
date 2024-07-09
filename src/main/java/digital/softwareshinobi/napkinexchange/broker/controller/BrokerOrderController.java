@@ -7,6 +7,7 @@ import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.notification.service.NotificationService;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "broker/orders")
 public class BrokerOrderController {
+
+                private final org.slf4j.Logger logger = LoggerFactory.getLogger(BrokerOrderController.class);
 
     @Autowired
     private SecurityPortfolioService securityPortfolioService;
@@ -32,9 +35,9 @@ public class BrokerOrderController {
 
     public BrokerOrderController() {
 
-        System.out.println("##");
-        System.out.println("## init > Broker ORDER Controller");
-        System.out.println("##");
+        logger.debug("##");
+        logger.debug("## init > Broker ORDER Controller");
+        logger.debug("##");
 
     }
 

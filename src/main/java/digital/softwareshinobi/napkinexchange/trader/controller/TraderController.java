@@ -1,5 +1,6 @@
 package digital.softwareshinobi.napkinexchange.trader.controller;
 
+import digital.softwareshinobi.napkinexchange.security.service.SecurityHistoryService;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderBalanceException;
 import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundException;
 import digital.softwareshinobi.napkinexchange.trader.exception.InvalidAccountException;
@@ -10,6 +11,7 @@ import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping(value = "trader")
 public class TraderController {
+
+                private final org.slf4j.Logger logger = LoggerFactory.getLogger(TraderController.class);
 
     @Autowired
     private final TraderService traderService;
@@ -35,15 +39,15 @@ public class TraderController {
     @PostMapping(value = "")
     public void createTrader(@RequestBody Map traderDetails) throws InvalidAccountException {
 
-        System.out.println("enter > createTrader");
+        logger.debug("enter > createTrader");
 
-        System.out.println("traderDetails / " + traderDetails);
+        logger.debug("traderDetails / " + traderDetails);
 
         String username = (String) traderDetails.get("username");
 
         String password = (String) traderDetails.get("password");
 
-        System.out.println("new trader / " + username);
+        logger.debug("new trader / " + username);
 
         this.traderService.createTraderAccount(username, password);
 

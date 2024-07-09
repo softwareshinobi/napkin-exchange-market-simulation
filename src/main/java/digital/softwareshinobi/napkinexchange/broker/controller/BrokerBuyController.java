@@ -13,10 +13,12 @@ import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundExc
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
 import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
+import digital.softwareshinobi.napkinexchange.market.configuration.MarketConfiguration;
 import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "broker/buy")
 public class BrokerBuyController {
+
+            private final org.slf4j.Logger logger = LoggerFactory.getLogger(BrokerBuyController.class);
 
     private static final double DEFAULT_STOP_LOSS_TARGET_PERCENT = 0.001;
 
@@ -47,9 +51,9 @@ public class BrokerBuyController {
 
     public BrokerBuyController() {
 
-        System.out.println("##");
-        System.out.println("## init > Broker BUY Controller");
-        System.out.println("##");
+        logger.debug("##");
+        logger.debug("## init > Broker BUY Controller");
+        logger.debug("##");
 
     }
 
@@ -57,7 +61,7 @@ public class BrokerBuyController {
     public SecurityBuyResponse openMarketOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
             throws TraderNotFoundException, TraderBalanceException {
 
-        System.out.println("enter > openMarketOrder");
+        logger.debug("enter > openMarketOrder");
 
         this.notificationService.save(new Notification(
                 securityBuyRequest.getUsername(),
@@ -65,17 +69,17 @@ public class BrokerBuyController {
                 securityBuyRequest.toString()
         ));
 
-        System.out.println("securityBuyRequest / " + securityBuyRequest);
+        logger.debug("securityBuyRequest / " + securityBuyRequest);
 
-        System.out.println("openSimpleBuyOrder / fufilling");
+        logger.debug("openSimpleBuyOrder / fufilling");
 
         SecurityBuyResponse SecurityBuyResponse = this.securityPortfolioService.buyMarketPrice(securityBuyRequest);
 
-        System.out.println("openSimpleBuyOrder / fulfilled");
+        logger.debug("openSimpleBuyOrder / fulfilled");
 
-        System.out.println("returning / " + SecurityBuyResponse);
+        logger.debug("returning / " + SecurityBuyResponse);
 
-        System.out.println("exit < openMarketOrder");
+        logger.debug("exit < openMarketOrder");
 
         return SecurityBuyResponse;
     }
@@ -83,22 +87,22 @@ public class BrokerBuyController {
     @PostMapping(value = "stop")
     public void openBuyStopOrder(@RequestBody LimitOrderRequest securityBuyRequest) {
 
-        System.out.println("enter > openBuyStopOrder");
+        logger.debug("enter > openBuyStopOrder");
 
-        System.out.println("securityBuyRequest / " + securityBuyRequest);
+        logger.debug("securityBuyRequest / " + securityBuyRequest);
 
         LimitOrder newLimitOrder = new LimitOrder(
                 LimitOrderType.LONG_BUY_STOP,
                 this.traderService.getAccountByName(securityBuyRequest.getTrader()),
-                this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker()),
+                this.securityService.getSecurityByTicker(securityBuyRequest.getTicker()),
                 securityBuyRequest.getUnits(),
                 securityBuyRequest.getStrike());
 
-        System.out.println("newLimitOrder / " + newLimitOrder);
+        logger.debug("newLimitOrder / " + newLimitOrder);
 
         this.limitOrderService.saveLimitOrder(newLimitOrder);
 
-        System.out.println("exit < openBuyStopOrder");
+        logger.debug("exit < openBuyStopOrder");
 
     }
 
@@ -107,7 +111,7 @@ public class BrokerBuyController {
     public void openSmartBuyOrder(@RequestBody SecurityBuyRequest securityBuyRequest)
             throws TraderNotFoundException, TraderBalanceException {
 
-        System.out.println("enter > openSmartBuyMarketOrder");
+        logger.debug("enter > openSmartBuyMarketOrder");
 
         this.notificationService.save(new Notification(
                 securityBuyRequest.getUsername(),
@@ -116,7 +120,7 @@ public class BrokerBuyController {
         ));
 
         ////////////////////
-        System.out.println("securityBuyRequest / " + securityBuyRequest);
+        logger.debug("securityBuyRequest / " + securityBuyRequest);
 //
 //        this.notificationService.save(
 //                new Notification(
@@ -125,49 +129,49 @@ public class BrokerBuyController {
 //                        limitOrder.toString()
 //                ));
 
-        System.out.println("buyStockRequest / filling");
+        logger.debug("buyStockRequest / filling");
 
         this.securityPortfolioService.buyMarketPrice(securityBuyRequest);
 
-        System.out.println("buyStockRequest / fulfilled");
+        logger.debug("buyStockRequest / fulfilled");
         //////////doing math ////////////
 
-        Security security = this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker());
+        Security security = this.securityService.getSecurityByTicker(securityBuyRequest.getTicker());
 
-        System.out.println("stock: " + security);
-        System.out.println("price / current / " + security.getPrice());
+        logger.debug("stock: " + security);
+        logger.debug("price / current / " + security.getPrice());
         //
         Double dynamicStopLossThreshold = security.getPrice() * (1.0 - DEFAULT_STOP_LOSS_TARGET_PERCENT);
 
-        System.out.println("price / stop loss / " + dynamicStopLossThreshold);
+        logger.debug("price / stop loss / " + dynamicStopLossThreshold);
         //
         Double dynamicTakeProfitThreshold = security.getPrice() * (1.0 + DEFAULT_TAKE_PROFIT_TARGET_PERCENT);
 
-        System.out.println("price / take profit / " + dynamicTakeProfitThreshold);
+        logger.debug("price / take profit / " + dynamicTakeProfitThreshold);
         //////// creating the stop loss nd take profit orders ////////
         LimitOrder stopLossOrder = new LimitOrder(
                 LimitOrderType.LONG_STOP_LOSS,
                 this.traderService.getAccountByName(securityBuyRequest.getUsername()),
-                this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker()),
+                this.securityService.getSecurityByTicker(securityBuyRequest.getTicker()),
                 securityBuyRequest.getUnits(),
                 dynamicStopLossThreshold
         );
 
-        System.out.println("stopLossOrder / " + stopLossOrder);
+        logger.debug("stopLossOrder / " + stopLossOrder);
 
         this.limitOrderService.saveLimitOrder(stopLossOrder);
 
         LimitOrder takeProfitOrder = new LimitOrder(
                 LimitOrderType.LONG_TAKE_PROFIT,
                 this.traderService.getAccountByName(securityBuyRequest.getUsername()),
-                this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker()),
+                this.securityService.getSecurityByTicker(securityBuyRequest.getTicker()),
                 securityBuyRequest.getUnits(),
                 dynamicTakeProfitThreshold
         );
 
-        System.out.println("takeProfitOrder / " + takeProfitOrder);
+        logger.debug("takeProfitOrder / " + takeProfitOrder);
 
-        System.out.println("7777");
+        logger.debug("7777");
 
         this.limitOrderService.saveLimitOrder(takeProfitOrder);
 
@@ -175,23 +179,23 @@ public class BrokerBuyController {
 
         stopLossOrder.setPartnerID(takeProfitOrder.getId());
 
-        System.out.println("updating the related order id");
+        logger.debug("updating the related order id");
 
-        System.out.println("stopLossOrder / " + stopLossOrder);
+        logger.debug("stopLossOrder / " + stopLossOrder);
 
-        System.out.println("updating SL orders");
+        logger.debug("updating SL orders");
 
         Object oo = this.limitOrderService.saveLimitOrder(stopLossOrder);
 
-        System.out.println("order / stop loss / " + oo);
+        logger.debug("order / stop loss / " + oo);
 ////////
-        System.out.println("takeProfitOrder / " + takeProfitOrder);
-        System.out.println("updating TP orders");
+        logger.debug("takeProfitOrder / " + takeProfitOrder);
+        logger.debug("updating TP orders");
 
         Object bb = this.limitOrderService.saveLimitOrder(takeProfitOrder);
-        System.out.println("order / take profit / " + bb);
+        logger.debug("order / take profit / " + bb);
 
-        System.out.println("exit < openSmartBuyMarketOrder");
+        logger.debug("exit < openSmartBuyMarketOrder");
     }
 
     @GetMapping(value = "")
