@@ -10,13 +10,10 @@ import java.util.Set;
 public class FindStockOwned {
 
     public static SecurityPosition findOwnedStockByTicker(Set<SecurityPosition> securityPositions, String ticker) {
-        
+
         return securityPositions.stream()
-                
                 .findFirst()
-                
                 .filter(security -> security.getSymbol().equalsIgnoreCase(ticker))
-                
                 .orElse(null);
     }
 }

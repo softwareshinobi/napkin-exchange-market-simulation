@@ -32,10 +32,10 @@ public class MarketConfiguration {
         Market market = this.marketService.getMarket();
 
         this.notificationService.save(new Notification(
-                        "SYSTEM",
-                        NotificationType.SYSTEM_NOTIFICATION,
-                        "napkin exchange market simulation initialized"
-                ));
+                "SYSTEM",
+                NotificationType.SYSTEM_NOTIFICATION,
+                "napkin exchange market simulation initialized"
+        ));
 
         logger.info("current market conditions: " + market.toString());
 

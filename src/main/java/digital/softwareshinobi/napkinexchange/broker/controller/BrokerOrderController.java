@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "broker/orders")
 public class BrokerOrderController {
-    
+
     @Autowired
     private SecurityPortfolioService securityPortfolioService;
 

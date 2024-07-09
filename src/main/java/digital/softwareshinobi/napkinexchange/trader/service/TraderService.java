@@ -60,10 +60,10 @@ public class TraderService {
         Trader resultAccount = accountRepository.save(newAccount);
 
         notificationService.save(new Notification(
-                        resultAccount,
-                        NotificationType.NEW_TRADER_CREATED,
-                        resultAccount.toString()
-                ));
+                resultAccount,
+                NotificationType.NEW_TRADER_CREATED,
+                resultAccount.toString()
+        ));
 
         newAccount = null;
 

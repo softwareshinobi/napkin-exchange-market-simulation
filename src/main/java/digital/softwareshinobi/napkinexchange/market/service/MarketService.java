@@ -28,8 +28,7 @@ public class MarketService {
 
         Market market = this.marketRepository.findById(1).orElse(null);
 
-    //    System.out.println("market / " + market);
-
+        //    System.out.println("market / " + market);
         if (market == null) {
 
             LocalDate newYearsDay3005 = LocalDate.of(3005, 1, 1);

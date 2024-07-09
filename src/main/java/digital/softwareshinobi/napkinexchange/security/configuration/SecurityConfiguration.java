@@ -12,12 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AllArgsConstructor
 public class SecurityConfiguration {
-    
+
     private final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 
     @Autowired
     private SecurityService securityService;
-
 
     @PostConstruct
     public void saveSecuritiesToDatabase() {
@@ -25,7 +24,7 @@ public class SecurityConfiguration {
 
             logger.info("Saving Default Securities");
 
-  this.          securityService.saveDefaultStockToDatabase(DefaultStocksList.getAllDefaultStocks());
+            this.securityService.saveDefaultStockToDatabase(DefaultStocksList.getAllDefaultStocks());
 
         }
     }

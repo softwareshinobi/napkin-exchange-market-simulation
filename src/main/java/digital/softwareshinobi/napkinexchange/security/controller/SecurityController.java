@@ -23,7 +23,6 @@ public class SecurityController {
     @Autowired
     private SecurityHistoryService securityHistoryService;
 
-
     @GetMapping(value = "")
     public List<Security> fetchAllSecurities() {
 
@@ -61,15 +60,14 @@ public class SecurityController {
         return list.get(list.size() - 1);
 
     }
-    
-       @GetMapping(value = "health")
+
+    @GetMapping(value = "health")
     public String health() {
 
         return "OK";
 
     }
-    
-    
+
 //    @GetMapping(value = "/history/{ticker}")
 //    public List<StockPriceHistoryDTO> fetchSecurityPricingHistoryBySymbol(@PathVariable String ticker) {
 //

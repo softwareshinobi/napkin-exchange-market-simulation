@@ -258,9 +258,8 @@ public class LimitOrderService {
     private void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
 
         System.out.println("enter > qualifyTakeProfitOrder");
-        
-        
-         if (!takeProfitOrder.getActive()) {
+
+        if (!takeProfitOrder.getActive()) {
             System.out.println("not active. skipping.");
             return;
         }

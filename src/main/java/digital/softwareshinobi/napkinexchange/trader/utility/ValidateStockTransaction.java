@@ -14,21 +14,21 @@ public class ValidateStockTransaction {
             Trader trader,
             SecurityBuyRequest securityBuyRequest,
             SecurityService securityService) {
-        
+
         double balance = trader.getAccountBalance();
-        
+
         Security security;
-        
+
         try {
-        
+
             security = securityService.getSecurityBySymbol(securityBuyRequest.getTicker());
-        
+
         } catch (SecurityNotFoundException securityNotFoundException) {
-        
+
             return false;
-        
+
         }
-        
+
         return balance > (security.getPrice() * securityBuyRequest.getUnits());
     }
 
@@ -40,20 +40,19 @@ public class ValidateStockTransaction {
                 trader.getSecurityPortfolio(),
                 securitySellRequest.getSecurity());
 
-        System.out.println("securityPosition / "+securityPosition);
-                System.out.println("securitySellRequest / "+securitySellRequest);
+        System.out.println("securityPosition / " + securityPosition);
+        System.out.println("securitySellRequest / " + securitySellRequest);
 
         if (securityPosition == null) {
 
             return false;
         }
 
-      boolean hasEnough= securityPosition.getUnits() >= securitySellRequest.getUnits();
+        boolean hasEnough = securityPosition.getUnits() >= securitySellRequest.getUnits();
 
-                      System.out.println("hasEnough / "+hasEnough);
+        System.out.println("hasEnough / " + hasEnough);
 
-                      
-      return hasEnough;
+        return hasEnough;
     }
 
 }

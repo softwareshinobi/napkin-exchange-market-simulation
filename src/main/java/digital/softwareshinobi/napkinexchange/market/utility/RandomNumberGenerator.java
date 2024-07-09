@@ -14,8 +14,7 @@ public class RandomNumberGenerator {
 
     public double generateRandomNumberForSecurity(final MarketCap marketCap) {
 
-    //    System.out.println("marketCap / " + marketCap);
-
+        //    System.out.println("marketCap / " + marketCap);
         double randomNumber;
 
         switch (marketCap) {
@@ -38,8 +37,7 @@ public class RandomNumberGenerator {
 
         }
 
-      //  System.out.println("randomNumber / " + randomNumber);
-
+        //  System.out.println("randomNumber / " + randomNumber);
         return randomNumber;
 
     }

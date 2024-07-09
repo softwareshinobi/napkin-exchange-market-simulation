@@ -60,10 +60,10 @@ public class BrokerBuyController {
         System.out.println("enter > openMarketOrder");
 
         this.notificationService.save(new Notification(
-                        securityBuyRequest.getUsername(),
-                        NotificationType.LONG_MARKET_BUY_CREATED,
-                        securityBuyRequest.toString()
-                ));
+                securityBuyRequest.getUsername(),
+                NotificationType.LONG_MARKET_BUY_CREATED,
+                securityBuyRequest.toString()
+        ));
 
         System.out.println("securityBuyRequest / " + securityBuyRequest);
 
@@ -110,10 +110,10 @@ public class BrokerBuyController {
         System.out.println("enter > openSmartBuyMarketOrder");
 
         this.notificationService.save(new Notification(
-                        securityBuyRequest.getUsername(),
-                        NotificationType.LONG_SMART_BUY_CREATED,
-                        securityBuyRequest.toString()
-                ));
+                securityBuyRequest.getUsername(),
+                NotificationType.LONG_SMART_BUY_CREATED,
+                securityBuyRequest.toString()
+        ));
 
         ////////////////////
         System.out.println("securityBuyRequest / " + securityBuyRequest);
@@ -168,7 +168,7 @@ public class BrokerBuyController {
         System.out.println("takeProfitOrder / " + takeProfitOrder);
 
         System.out.println("7777");
-      
+
         this.limitOrderService.saveLimitOrder(takeProfitOrder);
 
         takeProfitOrder.setPartnerID(stopLossOrder.getId());

@@ -24,9 +24,9 @@ public class LeaderboardService {
                         this.traderService.findAllAccounts());
 
         System.out.println("trader list:");
-        
+
         System.out.println(traderList);
-                
+
         return traderList.stream()
                 .map(trader
                         -> new Leaderboard(
@@ -50,8 +50,8 @@ public class LeaderboardService {
                 .map(trader -> new Leaderboard(
                 traderList.indexOf(trader) + 1,
                 trader.getUsername(),
-                             trader.getAccountBalance(),
-                        trader.getAccountValue()))
+                trader.getAccountBalance(),
+                trader.getAccountValue()))
                 .findFirst().orElse(null);
 
     }
@@ -77,4 +77,4 @@ public class LeaderboardService {
 
     }
 
-*/
+ */

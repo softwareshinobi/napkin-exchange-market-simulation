@@ -53,11 +53,11 @@ public class SecurityPortfolioService {
                 securityBuyRequest.toString()
         ));
 
-        System.out.println("username to load / "+securityBuyRequest.getUsername());
-        
+        System.out.println("username to load / " + securityBuyRequest.getUsername());
+
         final Trader trader = this.traderService.getAccountByName(securityBuyRequest.getUsername());
 
-        System.out.println("loaded trader / "+trader);
+        System.out.println("loaded trader / " + trader);
         final Security security = this.securityService.getSecurityBySymbol(securityBuyRequest.getTicker());
 
         final SecurityPosition traderSecurityPosition = this.findStockOwned(trader, security);
@@ -136,9 +136,9 @@ public class SecurityPortfolioService {
     public void sellSecurityMarketPrice(SecuritySellRequest sellStockRequest) {
 
         System.out.println("enter > sellSecurityMarketPrice");
-        
-        System.out.println("sellStockRequest / "+sellStockRequest);
-        
+
+        System.out.println("sellStockRequest / " + sellStockRequest);
+
         notificationService.save(new Notification(
                 sellStockRequest.getUsername(),
                 NotificationType.MARKET_SELL_ORDER_CREATED,
@@ -147,24 +147,23 @@ public class SecurityPortfolioService {
 
         Trader trader = traderService.getAccountByName(sellStockRequest.getUsername());
 
-        System.out.println("trader / "+trader);
+        System.out.println("trader / " + trader);
 
 //        if (!ValidateStockTransaction.doesAccountHaveEnoughStocks(trader, sellStockRequest)) {
 //
 //            throw new AccountInventoryException("Account does not own enough stocks");
 //
 //        }
-
         System.out.println("2 / looking up security from repository");
 
         Security security = securityService.getSecurityBySymbol(sellStockRequest.getSecurity());
 
-        System.out.println("security / "+security);
+        System.out.println("security / " + security);
 
-System.out.println("3 / finding security position for user by security");
+        System.out.println("3 / finding security position for user by security");
 
         SecurityPosition securityPosition = findStockOwned(trader, security);
-        System.out.println("securityPosition / "+securityPosition);
+        System.out.println("securityPosition / " + securityPosition);
 
         System.out.println("3");
 
@@ -209,30 +208,30 @@ System.out.println("3 / finding security position for user by security");
         if (sellStockRequest.getUnits() - securityPosition.getUnits() == 0) {
 
             System.out.println("after this sell, no more units. so deleting security position");
-            
-            System.out.println("security position / deletion / "+securityPosition);
-            
-            System.out.println("trader / before / " +trader);
-            
-            System.out.println("repo / before / " +  this.securityPortfolioRepository.findAll());
+
+            System.out.println("security position / deletion / " + securityPosition);
+
+            System.out.println("trader / before / " + trader);
+
+            System.out.println("repo / before / " + this.securityPortfolioRepository.findAll());
             this.securityPortfolioRepository.delete(securityPosition);
-            
-            System.out.println("trader / after / " +trader);
-            
-            System.out.println("repo / after / " +  this.securityPortfolioRepository.findAll());
-            
+
+            System.out.println("trader / after / " + trader);
+
+            System.out.println("repo / after / " + this.securityPortfolioRepository.findAll());
+
         } else {
 
             System.out.println("after sell, user will have more stock. so updating units");
 
-            System.out.append("security position / before / "+securityPosition);
-            
+            System.out.append("security position / before / " + securityPosition);
+
             securityPosition.setUnits(securityPosition.getUnits() - sellStockRequest.getUnits());
 
             this.securityPortfolioRepository.save(securityPosition);
 
-            System.out.append("security position / after "+securityPosition);
-            
+            System.out.append("security position / after " + securityPosition);
+
         }
 
         this.notificationService.save(new Notification(

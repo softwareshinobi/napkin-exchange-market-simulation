@@ -20,7 +20,7 @@ public class SecurityBuyRequest {
     //  private Double strike;
     @Override
     public String toString() {
-        
+
         return "securityBuyRequest {" + "username=" + username + ", ticker=" + ticker + ", units=" + units + "}";
 
     }

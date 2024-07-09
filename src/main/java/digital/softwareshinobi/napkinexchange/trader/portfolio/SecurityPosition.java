@@ -63,23 +63,19 @@ public class SecurityPosition implements Serializable {
 
     public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
 
-       // System.out.println("cost / before / "+ this.costBasis);
-        
-      //  System.out.println("units / before / "+ this.units);
-        
-      //  System.out.println("current price / "+ currentSecurityPrice);
-        
+        // System.out.println("cost / before / "+ this.costBasis);
+        //  System.out.println("units / before / "+ this.units);
+        //  System.out.println("current price / "+ currentSecurityPrice);
         this.costBasis = CalculateCostBasisAndProfits.newCostBasis(
                 this.units,
                 numberUnits,
                 this.costBasis,
                 currentSecurityPrice);
 
-        this.units                = this.units + numberUnits;
-   
-        
-     //   System.out.println("cost / after / "+ this.costBasis);
-     //   System.out.println("units / after / "+ this.units);
+        this.units = this.units + numberUnits;
+
+        //   System.out.println("cost / after / "+ this.costBasis);
+        //   System.out.println("units / after / "+ this.units);
     }
 
     @Override
@@ -90,8 +86,8 @@ public class SecurityPosition implements Serializable {
         sb.append(", symbol=").append(symbol);
         sb.append(", units=").append(units);
         sb.append(", costBasis=").append(costBasis);
-    //    sb.append(", value=").append(value);
-     //   sb.append(", price=").append(price);
+        //    sb.append(", value=").append(value);
+        //   sb.append(", price=").append(price);
         sb.append('}');
         return sb.toString();
     }

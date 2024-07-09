@@ -35,7 +35,6 @@ public class AccountHistory implements Serializable {
     @Column(name = "account_balance")
     private Double balance;
 
-    
     @Column(name = "portfolioValue")
     private Double portfolioValue;
 
@@ -50,5 +49,5 @@ public class AccountHistory implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-    
+
 }

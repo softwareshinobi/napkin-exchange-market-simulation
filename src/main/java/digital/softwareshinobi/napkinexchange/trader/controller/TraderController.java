@@ -45,7 +45,7 @@ public class TraderController {
 
         System.out.println("new trader / " + username);
 
-     this.   traderService.createTraderAccount(username, password);
+        this.traderService.createTraderAccount(username, password);
 
     }
 

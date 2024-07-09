@@ -51,7 +51,6 @@ public class Security implements Serializable {
     @Enumerated(EnumType.STRING)
     private Volatility volatility;
 
-
 //    @Column(name = "investor_rating")
 //    @Enumerated(EnumType.STRING)
 //    private InvestorRating investorRating;
@@ -93,7 +92,7 @@ public class Security implements Serializable {
 
         ////
 //@todo move into the class itself and make final
- final            RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
+        final RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
 
         double randomNumber = randomNumberGenerator.generateRandomNumberForSecurity(this.marketCap);
 

@@ -46,7 +46,6 @@ public class MarketActivityService {
         this.tickSecurities();
 
         ////////
-        
         ZonedDateTime currentMarketTime = market.getDate();
 
         market = null;
