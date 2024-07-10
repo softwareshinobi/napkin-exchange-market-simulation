@@ -70,12 +70,12 @@ public class TraderHistoryService {
     }
 
     public List<AccountHistory> getHistoryByTraderName(String traderName) {
-
-        List<AccountHistory> accountHistoryList = this.traderService.getAccountByName(traderName).getAccountHistory();
-
-        SortHistory.sortAccountHistoryByDate(accountHistoryList);
-
-        return accountHistoryList;
+return null;
+//        List<AccountHistory> accountHistoryList = this.traderService.getAccountByName(traderName).getAccountHistory();
+//
+//        SortHistory.sortAccountHistoryByDate(accountHistoryList);
+//
+//        return accountHistoryList;
 
     }
 

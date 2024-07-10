@@ -224,7 +224,7 @@ public class SecurityPortfolioService {
 
             this.notificationService.save(new Notification(
                     securitySellRequest.getUsername(),
-                    NotificationType.MARKET_SELL_INSUFFICIENT_HOLDINGS,
+                    NotificationType.TRADER_INSUFFICIENT_SECURITY_HOLDINGS,
                     securitySellRequest.toString()
             ));
             throw new TraderPortfolioException("Account does not own enough stocks");
