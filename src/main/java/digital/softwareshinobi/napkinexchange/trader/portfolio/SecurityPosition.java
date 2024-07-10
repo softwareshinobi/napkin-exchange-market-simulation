@@ -6,13 +6,14 @@ import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.trader.utility.CalculateCostBasisAndProfits;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "security_positions")
+@Table(name = "security_position")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -37,15 +38,7 @@ public class SecurityPosition implements Serializable {
 
     @Column(name = "cost_basis")
     public Double costBasis;
-//
-//    @Column(name = "value")
-//    public Double value;
-//
-//    @Column(name = "price")
-//    public Double price;
-//
-//     @JsonIgnore
-     @Column(name = "value")
+    @Column(name = "value")
     public Double value;
 
     public SecurityPosition(Trader trader, String symbol, Integer units, Double costBasis) {
@@ -58,14 +51,11 @@ public class SecurityPosition implements Serializable {
 
         this.costBasis = costBasis;
 
-        //  this.value = units * costBasis;
+        this.value = units * costBasis;
     }
 
     public void updateCostBasisAndAmountOwned(int numberUnits, double currentSecurityPrice) {
 
-        // System.out.println("cost / before / "+ this.costBasis);
-        //  System.out.println("units / before / "+ this.units);
-        //  System.out.println("current price / "+ currentSecurityPrice);
         this.costBasis = CalculateCostBasisAndProfits.newCostBasis(
                 this.units,
                 numberUnits,
@@ -74,22 +64,65 @@ public class SecurityPosition implements Serializable {
 
         this.units = this.units + numberUnits;
 
-        //   System.out.println("cost / after / "+ this.costBasis);
-        //   System.out.println("units / after / "+ this.units);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 31 * hash + Objects.hashCode(this.trader);
+        hash = 31 * hash + Objects.hashCode(this.symbol);
+        hash = 31 * hash + Objects.hashCode(this.units);
+        hash = 31 * hash + Objects.hashCode(this.costBasis);
+        hash = 31 * hash + Objects.hashCode(this.value);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SecurityPosition other = (SecurityPosition) obj;
+        if (!Objects.equals(this.symbol, other.symbol)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.trader, other.trader)) {
+            return false;
+        }
+        if (!Objects.equals(this.units, other.units)) {
+            return false;
+        }
+        if (!Objects.equals(this.costBasis, other.costBasis)) {
+            return false;
+        }
+        return Objects.equals(this.value, other.value);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("SecurityPosition{");
-        sb.append("id=").append(id);
-        sb.append(", symbol=").append(symbol);
-        sb.append(", units=").append(units);
-        sb.append(", costBasis=").append(costBasis);
-        //    sb.append(", value=").append(value);
-        //   sb.append(", price=").append(price);
-        sb.append('}');
-        return sb.toString();
+      
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        stringBuilder.append("SecurityPosition{");
+        stringBuilder.append("id=").append(id);
+        stringBuilder.append(", symbol=").append(symbol);
+        stringBuilder.append(", units=").append(units);
+        stringBuilder.append(", costBasis=").append(costBasis);
+         stringBuilder.append(", value=").append(value);
+        stringBuilder.append('}');
+        
+        return stringBuilder.toString();
+    
     }
 
 }

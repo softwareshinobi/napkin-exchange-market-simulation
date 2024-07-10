@@ -1,6 +1,6 @@
 package digital.softwareshinobi.napkinexchange.broker.service;
 
-import digital.softwareshinobi.napkinexchange.broker.exception.AccountInventoryException;
+import digital.softwareshinobi.napkinexchange.broker.exception.TraderPortfolioException;
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
 import digital.softwareshinobi.napkinexchange.broker.request.SecuritySellRequest;
 import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import digital.softwareshinobi.napkinexchange.trader.repository.SecurityPortfolioRepository;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -41,24 +43,38 @@ public class SecurityPortfolioService {
     @Autowired
     private final NotificationService notificationService;
 
-    public void saveNewStockOwned(SecurityBuyRequest securityBuyRequest, Trader trader, double price) {
+    public void saveNewStockOwned(SecurityBuyRequest securityBuyRequest, Trader trader, Double price) {
 
-        this.securityPortfolioRepository.save(
-                new SecurityPosition(
-                        trader,
-                        securityBuyRequest.getTicker(),
-                        securityBuyRequest.getUnits(),
-                        price
-                )
+        System.out.println("buying new stock for the first time for this symbol");
+        System.out.println("trader / " + trader);
+        System.out.println("securityBuyRequest / " + securityBuyRequest);
+
+        SecurityPosition pos = new SecurityPosition(
+                trader,
+                securityBuyRequest.getTicker(),
+                securityBuyRequest.getUnits(),
+                price
         );
 
+        this.securityPortfolioRepository.save(pos);
+
+        //     trader.getSecurityPortfolio().add(pos);
+        //   this.traderService.saveTraderAccount(trader);
+        //      System.out.println("trader after initial buy / "+trader);
+//System.out.println("trader after initial buy / "+trader);
+//
+//
+//        try {
+//            Thread.sleep(10_000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(SecurityPortfolioService.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
-    public synchronized SecurityBuyResponse buyMarketPrice(SecurityBuyRequest securityBuyRequest) {
+    public synchronized SecurityBuyResponse buySecurityMarketPrice(SecurityBuyRequest securityBuyRequest) {
 
-        System.out.println("enter > buyMarketPrice");
-
-        System.out.println("securityBuyRequest / " + securityBuyRequest);
+        System.out.println("enter > buySecurityMarketPrice");
+        System.out.println("param > securityBuyRequest / " + securityBuyRequest);
 
         this.notificationService.save(new Notification(
                 securityBuyRequest.getUsername(),
@@ -80,8 +96,8 @@ public class SecurityPortfolioService {
         if (!ValidateStockTransaction.doesTraderHaveEnoughAvailableBalance(trader, securityBuyRequest, this.securityService)) {
 
             this.notificationService.save(new Notification(
-                    securityBuyRequest.getUsername(),
-                    NotificationType.MARKET_BUY_INSUFFICIENT_FUNDS,
+                    trader.getUsername(),
+                    NotificationType.TRADER_INSUFFICIENT_FUNDS,
                     securityBuyRequest.toString()
             ));
 
@@ -89,7 +105,7 @@ public class SecurityPortfolioService {
 
         } else {
 
-            System.out.println("user has enough free cash. continuing...");
+            System.out.println("Trader has enough free cash to make this purchase. continuing...");
 
         }
 
@@ -98,17 +114,17 @@ public class SecurityPortfolioService {
 //                trader,
 //                -1 * (securityBuyRequest.getUnits() * security.getPrice()));
         final SecurityPosition traderSecurityPosition = this.findStockOwned(trader, security);
+        
         System.out.println("traderSecurityPosition / " + traderSecurityPosition);
 
+        System.out.println("trader / before updating units / " + trader);
+        
         if (traderSecurityPosition == null) {
 
             System.out.println("trader DOES NOT own any of this security");
 
             this.saveNewStockOwned(securityBuyRequest, trader, security.getPrice());
 
-            //stock IS CURRENTLY owned by the user: "+ securityBuyRequest.getUsername());
-            //    traderService.updateBalanceAndSave(traderAccount, -1 * (securityBuyRequest.getUnits() * securityToBuy.getPrice()));
-            //   traderSecurityPosition.updateCostBasisAndAmountOwned(securityBuyRequest.getUnits(), securityToBuy.getPrice());
         } else {
 
             System.out.println("trader already OWNS UNITS of this security");
@@ -120,6 +136,17 @@ public class SecurityPortfolioService {
             this.securityPortfolioRepository.save(traderSecurityPosition);
 
         }
+
+        System.out.println("555");
+
+        System.out.println("trader / after updating units / " + trader);
+
+//        try {
+//            System.out.println("sleeping");
+//            Thread.sleep(10000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(SecurityPortfolioService.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         // update the balances here
         final double transactionValue = securityBuyRequest.getUnits() * security.getPrice();
@@ -137,9 +164,13 @@ public class SecurityPortfolioService {
         trader.setAvailableFunds(afterBalance);
 
         System.out.println("trader final1 / " + trader);
+
+        ////        
         System.out.println("updating the portfolio value");
+
         this.updateTraderPortfolioValues();
 
+        ////
         System.out.println("trader final2 / " + trader);
 
         System.out.println("openSimpleBuyOrder / fulfilled");
@@ -160,56 +191,72 @@ public class SecurityPortfolioService {
 
     }
 
-    public synchronized SecuritySellResponse sellSecurityMarketPrice(SecuritySellRequest sellStockRequest) {
+    public synchronized SecuritySellResponse sellSecurityMarketPrice(SecuritySellRequest securitySellRequest) {
+
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
+        }
 
         System.out.println("enter > sellSecurityMarketPrice");
 
-        System.out.println("sellStockRequest / " + sellStockRequest);
+        System.out.println("sellStockRequest / " + securitySellRequest);
 
         notificationService.save(new Notification(
-                sellStockRequest.getUsername(),
+                securitySellRequest.getUsername(),
                 NotificationType.MARKET_SELL_ORDER_CREATED,
-                sellStockRequest.toString()
+                securitySellRequest.toString()
         ));
 
-        Trader trader = traderService.getAccountByName(sellStockRequest.getUsername());
+        System.out.println("trader to load / " + securitySellRequest.getUsername());
 
-        System.out.println("trader / " + trader);
+        Trader trader = traderService.getAccountByName(securitySellRequest.getUsername());
 
-//        if (!ValidateStockTransaction.doesAccountHaveEnoughStocks(trader, sellStockRequest)) {
-//
-//            throw new AccountInventoryException("Account does not own enough stocks");
-//
-//        }
-        System.out.println("2 / looking up security from repository");
+        System.out.println("loaded trader / " + trader);
 
-        Security security = securityService.getSecurityBySymbol(sellStockRequest.getSecurity());
+        ////
+                System.out.println("2 / looking up security from repository");
 
+        final Security security = this.securityService.getSecurityBySymbol(securitySellRequest.getSecurity());
         System.out.println("security / " + security);
+
+        ///
+        if (!ValidateStockTransaction.doesAccountHaveEnoughStocks(trader, securitySellRequest)) {
+
+            this.notificationService.save(new Notification(
+                    securitySellRequest.getUsername(),
+                    NotificationType.MARKET_SELL_INSUFFICIENT_HOLDINGS,
+                    securitySellRequest.toString()
+            ));
+            throw new TraderPortfolioException("Account does not own enough stocks");
+
+        } else {
+
+            System.out.println("user has enough units of security. continuing...");
+
+        }
+
 
         System.out.println("3 / finding security position for user by security");
 
         SecurityPosition securityPosition = findStockOwned(trader, security);
         System.out.println("securityPosition / " + securityPosition);
 
-        System.out.println("3");
-
+        //       System.out.println("3");
 //        trader.updateTotalProfits(
 //                securityPosition.getCostBasis(),
 //                sellStockRequest.getUnits(),
 //                security.getPrice());
-        System.out.println("4");
-
-        double sellValue = sellStockRequest.getUnits() * security.getPrice();
+        //    System.out.println("4");
+        double sellValue = securitySellRequest.getUnits() * security.getPrice();
         System.out.println("sellValue / " + sellValue);
 
-        double purchaseValue = sellStockRequest.getUnits() * securityPosition.getCostBasis();
+        double purchaseValue = securitySellRequest.getUnits() * securityPosition.getCostBasis();
         System.out.println("purchaseValue / " + purchaseValue);
 
         double profit = sellValue - purchaseValue;
         System.out.println("profit / " + profit);
 
-        double accountAdjustment = security.getPrice() * sellStockRequest.getUnits();
+        double accountAdjustment = security.getPrice() * securitySellRequest.getUnits();
 
         Map sellRequestMAP = new HashMap();
 
@@ -217,7 +264,7 @@ public class SecurityPortfolioService {
         sellRequestMAP.put("sellValue", sellValue);
         sellRequestMAP.put("purchaseValue", purchaseValue);
 
-        sellRequestMAP.put("units", sellStockRequest.getUnits());
+        sellRequestMAP.put("units", securitySellRequest.getUnits());
 
         sellRequestMAP.put("price", security.getPrice());
 
@@ -225,14 +272,14 @@ public class SecurityPortfolioService {
         sellRequestMAP.put("profit", profit);
 
         this.notificationService.save(new Notification(
-                sellStockRequest.getUsername(),
+                securitySellRequest.getUsername(),
                 NotificationType.MARKET_SELL_ORDER_FULFILLED,
                 sellRequestMAP.toString()
         ));
 
-        System.out.println("5");
+        System.out.println("// getting the units reserved");
 
-        if (sellStockRequest.getUnits() - securityPosition.getUnits() == 0) {
+        if (securitySellRequest.getUnits() - securityPosition.getUnits() == 0) {
 
             System.out.println("after this sell, no more units. so deleting security position");
 
@@ -254,7 +301,7 @@ public class SecurityPortfolioService {
 
             System.out.println("security position / before / " + securityPosition);
 
-            securityPosition.setUnits(securityPosition.getUnits() - sellStockRequest.getUnits());
+            securityPosition.setUnits(securityPosition.getUnits() - securitySellRequest.getUnits());
 
             this.securityPortfolioRepository.save(securityPosition);
 
@@ -262,12 +309,45 @@ public class SecurityPortfolioService {
 
         }
 
+     //   this.updateTraderPortfolioValues();
+
+//                double currentAvailableCash = trader.getAvailableFunds();
+//        System.out.println("currentAvailableCash / " + currentAvailableCash);
+//        
+//                 System.out.println("updating the user values");
+//  System.out.println("trader final1 / " + trader);
+//  
+//    //   trader.setAvailableFunds(currentAvailableCash+sellValue);
+//  
+//       System.out.println("trader final3 / " + trader);
+        // update the balances here
+        //     final double transactionValue = securitySellRequest.getUnits() * security.getPrice();
+        //     System.out.println("transactionValue / " + transactionValue);
+// subtract money from their available.
+        /*
+System.out.println("profit / " + profit);
+
+        double afterBalance = currentAvailableCash + profit;
+        
+        System.out.println("afterBalance / " + afterBalance);
+
+        //trader.setAvailableFunds(afterBalance);
+
+        System.out.println("updating the portfolio value");
+       this.updateTraderPortfolioValues();
+
+        System.out.println("trader final2 / " + trader);
+         */
 //          this.      traderService.updateBalanceAndSave(trader, accountAdjustment);
         this.notificationService.save(new Notification(
-                sellStockRequest.getUsername(),
+                securitySellRequest.getUsername(),
                 NotificationType.MARKET_SELL_ORDER_FULFILLED,
-                sellStockRequest.toString()
+                securitySellRequest.toString()
         ));
+
+        System.out.println("returning / " + securitySellRequest);
+
+        System.out.println("exit < sellMarketPrice");
 
         return null;
 

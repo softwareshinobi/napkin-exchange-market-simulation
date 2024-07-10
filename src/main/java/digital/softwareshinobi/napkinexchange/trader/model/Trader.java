@@ -32,14 +32,15 @@ public class Trader implements Serializable {
     @Column(name = "available_funds")
     private Double availableFunds;
 
-    @OneToMany(mappedBy = "trader", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "trader", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<SecurityPosition> securityPortfolio;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<AccountHistory> accountHistory;
+    
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+//    @JsonManagedReference
+//    private List<AccountHistory> accountHistory;
 
     public Trader(String username, String password) {
 
@@ -65,9 +66,12 @@ public class Trader implements Serializable {
         
         for (SecurityPosition securityPosition : this.securityPortfolio) {
 
-            portfolioValue = portfolioValue +securityPosition.getValue();
+System.out.println("iter > "+securityPosition);
+
+portfolioValue = portfolioValue +securityPosition.getValue();
 
         }
+System.out.println("portfolio value: "+ portfolioValue);
 
         return portfolioValue;
 
@@ -86,13 +90,13 @@ public class Trader implements Serializable {
 
         stringBuilder.append("trader").append(" : ").append(this.username).append(", ");
 
-        stringBuilder.append("totalAccountValue").append(" : ").append(this.getTotalAccountValue()).append(", ");
+      //  stringBuilder.append("totalAccountValue").append(" : ").append(this.getTotalAccountValue()).append(", ");
 
         stringBuilder.append("availableFunds").append(" : ").append(this.availableFunds).append(", ");
 
-        stringBuilder.append("portfolioValue").append(" : ").append(this.getPortfolioValue()).append(", ");
+      //  stringBuilder.append("portfolioValue").append(" : ").append(this.getPortfolioValue()).append(", ");
 
-        stringBuilder.append("utilization").append(" : ").append(this.getFundsUtilizationPercentage()).append(", ");
+    ////    stringBuilder.append("utilization").append(" : ").append(this.getFundsUtilizationPercentage()).append(", ");
 
         stringBuilder.append("portfolio").append(" : ").append(this.securityPortfolio).append(", ");
 

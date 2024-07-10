@@ -32,16 +32,18 @@ public class ValidateStockTransaction {
         return balance > (security.getPrice() * securityBuyRequest.getUnits());
     }
 
-    public static boolean doesAccountHaveEnoughStocks(
-            Trader trader,
-            SecuritySellRequest securitySellRequest) {
+    public static boolean doesAccountHaveEnoughStocks(Trader trader, SecuritySellRequest securitySellRequest) {
+        
+        System.out.println("enter > doesAccountHaveEnoughStocks");
+        
+        System.out.println("trader / " + trader);
+        System.out.println("securitySellRequest / " + securitySellRequest);
 
         SecurityPosition securityPosition = FindStockOwned.findOwnedStockByTicker(
                 trader.getSecurityPortfolio(),
                 securitySellRequest.getSecurity());
 
         System.out.println("securityPosition / " + securityPosition);
-        System.out.println("securitySellRequest / " + securitySellRequest);
 
         if (securityPosition == null) {
 

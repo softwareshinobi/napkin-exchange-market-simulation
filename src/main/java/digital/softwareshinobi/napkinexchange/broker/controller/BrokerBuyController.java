@@ -15,8 +15,6 @@ import digital.softwareshinobi.napkinexchange.broker.request.LimitOrderRequest;
 import digital.softwareshinobi.napkinexchange.broker.response.SecurityBuyResponse;
 import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.service.TraderService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +67,7 @@ public class BrokerBuyController {
 
         System.out.println("openSimpleBuyOrder / fufilling");
 
-        SecurityBuyResponse SecurityBuyResponse = this.securityPortfolioService.buyMarketPrice(securityBuyRequest);
+        SecurityBuyResponse SecurityBuyResponse = this.securityPortfolioService.buySecurityMarketPrice(securityBuyRequest);
 
         System.out.println("openSimpleBuyOrder / fulfilled");
 
@@ -127,7 +125,7 @@ public class BrokerBuyController {
 
         System.out.println("buyStockRequest / filling");
 
-        this.securityPortfolioService.buyMarketPrice(securityBuyRequest);
+        this.securityPortfolioService.buySecurityMarketPrice(securityBuyRequest);
 
         System.out.println("buyStockRequest / fulfilled");
         //////////doing math ////////////

@@ -28,9 +28,6 @@ public class MarketActivityScheduler {
     private final LimitOrderService limitOrderService;
 
     @Autowired
-    private final TraderHistoryService traderHistoryService;
-
-    @Autowired
     private final SecurityHistoryService securityHistoryService;
 
     @Autowired
@@ -43,14 +40,14 @@ public class MarketActivityScheduler {
         var currentMarketTime = this.marketActivityService.tick();
 
         logger.info("tick / market time / " + currentMarketTime);
+        
+        this.securityHistoryService.updateSecurityHistory();               
 
-        this.securityHistoryService.updateSecurityHistory();
+        this.securityPortfolioService.updateTraderPortfolioValues();
 
         this.limitOrderService.processLimitOrders();
 
         this.securityPortfolioService.updateTraderPortfolioValues();
-
-        this.traderHistoryService.updateTraderAccountHistory();
 
         currentMarketTime = null;
 

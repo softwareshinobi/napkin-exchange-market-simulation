@@ -73,6 +73,7 @@ public class LimitOrderService {
                     savedLimitOrder.toString()
             ));
         }
+        System.out.println("exit < saveLimitOrder");
 
         return savedLimitOrder;
 
@@ -220,7 +221,7 @@ public class LimitOrderService {
             try {
                 System.out.println("1");
 
-                this.securityPortfolioService.buyMarketPrice(
+                this.securityPortfolioService.buySecurityMarketPrice(
                         new SecurityBuyRequest(
                                 buyStopOrder.getTrader().getUsername(),
                                 buyStopOrder.getSecurity().getTicker(),
@@ -287,18 +288,18 @@ public class LimitOrderService {
                         takeProfitOrder
                 ));
 
-                SecuritySellRequest marketSellStockRequest = new SecuritySellRequest(
+                SecuritySellRequest securitySellRequest = new SecuritySellRequest(
                         takeProfitOrder.getTrader().getUsername(),
                         takeProfitOrder.getSecurity().getTicker(),
                         takeProfitOrder.getUnits());
 
-                this.securityPortfolioService.sellSecurityMarketPrice(marketSellStockRequest);
+                this.securityPortfolioService.sellSecurityMarketPrice(securitySellRequest);
 
                 this.purgeLimitOrder(takeProfitOrder);
 
                 this.removeSmartRelated(takeProfitOrder);
 
-                marketSellStockRequest = null;
+                securitySellRequest = null;
 
             } catch (TraderNotFoundException exception) {
 
