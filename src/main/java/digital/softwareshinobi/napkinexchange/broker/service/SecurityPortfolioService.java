@@ -58,8 +58,8 @@ public class SecurityPortfolioService {
 
         this.securityPortfolioRepository.save(pos);
 
-        //     trader.getSecurityPortfolio().add(pos);
-        //   this.traderService.saveTraderAccount(trader);
+             trader.getSecurityPortfolio().add(pos);
+           this.traderService.saveTraderAccount(trader);
         //      System.out.println("trader after initial buy / "+trader);
 //System.out.println("trader after initial buy / "+trader);
 //
@@ -256,7 +256,7 @@ public class SecurityPortfolioService {
         double profit = sellValue - purchaseValue;
         System.out.println("profit / " + profit);
 
-        double accountAdjustment = security.getPrice() * securitySellRequest.getUnits();
+       // double accountAdjustment = security.getPrice() * securitySellRequest.getUnits();
 
         Map sellRequestMAP = new HashMap();
 
@@ -311,8 +311,27 @@ public class SecurityPortfolioService {
 
      //   this.updateTraderPortfolioValues();
 
-//                double currentAvailableCash = trader.getAvailableFunds();
-//        System.out.println("currentAvailableCash / " + currentAvailableCash);
+                double currentAvailableCash = trader.getAvailableFunds();
+        System.out.println("currentAvailableCash / " + currentAvailableCash);
+
+                double updatedAvailableCash = currentAvailableCash+sellValue;
+                
+        System.out.println("updatedAvailableCash / " + currentAvailableCash);
+
+                    System.out.println("trader / before / " + trader);
+
+        trader.setAvailableFunds(updatedAvailableCash);
+
+        System.out.println("trader / after1 / " + trader);
+
+this.traderService.saveTraderAccount(trader);
+
+System.out.println("trader / after2 / " + trader);
+
+
+
+
+
 //        
 //                 System.out.println("updating the user values");
 //  System.out.println("trader final1 / " + trader);

@@ -39,8 +39,11 @@ public class TraderService {
 
     public void saveTraderAccount(Trader trader) {
 
-        this.traderRepository.save(trader);
+System.out.println("saving trader account");
 
+this.traderRepository.save(trader);
+
+System.out.println("saved trader account");
     }
 
     public Trader createTraderAccount(String traderName, String traderPassword) throws InvalidAccountException {
