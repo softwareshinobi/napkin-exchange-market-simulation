@@ -53,7 +53,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    public LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
+    public synchronized LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
 
         System.out.println("enter > saveLimitOrder");
         System.out.println("limitOrder / " + limitOrder);
@@ -80,7 +80,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    public void processLimitOrders() {
+    public synchronized void processLimitOrders() {
 
      //   System.out.println("enter > processLimitOrders");
 
@@ -142,7 +142,7 @@ public class LimitOrderService {
 
     }
 
-    private void qualifyLongStopLoss(LimitOrder stopLossOrder) {
+    private synchronized void qualifyLongStopLoss(LimitOrder stopLossOrder) {
 
         System.out.println("enter > qualifyLongStopLoss");
 
@@ -198,7 +198,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private void qualifyLongBuyStop(LimitOrder buyStopOrder) {
+    private synchronized void qualifyLongBuyStop(LimitOrder buyStopOrder) {
 
         System.out.println("enter > processBuyStopOrder");
 
@@ -256,7 +256,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
+    private synchronized void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
 
         System.out.println("enter > qualifyTakeProfitOrder");
 
@@ -319,7 +319,7 @@ public class LimitOrderService {
 //    }
 
     @Transactional
-    private void removeSmartRelated(LimitOrder limitOrder) {
+    private synchronized void removeSmartRelated(LimitOrder limitOrder) {
         /////////////////////////////////////////////////////////////////
         //System.out.println("removing the related");
 
@@ -346,7 +346,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private void purgeLimitOrder(LimitOrder limitOrder) {
+    private synchronized void purgeLimitOrder(LimitOrder limitOrder) {
 
         limitOrder.setActive(false);
 
@@ -361,7 +361,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private Boolean deleteLimitOrder(LimitOrder limitOrder) {
+    private synchronized Boolean deleteLimitOrder(LimitOrder limitOrder) {
 
         System.out.println("enter > delete");
 
