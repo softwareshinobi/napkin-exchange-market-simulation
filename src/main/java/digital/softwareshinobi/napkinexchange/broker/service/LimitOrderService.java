@@ -8,7 +8,6 @@ import digital.softwareshinobi.napkinexchange.trader.exception.TraderNotFoundExc
 import digital.softwareshinobi.napkinexchange.trader.model.Trader;
 import digital.softwareshinobi.napkinexchange.broker.order.LimitOrder;
 import digital.softwareshinobi.napkinexchange.broker.request.SecurityBuyRequest;
-import digital.softwareshinobi.napkinexchange.market.configuration.MarketConfiguration;
 import digital.softwareshinobi.napkinexchange.notification.type.NotificationType;
 import digital.softwareshinobi.napkinexchange.trader.repository.LimitOrderRepository;
 import java.util.List;
@@ -58,7 +57,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    public LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
+    public synchronized LimitOrder saveLimitOrder(final LimitOrder limitOrder) {
 
         logger.debug("enter > saveLimitOrder");
         logger.debug("limitOrder / " + limitOrder);
@@ -84,7 +83,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    public void processLimitOrders() {
+    public synchronized void processLimitOrders() {
 
         //    logger.debug("enter > processLimitOrders");
         if (this.limitOrderRepository.count() == 0) {
@@ -145,7 +144,7 @@ public class LimitOrderService {
 
     }
 
-    private void qualifyLongStopLoss(LimitOrder stopLossOrder) {
+    private synchronized void qualifyLongStopLoss(LimitOrder stopLossOrder) {
 
         logger.debug("enter > qualifyLongStopLoss");
 
@@ -201,7 +200,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private void qualifyLongBuyStop(LimitOrder buyStopOrder) {
+    private synchronized void qualifyLongBuyStop(LimitOrder buyStopOrder) {
 
         logger.debug("enter > processBuyStopOrder");
 
@@ -259,7 +258,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
+    private synchronized void qualifyTakeProfitOrder(LimitOrder takeProfitOrder) {
 
         logger.debug("enter > qualifyTakeProfitOrder");
 
@@ -318,7 +317,7 @@ public class LimitOrderService {
 //    }
 
     @Transactional
-    private void removeSmartRelated(LimitOrder limitOrder) {
+    private synchronized void removeSmartRelated(LimitOrder limitOrder) {
         /////////////////////////////////////////////////////////////////
         //logger.debug("removing the related");
 
@@ -360,7 +359,7 @@ public class LimitOrderService {
     }
 
     @Transactional
-    private Boolean deleteLimitOrder(LimitOrder limitOrder) {
+    private synchronized Boolean deleteLimitOrder(LimitOrder limitOrder) {
 
         logger.debug("enter > delete");
 
@@ -377,12 +376,12 @@ public class LimitOrderService {
         logger.debug("contains > " + contains);
 
         logger.debug("rep before > ");
-        logger.debug("{}",this.limitOrderRepository.findAll());
+        logger.debug("{}", this.limitOrderRepository.findAll());
 
         this.limitOrderRepository.delete(limitOrder);
 
         logger.debug("rep after > ");
-        logger.debug("{}",this.limitOrderRepository.findAll());
+        logger.debug("{}", this.limitOrderRepository.findAll());
         boolean noContain = !this.limitOrderRepository.findAll().contains(limitOrder);
 
         logger.debug("contains > " + contains);

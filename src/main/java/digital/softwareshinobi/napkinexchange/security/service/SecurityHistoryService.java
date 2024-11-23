@@ -45,6 +45,7 @@ public class SecurityHistoryService {
                     = securityPricingHistoryRepository.findTopBySecurityOrderByIdDesc(currentSecurity);
 
             double previousSecurityPricing = -1d;
+            
             double gainPercent = -2d;
             double gainValue = -3d;
 
