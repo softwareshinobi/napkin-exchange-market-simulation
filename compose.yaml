@@ -12,6 +12,10 @@ services:
 
         image: mariadb
 
+        volumes:
+
+            - ./.volumes/database:/var/lib/mysql
+
         ports:
 
             - 3306:3306
@@ -78,7 +82,7 @@ services:
 
         ports:
 
-            - 8888:8888
+            - "8888:8888"
 
         environment:
 
@@ -118,6 +122,7 @@ services:
 
             LETSENCRYPT_HOST: napkinexchange.softwareshinobi.digital
 
+
     napkin-exchange-market-docs:
 
         container_name: napkin-exchange-market-docs
@@ -139,3 +144,4 @@ services:
             VIRTUAL_HOST: docs.napkinexchange.softwareshinobi.digital
 
             LETSENCRYPT_HOST: docs.napkinexchange.softwareshinobi.digital
+
