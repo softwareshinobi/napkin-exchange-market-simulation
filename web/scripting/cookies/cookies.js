@@ -11,7 +11,7 @@ var apiSymbol="CALLISTO"
 // backend string info. hack.
 //
 
-apiURL="https://apis.napkinexchange.softwareshinobi.digital";
+apiURL="https://apis.napkinexchange.softwareshinobi.com";
 
 //apiURL="http://localhost:8888";
 
